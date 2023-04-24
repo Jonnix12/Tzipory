@@ -5,8 +5,17 @@ using UnityEngine;
 
 namespace shamans
 {
-    public class Shaman : BaseGameEntity , ICombatTargetableComponent , IEntityCombatComponent , IEntityMovementComponent , ITargetingComponent
+    public class Shaman : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent
     {
+
+        #region UnityCallBacks
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
+        #endregion
 
         #region AbilitieComponent
 
@@ -16,24 +25,10 @@ namespace shamans
         
         #region TargetingComponent
 
-        private ITargetingHandler _targetingHandler;
-
-        public ITargetingHandler TargetingHandler => _targetingHandler;
-        
-        private void OnCollisionEnter2D(Collision2D other)//need to be Trigger
-        {
-            if (other.gameObject.TryGetComponent(out ICombatTargetableComponent targetableComponent))
-                _targetingHandler.AddTarget(targetableComponent);
-        }
-
-        private void OnCollisionExit2D(Collision2D other)
-        {
-            if (other.gameObject.TryGetComponent(out ICombatTargetableComponent targetableComponent))
-                _targetingHandler.RemoveTarget(targetableComponent);
-        }
-        
-        public void SetTargetingHandler(ITargetingHandler targetingHandler) =>
-            _targetingHandler = targetingHandler;
+        public IPriority DefaultPriority { get; }
+        public ITargeting TargetingHandler { get; set; }
+        public void SetTargeting(ITargeting targeting) => 
+            TargetingHandler = targeting;
         
         #endregion
 
@@ -67,7 +62,7 @@ namespace shamans
 
         #region CombatComponent
 
-        private float _DamagestatusEffactMuitiplier;
+        private float _damageStatusEffactMuitiplier;
         
         private float _baseDamage;
         
@@ -75,7 +70,7 @@ namespace shamans
 
         public IEntityHealthComponent Target => _target;
 
-        public float BaseAttackDamage => _baseDamage * _DamagestatusEffactMuitiplier;
+        public float BaseAttackDamage => _baseDamage * _damageStatusEffactMuitiplier;
         public float AttackDamageMultiplier { get; }
         public float CritDamage { get; }
         public float CritChance { get; }

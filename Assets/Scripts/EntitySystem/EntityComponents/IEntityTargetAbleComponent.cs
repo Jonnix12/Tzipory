@@ -1,7 +1,7 @@
 ﻿
 namespace Tzipory.EntitySystem.EntityComponents
 {
-    public interface ICombatTargetableComponent : IEntityHealthComponent 
+    public interface IEntityTargetAbleComponent : IEntityHealthComponent 
     {
         
     }

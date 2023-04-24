@@ -2,10 +2,10 @@
 
 namespace Tzipory.EntitySystem.EntityComponents
 {
-    public interface ITargetingComponent : IEntityComponent
+    public interface IEntityTargetingComponent : IEntityComponent
     {
-        public ITargetingHandler TargetingHandler { get;}
-
-        public void SetTargetingHandler(ITargetingHandler targetingHandler);
+        public IPriority DefaultPriority { get; }
+        public ITargeting TargetingHandler { get; set; }
+        public void SetTargeting(ITargeting targeting);
     }
 }
