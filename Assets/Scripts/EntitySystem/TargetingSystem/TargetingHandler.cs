@@ -10,7 +10,7 @@ namespace Tzipory.EntitySystem.TargetingSystem
         
         private IPriority DefaultPriority { get; }
 
-        protected TargetingHandler(IEntityTargetingComponent targetingComponent)
+        public TargetingHandler(IEntityTargetingComponent targetingComponent)
         {
             _availableTargets = new List<IEntityTargetAbleComponent>();
             DefaultPriority = targetingComponent.DefaultPriority;

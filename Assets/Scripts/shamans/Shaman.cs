@@ -1,9 +1,10 @@
 ﻿using Tzipory.EntitySystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.TargetingSystem;
+using Tzipory.StatusSystem;
 using UnityEngine;
 
-namespace shamans
+namespace Tzipory.shamans
 {
     public class Shaman : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent
     {
@@ -13,6 +14,7 @@ namespace shamans
         protected override void Awake()
         {
             base.Awake();
+            TargetingHandler = new TargetingHandler(this);
         }
 
         #endregion
@@ -34,25 +36,21 @@ namespace shamans
 
         #region HealthComponent
         
-        private float _hp;
-        private float _maxHp;
-
-        public float HP => _hp;
-        public float MaxHP => _maxHp;
-
-        public bool IsEntityDead => HP <= 0;
+        public Status HP { get; }
+        public bool IsEntityDead => HP.CurrentValue <= 0;
 
         public void Heal(float amount)
         {
-            _hp += amount;
-            if (_hp > MaxHP)
-                _hp = MaxHP;
+            HP.AddToValue(amount);
+            if (HP.CurrentValue > HP.BaseValue)
+                HP.ResetValue();
         }
 
         public void TakeDamage(float damage)
         {
-            _hp  -= damage;
-            if (_hp < 0)
+            HP.ReduceFromValue(damage);
+            
+            if (HP.CurrentValue < 0)
             {
                 //dead                
             }
@@ -69,14 +67,14 @@ namespace shamans
         private IEntityHealthComponent _target;
 
         public IEntityHealthComponent Target => _target;
-
-        public float BaseAttackDamage => _baseDamage * _damageStatusEffactMuitiplier;
-        public float AttackDamageMultiplier { get; }
-        public float CritDamage { get; }
-        public float CritChance { get; }
-        public float AttackRate { get; }
-        public float AttackRange { get; }
         
+        public Status BaseAttackDamage { get; }
+        public Status CritDamage { get; }
+        public Status CritChance { get; }
+        public Status AttackRate { get; }
+        public Status AttackRange { get; }
+
+
         public void SetTarget(IEntityHealthComponent target)
         {
             _target = target;
