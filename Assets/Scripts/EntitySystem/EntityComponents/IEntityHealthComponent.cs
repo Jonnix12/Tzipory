@@ -1,9 +1,12 @@
-﻿using Tzipory.StatusSystem;
+﻿
+using Tzipory.EntitySystem.StatusSystem;
 
 namespace Tzipory.EntitySystem.EntityComponents
 {
     public interface IEntityHealthComponent : IEntityComponent
     {
+        public float InvincibleTime { get; }
+        public bool IsDamageable { get; }
         public Stat HP { get; }
         public bool IsEntityDead { get; }
         

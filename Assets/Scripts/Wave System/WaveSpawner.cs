@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Tzipory;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -32,7 +31,7 @@ public class WaveSpawner : MonoBehaviour
         
         Debug.Log($"{name} began spawning.");
 
-        _currentWaveGroup = Helper.GetRandomElementFromArray(waveGroups);
+        _currentWaveGroup = waveGroups.GetRandomElementFromArray();
         _currentWaveGroup.SetAllTickers();
         _currentWaveGroup.isLive = true;// should move to the init/SetAllTickers
         IsSpawnning = true;
@@ -58,7 +57,7 @@ public class WaveSpawner : MonoBehaviour
             if (enemyGroup.ticker.DoTick())
             {
                 //enemyGroup.tick = 0f;
-                GameObject go = Instantiate(enemyGroup.prefab, Helper.GetRandomElementFromArray(spawnPositions));
+                GameObject go = Instantiate(enemyGroup.prefab, spawnPositions.GetRandomElementFromArray());
                 //enemyGroup.spawnRate.x--; //to reduce the remaining enemies to spawn - likely temp. TBF - should be a part of the ticker
             }
         }

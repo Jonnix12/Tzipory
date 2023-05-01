@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Tzipory.StatusSystem
+namespace Tzipory.EntitySystem.StatusSystem
 {
     public class StatusEffectHandler
     {

@@ -1,12 +1,11 @@
-﻿using Tzipory.EntitySystem;
-using Tzipory.EntitySystem.EntityComponents;
+﻿using Tzipory.EntitySystem.EntityComponents;
+using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.TargetingSystem;
-using Tzipory.StatusSystem;
 using UnityEngine;
 
-namespace Tzipory.shamans
+namespace Tzipory.EntitySystem.Entitys
 {
-    public class Shaman : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent
+    public abstract class BaseUnitEntity : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent
     {
 
         #region UnityCallBacks
@@ -16,15 +15,13 @@ namespace Tzipory.shamans
             base.Awake();
             TargetingHandler = new TargetingHandler(this);
         }
+        protected virtual void Update()
+        {
+            HealthComponentUpdate();
+        }
 
         #endregion
 
-        #region AbilitieComponent
-
-        
-
-        #endregion
-        
         #region TargetingComponent
 
         public IPriority DefaultPriority { get; }
@@ -36,31 +33,52 @@ namespace Tzipory.shamans
 
         #region HealthComponent
         
+        private float  _currentInvincibleTime;
+
+        public float InvincibleTime { get; }
+        public bool IsDamageable { get; private set; }
         public Stat HP { get; }
         public bool IsEntityDead => HP.CurrentValue <= 0;
 
         public void Heal(float amount)
         {
             HP.AddToValue(amount);
+
             if (HP.CurrentValue > HP.BaseValue)
                 HP.ResetValue();
         }
 
         public void TakeDamage(float damage)
         {
-            HP.ReduceFromValue(damage);
-            
+            if (IsDamageable)
+            {
+                HP.ReduceFromValue(damage);
+                IsDamageable = false;
+            }
+
             if (HP.CurrentValue < 0)
             {
                 //dead                
             }
         }
 
+        private void HealthComponentUpdate()
+        {
+            if (!IsDamageable)
+            {
+                _currentInvincibleTime -= Time.deltaTime;
+
+                if (_currentInvincibleTime < 0)
+                {
+                    IsDamageable = true;
+                    _currentInvincibleTime = InvincibleTime;
+                }
+            }
+        }
+
         #endregion
 
         #region CombatComponent                                                                                                                                   
-
-        private float _damageStatusEffactMuitiplier;
         
         private float _baseDamage;
         

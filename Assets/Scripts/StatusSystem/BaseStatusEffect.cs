@@ -1,14 +1,15 @@
 ﻿using System;
 
-namespace Tzipory.StatusSystem
+namespace Tzipory.EntitySystem.StatusSystem
 {
     public abstract class BaseStatusEffect
     {
+        private Stat _stat;
         public event Action OnStatusEffectStart;
         public event Action OnStatusEffectDone; 
 
         private RunTimeType _runTimeType;
-        
+
         protected float duration;
         protected float interval;
         
