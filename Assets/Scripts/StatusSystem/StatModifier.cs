@@ -2,27 +2,30 @@
 
 namespace Tzipory.StatusSystem
 {
-    public class StatusModifier
+    public class StatModifier
     {
         public StatusModifierType ModifierType { get; private set; }    
         public float Modifier { get; private set; }
 
-        public StatusModifier(float modifier,StatusModifierType statusModifierType)
+        public StatModifier(float modifier,StatusModifierType statusModifierType)
         {
             Modifier = modifier;
             ModifierType = statusModifierType;
         }
 
-        public float Modifie(float value)
+        public void Process(Stat stat)
         {
             switch (ModifierType)
             {
                 case StatusModifierType.Addition:
-                    return value + Modifier;
+                     stat.AddToValue(Modifier);
+                    break;
                 case StatusModifierType.Multiplication:
-                    return value * Modifier;
+                     stat.MultiplyValue(Modifier);
+                    break;
                 case StatusModifierType.Percentage:
-                    return value * Modifier;//may meed to by change
+                     stat.MultiplyValue(Modifier);//may meed to by change
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(ModifierType), ModifierType, null);
             }

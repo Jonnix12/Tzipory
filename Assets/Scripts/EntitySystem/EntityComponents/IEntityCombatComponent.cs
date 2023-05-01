@@ -6,11 +6,11 @@ namespace Tzipory.EntitySystem.EntityComponents
     {
         public IEntityHealthComponent Target { get; }
         
-        public Status BaseAttackDamage { get; }
-        public Status CritDamage { get; }
-        public Status CritChance { get; }
-        public Status AttackRate { get; }
-        public Status AttackRange { get; }
+        public Stat BaseAttackDamage { get; }
+        public Stat CritDamage { get; }
+        public Stat CritChance { get; }
+        public Stat AttackRate { get; }
+        public Stat AttackRange { get; }
 
         public void SetTarget(IEntityHealthComponent target);
     }

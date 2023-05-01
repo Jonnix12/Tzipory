@@ -4,7 +4,7 @@ namespace Tzipory.EntitySystem.EntityComponents
 {
     public interface IEntityHealthComponent : IEntityComponent
     {
-        public Status HP { get; }
+        public Stat HP { get; }
         public bool IsEntityDead { get; }
         
         public void Heal(float amount);

@@ -4,12 +4,18 @@ namespace Tzipory.StatusSystem
 {
     public abstract class BaseStatusEffect
     {
+        public event Action OnStatusEffectStart;
         public event Action OnStatusEffectDone; 
 
         private RunTimeType _runTimeType;
         
-        private float _duration;
-        private float _interval;
+        protected float duration;
+        protected float interval;
+        
+        public virtual void StatusEffectStart()
+        {
+            OnStatusEffectStart?.Invoke();
+        }
 
         public abstract void Execute();
 
