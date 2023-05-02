@@ -16,6 +16,9 @@ namespace Tzipory.EntitySystem.StatusSystem
             CurrentValue = BaseValue;
         }
 
+        public void SetValue(float amount) =>
+            CurrentValue = amount;
+
         public void MultiplyValue(float amount)=>
             CurrentValue *= amount;
         

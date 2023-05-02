@@ -4,32 +4,30 @@ namespace Tzipory.EntitySystem.StatusSystem
 {
     public abstract class BaseStatusEffect
     {
-        private Stat _stat;
-        public event Action OnStatusEffectStart;
-        public event Action OnStatusEffectDone; 
+        public event Action<int> OnStatusEffectStart;
+        public event Action<int> OnStatusEffectDone;
 
-        private RunTimeType _runTimeType;
+        protected Stat stat;
+        protected StatModifier[] modifiers;
 
-        protected float duration;
-        protected float interval;
+        public int StatusEffectId => stat.Id;
+
+        protected BaseStatusEffect(Stat stat,StatModifier[] modifiers)
+        {
+            this.stat = stat;
+            this.modifiers = modifiers;
+        }
+
+        protected virtual void StatusEffectStart()
+        {
+            OnStatusEffectStart?.Invoke(StatusEffectId);
+        }
         
-        public virtual void StatusEffectStart()
+        protected virtual void StatusEffectFinish()
         {
-            OnStatusEffectStart?.Invoke();
+            OnStatusEffectDone?.Invoke(StatusEffectId);
         }
-
+        
         public abstract void Execute();
-
-        public virtual void StatusEffectFinish()
-        {
-            OnStatusEffectDone?.Invoke();
-        }
-    }
-    
-    public enum RunTimeType
-    {
-        OverTime,
-        Instant,
-        Interval
     }
 }

@@ -26,14 +26,23 @@ namespace Tzipory.EntitySystem.StatusSystem
                 case StatusModifierType.Percentage:
                      stat.MultiplyValue(Modifier);//may meed to by change
                     break;
+                case StatusModifierType.Set:
+                    stat.SetValue(Modifier);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(ModifierType), ModifierType, null);
             }
+        }
+
+        public void UnDo(Stat stat)
+        {
+            
         }
     }
         
     public enum StatusModifierType
     {
+        Set,
         Addition,
         Multiplication,
         Percentage
