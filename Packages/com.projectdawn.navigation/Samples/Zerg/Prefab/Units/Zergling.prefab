@@ -38,7 +38,7 @@ Transform:
   m_Children:
   - {fileID: 387837092866242009}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2139686395256335543
 MonoBehaviour:
@@ -231,6 +231,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zerg
       objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: 2d6951d9a4d85ca40a17b75d35e899db, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: 2d6951d9a4d85ca40a17b75d35e899db, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b5db5387e719d6049ac554c3a39664fc, type: 2}
+    - target: {fileID: 1630794972795428178, guid: 2d6951d9a4d85ca40a17b75d35e899db, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b5db5387e719d6049ac554c3a39664fc, type: 2}
     - target: {fileID: 5866666021909216657, guid: 2d6951d9a4d85ca40a17b75d35e899db, type: 3}
       propertyPath: m_Controller
       value: 
