@@ -5,7 +5,7 @@ using UnityEngine;
 namespace EntitySystem.EntityConfigSystem
 {
     //Alon TBC - is this ok? is there a rule/convention that I maybe missed here?
-    [CreateAssetMenu(fileName = "Base Unit Entity Config", menuName = "ScriptableObjects/EntitySystem/Config/", order = 0)]
+    [CreateAssetMenu(fileName = "BaseUnitEntityConfig")]
     public class BaseUnitEntityConfig : ScriptableObject
     {
         [SerializeField] private List<StatConfig> _stats;
@@ -20,7 +20,8 @@ namespace EntitySystem.EntityConfigSystem
             //cases such as "a stat of the same type already existing on this unit. should it override or ignore?"
             //if this is relevant, my suggestion is to add a virtual (not an asbstact!) method to BaseUnitEntityConfig which looks like this:
             //_existingStatConfig.StackWithNewConfig(StatConfig toStack);
-            //letting each Stat implement either a base 
+            //  1)Letting each Stat implement either the base virtual type of stacking
+            //  2) 
 
             _stats.Add(statConfig);
         }
