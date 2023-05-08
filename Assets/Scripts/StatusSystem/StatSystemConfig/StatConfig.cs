@@ -8,11 +8,14 @@ namespace Tzipory.EntitySystem.StatusSystem.StatSystemConfig
         [SerializeField] private int _id;
         [SerializeField] private string _statName;
         [SerializeField] private float _baseValue;
+        [SerializeField] private float _maxValue;
 
         public int ID => _id;
 
         public string StatName => _statName;
 
         public float BaseValue => _baseValue;
+
+        public float MaxValue => _maxValue;
     }
 }

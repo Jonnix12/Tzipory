@@ -1,22 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-[System.Serializable]
-public class ActionVariation
-{
-    public ActionComponent relevantItem; //list of actions/items
-    public GameObject target; //list of targets?
-    
-    public int weight; 
+﻿using UnityEngine;
 
-    public ActionVariation(ActionComponent rItem, GameObject tgt, int actWeight)
+namespace Tzipory.AI.WeightSystem
+{
+    [System.Serializable]
+    public class ActionVariation
     {
-        relevantItem = rItem; //usually, the performing item will be the relevantItem
-        target = tgt;
-        weight = actWeight;
-    }
-    public void PerformActionOnTarget()
-    {
-        relevantItem.Action(this);
+        public ActionComponent relevantItem; //list of actions/items
+        public GameObject target; //list of targets?
+    
+        public int weight; 
+
+        public ActionVariation(ActionComponent rItem, GameObject tgt, int actWeight)
+        {
+            relevantItem = rItem; //usually, the performing item will be the relevantItem
+            target = tgt;
+            weight = actWeight;
+        }
+        public void PerformActionOnTarget()
+        {
+            relevantItem.Action(this);
+        }
     }
 }
+

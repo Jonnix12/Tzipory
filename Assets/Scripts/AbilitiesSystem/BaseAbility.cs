@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
 
@@ -6,9 +8,12 @@ namespace Tzipory.AbilitiesSystem
 {
     public abstract class BaseAbility
     {
+        private const string COOLDOWN_KEY = "Cooldown";
+        
         protected TargetType _targetType;
         protected EffectType _effectType;
         protected Stat _cooldown;
+        protected Dictionary<string,Stat> _statsValue;
 
         private string _abilityName;
 
@@ -16,22 +21,42 @@ namespace Tzipory.AbilitiesSystem
 
         public Stat Cooldown => _cooldown;
 
+        public TargetType TargetType => _targetType;
+
+        public EffectType EffectType => _effectType;
+
+        public Dictionary<string, Stat> StatsValue => _statsValue;
+
         protected readonly BaseAbilityCaster abilityCaster;
         
         protected IEntityTargetAbleComponent entityCaster;
 
-        protected BaseAbility(IEntityTargetAbleComponent entityCaster, float cooldown)
+        private BaseAbility(IEntityTargetAbleComponent entityCaster,BaseAbilityConfig config)
         {
             this.entityCaster = entityCaster;
-            _cooldown = new Stat("Ability cooldown",cooldown,7);
-        }
+            
+            _abilityName = config.AbilityName;
+            _targetType = config.TargetType;
+            _effectType = config.EffectType;
+            
+            _statsValue = new Dictionary<string, Stat>();
 
-        protected BaseAbility(IEntityTargetAbleComponent entityCaster,float cooldown,BaseStatusEffect[] statusEffects) : this(entityCaster,cooldown)=>
+            foreach (var statConfig in config.StatsConfig)
+            {
+                var stat = new Stat(statConfig.StatName, statConfig.BaseValue, statConfig.MaxValue,statConfig.ID);
+                _statsValue.Add(stat.Name,stat);
+            }
+
+            _cooldown = new Stat(config.Cooldown.StatName, config.Cooldown.BaseValue, config.Cooldown.MaxValue,
+                config.Cooldown.ID);
+        }
+        
+        protected BaseAbility(IEntityTargetAbleComponent entityCaster,BaseAbilityConfig config,BaseStatusEffect[] statusEffects) : this(entityCaster,config)=>
             abilityCaster = new StatusEffectAbilityCaster(statusEffects);
         
-        protected BaseAbility(IEntityTargetAbleComponent entityCaster,float cooldown,AbilityActionType abilityType,float amount) : this(entityCaster,cooldown)=>
+        protected BaseAbility(IEntityTargetAbleComponent entityCaster,BaseAbilityConfig config,AbilityActionType abilityType,float amount) : this(entityCaster,config)=>
             abilityCaster = new ActionAbilityCaster(abilityType,amount);
-        
+
         public abstract void Cast(IEntityTargetAbleComponent target);
     }
 

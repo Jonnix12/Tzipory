@@ -6,20 +6,20 @@ namespace Tzipory.EntitySystem.StatusSystem
 {
     public class StatusHandler
     {
-        private readonly Dictionary<int, Stat> _stats;
+        private readonly Dictionary<int, Stat> _statsById;
         private readonly Dictionary<string, Stat> _statsByName;
 
         private readonly Dictionary<int, BaseStatusEffect> _activeStatusEffects;
 
         public StatusHandler(IEnumerable<Stat> stats)
         {
-            _stats = new Dictionary<int, Stat>();
+            _statsById = new Dictionary<int, Stat>();
             _statsByName = new Dictionary<string, Stat>();
 
             foreach (var stat in stats)
             {
                 _statsByName.Add(stat.Name, stat);
-                _stats.Add(stat.Id, stat);
+                _statsById.Add(stat.Id, stat);
             }
 
             _activeStatusEffects = new Dictionary<int, BaseStatusEffect>();
@@ -27,7 +27,7 @@ namespace Tzipory.EntitySystem.StatusSystem
 
         public Stat GetStatById(int id)
         {
-            if (_stats.TryGetValue(id, out Stat stat))
+            if (_statsById.TryGetValue(id, out Stat stat))
             {
                 return stat;
             }
@@ -82,9 +82,9 @@ namespace Tzipory.EntitySystem.StatusSystem
         {
             BaseStatusEffect baseStatusEffect = statusEffectType switch
             {
-                StatusEffectType.OverTime => new OverTimeStatusEffect(duration, _stats[statId], statModifiers),
-                StatusEffectType.Instant => new InstantStatusEffect(_stats[statId], statModifiers),
-                StatusEffectType.Interval => new IntervalStatusEffect(duration, interval, _stats[statId], statModifiers),
+                StatusEffectType.OverTime => new OverTimeStatusEffect(duration, _statsById[statId], statModifiers),
+                StatusEffectType.Instant => new InstantStatusEffect(_statsById[statId], statModifiers),
+                StatusEffectType.Interval => new IntervalStatusEffect(duration, interval, _statsById[statId], statModifiers),
                 _ => null
             };
 

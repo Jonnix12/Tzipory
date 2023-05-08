@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using EntitySystem.EntityConfigSystem;
 using Tzipory.AbilitiesSystem;
 using Tzipory.EntitySystem.EntityComponents;
+using Tzipory.EntitySystem.EntityConfigSystem;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.TargetingSystem;
 using UnityEngine;
@@ -36,9 +36,9 @@ namespace Tzipory.EntitySystem.Entitys
             List<Stat> stats = new List<Stat>();
 
             foreach (var stat in _config.Stats)
-                stats.Add(new Stat(stat.StatName,stat.BaseValue,stat.ID));
+                stats.Add(new Stat(stat.StatName,stat.BaseValue,stat.MaxValue,stat.ID));
 
-            StatusHandler = new StatusHandler(stats.ToArray());
+            StatusHandler = new StatusHandler(stats);
         }
         protected virtual void Update()
         {

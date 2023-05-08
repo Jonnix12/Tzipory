@@ -12,11 +12,12 @@ namespace Tzipory.EntitySystem.StatusSystem
         
         public float MaxValue { get; private set; }
         
-        public Stat(string name, float baseValue,int id)
+        public Stat(string name, float baseValue,float maxValue,int id)
         {
             Name = name;
             Id = id;  
             BaseValue = baseValue;
+            MaxValue = maxValue;
             CurrentValue = BaseValue;
         }
 
