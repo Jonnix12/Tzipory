@@ -1,15 +1,19 @@
-﻿namespace Tzipory.EntitySystem.StatusSystem
+﻿
+namespace Tzipory.EntitySystem.StatusSystem
 {
-    internal class InstantStatusEffect : BaseStatusEffect
+    internal sealed class InstantStatusEffect : BaseStatusEffect
     {
         public InstantStatusEffect(Stat stat, StatModifier[] statModifiers) : base(stat,statModifiers)
         {
-            throw new System.NotImplementedException();
+            StatusEffectStart();
         }
 
         public override void Execute()
         {
-            throw new System.NotImplementedException();
+            foreach (var statModifier in modifiers)
+                statModifier.Process(stat);
+
+            StatusEffectFinish();
         }
     }
 }

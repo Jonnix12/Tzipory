@@ -2,7 +2,7 @@
 
 namespace Tzipory.EntitySystem.StatusSystem
 {
-    internal class OverTimeStatusEffect : BaseStatusEffect
+    internal sealed class OverTimeStatusEffect : BaseStatusEffect
     {
         private float _duration;
         

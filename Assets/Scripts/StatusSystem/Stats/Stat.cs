@@ -1,12 +1,16 @@
 ﻿
+
 namespace Tzipory.EntitySystem.StatusSystem
 {
+    [System.Serializable]
     public class Stat
     {
         public string Name { get; }//may not be neend
         public int Id { get; }
         public float BaseValue { get; }
         public float CurrentValue { get; private set; }
+        
+        public float MaxValue { get; private set; }
         
         public Stat(string name, float baseValue,int id)
         {
@@ -22,6 +26,8 @@ namespace Tzipory.EntitySystem.StatusSystem
         public void MultiplyValue(float amount)=>
             CurrentValue *= amount;
         
+        public void DivideValue(float amount)=>
+            CurrentValue *= amount;
         
         public void AddToValue(float amount)=>
             CurrentValue += amount;
@@ -30,7 +36,6 @@ namespace Tzipory.EntitySystem.StatusSystem
         public void ReduceFromValue(float amount)=>
             CurrentValue -= amount;
         
-
         public void ResetValue()=>
             CurrentValue = BaseValue;
     }

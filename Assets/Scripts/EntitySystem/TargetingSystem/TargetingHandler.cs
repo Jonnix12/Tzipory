@@ -8,19 +8,17 @@ namespace Tzipory.EntitySystem.TargetingSystem
         private IEntityTargetingComponent _entityTargetingComponent;
         private List<IEntityTargetAbleComponent> _availableTargets;
         
-        private IPriority DefaultPriority { get; }
 
         public TargetingHandler(IEntityTargetingComponent targetingComponent)
         {
             _availableTargets = new List<IEntityTargetAbleComponent>();
-            DefaultPriority = targetingComponent.DefaultPriority;
             _entityTargetingComponent = targetingComponent;
         }
 
         public IEntityTargetAbleComponent GetPriorityTarget(IPriority priority = null)
         {
             if (priority == null)
-                return DefaultPriority.GetPriorityTarget(_availableTargets);
+                return _entityTargetingComponent.DefaultPriority.GetPriorityTarget(_availableTargets);
             
             return priority.GetPriorityTarget(_availableTargets);
         }

@@ -1,32 +1,73 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Tzipory.EntitySystem.StatusSystem
 {
-    public class StatusEffectHandler
+    public class StatusHandler
     {
-        private Dictionary<int, Stat> _stats;
+        private readonly Dictionary<int, Stat> _stats;
+        private readonly Dictionary<string, Stat> _statsByName;
 
-        private Dictionary<int, BaseStatusEffect> _activeStatusEffects;
+        private readonly Dictionary<int, BaseStatusEffect> _activeStatusEffects;
 
-        public StatusEffectHandler(Stat[] stats)
+        public StatusHandler(IEnumerable<Stat> stats)
         {
             _stats = new Dictionary<int, Stat>();
-            
+            _statsByName = new Dictionary<string, Stat>();
+
             foreach (var stat in stats)
+            {
+                _statsByName.Add(stat.Name, stat);
                 _stats.Add(stat.Id, stat);
+            }
 
             _activeStatusEffects = new Dictionary<int, BaseStatusEffect>();
+        }
+
+        public Stat GetStatById(int id)
+        {
+            if (_stats.TryGetValue(id, out Stat stat))
+            {
+                return stat;
+            }
+
+            Debug.LogError($"Stat ID: {id} not found in StatusHandler");
+            return  null;
+        }
+
+        public Stat GetStatByName(string statName)
+        {
+            if (_statsByName.TryGetValue(statName, out Stat stat))
+            {
+                return stat;
+            }
+
+            Debug.LogError($"Stat Name: {statName} not found in StatusHandler");
+            return  null;
         }
 
         public void UpdateStatusEffects()
         {
             for (int index = 0; index < _activeStatusEffects.Count; index++)
             {
-                KeyValuePair<int, BaseStatusEffect> statusEffect = _activeStatusEffects.ElementAt(index);
-                statusEffect.Value.Execute();
+                var statusEffect = _activeStatusEffects.ElementAt(index).Value;
+                statusEffect.Execute();
             }
         }
+        
+        public void AddStatusEffect(BaseStatusEffect baseStatusEffect)
+        {
+            baseStatusEffect.OnStatusEffectDone += RemoveStatusEffect;
+            _activeStatusEffects.Add(baseStatusEffect.StatusEffectId, baseStatusEffect);
+        }
+        
+        public void AddStatusEffect(StatusEffectType statusEffectType,float duration,int statId,StatModifier[] statModifiers)=>
+            AddStatusEffect(statusEffectType,duration,0,statId,statModifiers);
+        
+        
+        public void AddStatusEffect(StatusEffectType statusEffectType,int statId,StatModifier[] statModifiers)=>
+            AddStatusEffect(statusEffectType,0,0,statId,statModifiers);
         
         private void RemoveStatusEffect(int id)
         {
@@ -37,14 +78,6 @@ namespace Tzipory.EntitySystem.StatusSystem
             }
         }
         
-        public void AddStatusEffect(StatusEffectType statusEffectType,float duration,int statId,StatModifier[] statModifiers)=>
-            AddStatusEffect(statusEffectType,duration,0,statId,statModifiers);
-        
-        
-        public void AddStatusEffect(StatusEffectType statusEffectType,int statId,StatModifier[] statModifiers)=>
-            AddStatusEffect(statusEffectType,0,0,statId,statModifiers);
-        
-
         private void AddStatusEffect(StatusEffectType statusEffectType,float duration,float interval,int statId,StatModifier[] statModifiers)
         {
             BaseStatusEffect baseStatusEffect = statusEffectType switch

@@ -5,6 +5,6 @@ namespace Tzipory.EntitySystem.EntityComponents
 {
     public interface IEntityStatusEffectComponent
     {
-        public StatusEffectHandler StatusEffectHandler { get; }
+        public StatusHandler StatusHandler { get; }
     }
 }
