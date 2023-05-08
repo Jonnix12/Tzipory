@@ -148,9 +148,12 @@ namespace Tzipory.EntitySystem.Entitys
 
         #region MovementComponent
 
-        public Stat MoveSpeed => StatusHandler.GetStatByName(MOVE_SPEED);
+
+        public Stat MoveSpeed => StatusHandler.GetStatByName(MOVE_SPEED); 
         
-        public void SetDestination(Vector2 destination, MoveType moveType)
+        //Dont we prefer a vector3? unless we're planning on making some form of "data/info map" that would be the 2D logic of the battle field,
+        //then translate that to a 3D representation of the battle -> seperatly.
+        public void SetDestination(Vector2 destination, MoveType moveType) 
         {
             throw new System.NotImplementedException();
         }
