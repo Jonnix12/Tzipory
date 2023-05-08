@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tzipory.StatusSystem
+namespace Tzipory.EntitySystem.StatusSystem
 {
     public class StatModifier
     {
@@ -26,6 +26,30 @@ namespace Tzipory.StatusSystem
                 case StatusModifierType.Percentage:
                      stat.MultiplyValue(Modifier);//may meed to by change
                     break;
+                case StatusModifierType.Set:
+                    stat.SetValue(Modifier);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(ModifierType), ModifierType, null);
+            }
+        }
+
+        public void UnDo(Stat stat)
+        {
+            switch (ModifierType)
+            {
+                case StatusModifierType.Addition:
+                    stat.ReduceFromValue(Modifier);
+                    break;
+                case StatusModifierType.Multiplication:
+                    stat.DivideValue(Modifier);
+                    break;
+                case StatusModifierType.Percentage:
+                    stat.DivideValue(Modifier);//may meed to by change
+                    break;
+                case StatusModifierType.Set:
+                    //set dos not have a undo
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(ModifierType), ModifierType, null);
             }
@@ -34,6 +58,7 @@ namespace Tzipory.StatusSystem
         
     public enum StatusModifierType
     {
+        Set,
         Addition,
         Multiplication,
         Percentage
