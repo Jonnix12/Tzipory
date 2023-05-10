@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08aef95a73934dd3a6596a689b494732, type: 3}
-  m_Name: AOEAbilityConfig
+  m_Script: {fileID: 11500000, guid: fabbef9a04d24be3b8986ad32b51d13a, type: 3}
+  m_Name: CoolDown
   m_EditorClassIdentifier: 
-  _abilityName: DamageAOE
-  _abilityType: 0
-  _abilityActionType: 1
-  _targetType: 0
-  _effectType: 1
-  _cooldown: {fileID: 0}
-  statsConfig: []
+  _id: 2
+  _statName: Hp
+  _baseValue: 150
+  _maxValue: 300

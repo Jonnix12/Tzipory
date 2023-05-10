@@ -1,63 +1,86 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
+using Tzipory.Helpers;
+using UnityEngine;
 
 namespace Tzipory.AbilitiesSystem
 {
     public abstract class BaseAbility
     {
-        private const string COOLDOWN_KEY = "Cooldown";
+        public string AbilityName { get; }
+        public int AbilityId { get; }
+
+        public TargetType TargetType { get; }//not in use
+
+        public EffectType EffectType { get; }//not in use
         
-        protected TargetType _targetType;
-        protected EffectType _effectType;
-        protected Stat _cooldown;
-        protected Dictionary<string,Stat> _statsValue;
+        protected Stat Cooldown { get; }
 
-        private string _abilityName;
+        protected Stat CastTime { get; }
 
-        public string AbilityName => _abilityName;
+        protected bool IsReady { get; private set; }
 
-        public Stat Cooldown => _cooldown;
+        protected Dictionary<string, Stat> StatsValue { get; }
 
-        public TargetType TargetType => _targetType;
+        protected List<StatusEffectConfig> StatusEffect { get; }
+        
 
-        public EffectType EffectType => _effectType;
-
-        public Dictionary<string, Stat> StatsValue => _statsValue;
-
-        protected readonly BaseAbilityCaster abilityCaster;
+        protected readonly BaseAbilityCaster abilityCaster;//may need to be remove
         
         protected IEntityTargetAbleComponent entityCaster;
 
-        private BaseAbility(IEntityTargetAbleComponent entityCaster,BaseAbilityConfig config)
+        protected BaseAbility(IEntityTargetAbleComponent entityCaster,AbilityConfig config)
         {
             this.entityCaster = entityCaster;
             
-            _abilityName = config.AbilityName;
-            _targetType = config.TargetType;
-            _effectType = config.EffectType;
+            AbilityName = config.AbilityName;
+            AbilityId = config.AbilityId;
             
-            _statsValue = new Dictionary<string, Stat>();
+            TargetType = config.TargetType;
+            EffectType = config.EffectType;
+
+            StatsValue = new Dictionary<string, Stat>();
 
             foreach (var statConfig in config.StatsConfig)
             {
                 var stat = new Stat(statConfig.StatName, statConfig.BaseValue, statConfig.MaxValue,statConfig.ID);
-                _statsValue.Add(stat.Name,stat);
+                StatsValue.Add(stat.Name,stat);
             }
 
-            _cooldown = new Stat(config.Cooldown.StatName, config.Cooldown.BaseValue, config.Cooldown.MaxValue,
+            Cooldown = new Stat(config.Cooldown.StatName, config.Cooldown.BaseValue, config.Cooldown.MaxValue,
                 config.Cooldown.ID);
-        }
-        
-        protected BaseAbility(IEntityTargetAbleComponent entityCaster,BaseAbilityConfig config,BaseStatusEffect[] statusEffects) : this(entityCaster,config)=>
-            abilityCaster = new StatusEffectAbilityCaster(statusEffects);
-        
-        protected BaseAbility(IEntityTargetAbleComponent entityCaster,BaseAbilityConfig config,AbilityActionType abilityType,float amount) : this(entityCaster,config)=>
-            abilityCaster = new ActionAbilityCaster(abilityType,amount);
+            CastTime = new Stat(config.CastTime.StatName, config.CastTime.BaseValue, config.CastTime.MaxValue,
+                config.CastTime.ID);
 
-        public abstract void Cast(IEntityTargetAbleComponent target);
+            StatusEffect = config.StatusEffect;
+        }
+
+        public IEnumerator Execute(IEntityTargetAbleComponent target)
+        {
+            if (!IsReady)
+                yield break;
+
+            yield return new WaitForSeconds(CastTime.CurrentValue);//may need to by set in tick
+            
+            Cast(target);
+            
+            CoroutineHelper.Instance.StartCoroutine(StartCooldown());
+        }
+
+        protected abstract void Cast(IEntityTargetAbleComponent target);
+
+        private IEnumerator StartCooldown()//may need to by set in tick
+        {
+            IsReady = false;
+
+            yield return new WaitForSeconds(Cooldown.CurrentValue);
+
+            IsReady = true;
+        }
     }
 
     public abstract class BaseAbilityCaster
@@ -68,6 +91,7 @@ namespace Tzipory.AbilitiesSystem
     public class StatusEffectAbilityCaster : BaseAbilityCaster
     {
         private BaseStatusEffect[] _statusEffects;
+        
         public StatusEffectAbilityCaster(BaseStatusEffect[] statusEffects)
         {
             _statusEffects = statusEffects;
@@ -111,12 +135,6 @@ namespace Tzipory.AbilitiesSystem
     {
         Heal,
         Damage
-    }
-    
-    public enum AbilityType
-    {
-        StatusEffectAbility,
-        ActionAbility
     }
 
     public enum TargetType

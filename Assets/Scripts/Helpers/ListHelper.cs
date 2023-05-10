@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tzipory
+namespace Tzipory.Helpers
 {
-    public static class Helper 
+    public static class ListHelper 
     {
         public static T GetRandomElementFromList<T>(this List<T> ts)
         {

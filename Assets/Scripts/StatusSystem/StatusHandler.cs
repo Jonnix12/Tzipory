@@ -97,11 +97,4 @@ namespace Tzipory.EntitySystem.StatusSystem
         }
 
     }
-
-    public enum StatusEffectType
-    {
-        OverTime,
-        Instant,
-        Interval
-    }
 }

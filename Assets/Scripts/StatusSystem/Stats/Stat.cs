@@ -1,10 +1,15 @@
 ﻿
 
+using UnityEngine;
+
 namespace Tzipory.EntitySystem.StatusSystem
 {
     [System.Serializable]
     public class Stat
     {
+        [SerializeField] private float _baseValue;
+        [SerializeField] private float _maxValue;
+        
         public string Name { get; }//may not be neend
         public int Id { get; }
         public float BaseValue { get; }

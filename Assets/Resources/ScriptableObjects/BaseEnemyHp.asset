@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fabbef9a04d24be3b8986ad32b51d13a, type: 3}
   m_Name: BaseEnemyHp
   m_EditorClassIdentifier: 
-  _id: 0
-  _statName: 
-  _baseValue: 0
-  _maxValue: 0
+  _id: 2
+  _statName: Hp
+  _baseValue: 50
+  _maxValue: 200

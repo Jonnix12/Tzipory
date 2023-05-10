@@ -30,4 +30,11 @@ namespace Tzipory.EntitySystem.StatusSystem
         
         public abstract void Execute();
     }
+    
+    public enum StatusEffectType
+    {
+        OverTime,
+        Instant,
+        Interval
+    }
 }

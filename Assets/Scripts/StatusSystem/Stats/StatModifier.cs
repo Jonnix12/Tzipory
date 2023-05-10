@@ -5,9 +5,11 @@ namespace Tzipory.EntitySystem.StatusSystem
     public class StatModifier
     {
         public StatusModifierType ModifierType { get; private set; }    
-        public float Modifier { get; private set; }
+        public Stat Modifier { get; private set; }
+        
+        private float  _value;
 
-        public StatModifier(float modifier,StatusModifierType statusModifierType)
+        public StatModifier(Stat modifier,StatusModifierType statusModifierType)
         {
             Modifier = modifier;
             ModifierType = statusModifierType;
@@ -15,19 +17,21 @@ namespace Tzipory.EntitySystem.StatusSystem
 
         public void Process(Stat stat)
         {
+            _value = Modifier.CurrentValue;
+            
             switch (ModifierType)
             {
                 case StatusModifierType.Addition:
-                     stat.AddToValue(Modifier);
+                    stat.AddToValue(_value);
                     break;
                 case StatusModifierType.Multiplication:
-                     stat.MultiplyValue(Modifier);
+                     stat.MultiplyValue(_value);
                     break;
                 case StatusModifierType.Percentage:
-                     stat.MultiplyValue(Modifier);//may meed to by change
+                     stat.MultiplyValue(_value);//may meed to by change
                     break;
                 case StatusModifierType.Set:
-                    stat.SetValue(Modifier);
+                    stat.SetValue(_value);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(ModifierType), ModifierType, null);
@@ -39,13 +43,13 @@ namespace Tzipory.EntitySystem.StatusSystem
             switch (ModifierType)
             {
                 case StatusModifierType.Addition:
-                    stat.ReduceFromValue(Modifier);
+                    stat.ReduceFromValue(_value);
                     break;
                 case StatusModifierType.Multiplication:
-                    stat.DivideValue(Modifier);
+                    stat.DivideValue(_value);
                     break;
                 case StatusModifierType.Percentage:
-                    stat.DivideValue(Modifier);//may meed to by change
+                    stat.DivideValue(_value);//may meed to by change
                     break;
                 case StatusModifierType.Set:
                     //set dos not have a undo
