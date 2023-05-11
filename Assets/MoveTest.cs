@@ -14,12 +14,34 @@ public class MoveTest : MonoBehaviour
     [SerializeField]
     LayerMask layerMask;
 
+    [SerializeField]
+    Transform _followRabbit;
+
     private void Awake()
     {
         if(!cam) //because it's static, it'll only happen once 
         {
             cam = Camera.main; //TEMP
         }
+    }
+
+    private void Start()
+    {
+        TEMP_TIME.OnGameTimeTick += GoToRabbit;
+    }
+    private void OnDisable()
+    {
+        TEMP_TIME.OnGameTimeTick -= GoToRabbit;
+    }
+
+    public void SetRabbit(Transform newRabbit)
+    {
+        _followRabbit = newRabbit;
+    }
+
+    void GoToRabbit()
+    {
+        agent.SetDestination(_followRabbit.position);
     }
     void Update()
     {

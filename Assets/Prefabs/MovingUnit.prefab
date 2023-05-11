@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 8654235078685753430}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1110421936909803441
 MonoBehaviour:
@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MotionType: 2
-  Speed: 3.5
+  Speed: 2
   Acceleration: 8
-  AngularSpeed: 120
-  StoppingDistance: 0
+  AngularSpeed: 1200
+  StoppingDistance: 1
   AutoBreaking: 1
 --- !u!114 &1426943083775565600
 MonoBehaviour:
@@ -70,11 +70,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentNav: {fileID: 0}
   agent: {fileID: 1110421936909803441}
-  cam: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  tempTGT: {fileID: 0}
+  _followRabbit: {fileID: 0}
 --- !u!114 &952880511498218008
 MonoBehaviour:
   m_ObjectHideFlags: 0
