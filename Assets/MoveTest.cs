@@ -5,8 +5,8 @@ using ProjectDawn.Navigation.Hybrid;
 
 public class MoveTest : MonoBehaviour
 {
-    [SerializeField]
-    AgentNavMeshAuthoring agentNav;
+    //[SerializeField]
+    //AgentNavMeshAuthoring agentNav;
     [SerializeField]
     AgentAuthoring agent;
     

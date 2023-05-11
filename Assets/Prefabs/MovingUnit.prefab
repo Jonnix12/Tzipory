@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed5c6dd07c7d6e4f857b420fa8f559a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 0.5
+  Radius: 1
   Height: 1
 --- !u!114 &2405110138242299477
 MonoBehaviour:
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0344116cd75eaaf488b894904a1649d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 6
+  Radius: 26
   Angle: 135
   Mode: 3
   BlockedStop: 0
