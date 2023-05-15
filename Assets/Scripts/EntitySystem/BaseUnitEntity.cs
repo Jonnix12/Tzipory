@@ -40,6 +40,7 @@ namespace Tzipory.EntitySystem.Entitys
 
             StatusHandler = new StatusHandler(stats);
         }
+        
         protected virtual void Update()
         {
             HealthComponentUpdate();
