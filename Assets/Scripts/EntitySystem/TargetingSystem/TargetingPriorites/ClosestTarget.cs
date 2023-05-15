@@ -3,11 +3,15 @@ using Tzipory.EntitySystem.EntityComponents;
 
 namespace Tzipory.EntitySystem.TargetingSystem.TargetingPriorites
 {
-    public class ClosestTarget : IPriority
+    public class ClosestTarget : BaseTargetingPriority
     {
-        public IEntityTargetAbleComponent GetPriorityTarget(List<IEntityTargetAbleComponent> targets)
+        public ClosestTarget(IEntityTargetingComponent targetingComponent) : base(targetingComponent)
         {
-            
+        }
+
+        public override IEntityTargetAbleComponent GetPriorityTarget(List<IEntityTargetAbleComponent> targets)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
