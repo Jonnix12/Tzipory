@@ -17,13 +17,13 @@ public class MoveTest : MonoBehaviour
     [SerializeField]
     Transform _followRabbit;
 
-    private void Awake()
-    {
-        if(!cam) //because it's static, it'll only happen once 
-        {
-            cam = Camera.main; //TEMP
-        }
-    }
+    //private void Awake()
+    //{
+    //    if(!cam) //because it's static, it'll only happen once 
+    //    {
+    //        cam = Camera.main; //TEMP
+    //    }
+    //}
 
     private void Start()
     {
@@ -43,16 +43,16 @@ public class MoveTest : MonoBehaviour
     {
         agent.SetDestination(_followRabbit.position);
     }
-    void Update()
-    {
-        //temp!
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            RaycastHit hit;
-            if(Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit, 1000f, layerMask))
-            {
-                agent.SetDestination(hit.point);
-            }
-        }
-    }
+    //void Update()
+    //{
+    //    //temp!
+    //    if (Input.GetKeyDown(KeyCode.Mouse0))
+    //    {
+    //        RaycastHit hit;
+    //        if(Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit, 1000f, layerMask))
+    //        {
+    //            agent.SetDestination(hit.point);
+    //        }
+    //    }
+    //}
 }

@@ -641,10 +641,6 @@ PrefabInstance:
       propertyPath: Radius
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 3636890251761493747, guid: 45ae0553562862b42a2d8f2f2439c5e2, type: 3}
-      propertyPath: Radius
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 4604731545518773461, guid: 45ae0553562862b42a2d8f2f2439c5e2, type: 3}
       propertyPath: Radius
       value: 10
@@ -1401,18 +1397,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1718180963}
     m_Modifications:
-    - target: {fileID: 46955045622896702, guid: f27eb2758082c844d972871499494c95, type: 3}
-      propertyPath: Radius
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 952880511498218008, guid: f27eb2758082c844d972871499494c95, type: 3}
-      propertyPath: Height
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 952880511498218008, guid: f27eb2758082c844d972871499494c95, type: 3}
-      propertyPath: Radius
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 1110421936909803441, guid: f27eb2758082c844d972871499494c95, type: 3}
       propertyPath: StoppingDistance
       value: 1
@@ -1618,14 +1602,6 @@ PrefabInstance:
     - target: {fileID: 46955045622896702, guid: f27eb2758082c844d972871499494c95, type: 3}
       propertyPath: Radius
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 952880511498218008, guid: f27eb2758082c844d972871499494c95, type: 3}
-      propertyPath: Height
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 952880511498218008, guid: f27eb2758082c844d972871499494c95, type: 3}
-      propertyPath: Radius
-      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1110421936909803441, guid: f27eb2758082c844d972871499494c95, type: 3}
       propertyPath: StoppingDistance
