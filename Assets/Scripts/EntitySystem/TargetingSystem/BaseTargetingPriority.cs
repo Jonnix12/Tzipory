@@ -5,9 +5,11 @@ namespace Tzipory.EntitySystem.TargetingSystem
 {
     public abstract class BaseTargetingPriority : IPriority
     {
-        public BaseTargetingPriority(IEntityTargetingComponent targetingComponent)
+        protected IEntityTargetingComponent TargetingComponent;
+
+        protected BaseTargetingPriority(IEntityTargetingComponent targetingComponent)
         {
-            
+            TargetingComponent  = targetingComponent;
         }
         
         public abstract IEntityTargetAbleComponent GetPriorityTarget(List<IEntityTargetAbleComponent> targets);

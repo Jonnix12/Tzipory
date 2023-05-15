@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using Tzipory.BaseScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,8 @@ namespace MovementSystem.HerosMovementSystem
 
         private TempHeroMovement _currentTarget;
         private Camera _camera;
+
+        private bool _isValidClick;
 
         private void Start()
         {
@@ -30,17 +33,26 @@ namespace MovementSystem.HerosMovementSystem
         private void Update()
         {
             if (_currentTarget == null)
+            {
+                _isValidClick = false;
                 return;
+            }
 
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+            if (Mouse.current.leftButton.wasPressedThisFrame && _isValidClick)
             {
                 var screenPos = Mouse.current.position.ReadValue();
                 var worldPos = _camera.ScreenToWorldPoint(screenPos);
-                
+                worldPos = new Vector3(worldPos.x, worldPos.y, 0);
                 _currentTarget.transform.position = worldPos;
+                Debug.Log("Set new pos");
                 OnMove?.Invoke(worldPos);
 
-                _currentTarget = null;
+                ClearTarget();
+            }
+
+            if (_currentTarget != null)
+            {
+                _isValidClick = true;
             }
         }
     }

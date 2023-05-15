@@ -11,7 +11,22 @@ namespace Tzipory.EntitySystem.TargetingSystem.TargetingPriorites
 
         public override IEntityTargetAbleComponent GetPriorityTarget(List<IEntityTargetAbleComponent> targets)
         {
-            throw new System.NotImplementedException();
+            IEntityTargetAbleComponent currentClosestTarget = null;
+            
+            float currentClosestTargetDistance = float.MaxValue;
+
+            foreach (var target in targets)
+            {
+                var distance = TargetingComponent.GetDistanceToTarget(target);
+                
+                if (distance < currentClosestTargetDistance)
+                {
+                    currentClosestTarget = target;
+                    currentClosestTargetDistance = distance;
+                }
+            }
+            
+            return currentClosestTarget;
         }
     }
 }

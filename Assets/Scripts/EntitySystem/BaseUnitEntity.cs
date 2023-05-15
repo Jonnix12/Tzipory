@@ -4,6 +4,8 @@ using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.EntityConfigSystem;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.TargetingSystem;
+using Tzipory.EntitySystem.TargetingSystem.TargetingPriorites;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Tzipory.EntitySystem.Entitys
@@ -30,6 +32,8 @@ namespace Tzipory.EntitySystem.Entitys
         protected override void Awake()//temp!!!
         {
             base.Awake();
+
+            DefaultPriority = new ClosestTarget(this);//temp
             
             TargetingHandler = new TargetingHandler(this);
             
@@ -53,9 +57,14 @@ namespace Tzipory.EntitySystem.Entitys
         #endregion
 
         #region TargetingComponent
-
+        
         public IPriority DefaultPriority { get; private set; }
         public ITargeting TargetingHandler { get; set; }
+        public float GetDistanceToTarget(IEntityTargetAbleComponent targetAbleComponent)
+        {
+            return Vector2.Distance(transform.position, targetAbleComponent.EntityTransform.position);
+        }
+
         public void SetTargeting(ITargeting targeting) => 
             TargetingHandler = targeting;
         
