@@ -71,6 +71,9 @@ PrefabInstance:
       addedObject: {fileID: 1800454651558910966}
     - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 9062997416361594811}
+    - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8794722136165047818}
   m_SourcePrefab: {fileID: 100100000, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
 --- !u!1 &3104813651261807675 stripped
@@ -90,6 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1e065fac3b46878dc2431931f9e290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bodyCollider: {fileID: 1800454651558910966}
+  _rangeCollider: {fileID: 9062997416361594811}
   _config: {fileID: 11400000, guid: d70639d457685f643a3e0fc3fc9e32aa, type: 2}
 --- !u!58 &1800454651558910966
 CircleCollider2D:
@@ -121,6 +126,41 @@ CircleCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!58 &9062997416361594811
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104813651261807675}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

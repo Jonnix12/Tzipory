@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Tzipory.AbilitiesSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.EntityConfigSystem;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.TargetingSystem;
 using Tzipory.EntitySystem.TargetingSystem.TargetingPriorites;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Tzipory.EntitySystem.Entitys
@@ -13,6 +14,13 @@ namespace Tzipory.EntitySystem.Entitys
     public abstract class BaseUnitEntity : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent , IEntityAbilitiesComponent
     {
         #region Fields
+
+#if UNITY_EDITOR
+        [SerializeField, ReadOnly] private List<Stat> _stats;
+#endif
+        
+        [SerializeField] private CircleCollider2D _bodyCollider;
+        [SerializeField] private CircleCollider2D _rangeCollider;
 
         private const string HEALTH = "Hp";
         private const string INVINCIBLE_TIME = "Invincible Time";
@@ -33,15 +41,15 @@ namespace Tzipory.EntitySystem.Entitys
         {
             base.Awake();
 
-            DefaultPriority = new ClosestTarget(this);//temp
+            DefaultPriorityTargeting = new ClosestTarget(this);//temp
             
             TargetingHandler = new TargetingHandler(this);
             
             List<Stat> stats = new List<Stat>();
 
             foreach (var stat in _config.Stats)
-                stats.Add(stat);
-
+                stats.Add(new Stat(stat.Name,stat.BaseValue,stat.MaxValue,stat.Id));
+            _stats = stats;
             StatusHandler = new StatusHandler(stats);
         }
         
@@ -52,13 +60,35 @@ namespace Tzipory.EntitySystem.Entitys
 
             if (_target == null || _target.IsEntityDead)
                 _target = TargetingHandler.GetPriorityTarget();
+            
+            
+            if (_target != null)
+                Attack();
+            
+          //  _rangeCollider.radius = StatusHandler.GetStatByName(ATTACK_RANGE).CurrentValue;
+        }
+
+        private void OnValidate()
+        {
+            if (_bodyCollider == null || _rangeCollider == null)
+            {
+                var collider = GetComponents<CircleCollider2D>();
+
+                foreach (var collider2D in collider)
+                {
+                    if (collider2D.isTrigger)
+                        _rangeCollider = collider2D;
+                    else
+                        _bodyCollider = collider2D;
+                }
+            }
         }
 
         #endregion
 
         #region TargetingComponent
         
-        public IPriority DefaultPriority { get; private set; }
+        public IPriorityTargeting DefaultPriorityTargeting { get; private set; }
         public ITargeting TargetingHandler { get; set; }
         public float GetDistanceToTarget(IEntityTargetAbleComponent targetAbleComponent)
         {
@@ -75,6 +105,7 @@ namespace Tzipory.EntitySystem.Entitys
         private float  _currentInvincibleTime;
 
         public Stat HP => StatusHandler.GetStatByName(HEALTH);
+        
         public Stat InvincibleTime => StatusHandler.GetStatByName(INVINCIBLE_TIME);
         public bool IsDamageable { get; private set; }
         public bool IsEntityDead => HP.CurrentValue <= 0;
@@ -83,8 +114,8 @@ namespace Tzipory.EntitySystem.Entitys
         {
             HP.AddToValue(amount);
 
-            if (HP.CurrentValue > HP.BaseValue)
-                HP.ResetValue();
+            // if (HP.CurrentValue > HP.BaseValue)
+            //     HP.ResetValue();
         }
 
         public void TakeDamage(float damage)
@@ -120,7 +151,6 @@ namespace Tzipory.EntitySystem.Entitys
         #region CombatComponent                                                                                                                                   
         
         private IEntityTargetAbleComponent _target;
-        private float _currentAttackRate;
         
         public IEntityTargetAbleComponent Target => _target;
         
@@ -130,28 +160,8 @@ namespace Tzipory.EntitySystem.Entitys
         public Stat AttackRate => StatusHandler.GetStatByName(ATTACK_RATE);
         public Stat AttackRange => StatusHandler.GetStatByName(ATTACK_RANGE);
         
-        public void Attack()
+        public virtual void Attack()
         {
-            bool canAttack = false;
-
-            _currentAttackRate -= Time.deltaTime;
-            
-            if (_currentAttackRate < 0)
-            {
-                _currentAttackRate = AttackRate.CurrentValue;
-                canAttack = true;
-            }
-            
-            if(!canAttack)
-                return;
-            
-            if (CritChance.CurrentValue > Random.Range(0, 100))
-            {
-                _target.TakeDamage(CritDamage.CurrentValue);
-                return;
-            }
-            
-            _target.TakeDamage(AttackDamage.CurrentValue);
         }
 
         #endregion
@@ -177,6 +187,22 @@ namespace Tzipory.EntitySystem.Entitys
         #region AbilityComponent
         
         public AbilityHandler AbilityHandler { get; }
+
+        #endregion
+
+        #region Trriger
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.TryGetComponent<BaseUnitEntity>(out BaseUnitEntity unitEntity))
+            {
+                TargetingHandler.AddTarget(unitEntity);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+        }
 
         #endregion
     }

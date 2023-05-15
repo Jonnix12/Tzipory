@@ -12,7 +12,7 @@ namespace Tzipory.AbilitiesSystem
         public IEntityTargetAbleComponent Caster { get; }
         public Dictionary<string, BaseAbility> Abilities { get; }
         
-        public AbilityHandler(IEntityTargetAbleComponent caster,AbilityConfig[] abilitiesConfig)//temp
+        public AbilityHandler(IEntityTargetAbleComponent caster,IEntityTargetingComponent targetingComponent,AbilityConfig[] abilitiesConfig)//temp
         {
             Abilities = new Dictionary<string, BaseAbility>();
             Caster = caster;
@@ -36,10 +36,12 @@ namespace Tzipory.AbilitiesSystem
             }
         }
 
-        public void CastAbilityByName(string abilityName,IEntityTargetAbleComponent target)
+        public void CastAbilityByName(string abilityName,IEnumerable<IEntityTargetAbleComponent> availableTarget)
         {
             if (Abilities.TryGetValue(abilityName, out var ability))
-                CoroutineHelper.Instance.StartCoroutine(ability.Execute(target));
+            {
+                CoroutineHelper.Instance.StartCoroutine(ability.Execute(availableTarget));
+            }
             else
                 Debug.LogError($"{Caster.EntityTransform.name} cant find ability {abilityName}");
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
+using Tzipory.EntitySystem.TargetingSystem;
 using Tzipory.Helpers;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Tzipory.AbilitiesSystem
         public TargetType TargetType { get; }//not in use
 
         public EffectType EffectType { get; }//not in use
+        
         
         protected Stat Cooldown { get; }
 
@@ -33,6 +35,8 @@ namespace Tzipory.AbilitiesSystem
         
         protected IEntityTargetAbleComponent entityCaster;
 
+        private IPriorityTargeting _priorityTargeting;
+        
         protected BaseAbility(IEntityTargetAbleComponent entityCaster,AbilityConfig config)
         {
             this.entityCaster = entityCaster;
@@ -51,22 +55,22 @@ namespace Tzipory.AbilitiesSystem
                 StatsValue.Add(stat.Name,stat);
             }
 
-            Cooldown = new Stat(config.Cooldown.StatName, config.Cooldown.BaseValue, config.Cooldown.MaxValue,
-                config.Cooldown.ID);
-            CastTime = new Stat(config.CastTime.StatName, config.CastTime.BaseValue, config.CastTime.MaxValue,
-                config.CastTime.ID);
+            Cooldown = new Stat(config.Cooldown.Name, config.Cooldown.BaseValue, config.Cooldown.MaxValue,
+                config.Cooldown.Id);
+            CastTime = new Stat(config.CastTime.Name, config.CastTime.BaseValue, config.CastTime.MaxValue,
+                config.CastTime.Id);
 
             StatusEffect = config.StatusEffect;
         }
 
-        public IEnumerator Execute(IEntityTargetAbleComponent target)
+        public IEnumerator Execute(IEnumerable<IEntityTargetAbleComponent> availableTarget)
         {
             if (!IsReady)
                 yield break;
 
             yield return new WaitForSeconds(CastTime.CurrentValue);//may need to by set in tick
             
-            Cast(target);
+            Cast(_priorityTargeting.GetPriorityTarget(availableTarget));
             
             CoroutineHelper.Instance.StartCoroutine(StartCooldown());
         }
@@ -129,24 +133,5 @@ namespace Tzipory.AbilitiesSystem
                     throw new ArgumentOutOfRangeException(nameof(_abilityType), _abilityType, null);
             }
         }
-    }
-
-    public enum AbilityActionType
-    {
-        Heal,
-        Damage
-    }
-
-    public enum TargetType
-    {
-        Self,
-        Enemy,
-        Ally,
-    }
-    
-    public enum EffectType
-    {
-        Positive,
-        Negative,
     }
 }

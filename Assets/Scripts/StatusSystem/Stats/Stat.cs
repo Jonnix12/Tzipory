@@ -1,5 +1,6 @@
 ﻿
 
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Tzipory.EntitySystem.StatusSystem
@@ -10,11 +11,12 @@ namespace Tzipory.EntitySystem.StatusSystem
         [SerializeField] private string _name;
         [SerializeField] private int _id;
         [SerializeField] private float _baseValue;
+        [SerializeField,ReadOnly] float _currentValue;
 
         public string Name => _name;
         public int Id => _id;
         public float BaseValue => _baseValue;
-        public float CurrentValue { get; private set; }
+        public float CurrentValue => _currentValue;
         
         public float MaxValue { get; private set; }
         
@@ -24,26 +26,26 @@ namespace Tzipory.EntitySystem.StatusSystem
             _id = id;  
             _baseValue = baseValue;
             MaxValue = StatLimiters.MaxStatValue;
-            CurrentValue = BaseValue;
+            _currentValue = _baseValue;
         }
 
         public void SetValue(float amount) =>
-            CurrentValue = amount;
+            _currentValue = amount;
 
         public void MultiplyValue(float amount)=>
-            CurrentValue *= amount;
+            _currentValue *= amount;
         
         public void DivideValue(float amount)=>
-            CurrentValue *= amount;
+            _currentValue *= amount;
         
         public void AddToValue(float amount)=>
-            CurrentValue += amount;
+            _currentValue += amount;
         
 
         public void ReduceFromValue(float amount)=>
-            CurrentValue -= amount;
+            _currentValue -= amount;
         
         public void ResetValue()=>
-            CurrentValue = BaseValue;
+            _currentValue = _baseValue;
     }
 }

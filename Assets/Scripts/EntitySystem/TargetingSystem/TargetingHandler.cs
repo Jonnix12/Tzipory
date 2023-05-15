@@ -7,7 +7,8 @@ namespace Tzipory.EntitySystem.TargetingSystem
     {
         private IEntityTargetingComponent _entityTargetingComponent;
         private List<IEntityTargetAbleComponent> _availableTargets;
-        
+
+        public List<IEntityTargetAbleComponent> AvailableTargets => _availableTargets;
 
         public TargetingHandler(IEntityTargetingComponent targetingComponent)
         {
@@ -15,17 +16,22 @@ namespace Tzipory.EntitySystem.TargetingSystem
             _entityTargetingComponent = targetingComponent;
         }
 
-        public IEntityTargetAbleComponent GetPriorityTarget(IPriority priority = null)
+        public IEntityTargetAbleComponent GetPriorityTarget(IPriorityTargeting priorityTargeting = null)
         {
-            if (priority == null)
-                return _entityTargetingComponent.DefaultPriority.GetPriorityTarget(_availableTargets);
+            if (priorityTargeting == null)
+                return _entityTargetingComponent.DefaultPriorityTargeting.GetPriorityTarget(_availableTargets);
             
-            return priority.GetPriorityTarget(_availableTargets);
+            return priorityTargeting.GetPriorityTarget(_availableTargets);
         }
 
-        public void UpdateTargets()
+        public void AddTarget(IEntityTargetAbleComponent targetAbleComponent)
         {
-            
+            _availableTargets.Add(targetAbleComponent);
+        }
+
+        public void RemoveTarget()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

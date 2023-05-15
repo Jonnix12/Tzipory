@@ -4,9 +4,8 @@ namespace Tzipory.EntitySystem.EntityComponents
 {
     public interface IEntityTargetingComponent : IEntityComponent
     {
-        public IPriority DefaultPriority { get; }
+        public IPriorityTargeting DefaultPriorityTargeting { get; }
         public ITargeting TargetingHandler { get; set; }
         public float GetDistanceToTarget(IEntityTargetAbleComponent targetAbleComponent);
-        public void SetTargeting(ITargeting targeting);
     }
 }
