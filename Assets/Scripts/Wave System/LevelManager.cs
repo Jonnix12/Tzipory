@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Tzipory;
+using Tzipory.Helpers;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -66,11 +68,11 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator LevelLoop()
     {
-       while (_waveCount > 0)
+        while (_waveCount > 0)
         {
             for (int i = 0; i < _levelRecepie.MaxSimultaniousSpawners; i++)
             {
-                WaveSpawner ws = Helper.GetRandomElementFromList(_waveSpawners);
+                WaveSpawner ws = _waveSpawners.GetRandomElementFromList();
                 if (ws.IsSpawnning) //This may call the same spawner twice - sometimes causing less simultanious spawners than max
                 {
                     Debug.Log($"{ws.name} is aleady spawning!");

@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public class Escpae_ActionItem : ActionComponent
+namespace Tzipory.AI.WeightSystem
 {
-
-    public override List<ActionVariation> CalculateVariations()
+    public class Escpae_ActionItem : ActionComponent
     {
-        return base.CalculateVariations();
+        public override List<ActionVariation> CalculateVariations()
+        {
+            return base.CalculateVariations();
+        }
     }
-
-
 }
+
+

@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using AbilitiesSystem;
+using Tzipory.AbilitiesSystem;
 
 namespace Tzipory.EntitySystem.EntityComponents
 {
     public interface IEntityAbilitiesComponent
     {
-        public List<BaseEntityAbility> _entityAbilities { get; }
-        
-        
+        public AbilityHandler AbilityHandler { get; }
     }
 }
