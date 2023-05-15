@@ -7,22 +7,23 @@ namespace Tzipory.EntitySystem.StatusSystem
     [System.Serializable]
     public class Stat
     {
+        [SerializeField] private string _name;
+        [SerializeField] private int _id;
         [SerializeField] private float _baseValue;
-        [SerializeField] private float _maxValue;
-        
-        public string Name { get; }//may not be neend
-        public int Id { get; }
-        public float BaseValue { get; }
+
+        public string Name => _name;
+        public int Id => _id;
+        public float BaseValue => _baseValue;
         public float CurrentValue { get; private set; }
         
         public float MaxValue { get; private set; }
         
         public Stat(string name, float baseValue,float maxValue,int id)
         {
-            Name = name;
-            Id = id;  
-            BaseValue = baseValue;
-            MaxValue = maxValue;
+            _name = name;
+            _id = id;  
+            _baseValue = baseValue;
+            MaxValue = StatLimiters.MaxStatValue;
             CurrentValue = BaseValue;
         }
 

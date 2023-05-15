@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
+using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.StatusSystem.StatSystemConfig;
 using UnityEngine;
 
@@ -9,9 +10,9 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
     public class BaseUnitEntityConfig : ScriptableObject
     {
         [SerializeField] private List<AbilityConfig> _abilityConfigs;
-        [SerializeField] private List<StatConfig> _stats;
+        [SerializeField] private List<Stat> _stats;
 
-        public List<StatConfig> Stats => _stats;
+        public List<Stat> Stats => _stats;
 
         public List<AbilityConfig> AbilityConfigs => _abilityConfigs;
 

@@ -13,4 +13,28 @@ MonoBehaviour:
   m_Name: TestShaman
   m_EditorClassIdentifier: 
   _abilityConfigs: []
-  _stats: []
+  _stats:
+  - _name: Hp
+    _id: 1
+    _baseValue: 500
+  - _name: Invincible Time
+    _id: 2
+    _baseValue: 0
+  - _name: Attack Damage
+    _id: 3
+    _baseValue: 50
+  - _name: Crit Damage
+    _id: 4
+    _baseValue: 100
+  - _name: Crit Chance
+    _id: 5
+    _baseValue: 20
+  - _name: Attack Rate
+    _id: 6
+    _baseValue: 0
+  - _name: Attack Range
+    _id: 7
+    _baseValue: 10
+  - _name: Move Speed
+    _id: 8
+    _baseValue: 3

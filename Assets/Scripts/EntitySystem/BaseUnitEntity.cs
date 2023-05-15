@@ -36,7 +36,7 @@ namespace Tzipory.EntitySystem.Entitys
             List<Stat> stats = new List<Stat>();
 
             foreach (var stat in _config.Stats)
-                stats.Add(new Stat(stat.StatName,stat.BaseValue,stat.MaxValue,stat.ID));
+                stats.Add(stat);
 
             StatusHandler = new StatusHandler(stats);
         }
