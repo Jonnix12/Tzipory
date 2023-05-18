@@ -71,6 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1110421936909803441}
   privateRabbitSpeed: 2
+  finalLoopSpeed: 0.2
   layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -87,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed5c6dd07c7d6e4f857b420fa8f559a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 0.5
+  Radius: 0.3
   Height: 0.5
 --- !u!114 &2405110138242299477
 MonoBehaviour:
@@ -127,7 +128,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2483437422139161477}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0344116cd75eaaf488b894904a1649d9, type: 3}
   m_Name: 

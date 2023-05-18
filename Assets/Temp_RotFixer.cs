@@ -15,5 +15,9 @@ public class Temp_RotFixer : MonoBehaviour
     void LateUpdate()
     {
         transform.rotation = ogRot;
+        Vector3 newPos = transform.position;
+        newPos.y = transform.position.z / -100f;
+        newPos.y += transform.position.x / 300f;
+        transform.position = newPos;
     }
 }

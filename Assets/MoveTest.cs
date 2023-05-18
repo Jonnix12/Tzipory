@@ -13,6 +13,9 @@ public class MoveTest : MonoBehaviour
     AgentAuthoring agent;
     [SerializeField]
     float privateRabbitSpeed;
+    [SerializeField]
+    float finalLoopSpeed;
+
     float privateRabbitProgress;
 
     static Camera cam;
@@ -23,7 +26,7 @@ public class MoveTest : MonoBehaviour
     Transform _followRabbit;
     
     PathCreator pathCreator;
-    Transform finalDestinaion;
+    PathCreator finalDestinaion;
 
    
     private void Start()
@@ -36,6 +39,7 @@ public class MoveTest : MonoBehaviour
     {
         //TEMP_TIME.OnGameTimeTick -= GoToRabbit;
         TEMP_TIME.OnGameTimeTick -= AdvanceOnPath;
+        TEMP_TIME.OnGameTimeTick -= CircleFinalDestination;
 
     }
 
@@ -43,7 +47,7 @@ public class MoveTest : MonoBehaviour
     //{
     //    _followRabbit = newRabbit;
     //}
-    public void SetPath(PathCreator pc, Transform finalDest)
+    public void SetPath(PathCreator pc, PathCreator finalDest)
     {
         finalDestinaion = finalDest;
         privateRabbitProgress = 0;
@@ -72,7 +76,8 @@ public class MoveTest : MonoBehaviour
             if (privateRabbitProgress > pathCreator.path.length)
             {
                 TEMP_TIME.OnGameTimeTick -= AdvanceOnPath;
-                CircleFinalDestination();
+                privateRabbitProgress = 0f;
+                TEMP_TIME.OnGameTimeTick += CircleFinalDestination;
             }
 
         }
@@ -85,7 +90,12 @@ public class MoveTest : MonoBehaviour
 
     void CircleFinalDestination()
     {
-        agent.SetDestination(finalDestinaion.position);
+        Vector3 pointOnPath = finalDestinaion.path.GetPointAtDistance(privateRabbitProgress, EndOfPathInstruction.Loop);
+        if (Vector3.Distance(transform.position, pointOnPath) <= 1f)
+        {
+            privateRabbitProgress += privateRabbitSpeed;
+        }
+        agent.SetDestination(pointOnPath);
     }
 
   
