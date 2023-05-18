@@ -13,8 +13,8 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField]
     WaveGroup[] waveGroups;
 
-    [SerializeField]
-    GameObject rabbitPrefab;
+    //[SerializeField]
+    //GameObject rabbitPrefab;
     [SerializeField]
     PathCreator myPathCreator;
 
@@ -28,7 +28,7 @@ public class WaveSpawner : MonoBehaviour
     public UnityEvent OnSpawnEnd;
     //Should either Sub to LevelManager -> or report themeselves and then do nothing "of their own accord"
 
-    PathFollower pf;
+    //PathFollower pf;
     private void Start()
     {
         LevelManager.Instance.RegisterWaveSpawner(this);
@@ -38,9 +38,9 @@ public class WaveSpawner : MonoBehaviour
         
         Debug.Log($"{name} began spawning.");
 
-        pf = Instantiate(rabbitPrefab, myPathCreator.transform).GetComponent<PathFollower>();
+        //pf = Instantiate(rabbitPrefab, myPathCreator.transform).GetComponent<PathFollower>();
 
-        pf.pathCreator = myPathCreator;
+        //pf.pathCreator = myPathCreator;
 
         _currentWaveGroup = waveGroups.GetRandomElementFromArray();
         _currentWaveGroup.SetAllTickers();
@@ -66,8 +66,11 @@ public class WaveSpawner : MonoBehaviour
             
             if (enemyGroup.ticker.DoTick())
             {
-                GameObject go = Instantiate(enemyGroup.prefab, spawnPositions.GetRandomElementFromArray()); //this should be pulling from an ItemPool, as Units
-                go.GetComponent<MoveTest>().SetRabbit(pf.transform);
+                //GameObject go = Instantiate(enemyGroup.prefab, spawnPositions.GetRandomElementFromArray()); //this should be pulling from an ItemPool, as Units
+                GameObject go = Instantiate(enemyGroup.prefab); //this should be pulling from an ItemPool, as Units
+                go.transform.position = spawnPositions.GetRandomElementFromArray().position;
+                //go.GetComponent<MoveTest>().SetRabbit(pf.transform);
+                go.GetComponent<MoveTest>().SetPath(myPathCreator);
             }
         }
 

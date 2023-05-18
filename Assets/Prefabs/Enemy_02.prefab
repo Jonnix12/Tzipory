@@ -53,8 +53,8 @@ MonoBehaviour:
   MotionType: 2
   Speed: 2
   Acceleration: 8
-  AngularSpeed: 1200
-  StoppingDistance: 1
+  AngularSpeed: 0
+  StoppingDistance: 0
   AutoBreaking: 1
 --- !u!114 &1426943083775565600
 MonoBehaviour:
@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1110421936909803441}
+  privateRabbitSpeed: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -85,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed5c6dd07c7d6e4f857b420fa8f559a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 0.2
+  Radius: 0.5
   Height: 1
 --- !u!114 &2405110138242299477
 MonoBehaviour:
