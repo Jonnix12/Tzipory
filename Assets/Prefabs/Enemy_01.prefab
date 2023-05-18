@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 2405110138242299477}
   - component: {fileID: 5607614493210641226}
   - component: {fileID: 46955045622896702}
-  - component: {fileID: 2425392054954552351}
   m_Layer: 6
   m_Name: Enemy_01
   m_TagString: Untagged
@@ -52,11 +51,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MotionType: 2
-  Speed: 0.8
+  Speed: 0.5
   Acceleration: 8
   AngularSpeed: 1200
   StoppingDistance: 0.2
-  AutoBreaking: 1
+  AutoBreaking: 0
 --- !u!114 &1426943083775565600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,8 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1110421936909803441}
-  privateRabbitSpeed: 2
-  finalLoopSpeed: 0.2
+  privateRabbitSpeed: 3
+  finalLoopSpeed: 0.5
   layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -88,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed5c6dd07c7d6e4f857b420fa8f559a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 0.3
+  Radius: 0.4
   Height: 0.5
 --- !u!114 &2405110138242299477
 MonoBehaviour:
@@ -128,7 +127,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2483437422139161477}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0344116cd75eaaf488b894904a1649d9, type: 3}
   m_Name: 
@@ -138,27 +137,6 @@ MonoBehaviour:
   Mode: 3
   BlockedStop: 1
   UseWalls: 0
---- !u!95 &2425392054954552351
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2483437422139161477}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9fcf662ad459e2f429f81cec6039c45d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3104717434529703765
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +163,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3104717434529703765}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0.118}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

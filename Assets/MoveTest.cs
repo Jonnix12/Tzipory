@@ -29,12 +29,7 @@ public class MoveTest : MonoBehaviour
     PathCreator finalDestinaion;
 
    
-    private void Start()
-    {
-        
-        //TEMP_TIME.OnGameTimeTick += GoToRabbit;
-        //TEMP_TIME.OnGameTimeTick += AdvanceOnPath;
-    }
+    
     private void OnDisable()
     {
         //TEMP_TIME.OnGameTimeTick -= GoToRabbit;
@@ -43,37 +38,34 @@ public class MoveTest : MonoBehaviour
 
     }
 
-    //public void SetRabbit(Transform newRabbit)
-    //{
-    //    _followRabbit = newRabbit;
-    //}
+   
     public void SetPath(PathCreator pc, PathCreator finalDest)
     {
         finalDestinaion = finalDest;
         privateRabbitProgress = 0;
         pathCreator = pc;
-        //transform.position = pathCreator.path.GetPointAtDistance(privateRabbitProgress, EndOfPathInstruction.Stop);
+        
         TEMP_TIME.OnGameTimeTick += AdvanceOnPath;
 
-        //agent.SetDestination();
+        
 
     }
 
-    //void GoToRabbit()
-    //{
-    //    agent.SetDestination(_followRabbit.position);
-    //}
+  
     void AdvanceOnPath()
     {
         Vector3 pointOnPath = pathCreator.path.GetPointAtDistance(privateRabbitProgress, EndOfPathInstruction.Stop);
 
 
         agent.SetDestination(pointOnPath);
-        
-        if (Vector3.Distance(transform.position, pointOnPath) <= 1f)
+
+
+       
+        if (Vector3.Distance(transform.position, pointOnPath) <= privateRabbitSpeed/2f)
         {
             privateRabbitProgress += privateRabbitSpeed;
-            if (privateRabbitProgress > pathCreator.path.length)
+            //if (privateRabbitProgress > pathCreator.path.length)
+            if (privateRabbitProgress > pathCreator.path.length && Vector3.Distance(transform.position, pointOnPath) <= 2)
             {
                 TEMP_TIME.OnGameTimeTick -= AdvanceOnPath;
                 privateRabbitProgress = 0f;
@@ -81,19 +73,15 @@ public class MoveTest : MonoBehaviour
             }
 
         }
-        //if(privateRabbitProgress >= 1)
-        //{
-        //    TEMP_TIME.OnGameTimeTick -= AdvanceOnPath;
-        //    //agent.SetDestination()
-        //}
+       
     }
 
     void CircleFinalDestination()
     {
         Vector3 pointOnPath = finalDestinaion.path.GetPointAtDistance(privateRabbitProgress, EndOfPathInstruction.Loop);
-        if (Vector3.Distance(transform.position, pointOnPath) <= 1f)
+        if (Vector3.Distance(transform.position, finalDestinaion.path.GetClosestPointOnPath(transform.position)) <= 2f)
         {
-            privateRabbitProgress += privateRabbitSpeed;
+            privateRabbitProgress += finalLoopSpeed;
         }
         agent.SetDestination(pointOnPath);
     }
