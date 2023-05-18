@@ -27,11 +27,12 @@ public class WaveSpawner : MonoBehaviour
     public UnityEvent OnSpawnStart;
     public UnityEvent OnSpawnEnd;
     //Should either Sub to LevelManager -> or report themeselves and then do nothing "of their own accord"
+
+    PathFollower pf;
     private void Start()
     {
         LevelManager.Instance.RegisterWaveSpawner(this);
     }
-    PathFollower pf;
     public void CallSpawnRandomWave()
     {
         
@@ -49,17 +50,12 @@ public class WaveSpawner : MonoBehaviour
         TEMP_TIME.OnGameTimeTick += OnTick_SpawnCurrentWaveGroup;
     }
 
-
     //happens every game-tick
     void OnTick_SpawnCurrentWaveGroup()
     {
-        //_currentWaveGroup.TickAllGroups();
-        int doneCount = 0;
         
-
-        //float ogSpeed = pf.speed;
-        //pf.speed = 0;
-
+        int doneCount = 0;
+     
         foreach (var enemyGroup in _currentWaveGroup.enemyGroups)
         {
             if (enemyGroup.ticker.IsDone)
@@ -74,7 +70,6 @@ public class WaveSpawner : MonoBehaviour
                 go.GetComponent<MoveTest>().SetRabbit(pf.transform);
             }
         }
-        //pf.speed = ogSpeed;
 
         if (doneCount == _currentWaveGroup.enemyGroups.Length)
         {
