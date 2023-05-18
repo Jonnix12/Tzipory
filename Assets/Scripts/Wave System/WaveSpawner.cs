@@ -26,6 +26,9 @@ public class WaveSpawner : MonoBehaviour
 
     public UnityEvent OnSpawnStart;
     public UnityEvent OnSpawnEnd;
+    [SerializeField]
+    private Transform finalDestination;
+
     //Should either Sub to LevelManager -> or report themeselves and then do nothing "of their own accord"
 
     //PathFollower pf;
@@ -70,7 +73,7 @@ public class WaveSpawner : MonoBehaviour
                 GameObject go = Instantiate(enemyGroup.prefab); //this should be pulling from an ItemPool, as Units
                 go.transform.position = spawnPositions.GetRandomElementFromArray().position;
                 //go.GetComponent<MoveTest>().SetRabbit(pf.transform);
-                go.GetComponent<MoveTest>().SetPath(myPathCreator);
+                go.GetComponent<MoveTest>().SetPath(myPathCreator, finalDestination);
             }
         }
 

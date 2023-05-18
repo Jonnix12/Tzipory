@@ -52,10 +52,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MotionType: 2
-  Speed: 1
+  Speed: 0.8
   Acceleration: 8
-  AngularSpeed: 0
-  StoppingDistance: 0
+  AngularSpeed: 1200
+  StoppingDistance: 0.2
   AutoBreaking: 1
 --- !u!114 &1426943083775565600
 MonoBehaviour:
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1110421936909803441}
-  privateRabbitSpeed: 3
+  privateRabbitSpeed: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -132,10 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0344116cd75eaaf488b894904a1649d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 26
+  Radius: 10
   Angle: 135
   Mode: 3
-  BlockedStop: 0
+  BlockedStop: 1
   UseWalls: 0
 --- !u!95 &2425392054954552351
 Animator:
@@ -168,6 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7165703314872733363}
   - component: {fileID: 1312841055110584486}
+  - component: {fileID: 370689274403331960}
   m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
@@ -233,7 +234,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 72b74f5cc71304545b6202cb2faff0df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -242,3 +243,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &370689274403331960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104717434529703765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7601b697b9cf84ebb5907cb8606063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
