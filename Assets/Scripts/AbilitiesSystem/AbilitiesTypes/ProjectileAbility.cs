@@ -1,6 +1,7 @@
 ﻿using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
+using Tzipory.EntitySystem.TargetingSystem;
 
 namespace Tzipory.AbilitiesSystem
 {
@@ -8,9 +9,9 @@ namespace Tzipory.AbilitiesSystem
     {
         public Stat ProjectileSpeed { get;}
         
-        public ProjectileAbility(IEntityTargetAbleComponent entityCaster, AbilityConfig config) : base(entityCaster, config)
+        public ProjectileAbility(IEntityTargetingComponent entityCasterTargetingComponent, AbilityConfig config) : base(entityCasterTargetingComponent,config)
         {
-            if (StatsValue.TryGetValue("ProjectileSpeed",out Stat projectileSpeed))
+            if (AbilityParameter.TryGetValue("ProjectileSpeed",out Stat projectileSpeed))
                 ProjectileSpeed = projectileSpeed;
             else
                 throw new System.Exception($"{nameof(ProjectileAbility)} ProjectileSpeed not found");

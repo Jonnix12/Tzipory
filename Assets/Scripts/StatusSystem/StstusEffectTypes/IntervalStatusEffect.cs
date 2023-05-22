@@ -1,33 +1,48 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Tzipory.EntitySystem.StatusSystem
 {
     internal sealed class IntervalStatusEffect : BaseStatusEffect
     {
-        private readonly float _interval;
-        private float _duration;
-        private float _currentInterval;
+        private const string INTERVAL_KEY = "Interval";
+        private const string DURATION_KEY = "Duration";
         
-        public IntervalStatusEffect(float duration, float interval, Stat stat, StatModifier[] statModifiers) : base(stat,statModifiers)
+        private readonly Stat _interval;
+        private readonly Stat _duration;
+        
+        private float _currentInterval;
+        private float _currentDuration;
+        
+        public IntervalStatusEffect(StatusEffectConfig statusEffectConfig) : base(statusEffectConfig)
         {
-            _duration = duration;
-            _interval  = interval;
-            _currentInterval = interval;
+
+            if (statusEffectConfig.TryGetParameter(INTERVAL_KEY, out var intervalStat))
+                _interval = new Stat(intervalStat.Name, intervalStat.BaseValue, intervalStat.MaxValue, intervalStat.Id);
+            else
+                throw new Exception($"{INTERVAL_KEY} was not found");
+            if (statusEffectConfig.TryGetParameter(DURATION_KEY, out var durationStat))
+                _duration = new Stat(durationStat.Name, durationStat.BaseValue, durationStat.MaxValue, intervalStat.Id);
+            else
+                throw new Exception($"{DURATION_KEY} was not found");
+
+            _currentInterval = _interval.CurrentValue;
+            _currentDuration = _duration.CurrentValue;
         }
 
-        protected override void StatusEffectStart()
+        public override void StatusEffectStart()
         {
             foreach (var statModifier in modifiers)
-                statModifier.Process(stat);
+                statModifier.Process(currentStat);
             
             base.StatusEffectStart();
         }
 
         public override void Execute()
         {
-            _duration -= Time.deltaTime;
+            _currentDuration -= Time.deltaTime;
 
-            if (_duration < 0)
+            if (_currentDuration < 0)
             {
                 StatusEffectFinish();
                 return;
@@ -36,9 +51,14 @@ namespace Tzipory.EntitySystem.StatusSystem
             _currentInterval -= Time.deltaTime;
             if (_currentInterval <= 0)
             {
-                _currentInterval = _interval;
+                _currentInterval = _interval.CurrentValue;
                 foreach (var statModifier in modifiers)
-                    statModifier.Process(stat);
+                {
+#if UNITY_EDITOR
+                    Debug.Log($"Execute effect {currentStat.Name} by {statModifier.Modifier.CurrentValue}");    
+#endif
+                    statModifier.Process(currentStat);
+                }
             }
         }
     }

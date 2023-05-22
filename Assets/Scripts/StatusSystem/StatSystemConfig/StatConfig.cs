@@ -2,7 +2,7 @@
 
 namespace Tzipory.EntitySystem.StatusSystem.StatSystemConfig
 {
-    [CreateAssetMenu(fileName = "NewStat", menuName = "ScriptableObjects/EntitySystem/StatusSystem/New stat", order = 0)]
+    [CreateAssetMenu(fileName = "NewStat", menuName = "ScriptableObjects/EntitySystem/StatusSystem/New statName", order = 0)]
     public class StatConfig : ScriptableObject
     {
         [SerializeField] private int _id;

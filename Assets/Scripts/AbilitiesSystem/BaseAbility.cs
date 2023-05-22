@@ -5,6 +5,7 @@ using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.TargetingSystem;
+using Tzipory.EntitySystem.TargetingSystem.TargetingPriorites;
 using Tzipory.Helpers;
 using UnityEngine;
 
@@ -18,28 +19,24 @@ namespace Tzipory.AbilitiesSystem
         public TargetType TargetType { get; }//not in use
 
         public EffectType EffectType { get; }//not in use
+
+        protected Dictionary<string, Stat> AbilityParameter { get; }
+
+        protected List<BaseStatusEffect> StatusEffects { get; }
         
+        protected IEntityTargetingComponent entityCasterTargetingComponent;
+
+        private Stat Cooldown { get; }
+
+        private Stat CastTime { get; }
         
-        protected Stat Cooldown { get; }
-
-        protected Stat CastTime { get; }
-
-        protected bool IsReady { get; private set; }
-
-        protected Dictionary<string, Stat> StatsValue { get; }
-
-        protected List<StatusEffectConfig> StatusEffect { get; }
+        private bool _isReady;
         
-
-        protected readonly BaseAbilityCaster abilityCaster;//may need to be remove
+        private IPriorityTargeting _entityTargetingComponent;
         
-        protected IEntityTargetAbleComponent entityCaster;
-
-        private IPriorityTargeting _priorityTargeting;
-        
-        protected BaseAbility(IEntityTargetAbleComponent entityCaster,AbilityConfig config)
+        protected BaseAbility(IEntityTargetingComponent entityCasterTargetingComponent,AbilityConfig config)
         {
-            this.entityCaster = entityCaster;
+            this.entityCasterTargetingComponent = entityCasterTargetingComponent;
             
             AbilityName = config.AbilityName;
             AbilityId = config.AbilityId;
@@ -47,12 +44,12 @@ namespace Tzipory.AbilitiesSystem
             TargetType = config.TargetType;
             EffectType = config.EffectType;
 
-            StatsValue = new Dictionary<string, Stat>();
+            AbilityParameter = new Dictionary<string, Stat>();
 
-            foreach (var statConfig in config.StatsConfig)
+            foreach (var abilityParameter in config.AbilityParameter)
             {
-                var stat = new Stat(statConfig.StatName, statConfig.BaseValue, statConfig.MaxValue,statConfig.ID);
-                StatsValue.Add(stat.Name,stat);
+                var stat = new Stat(abilityParameter.Name, abilityParameter.BaseValue, abilityParameter.MaxValue,abilityParameter.Id);
+                AbilityParameter.Add(stat.Name,stat);
             }
 
             Cooldown = new Stat(config.Cooldown.Name, config.Cooldown.BaseValue, config.Cooldown.MaxValue,
@@ -60,30 +57,45 @@ namespace Tzipory.AbilitiesSystem
             CastTime = new Stat(config.CastTime.Name, config.CastTime.BaseValue, config.CastTime.MaxValue,
                 config.CastTime.Id);
 
-            StatusEffect = config.StatusEffect;
+            StatusEffects = new List<BaseStatusEffect>();
+
+            foreach (var statusEffectConfig in config.StatusEffectConfigs)
+                StatusEffects.Add(StatusHandler.GetStatusEffect(statusEffectConfig));
+
+            switch (config.TargetingPriority)
+            {
+                case TargetingPriority.ClosesToEntity:
+                    _entityTargetingComponent = new ClosestTarget(entityCasterTargetingComponent);
+                    break;
+                default:
+                    _entityTargetingComponent = entityCasterTargetingComponent.DefaultPriorityTargeting;
+                    break;
+            }
+            
+            _isReady = true;
         }
 
         public IEnumerator Execute(IEnumerable<IEntityTargetAbleComponent> availableTarget)
         {
-            if (!IsReady)
+            if (!_isReady)
                 yield break;
+            
+            _isReady = false;
 
             yield return new WaitForSeconds(CastTime.CurrentValue);//may need to by set in tick
             
-            Cast(_priorityTargeting.GetPriorityTarget(availableTarget));
+            Cast(_entityTargetingComponent.GetPriorityTarget(availableTarget));
             
-            CoroutineHelper.Instance.StartCoroutine(StartCooldown());
+            CoroutineHelper.Instance.StartCoroutineHelper(StartCooldown());
         }
 
         protected abstract void Cast(IEntityTargetAbleComponent target);
 
         private IEnumerator StartCooldown()//may need to by set in tick
         {
-            IsReady = false;
-
             yield return new WaitForSeconds(Cooldown.CurrentValue);
 
-            IsReady = true;
+            _isReady = true;
         }
     }
 

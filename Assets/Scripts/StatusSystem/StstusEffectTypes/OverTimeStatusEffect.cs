@@ -1,36 +1,44 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Tzipory.EntitySystem.StatusSystem
 {
     internal sealed class OverTimeStatusEffect : BaseStatusEffect
     {
-        private float _duration;
+        private const string DURATION_KEY = "Duration";
+        private Stat _duration;
+        private float _currentDuration;
         
-        public OverTimeStatusEffect(float duration,Stat stat, StatModifier[] modifiers) : base(stat, modifiers)
+        public OverTimeStatusEffect(StatusEffectConfig statusEffectConfig) : base(statusEffectConfig)
         {
-            _duration = duration;
-            StatusEffectStart();
+            if (statusEffectConfig.TryGetParameter(DURATION_KEY,out var stat))
+                _duration = new Stat(stat.Name,stat.BaseValue,stat.MaxValue,stat.Id);
+            else
+                throw new Exception($"{DURATION_KEY} was not found");
+
+            _currentDuration = _duration.CurrentValue;
         }
 
-        protected sealed override void StatusEffectStart()
+
+        public override void StatusEffectStart()
         {
             foreach (var statModifier in modifiers)
-                statModifier.Process(stat);
+                statModifier.Process(currentStat);
             base.StatusEffectStart();
         }
 
         public override void Execute()
         {
-            _duration -= Time.deltaTime;
+            _currentDuration -= Time.deltaTime;
 
-            if (_duration < 0)
+            if (_currentDuration < 0)
                 StatusEffectFinish();
         }
 
         protected override void StatusEffectFinish()
         {
             foreach (var statModifier in modifiers)
-                statModifier.UnDo(stat);
+                statModifier.UnDo(currentStat);
             base.StatusEffectFinish();
         }
     }

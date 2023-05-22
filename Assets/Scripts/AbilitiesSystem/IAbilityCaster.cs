@@ -5,7 +5,7 @@ namespace Tzipory.AbilitiesSystem
 {
     public interface IAbilityCaster
     {
-        public IEntityTargetAbleComponent Caster { get; }
+        public IEntityTargetingComponent Caster { get; }
         public Dictionary<string, BaseAbility> Abilities { get; }
     }
 }

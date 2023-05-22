@@ -15,6 +15,8 @@ namespace Tzipory.EntitySystem.Entitys
     {
         #region Fields
 
+        [SerializeField] private EntityTeamType _entityTeam;//temp
+
 #if UNITY_EDITOR
         [SerializeField, ReadOnly] private List<Stat> _stats;
 #endif
@@ -50,7 +52,9 @@ namespace Tzipory.EntitySystem.Entitys
             foreach (var stat in _config.Stats)
                 stats.Add(new Stat(stat.Name,stat.BaseValue,stat.MaxValue,stat.Id));
             _stats = stats;
-            StatusHandler = new StatusHandler(stats);
+            StatusHandler = new StatusHandler(stats,this);
+
+            AbilityHandler = new AbilityHandler(this, this, _config.AbilityConfigs);
         }
         
         protected virtual void Update()
@@ -87,6 +91,8 @@ namespace Tzipory.EntitySystem.Entitys
         #endregion
 
         #region TargetingComponent
+
+        public EntityTeamType EntityTeamType => _entityTeam;
         
         public IPriorityTargeting DefaultPriorityTargeting { get; private set; }
         public ITargeting TargetingHandler { get; set; }
@@ -186,7 +192,7 @@ namespace Tzipory.EntitySystem.Entitys
 
         #region AbilityComponent
         
-        public AbilityHandler AbilityHandler { get; }
+        public AbilityHandler AbilityHandler { get; private set; }
 
         #endregion
 

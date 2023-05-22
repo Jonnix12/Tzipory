@@ -3,15 +3,14 @@ namespace Tzipory.EntitySystem.StatusSystem
 {
     internal sealed class InstantStatusEffect : BaseStatusEffect
     {
-        public InstantStatusEffect(Stat stat, StatModifier[] statModifiers) : base(stat,statModifiers)
+        public InstantStatusEffect(StatusEffectConfig statusEffectConfig) : base(statusEffectConfig)
         {
-            StatusEffectStart();
         }
 
         public override void Execute()
         {
             foreach (var statModifier in modifiers)
-                statModifier.Process(stat);
+                statModifier.Process(currentStat);
 
             StatusEffectFinish();
         }

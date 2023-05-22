@@ -2,6 +2,7 @@
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.StatusSystem.StatSystemConfig;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
 {
@@ -20,10 +21,10 @@ namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
         [Header("Ability parameters")]
         [SerializeField,Tooltip("")] private Stat _cooldown;
         [SerializeField,Tooltip("")] private Stat _castTime;
-        [SerializeField,Tooltip("")] private List<StatConfig> _statsConfig;
-        [SerializeField,Tooltip("")] private List<StatusEffectConfig> _statusEffect;
+        [FormerlySerializedAs("_statsConfig")] [SerializeField,Tooltip("")] private List<Stat> abilityParameter;
+        [FormerlySerializedAs("_statusEffect")] [SerializeField,Tooltip("")] private List<StatusEffectConfig> _statusEffectConfigs;
         
-        public List<StatConfig> StatsConfig => _statsConfig;
+        public List<Stat> AbilityParameter => abilityParameter;
         
         public string AbilityName => _abilityName;
 
@@ -43,7 +44,7 @@ namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
 
         public EffectType EffectType => _effectType;
         
-        public List<StatusEffectConfig> StatusEffect => _statusEffect;
+        public List<StatusEffectConfig> StatusEffectConfigs => _statusEffectConfigs;
     }
 
     public enum AbilityType

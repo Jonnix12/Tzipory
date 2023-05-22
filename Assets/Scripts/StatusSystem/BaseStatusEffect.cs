@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Tzipory.EntitySystem.StatusSystem
 {
@@ -7,25 +8,39 @@ namespace Tzipory.EntitySystem.StatusSystem
         public event Action<int> OnStatusEffectStart;
         public event Action<int> OnStatusEffectDone;
 
-        protected Stat stat;
-        protected StatModifier[] modifiers;
+        protected List<StatModifier> modifiers;
 
-        public int StatusEffectId => stat.Id;
+        public string StatName { get; }
+        public int StatusEffectId { get; }
 
-        protected BaseStatusEffect(Stat stat,StatModifier[] modifiers)
+        protected Stat currentStat;
+
+        protected BaseStatusEffect(StatusEffectConfig statusEffectConfig)
         {
-            this.stat = stat;
-            this.modifiers = modifiers;
+            StatName = statusEffectConfig.StatName;
+            StatusEffectId = statusEffectConfig.StatId;
+            modifiers = new List<StatModifier>();
+
+            foreach (var modifier in statusEffectConfig.StatModifier)
+            {
+                modifiers.Add(new StatModifier(modifier.Modifier, modifier.ModifierType));
+            }
+            //need to add 
         }
 
-        protected virtual void StatusEffectStart()
+        public virtual void StatusEffectStart()
         {
             OnStatusEffectStart?.Invoke(StatusEffectId);
         }
-        
+
         protected virtual void StatusEffectFinish()
         {
             OnStatusEffectDone?.Invoke(StatusEffectId);
+        }
+
+        public void SetStat(Stat stat)
+        {
+            currentStat = stat;
         }
         
         public abstract void Execute();

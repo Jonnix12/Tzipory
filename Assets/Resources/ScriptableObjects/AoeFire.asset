@@ -12,13 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929bf20fee544513a43c5c82f42f499a, type: 3}
   m_Name: AoeFire
   m_EditorClassIdentifier: 
-  _abilityId: 0
-  _abilityName: 
+  _abilityId: 1
+  _abilityName: AoeFire
   _abilityType: 0
   _abilityActionType: 0
-  _targetType: 0
-  _effectType: 0
-  _cooldown: {fileID: 0}
-  _castTime: {fileID: 0}
-  _statsConfig: []
+  _targetingPriority: 0
+  _targetType: 1
+  _effectType: 1
+  _cooldown:
+    _name: Cooldown
+    _id: 2
+    _baseValue: 3
+    _currentValue: 0
+  _castTime:
+    _name: Cast Time
+    _id: 3
+    _baseValue: 1
+    _currentValue: 0
+  _statsConfig:
+  - _name: Radius
+    _id: 4
+    _baseValue: 2
+    _currentValue: 0
+  - _name: Duration
+    _id: 5
+    _baseValue: 3
+    _currentValue: 0
   _statusEffect: []

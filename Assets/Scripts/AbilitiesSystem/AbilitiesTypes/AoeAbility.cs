@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Tzipory.AbilitiesSystem.AbilityConfigSystem;
+﻿using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
-using Tzipory.EntitySystem.TargetingSystem;
 using UnityEngine;
 
 namespace Tzipory.AbilitiesSystem
@@ -13,14 +11,14 @@ namespace Tzipory.AbilitiesSystem
         public Stat Duration { get; private set; }
 
 
-        public AoeAbility(IEntityTargetAbleComponent entityCaster, AbilityConfig config) : base(entityCaster, config)
+        public AoeAbility(IEntityTargetingComponent entityCasterTargetingComponent ,AbilityConfig config) : base(entityCasterTargetingComponent ,config)
         {
-            if(StatsValue.TryGetValue("Radius", out Stat radius))
+            if(AbilityParameter.TryGetValue("Radius", out Stat radius))
                 Radius = radius;
             else
                 throw new System.Exception($"{nameof(AoeAbility)} Radius not found");
             
-            if(StatsValue.TryGetValue("Duration", out Stat duration))
+            if(AbilityParameter.TryGetValue("Duration", out Stat duration))
                 Duration = duration;
             else
                 throw new System.Exception($"{nameof(AoeAbility)} Duration not found");
@@ -28,13 +26,18 @@ namespace Tzipory.AbilitiesSystem
 
         protected override void Cast(IEntityTargetAbleComponent target)
         {
-            var colliders = Physics.OverlapSphere(target.EntityTransform.position, Radius.CurrentValue);
-
+            var colliders = Physics2D.OverlapCircleAll(target.EntityTransform.position, Radius.CurrentValue);
             foreach (var collider in colliders)
             {
+                if(collider.isTrigger)
+                    continue;
+                
                 if (collider.TryGetComponent(out IEntityTargetAbleComponent entityTargetAbleComponent))
                 {
-                    abilityCaster.Cast(target);
+                    Debug.Log($"Cast on {entityTargetAbleComponent.EntityTransform.name}");
+                    
+                    foreach (var statusEffect in StatusEffects)
+                        entityTargetAbleComponent.StatusHandler.AddStatusEffect(statusEffect);
                 }
             }
         }

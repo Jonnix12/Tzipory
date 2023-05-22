@@ -1,18 +1,23 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Tzipory.EntitySystem.StatusSystem
 {
+    [Serializable]
     public class StatModifier
     {
-        public StatusModifierType ModifierType { get; private set; }    
-        public Stat Modifier { get; private set; }
+        [SerializeField] private StatusModifierType _statusModifierType;
+        [SerializeField] private Stat _modifier;
+
+        public StatusModifierType ModifierType => _statusModifierType;
+        public Stat Modifier => _modifier;
         
-        private float  _value;
+        private float _value;
 
         public StatModifier(Stat modifier,StatusModifierType statusModifierType)
         {
-            Modifier = modifier;
-            ModifierType = statusModifierType;
+            _modifier = new Stat(modifier.Name,modifier.BaseValue,modifier.MaxValue,modifier.Id);
+            _statusModifierType = statusModifierType;
         }
 
         public void Process(Stat stat)

@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1e065fac3b46878dc2431931f9e290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stats: []
   _bodyCollider: {fileID: 1800454651558910966}
   _rangeCollider: {fileID: 9062997416361594811}
   _config: {fileID: 11400000, guid: d70639d457685f643a3e0fc3fc9e32aa, type: 2}
@@ -147,7 +148,7 @@ CircleCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 3
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
