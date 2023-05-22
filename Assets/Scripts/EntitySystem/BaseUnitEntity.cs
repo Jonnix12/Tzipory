@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Tzipory.AbilitiesSystem;
 using Tzipory.EntitySystem.EntityComponents;

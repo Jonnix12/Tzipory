@@ -29,7 +29,7 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
             //  1)Letting each Stat implement either the base virtual type of stacking
             //  2) 
 
-            _stats.Add(statConfig);
+            //_stats.Add(statConfig);
         }
     }
 }
