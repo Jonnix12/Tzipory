@@ -59,6 +59,12 @@ namespace Tzipory.EntitySystem.StatusSystem
                 case StatusModifierType.Set:
                     //set dos not have a undo
                     break;
+                case StatusModifierType.Reduce:
+                    stat.ReduceFromValue(_value);
+                    break;
+                case StatusModifierType.Divide:
+                    stat.DivideValue(_value);   
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(ModifierType), ModifierType, null);
             }
@@ -69,7 +75,9 @@ namespace Tzipory.EntitySystem.StatusSystem
     {
         Set,
         Addition,
+        Reduce,
         Multiplication,
+        Divide,
         Percentage
     }
 }

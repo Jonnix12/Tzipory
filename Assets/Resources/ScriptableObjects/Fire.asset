@@ -14,6 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _statName: Hp
   _statId: 2
-  _statusEffectType: 0
+  _statusEffectParameter:
+  - _name: Interval
+    _id: 0
+    _baseValue: 1
+    _currentValue: 0
+  - _name: Duration
+    _id: 0
+    _baseValue: 60
+    _currentValue: 0
+  _statusEffectType: 2
   _statModifier:
-  - {fileID: 11400000, guid: a67f71d642fd80242b670c13db30b7e8, type: 2}
+  - _statusModifierType: 1
+    _modifier:
+      _name: HpRedus
+      _id: 10
+      _baseValue: -2
+      _currentValue: 0

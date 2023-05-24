@@ -29,7 +29,7 @@ MonoBehaviour:
     _id: 3
     _baseValue: 1
     _currentValue: 0
-  _statsConfig:
+  abilityParameter:
   - _name: Radius
     _id: 4
     _baseValue: 2
@@ -38,4 +38,5 @@ MonoBehaviour:
     _id: 5
     _baseValue: 3
     _currentValue: 0
-  _statusEffect: []
+  _statusEffectConfigs:
+  - {fileID: 11400000, guid: b88d00e68281c724c889c9df070b136a, type: 2}

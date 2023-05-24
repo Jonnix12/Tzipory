@@ -31,9 +31,12 @@ namespace Tzipory.AbilitiesSystem
             {
                 if(collider.isTrigger)
                     continue;
-                
+
                 if (collider.TryGetComponent(out IEntityTargetAbleComponent entityTargetAbleComponent))
                 {
+                    if (entityCasterTargetingComponent.EntityTeamType == entityTargetAbleComponent.EntityTeamType)//temp!!! need to be able to activate status effect on friendly
+                        continue;
+                    
                     Debug.Log($"Cast on {entityTargetAbleComponent.EntityTransform.name}");
                     
                     foreach (var statusEffect in StatusEffects)

@@ -41,7 +41,6 @@ namespace Tzipory.EntitySystem.StatusSystem
         public void AddToValue(float amount)=>
             _currentValue += amount;
         
-
         public void ReduceFromValue(float amount)=>
             _currentValue -= amount;
         

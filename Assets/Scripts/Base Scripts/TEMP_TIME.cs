@@ -30,7 +30,7 @@ public class TEMP_TIME : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(Tick);
-            Debug.Log("tick.");
+//            Debug.Log("tick.");
             GameTime += Tick;
             OnGameTimeTick?.Invoke();
         }

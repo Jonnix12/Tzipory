@@ -95,7 +95,7 @@ namespace Tzipory.EntitySystem.Entitys
 
         #region TargetingComponent
 
-        public EntityTeamType EntityTeamType => _entityTeam;
+        public EntityTeamType EntityTeamType => _entityTeam;//temp
         
         public IPriorityTargeting DefaultPriorityTargeting { get; private set; }
         public ITargeting TargetingHandler { get; set; }
