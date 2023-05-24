@@ -1,6 +1,10 @@
 ﻿using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace Tzipory.AbilitiesSystem
@@ -36,7 +40,9 @@ namespace Tzipory.AbilitiesSystem
                 {
                     if (entityCasterTargetingComponent.EntityTeamType == entityTargetAbleComponent.EntityTeamType)//temp!!! need to be able to activate status effect on friendly
                         continue;
-                    
+#if UNITY_EDITOR
+                    //UnityEditor.Handles.DrawSolidDisc(target.EntityTransform.position,-Vector3.forward, Radius.CurrentValue);
+#endif
                     Debug.Log($"Cast on {entityTargetAbleComponent.EntityTransform.name}");
                     
                     foreach (var statusEffect in StatusEffects)
@@ -45,4 +51,13 @@ namespace Tzipory.AbilitiesSystem
             }
         }
     }
+    
+    #if UNITY_EDITOR
+
+    internal class AOEEditor : Editor
+    {
+        
+    }
+    
+    #endif
 }

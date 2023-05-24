@@ -43,7 +43,7 @@ namespace MovementSystem.HerosMovementSystem
                 var screenPos = Mouse.current.position.ReadValue();
                 var worldPos = _camera.ScreenToWorldPoint(screenPos);
                 worldPos = new Vector3(worldPos.x, worldPos.y, 0);
-                _currentTarget.transform.position = worldPos;
+                _currentTarget.SetTarget(worldPos);
                 Debug.Log("Set new pos");
                 OnMove?.Invoke(worldPos);
 

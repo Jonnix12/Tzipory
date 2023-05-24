@@ -29,9 +29,9 @@ namespace Tzipory.EntitySystem.TargetingSystem
             _availableTargets.Add(targetAbleComponent);
         }
 
-        public void RemoveTarget()
+        public void RemoveTarget(IEntityTargetAbleComponent targetAbleComponent)
         {
-            throw new System.NotImplementedException();
+            _availableTargets.Remove(targetAbleComponent);
         }
     }
 }

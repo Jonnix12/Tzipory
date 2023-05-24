@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TEMP_TIME : MonoBehaviour
@@ -13,7 +12,6 @@ public class TEMP_TIME : MonoBehaviour
 
 
     //SACLED DELTA TIME (smoothStep)
-
     float Tick => TimeStep / TimeRate;
     public static float GameTime;
 

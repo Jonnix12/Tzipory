@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Tzipory.AbilitiesSystem;
 using Tzipory.EntitySystem.EntityComponents;
@@ -13,9 +14,7 @@ namespace Tzipory.EntitySystem.Entitys
     public abstract class BaseUnitEntity : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent , IEntityAbilitiesComponent
     {
         #region Fields
-
-        [SerializeField] private EntityTeamType _entityTeam;//temp
-
+        
 #if UNITY_EDITOR
         [SerializeField, ReadOnly] private List<Stat> _stats;
 #endif
@@ -58,6 +57,8 @@ namespace Tzipory.EntitySystem.Entitys
             StatusHandler = new StatusHandler(stats,this);
 
             AbilityHandler = new AbilityHandler(this, this, _config.AbilityConfigs);
+
+            _rangeCollider.isTrigger = true;
         }
         
         protected virtual void Update()
@@ -72,21 +73,21 @@ namespace Tzipory.EntitySystem.Entitys
             if (_target != null)
                 Attack();
             
-          //  _rangeCollider.radius = StatusHandler.GetStatByName(ATTACK_RANGE).CurrentValue;
+            _rangeCollider.radius = StatusHandler.GetStatByName(ATTACK_RANGE).CurrentValue;//temp
         }
 
         private void OnValidate()
         {
             if (_bodyCollider == null || _rangeCollider == null)
             {
-                var collider = GetComponents<CircleCollider2D>();
+                var colliders = GetComponents<CircleCollider2D>();
 
-                foreach (var collider2D in collider)
+                foreach (var collider in colliders)
                 {
-                    if (collider2D.isTrigger)
-                        _rangeCollider = collider2D;
+                    if (collider.isTrigger)
+                        _rangeCollider = collider;
                     else
-                        _bodyCollider = collider2D;
+                        _bodyCollider = collider;
                 }
             }
         }
@@ -95,7 +96,7 @@ namespace Tzipory.EntitySystem.Entitys
 
         #region TargetingComponent
 
-        public EntityTeamType EntityTeamType => _entityTeam;//temp
+        public EntityTeamType EntityTeamType { get; protected set; }
         
         public IPriorityTargeting DefaultPriorityTargeting { get; private set; }
         public ITargeting TargetingHandler { get; set; }
@@ -134,11 +135,6 @@ namespace Tzipory.EntitySystem.Entitys
                 HP.ReduceFromValue(damage);
                 IsDamageable = false;
             }
-
-            if (HP.CurrentValue < 0)
-            {
-                //dead                
-            }
         }
 
         private void HealthComponentUpdate()
@@ -152,6 +148,11 @@ namespace Tzipory.EntitySystem.Entitys
                     IsDamageable = true;
                     _currentInvincibleTime = InvincibleTime.CurrentValue;
                 }
+            }
+            
+            if (HP.CurrentValue < 0)
+            {
+                Destroy(gameObject);//temp            
             }
         }
 
@@ -214,6 +215,10 @@ namespace Tzipory.EntitySystem.Entitys
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            if (other.gameObject.TryGetComponent<BaseUnitEntity>(out BaseUnitEntity unitEntity))
+            {
+                TargetingHandler.RemoveTarget(unitEntity);
+            }
         }
 
         #endregion

@@ -41,7 +41,7 @@ MonoBehaviour:
     _currentValue: 0
   - _name: Attack Range
     _id: 7
-    _baseValue: 10
+    _baseValue: 4
     _currentValue: 0
   - _name: Move Speed
     _id: 8

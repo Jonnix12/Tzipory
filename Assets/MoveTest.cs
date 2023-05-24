@@ -1,44 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using ProjectDawn.Navigation.Hybrid;
 using PathCreation;
-using System;
+using Sirenix.OdinInspector;
 
 public class MoveTest : MonoBehaviour
 {
     //[SerializeField]
     //AgentNavMeshAuthoring agentNav;
     [SerializeField]
-    AgentAuthoring agent;
+    private AgentAuthoring agent;
     [SerializeField]
-    float privateRabbitSpeed;
+    private float privateRabbitSpeed;
     [SerializeField]
-    float finalLoopSpeed;
+    private float finalLoopSpeed;
 
-    float privateRabbitProgress;
+    private float privateRabbitProgress;
 
     static Camera cam;
     [SerializeField]
-    LayerMask layerMask;
+    private LayerMask layerMask;
 
     [SerializeField]
-    Transform _followRabbit;
+     private Transform _followRabbit;
     
-    PathCreator pathCreator;
-    PathCreator finalDestinaion;
-
-   
+    private PathCreator pathCreator;
+    private PathCreator finalDestinaion;
+#if UNITY_EDITOR
+    [Header("Test")] [SerializeField] private Transform _target;
+#endif
     
-    private void OnDisable()
-    {
-        //TEMP_TIME.OnGameTimeTick -= GoToRabbit;
-        TEMP_TIME.OnGameTimeTick -= AdvanceOnPath;
-        TEMP_TIME.OnGameTimeTick -= CircleFinalDestination;
-
-    }
-
-   
     public void SetPath(PathCreator pc, PathCreator finalDest)
     {
         finalDestinaion = finalDest;
@@ -46,21 +36,21 @@ public class MoveTest : MonoBehaviour
         pathCreator = pc;
         
         TEMP_TIME.OnGameTimeTick += AdvanceOnPath;
-
-        
-
     }
 
-  
-    void AdvanceOnPath()
+    private void OnDisable()
+    {
+        //TEMP_TIME.OnGameTimeTick -= GoToRabbit;
+        TEMP_TIME.OnGameTimeTick -= AdvanceOnPath;
+        TEMP_TIME.OnGameTimeTick -= CircleFinalDestination;
+    }
+
+    private void AdvanceOnPath()
     {
         Vector3 pointOnPath = pathCreator.path.GetPointAtDistance(privateRabbitProgress, EndOfPathInstruction.Stop);
-
-
+        
         agent.SetDestination(pointOnPath);
-
-
-       
+        
         if (Vector3.Distance(transform.position, pointOnPath) <= privateRabbitSpeed/2f)
         {
             privateRabbitProgress += privateRabbitSpeed;
@@ -71,12 +61,10 @@ public class MoveTest : MonoBehaviour
                 privateRabbitProgress = 0f;
                 TEMP_TIME.OnGameTimeTick += CircleFinalDestination;
             }
-
         }
-       
     }
 
-    void CircleFinalDestination()
+    private void CircleFinalDestination()
     {
         Vector3 pointOnPath = finalDestinaion.path.GetPointAtDistance(privateRabbitProgress, EndOfPathInstruction.Loop);
         if (Vector3.Distance(transform.position, finalDestinaion.path.GetClosestPointOnPath(transform.position)) <= 2f)
@@ -85,6 +73,10 @@ public class MoveTest : MonoBehaviour
         }
         agent.SetDestination(pointOnPath);
     }
-
-  
+    
+    [Button("Test movement")]
+    private void TestMovement()
+    {
+        agent.SetDestination(_target.position);
+    }
 }

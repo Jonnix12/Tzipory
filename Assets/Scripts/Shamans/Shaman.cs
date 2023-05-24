@@ -1,4 +1,5 @@
-﻿using Tzipory.EntitySystem.Entitys;
+﻿using Tzipory.EntitySystem.EntityComponents;
+using Tzipory.EntitySystem.Entitys;
 using UnityEngine;
 
 namespace Shamans
@@ -6,6 +7,12 @@ namespace Shamans
     public class Shaman : BaseUnitEntity
     {
         private float _currentAttackRate;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            EntityTeamType = EntityTeamType.Hero;
+        }
 
         public override void Attack()
         {

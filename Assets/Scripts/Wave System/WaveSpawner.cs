@@ -1,9 +1,7 @@
-using Tzipory;
 using Tzipory.Helpers;
 using UnityEngine;
 using UnityEngine.Events;
 using PathCreation;
-using PathCreation.Examples;
 
 [System.Serializable]
 public class WaveSpawner : MonoBehaviour
@@ -40,7 +38,7 @@ public class WaveSpawner : MonoBehaviour
     public void CallSpawnRandomWave()
     {
         
-        Debug.Log($"{name} began spawning.");
+//        Debug.Log($"{name} began spawning.");
 
         //pf = Instantiate(rabbitPrefab, myPathCreator.transform).GetComponent<PathFollower>();
 
@@ -80,7 +78,7 @@ public class WaveSpawner : MonoBehaviour
 
         if (doneCount == _currentWaveGroup.enemyGroups.Length)
         {
-            Debug.Log($"{name} completed spawning and is unsubbing from tick");
+          //  Debug.Log($"{name} completed spawning and is unsubbing from tick");
             IsSpawnning = false;
             OnSpawnEnd.Invoke();
             _currentWaveGroup.isLive = false;

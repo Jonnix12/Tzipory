@@ -75,7 +75,7 @@ public class LevelManager : MonoBehaviour
                 WaveSpawner ws = _waveSpawners.GetRandomElementFromList();
                 if (ws.IsSpawnning) //This may call the same spawner twice - sometimes causing less simultanious spawners than max
                 {
-                    Debug.Log($"{ws.name} is aleady spawning!");
+                    //Debug.Log($"{ws.name} is aleady spawning!");
                     continue;
                 }
                 ws.CallSpawnRandomWave();
