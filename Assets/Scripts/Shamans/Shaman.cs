@@ -16,7 +16,7 @@ namespace Shamans
 
         public override void Attack()
         {
-            AbilityHandler.CastAbilityByName("AoeFire",TargetingHandler.AvailableTargets);
+            AbilityHandler.CastAbilityByName("ProjectileTest",TargetingHandler.AvailableTargets);
             
             bool canAttack = false;
             
@@ -39,8 +39,8 @@ namespace Shamans
             
             Target.TakeDamage(AttackDamage.CurrentValue);
             
-            Debug.Log(
-                $"{Target.EntityTransform.name} been attacked by {gameObject.name}, hp left {Target.HP.CurrentValue}");
+          //  Debug.Log(
+            //    $"{Target.EntityTransform.name} been attacked by {gameObject.name}, hp left {Target.HP.CurrentValue}");
             
         }
     }

@@ -70,7 +70,7 @@ namespace Tzipory.EntitySystem.StatusSystem
             
             baseStatusEffect.StatusEffectStart();
 #if UNITY_EDITOR
-            Debug.Log($"Add Statues Effect on {_entity.EntityTransform.name}");
+         //   Debug.Log($"Add Statues Effect on {_entity.EntityTransform.name}");
 #endif
             _activeStatusEffects.Add(baseStatusEffect.StatusEffectId, baseStatusEffect);
             baseStatusEffect.OnStatusEffectDone += RemoveStatusEffect;

@@ -73,10 +73,11 @@ public class MoveTest : MonoBehaviour
         }
         agent.SetDestination(pointOnPath);
     }
-    
+#if UNITY_EDITOR
     [Button("Test movement")]
     private void TestMovement()
     {
         agent.SetDestination(_target.position);
     }
+#endif
 }

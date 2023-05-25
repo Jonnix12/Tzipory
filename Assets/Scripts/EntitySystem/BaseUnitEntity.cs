@@ -51,7 +51,9 @@ namespace Tzipory.EntitySystem.Entitys
             {
                 foreach (var stat in _config.Stats)
                     stats.Add(new Stat(stat.Name, stat.BaseValue, stat.MaxValue, stat.Id));
+#if UNITY_EDITOR
                 _stats = stats;
+#endif
             }
                
             StatusHandler = new StatusHandler(stats,this);

@@ -10,34 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 929bf20fee544513a43c5c82f42f499a, type: 3}
-  m_Name: AoeFire
+  m_Name: ProjectileTest
   m_EditorClassIdentifier: 
-  _abilityId: 1
-  _abilityName: AoeFire
-  _abilityType: 0
-  _abilityActionType: 0
+  _abilityId: 0
+  _abilityName: ProjectileTest
+  _abilityType: 2
+  _abilityActionType: 1
   _targetingPriority: 0
   _targetType: 1
   _effectType: 1
   _cooldown:
-    _name: Cooldown
-    _id: 2
-    _baseValue: 3
+    _name: 
+    _id: 0
+    _baseValue: 5
     _currentValue: 0
   _castTime:
-    _name: Cast Time
-    _id: 3
+    _name: 
+    _id: 0
     _baseValue: 1
     _currentValue: 0
   abilityParameter:
-  - _name: Radius
-    _id: 4
-    _baseValue: 2
-    _currentValue: 0
-  - _name: Duration
-    _id: 5
-    _baseValue: 3
+  - _name: ProjectileSpeed
+    _id: 0
+    _baseValue: 5
     _currentValue: 0
   _statusEffectConfigs:
   - {fileID: 11400000, guid: b88d00e68281c724c889c9df070b136a, type: 2}
-  - {fileID: 11400000, guid: 893d57d2a93463f4a9e65298f82c1bf0, type: 2}
