@@ -3,7 +3,7 @@ namespace Tzipory.EntitySystem.StatusSystem
 {
     internal sealed class InstantStatusEffect : BaseStatusEffect
     {
-        public InstantStatusEffect(StatusEffectConfig statusEffectConfig) : base(statusEffectConfig)
+        public InstantStatusEffect(StatusEffectConfigSo statusEffectConfigSo) : base(statusEffectConfigSo)
         {
         }
 

@@ -32,6 +32,22 @@ PrefabInstance:
       propertyPath: BlockedStop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: _onMove._id
+      value: 555
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: _onDeath._id
+      value: 666
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: _onAttack._id
+      value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: _onAttack._startDelay
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1761856195470886152, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: m_RootOrder
       value: 0

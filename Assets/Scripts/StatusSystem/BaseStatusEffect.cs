@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tzipory.VisualSystem.EffectSequence;
 
 namespace Tzipory.EntitySystem.StatusSystem
 {
@@ -7,21 +8,29 @@ namespace Tzipory.EntitySystem.StatusSystem
     {
         public event Action<int> OnStatusEffectStart;
         public event Action<int> OnStatusEffectDone;
-
+        public event  Action<int> OnStatusEffectInterrupt;
+        
         protected List<StatModifier> modifiers;
+        
+        protected Stat currentStat;
 
         public string StatName { get; }
         public int StatusEffectId { get; }
 
-        protected Stat currentStat;
+        public EffectSequence EffectSequence { get; }
 
-        protected BaseStatusEffect(StatusEffectConfig statusEffectConfig)
+        public List<StatusEffectConfigSo> StatusEffectToInterrupt { get; }
+        
+        protected BaseStatusEffect(StatusEffectConfigSo statusEffectConfigSo)
         {
-            StatName = statusEffectConfig.StatName;
-            StatusEffectId = statusEffectConfig.StatId;
+            StatName = statusEffectConfigSo.StatName;
+            StatusEffectId = statusEffectConfigSo.StatusEffectId;
+            StatusEffectToInterrupt = statusEffectConfigSo.StatusEffectToInterrupt;
+            EffectSequence = statusEffectConfigSo.EffectSequence;
+
             modifiers = new List<StatModifier>();
 
-            foreach (var modifier in statusEffectConfig.StatModifier)
+            foreach (var modifier in statusEffectConfigSo.StatModifier)
             {
                 modifiers.Add(new StatModifier(modifier.Modifier, modifier.ModifierType));
             }
@@ -31,6 +40,11 @@ namespace Tzipory.EntitySystem.StatusSystem
         public virtual void StatusEffectStart()
         {
             OnStatusEffectStart?.Invoke(StatusEffectId);
+        }
+
+        public virtual void StatusEffectInterrupt()
+        {
+            OnStatusEffectInterrupt?.Invoke(StatusEffectId);
         }
 
         protected virtual void StatusEffectFinish()

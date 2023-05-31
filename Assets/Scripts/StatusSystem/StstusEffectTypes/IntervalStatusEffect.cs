@@ -14,14 +14,14 @@ namespace Tzipory.EntitySystem.StatusSystem
         private float _currentInterval;
         private float _currentDuration;
         
-        public IntervalStatusEffect(StatusEffectConfig statusEffectConfig) : base(statusEffectConfig)
+        public IntervalStatusEffect(StatusEffectConfigSo statusEffectConfigSo) : base(statusEffectConfigSo)
         {
 
-            if (statusEffectConfig.TryGetParameter(INTERVAL_KEY, out var intervalStat))
+            if (statusEffectConfigSo.TryGetParameter(INTERVAL_KEY, out var intervalStat))
                 _interval = new Stat(intervalStat.Name, intervalStat.BaseValue, intervalStat.MaxValue, intervalStat.Id);
             else
                 throw new Exception($"{INTERVAL_KEY} was not found");
-            if (statusEffectConfig.TryGetParameter(DURATION_KEY, out var durationStat))
+            if (statusEffectConfigSo.TryGetParameter(DURATION_KEY, out var durationStat))
                 _duration = new Stat(durationStat.Name, durationStat.BaseValue, durationStat.MaxValue, intervalStat.Id);
             else
                 throw new Exception($"{DURATION_KEY} was not found");

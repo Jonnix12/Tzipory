@@ -9,9 +9,9 @@ namespace Tzipory.EntitySystem.StatusSystem
         private Stat _duration;
         private float _currentDuration;
         
-        public OverTimeStatusEffect(StatusEffectConfig statusEffectConfig) : base(statusEffectConfig)
+        public OverTimeStatusEffect(StatusEffectConfigSo statusEffectConfigSo) : base(statusEffectConfigSo)
         {
-            if (statusEffectConfig.TryGetParameter(DURATION_KEY,out var stat))
+            if (statusEffectConfigSo.TryGetParameter(DURATION_KEY,out var stat))
                 _duration = new Stat(stat.Name,stat.BaseValue,stat.MaxValue,stat.Id);
             else
                 throw new Exception($"{DURATION_KEY} was not found");

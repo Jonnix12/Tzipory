@@ -22,7 +22,7 @@ namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
         [SerializeField,Tooltip("")] private Stat _cooldown;
         [SerializeField,Tooltip("")] private Stat _castTime;
         [FormerlySerializedAs("_statsConfig")] [SerializeField,Tooltip("")] private List<Stat> abilityParameter;
-        [FormerlySerializedAs("_statusEffect")] [SerializeField,Tooltip("")] private List<StatusEffectConfig> _statusEffectConfigs;
+        [FormerlySerializedAs("_statusEffect")] [SerializeField,Tooltip("")] private List<StatusEffectConfigSo> _statusEffectConfigs;
         
         public List<Stat> AbilityParameter => abilityParameter;
         
@@ -44,7 +44,7 @@ namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
 
         public EffectType EffectType => _effectType;
         
-        public List<StatusEffectConfig> StatusEffectConfigs => _statusEffectConfigs;
+        public List<StatusEffectConfigSo> StatusEffectConfigs => _statusEffectConfigs;
     }
 
     public enum AbilityType

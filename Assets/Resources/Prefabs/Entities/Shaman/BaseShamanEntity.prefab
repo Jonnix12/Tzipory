@@ -108,6 +108,45 @@ MonoBehaviour:
   _stats: []
   _bodyCollider: {fileID: 1800454651558910966}
   _rangeCollider: {fileID: 9062997416361594811}
+  _spriteRenderer: {fileID: 3283759575882406242}
+  _visualQueueEffectPosition: {fileID: 4035925581322372237}
+  _particleEffectPosition: {fileID: 2622325397701654304}
+  _onDeath:
+    OnEffectSequenceStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEffectSequenceComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    _sequenceName: 
+    _id: 0
+    _startDelay: 0
+    _endDelay: 0
+    _effectActionSos: []
+  _onAttack:
+    OnEffectSequenceStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEffectSequenceComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    _sequenceName: 
+    _id: 0
+    _startDelay: 0
+    _endDelay: 0
+    _effectActionSos: []
+  _onMove:
+    OnEffectSequenceStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEffectSequenceComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    _sequenceName: 
+    _id: 0
+    _startDelay: 0
+    _endDelay: 0
+    _effectActionSos: []
   _config: {fileID: 11400000, guid: d70639d457685f643a3e0fc3fc9e32aa, type: 2}
 --- !u!58 &1800454651558910966
 CircleCollider2D:
@@ -267,6 +306,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6146916942116931940}
     m_Modifications:
+    - target: {fileID: 277900565620275194, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 871882582661858441, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -339,9 +382,24 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7799304460568292190}
   m_SourcePrefab: {fileID: 100100000, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
+--- !u!4 &2622325397701654304 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2287106194813289559, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
+  m_PrefabInstance: {fileID: 4312533064875832183}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3283759575882406242 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1606500935877454357, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
+  m_PrefabInstance: {fileID: 4312533064875832183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4017419154996197374 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 871882582661858441, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
+  m_PrefabInstance: {fileID: 4312533064875832183}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4035925581322372237 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 277900565620275194, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
   m_PrefabInstance: {fileID: 4312533064875832183}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7049967731696592419 stripped

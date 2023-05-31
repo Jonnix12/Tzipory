@@ -13,7 +13,7 @@ public class TEMP_TIME : MonoBehaviour
 
     //SACLED DELTA TIME (smoothStep)
     float Tick => TimeStep / TimeRate;
-    public static float GameTime;
+    public static float GameTimeDelta;
 
     public static Action OnGameTimeTick; //tbd static or private and static un/sub methods? - no added funtionality is really required to un/subbing that I can think of... 
 
@@ -22,14 +22,24 @@ public class TEMP_TIME : MonoBehaviour
         StartCoroutine(nameof(RunTime));
     }
 
+    public void StartTimer(float time)
+    {
+        StartCoroutine(nameof(RunTimer), time);
+    }
+
+    private IEnumerator RunTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+    }
+
     IEnumerator RunTime()
     {
-        GameTime = 0f;
+        GameTimeDelta = 0f;
         while(true)
         {
             yield return new WaitForSeconds(Tick);
 //            Debug.Log("tick.");
-            GameTime += Tick;
+            GameTimeDelta += Tick;
             OnGameTimeTick?.Invoke();
         }
     }

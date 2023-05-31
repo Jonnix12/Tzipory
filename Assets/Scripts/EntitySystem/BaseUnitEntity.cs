@@ -7,20 +7,14 @@ using Tzipory.EntitySystem.EntityConfigSystem;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.TargetingSystem;
 using Tzipory.EntitySystem.TargetingSystem.TargetingPriorites;
+using Tzipory.VisualSystem.EffectSequence;
 using UnityEngine;
 
 namespace Tzipory.EntitySystem.Entitys
 {
-    public abstract class BaseUnitEntity : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent , IEntityAbilitiesComponent
+    public abstract class BaseUnitEntity : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent , IEntityAbilitiesComponent,IEntityVisualComponent
     {
-        #region Fields
-        
-#if UNITY_EDITOR
-        [SerializeField, ReadOnly] private List<Stat> _stats;
-#endif
-        
-        [SerializeField] private CircleCollider2D _bodyCollider;
-        [SerializeField] private CircleCollider2D _rangeCollider;
+        #region Const
 
         private const string HEALTH = "Hp";
         private const string INVINCIBLE_TIME = "Invincible Time";
@@ -30,7 +24,27 @@ namespace Tzipory.EntitySystem.Entitys
         private const string ATTACK_RATE = "Attack Rate";
         private const string ATTACK_RANGE = "Attack Range";
         private const string MOVE_SPEED = "Move Speed";
+
+        #endregion
         
+        #region Fields
+        
+#if UNITY_EDITOR
+        [SerializeField, ReadOnly] private List<Stat> _stats;
+#endif
+        [Header("Component")]
+        [SerializeField] private CircleCollider2D _bodyCollider;
+        [SerializeField] private CircleCollider2D _rangeCollider;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private Transform _visualQueueEffectPosition;
+        [SerializeField] private Transform _particleEffectPosition;
+
+        [Header("Visual Events")] 
+        [SerializeField] private EffectSequence _onDeath;
+        [SerializeField] private EffectSequence _onAttack;
+        [SerializeField] private EffectSequence _onMove;
+        
+        [Header("Entity config")]
         [SerializeField] private BaseUnitEntityConfig _config;
         
         #endregion
@@ -57,7 +71,20 @@ namespace Tzipory.EntitySystem.Entitys
             }
                
             StatusHandler = new StatusHandler(stats,this);
+            
+            var effectSequence = new EffectSequence[]
+            {
+                _onDeath,
+                _onAttack,
+                _onMove
+            };
 
+            EffectSequenceHandler = new EffectSequenceHandler(this,effectSequence);
+
+            StatusHandler.OnStatusEffectInterrupt += EffectSequenceHandler.RemoveEffectSequence;
+            StatusHandler.OnStatusEffectAdded += AddStatusEffectVisual;
+            
+            
             AbilityHandler = new AbilityHandler(this, this, _config.AbilityConfigs);
 
             _rangeCollider.isTrigger = true;
@@ -92,6 +119,12 @@ namespace Tzipory.EntitySystem.Entitys
                         _bodyCollider = collider;
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            StatusHandler.OnStatusEffectInterrupt -= EffectSequenceHandler.RemoveEffectSequence;
+            StatusHandler.OnStatusEffectAdded -= AddStatusEffectVisual;
         }
 
         #endregion
@@ -154,7 +187,8 @@ namespace Tzipory.EntitySystem.Entitys
             
             if (HP.CurrentValue < 0)
             {
-                Destroy(gameObject);//temp            
+                Destroy(gameObject);//temp 
+                //effectplay
             }
         }
 
@@ -202,6 +236,19 @@ namespace Tzipory.EntitySystem.Entitys
         #region AbilityComponent
         
         public AbilityHandler AbilityHandler { get; private set; }
+
+        #endregion
+        
+        #region VisualComponent
+
+
+        public EffectSequenceHandler EffectSequenceHandler { get; private set; }
+        public SpriteRenderer SpriteRenderer => _spriteRenderer;
+        public Transform ParticleEffectPosition => _particleEffectPosition;
+        public Transform VisualQueueEffectPosition => _visualQueueEffectPosition;
+
+        private void AddStatusEffectVisual(BaseStatusEffect baseStatusEffect) =>
+            EffectSequenceHandler.ActiveEffectSequence(baseStatusEffect.EffectSequence);
 
         #endregion
 

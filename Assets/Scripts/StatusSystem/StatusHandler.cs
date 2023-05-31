@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tzipory.EntitySystem.EntityComponents;
 using UnityEngine;
@@ -7,6 +8,10 @@ namespace Tzipory.EntitySystem.StatusSystem
 {
     public class StatusHandler
     {
+        public event Action<BaseStatusEffect> OnStatusEffectAdded; 
+        public event Action<int> OnStatusEffectRemoved; 
+        public event Action<int> OnStatusEffectInterrupt; 
+
         private IEntityStatusEffectComponent _entity;
         
         private readonly Dictionary<int, Stat> _statsById;
@@ -69,11 +74,28 @@ namespace Tzipory.EntitySystem.StatusSystem
             baseStatusEffect.SetStat(GetStatByName(baseStatusEffect.StatName));
             
             baseStatusEffect.StatusEffectStart();
+            
 #if UNITY_EDITOR
          //   Debug.Log($"Add Statues Effect on {_entity.EntityTransform.name}");
 #endif
+            InterruptStatusEffects(baseStatusEffect.StatusEffectToInterrupt);
+            
             _activeStatusEffects.Add(baseStatusEffect.StatusEffectId, baseStatusEffect);
+            OnStatusEffectAdded?.Invoke(baseStatusEffect);
             baseStatusEffect.OnStatusEffectDone += RemoveStatusEffect;
+        }
+
+        private void InterruptStatusEffects(IEnumerable<StatusEffectConfigSo> effectConfigSos)
+        {
+            foreach (var effectConfigSo in effectConfigSos)
+            {
+                if (_activeStatusEffects.TryGetValue(effectConfigSo.StatusEffectId,out var statusEffect))
+                {
+                    statusEffect.StatusEffectInterrupt();
+                    _activeStatusEffects.Remove(effectConfigSo.StatusEffectId);
+                    OnStatusEffectInterrupt?.Invoke(statusEffect.StatusEffectId);
+                }
+            }
         }
 
         private void RemoveStatusEffect(int id)
@@ -81,17 +103,18 @@ namespace Tzipory.EntitySystem.StatusSystem
             if(_activeStatusEffects.TryGetValue(id, out BaseStatusEffect baseStatusEffect))
             {
                 baseStatusEffect.OnStatusEffectDone -= RemoveStatusEffect;
+                OnStatusEffectRemoved?.Invoke(baseStatusEffect.StatusEffectId);
                 _activeStatusEffects.Remove(id);
             }
         }
         
-        public static BaseStatusEffect GetStatusEffect(StatusEffectConfig statusEffectConfig)
+        public static BaseStatusEffect GetStatusEffect(StatusEffectConfigSo statusEffectConfigSo)
         {
-            BaseStatusEffect baseStatusEffect = statusEffectConfig.StatusEffectType switch
+            BaseStatusEffect baseStatusEffect = statusEffectConfigSo.StatusEffectType switch
             {
-                StatusEffectType.OverTime => new OverTimeStatusEffect(statusEffectConfig),
-                StatusEffectType.Instant => new InstantStatusEffect(statusEffectConfig),
-                StatusEffectType.Interval => new IntervalStatusEffect(statusEffectConfig),
+                StatusEffectType.OverTime => new OverTimeStatusEffect(statusEffectConfigSo),
+                StatusEffectType.Instant => new InstantStatusEffect(statusEffectConfigSo),
+                StatusEffectType.Interval => new IntervalStatusEffect(statusEffectConfigSo),
                 _ => null
             };
             
