@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _abilityConfigs:
   - {fileID: 11400000, guid: 168dc095eee724d4a94cec37ad24faca, type: 2}
+  - {fileID: 11400000, guid: 4d5df18860bcb4944ac22f2dfeed3a84, type: 2}
   _stats:
   - _name: Hp
     _id: 1

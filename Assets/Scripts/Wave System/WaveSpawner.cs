@@ -2,6 +2,7 @@ using Tzipory.Helpers;
 using UnityEngine;
 using UnityEngine.Events;
 using PathCreation;
+using Tzipory.BaseSystem.TimeSystem;
 
 [System.Serializable]
 public class WaveSpawner : MonoBehaviour
@@ -49,7 +50,7 @@ public class WaveSpawner : MonoBehaviour
         _currentWaveGroup.isLive = true;// should move to the init/SetAllTickers
         IsSpawnning = true;
         OnSpawnStart.Invoke();
-        TEMP_TIME.OnGameTimeTick += OnTick_SpawnCurrentWaveGroup;
+        GAME_TIME.OnGameTimeTick += OnTick_SpawnCurrentWaveGroup;
     }
 
     //happens every game-tick
@@ -82,7 +83,7 @@ public class WaveSpawner : MonoBehaviour
             IsSpawnning = false;
             OnSpawnEnd.Invoke();
             _currentWaveGroup.isLive = false;
-            TEMP_TIME.OnGameTimeTick -= OnTick_SpawnCurrentWaveGroup;
+            GAME_TIME.OnGameTimeTick -= OnTick_SpawnCurrentWaveGroup;
         }
     }
 }

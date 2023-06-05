@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Tzipory.AbilitiesSystem.AbilityEntity;
+using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
 using UnityEngine;
@@ -31,7 +32,7 @@ public class AoeAbilityEntity : BaseAbilityEntity
 
     private void Update()
     {
-        _duration -= Time.deltaTime;
+        _duration -= GAME_TIME.GameTimeDelta;
         
         if(_duration <= 0)
             Destroy(gameObject);//temp need to add pool
@@ -44,7 +45,7 @@ public class AoeAbilityEntity : BaseAbilityEntity
             // if (entityCasterTargetingComponent.EntityTeamType == entityTargetAbleComponent.EntityTeamType)//temp!!! need to be able to activate status effect on friendly
             //     continue;
 
-            Debug.Log($"Cast on {entityTargetAbleComponent.EntityTransform.name}");
+            Debug.Log($"ExecuteAbility on {entityTargetAbleComponent.EntityTransform.name}");
                     
             foreach (var statusEffect in statusEffect)
                 entityTargetAbleComponent.StatusHandler.AddStatusEffect(statusEffect);

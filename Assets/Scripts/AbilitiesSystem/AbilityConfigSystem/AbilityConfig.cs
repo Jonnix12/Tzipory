@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Tzipory.EntitySystem.StatusSystem;
-using Tzipory.EntitySystem.StatusSystem.StatSystemConfig;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,10 +12,9 @@ namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
         [SerializeField,Tooltip("")] private string _abilityName;
         [Header("Ability config")]
         [SerializeField,Tooltip("")] private AbilityType _abilityType;
-        [SerializeField,Tooltip("")] private AbilityActionType _abilityActionType;
+        [SerializeField,Tooltip("")] private CastType _castType;
         [Header("Targeting")]
         [SerializeField,Tooltip("")] private TargetingPriority _targetingPriority;
-        [SerializeField,Tooltip("")] private TargetType _targetType;
         [SerializeField,Tooltip("")] private EffectType _effectType;
         [Header("Ability parameters")]
         [SerializeField,Tooltip("")] private Stat _cooldown;
@@ -24,26 +22,14 @@ namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
         [FormerlySerializedAs("_statsConfig")] [SerializeField,Tooltip("")] private List<Stat> abilityParameter;
         [FormerlySerializedAs("_statusEffect")] [SerializeField,Tooltip("")] private List<StatusEffectConfigSo> _statusEffectConfigs;
         
-        public List<Stat> AbilityParameter => abilityParameter;
-        
         public string AbilityName => _abilityName;
-
-        public Stat Cooldown => _cooldown;
-
         public int AbilityId => _abilityId;
-
-        public TargetingPriority TargetingPriority => _targetingPriority;
-
-        public Stat CastTime => _castTime;
-
         public AbilityType AbilityType => _abilityType;
-
-        public AbilityActionType AbilityActionType => _abilityActionType;
-
-        public TargetType TargetType => _targetType;
-
+        public TargetingPriority TargetingPriority => _targetingPriority;
         public EffectType EffectType => _effectType;
-        
+        public Stat Cooldown => _cooldown;
+        public Stat CastTime => _castTime;
+        public List<Stat> AbilityParameter => abilityParameter;
         public List<StatusEffectConfigSo> StatusEffectConfigs => _statusEffectConfigs;
     }
 
@@ -51,7 +37,14 @@ namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
     {
         AOE,
         Single,
-        Projectile
+        Chain
+    }
+    
+    public enum CastType
+    {
+        Projectile,
+        Instant,
+        Self
     }
 
     public enum TargetingPriority

@@ -1,7 +1,6 @@
 ﻿using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
-using Tzipory.Helpers;
 using UnityEngine;
 
 namespace Tzipory.AbilitiesSystem
@@ -30,9 +29,9 @@ namespace Tzipory.AbilitiesSystem
             _aoePrefab = Resources.Load<GameObject>(AoePrefabPath);
         }
 
-        protected override void Cast(IEntityTargetAbleComponent target)
+        protected override void ExecuteAbility()
         {
-            var aoeEntity = GameObject.Instantiate(_aoePrefab,target.EntityTransform.position,Quaternion.identity);
+            var aoeEntity = GameObject.Instantiate(_aoePrefab,CurrentTarget.EntityTransform.position,Quaternion.identity);
             aoeEntity.GetComponent<AoeAbilityEntity>().Init(Radius.CurrentValue,Duration.CurrentValue,StatusEffects);
         }
     }

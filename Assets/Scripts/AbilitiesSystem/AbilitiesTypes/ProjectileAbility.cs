@@ -26,10 +26,10 @@ namespace Tzipory.AbilitiesSystem
             _projectilePrefab = Resources.Load<GameObject>(ProjectilePrefabPath);
         }
 
-        protected override void Cast(IEntityTargetAbleComponent target)
+        protected override void ExecuteAbility()
         {
             var casterPosition = entityCasterTargetingComponent.EntityTransform.position;
-            var dir = target.EntityTransform.position - casterPosition;
+            var dir = CurrentTarget.EntityTransform.position - casterPosition;
             var projectilePrefab = GameObject.Instantiate(_projectilePrefab,casterPosition,Quaternion.Euler(dir));
             projectilePrefab.GetComponent<ProjectileAbilityEntity>().Init(ProjectileSpeed.CurrentValue,5,StatusEffects);
 

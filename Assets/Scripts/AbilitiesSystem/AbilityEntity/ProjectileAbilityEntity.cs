@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
 
         private void Update()
         {
-            transform.Translate(Vector3.up * (_speed * Time.deltaTime));
+            transform.Translate(Vector3.up * (_speed * GAME_TIME.GameTimeDelta));
 
             if (_penetrationNumber <= 0)
                 Destroy(gameObject);

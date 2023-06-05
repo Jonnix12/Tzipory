@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Tzipory.AbilitiesSystem;
+using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.EntityConfigSystem;
 using Tzipory.EntitySystem.StatusSystem;
@@ -85,7 +86,7 @@ namespace Tzipory.EntitySystem.Entitys
             StatusHandler.OnStatusEffectAdded += AddStatusEffectVisual;
             
             
-            AbilityHandler = new AbilityHandler(this, this, _config.AbilityConfigs);
+            AbilityHandler = new AbilityHandler(this, _config.AbilityConfigs);
 
             _rangeCollider.isTrigger = true;
         }
@@ -176,7 +177,7 @@ namespace Tzipory.EntitySystem.Entitys
         {
             if (!IsDamageable)
             {
-                _currentInvincibleTime -= Time.deltaTime;
+                _currentInvincibleTime -= GAME_TIME.GameTimeDelta;
 
                 if (_currentInvincibleTime < 0)
                 {

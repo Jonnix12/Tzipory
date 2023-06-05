@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Factory.EffectActionFactory;
+using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace Tzipory.VisualSystem.EffectSequence
 {
@@ -28,13 +28,10 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         private List<BaseEffectAction> _activeEffectActions;
 
-        private IEntityVisualComponent _visualComponent;
-
-        private float _currentStartDelay;
-        private float _currentEndDelay;
-
-        private int _currentEffectActionIndex;
+        //private IEntityVisualComponent _visualComponent;
         
+        private int _currentEffectActionIndex;
+
         public bool IsActive { get; private set; }
 
         public string SequenceName => _sequenceName;
@@ -43,13 +40,13 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         public void Init(IEntityVisualComponent visualComponent)
         {
-            _visualComponent  = visualComponent;
+            //_visualComponent  = visualComponent;
             _activeEffectActions = new List<BaseEffectAction>();
             _effectActions = new List<BaseEffectAction>();
 
             foreach (var effectActionSO in _effectActionSos)
             {
-                var effectAction = EffectActionFactory.GetEffectAction(effectActionSO);
+                var effectAction = EffectActionFactory.GetEffectAction(effectActionSO,visualComponent);
                 _effectActions.Add(effectAction);
             }
             
@@ -58,26 +55,26 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         public void PlaySequence()
         {
+            StartEffectSequence();
+        }
+
+        private void StartEffectSequence()
+        {
             IsActive = true;
             
             OnEffectSequenceStart.Invoke();
-            
-            _currentStartDelay = _startDelay;
-            
-            while (_currentStartDelay > 0)
-                _currentStartDelay -= Time.deltaTime;
-            
-            PlayAction();
-            
-            _currentEndDelay = _endDelay;
-            
-            while (_currentEndDelay > 0)
-                _currentEndDelay -= Time.deltaTime;
-            
+
+            GAME_TIME.TimerHandler.StartNewTimer(_startDelay, PlayAction);
+        }
+
+        private void OnCompleteEffectSequence()
+        {
             IsActive = false;
             
             OnEffectSequenceComplete?.Invoke(ID);
             OnEffectSequenceCompleteUnityEvent.Invoke();
+            
+            ResetSequence();
         }
 
         private void ResetSequence()
@@ -95,14 +92,16 @@ namespace Tzipory.VisualSystem.EffectSequence
             
             if (!effectAction.IsActive)
             {
-                effectAction.PlayAction(_visualComponent);
+                effectAction.PlayAction();
                 _activeEffectActions.Add(effectAction);
                 effectAction.OnEffectActionComplete += OnActionComplete;
                 _currentEffectActionIndex++;
             }
-            
+
             if (_currentEffectActionIndex == _effectActions.Count)
+            {
                 return;
+            }
 
             if (_effectActions[_currentEffectActionIndex].ActionStartType == EffectActionStartType.WithPrevious)
                 PlayAction();
@@ -115,7 +114,7 @@ namespace Tzipory.VisualSystem.EffectSequence
 
             if (_currentEffectActionIndex == _effectActions.Count)
             {
-                ResetSequence();
+                GAME_TIME.TimerHandler.StartNewTimer(_endDelay, OnCompleteEffectSequence);
                 return;
             }
 

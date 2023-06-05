@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
+using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
-using Tzipory.Helpers;
-using UnityEngine;
 
 namespace Tzipory.VisualSystem.EffectSequence
 {
@@ -12,54 +10,59 @@ namespace Tzipory.VisualSystem.EffectSequence
         public event Action<BaseEffectAction> OnEffectActionComplete;
 
         private readonly float _startDelay;
-        private readonly float _endDelay;
-        
-        private float _currentStartDelay;
-        private float _currentEndDelay;
+        protected readonly float _endDelay;
 
+        protected IEntityVisualComponent VisualComponent;
+        
         public EffectActionStartType ActionStartType { get; }
 
         public bool IsActive { get; private set; }
 
-        protected BaseEffectAction(BaseEffectActionSO effectActionSO)
+        protected BaseEffectAction(BaseEffectActionSO effectActionSO,IEntityVisualComponent visualComponent)
         {
             _startDelay = effectActionSO.StartDelay;
             _endDelay = effectActionSO.EndDelay;
             ActionStartType = effectActionSO.ActionStartType;
+            VisualComponent = visualComponent;
         }
-       
-        public void PlayAction(IEntityVisualComponent visualComponent)
+        
+        public void PlayAction()
+        {
+            StartEffectAction();
+        }
+
+        protected virtual void StartEffectAction()
         {
             IsActive = true;
             
-            _currentStartDelay = _startDelay;
+            GAME_TIME.TimerHandler.StartNewTimer(_startDelay,ExecuteEffect);
             
-            while (_currentStartDelay > 0)
-                _currentStartDelay -= Time.deltaTime;
-
             OnEffectActionStart?.Invoke();
-            
-            CoroutineHelper.Instance.StartCoroutineHelper(ProcessEffect(visualComponent));
-            
-            _currentEndDelay = _endDelay;
-            
-            while (_currentEndDelay > 0)
-                _currentEndDelay -= Time.deltaTime;
-            
+        }
+
+        private void ExecuteEffect()
+        {
+            ProcessEffect();
+            //may need to add Effect time
+        }
+
+        protected virtual void OnCompleteEffectAction()
+        {
             IsActive = false;
             
             OnEffectActionComplete?.Invoke(this);
         }
-        
+
         protected T GetConfig<T>(BaseEffectActionSO effectActionSO) where T : BaseEffectActionSO
         {
             if (effectActionSO is T effectActionSo)
                 return  effectActionSo;
 
-            throw  new Exception($"Can't cast {effectActionSO.GetType()} to {typeof(T)}");
+            throw new Exception($"Can't cast {effectActionSO.GetType()} to {typeof(T)}");
         }
 
-        protected abstract IEnumerator ProcessEffect(IEntityVisualComponent visualComponent);
+        protected abstract void ProcessEffect();
+        protected abstract void RestEffect();
     }
 
     public enum EffectActionStartType

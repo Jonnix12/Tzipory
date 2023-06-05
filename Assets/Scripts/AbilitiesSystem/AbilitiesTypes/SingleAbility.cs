@@ -10,7 +10,7 @@ namespace Tzipory.AbilitiesSystem
         {
         }
 
-        protected override void Cast(IEntityTargetAbleComponent target)
+        protected override void ExecuteAbility()
         {
         }
     }

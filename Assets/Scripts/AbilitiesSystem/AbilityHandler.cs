@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
-using Tzipory.Helpers;
 using UnityEngine;
 
 namespace Tzipory.AbilitiesSystem
@@ -12,12 +11,12 @@ namespace Tzipory.AbilitiesSystem
         public IEntityTargetingComponent Caster { get; }
         public Dictionary<string, BaseAbility> Abilities { get; }
         
-        public AbilityHandler(IEntityTargetingComponent caster,IEntityTargetingComponent targetingComponent,IEnumerable<AbilityConfig> abilitiesConfig)//temp
+        public AbilityHandler(IEntityTargetingComponent caster,IEnumerable<AbilityConfig> abilitiesConfig)//temp
         {
             Abilities = new Dictionary<string, BaseAbility>();
             Caster = caster;
 
-            foreach (var baseAbilityConfig in abilitiesConfig)
+            foreach (var baseAbilityConfig in abilitiesConfig)//need to add factory
             {
                 switch (baseAbilityConfig.AbilityType)
                 {
@@ -27,7 +26,7 @@ namespace Tzipory.AbilitiesSystem
                     case AbilityType.Single:
                         Abilities.Add(baseAbilityConfig.AbilityName,new SingleAbility(caster,baseAbilityConfig));
                         break;
-                    case AbilityType.Projectile:
+                    case AbilityType.Chain:
                         Abilities.Add(baseAbilityConfig.AbilityName,new ProjectileAbility(caster,baseAbilityConfig));
                         break;
                     default:
@@ -40,7 +39,7 @@ namespace Tzipory.AbilitiesSystem
         {
             if (Abilities.TryGetValue(abilityName, out var ability))
             {
-                CoroutineHelper.Instance.StartCoroutineHelper(ability.Execute(availableTarget));//temp
+                ability.Execute(availableTarget);
             }
             else
                 Debug.LogError($"{Caster.EntityTransform.name} cant find ability {abilityName}");

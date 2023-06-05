@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.VisualSystem.EffectSequence.EffectActionTypeSO;
 using UnityEngine;
@@ -10,28 +10,31 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
         private Color _color;
         private Color _originalColor;
         private float _alpha;
+        private float _duration;
         
-        private WaitForSeconds _duration;
-
-        public ColorEffectAction(BaseEffectActionSO effectActionSO) : base(effectActionSO)
+        public ColorEffectAction(BaseEffectActionSO effectActionSO,IEntityVisualComponent visualComponent) : base(effectActionSO,visualComponent)
         {
             var config = GetConfig<ColorEffectActionSO>(effectActionSO);
             
             _color = config.Color;
             _alpha = config.Alpha;
-            _duration = new WaitForSeconds(config.Duration);
+            _duration = config.Duration;
         }
 
-        protected override IEnumerator ProcessEffect(IEntityVisualComponent visualComponent)
+        protected override void ProcessEffect()
         {
             var newColor = new Color(_color.r, _color.g, _color.b, _alpha);
-            _originalColor = visualComponent.SpriteRenderer.color;
+            _originalColor = VisualComponent.SpriteRenderer.color;
             
-            visualComponent.SpriteRenderer.color = newColor;
+            VisualComponent.SpriteRenderer.color = newColor;
+            
+            GAME_TIME.TimerHandler.StartNewTimer(_duration,RestEffect);
+        }
 
-            yield return _duration;
-
-            visualComponent.SpriteRenderer.color = _originalColor;
+        protected override void RestEffect()
+        {
+            VisualComponent.SpriteRenderer.color = _originalColor;
+            GAME_TIME.TimerHandler.StartNewTimer(_endDelay,OnCompleteEffectAction);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Tzipory.EntitySystem.EntityComponents;
+﻿using Tzipory.BaseSystem.TimeSystem;
+using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.Entitys;
 using UnityEngine;
 
@@ -18,11 +19,11 @@ namespace Shamans
         {
             base.Attack();
             
-            //AbilityHandler.CastAbilityByName("ProjectileTest",TargetingHandler.AvailableTargets);
+            AbilityHandler.CastAbilityByName("ProjectileTest",TargetingHandler.AvailableTargets);
             
             bool canAttack = false;
             
-            _currentAttackRate -= Time.deltaTime;
+            _currentAttackRate -= GAME_TIME.GameTimeDelta;
             
             if (_currentAttackRate < 0)
             {

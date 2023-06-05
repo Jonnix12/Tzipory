@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Tzipory.EntitySystem.EntityComponents;
+using Tzipory.Helpers;
 
 namespace Tzipory.VisualSystem.EffectSequence
 {
@@ -29,7 +30,8 @@ namespace Tzipory.VisualSystem.EffectSequence
                     return;
             }
 
-            if(_sequencesDictionary.TryGetValue(id, out var effectSequence)){
+            if(_sequencesDictionary.TryGetValue(id, out var effectSequence))
+            {
                 effectSequence.PlaySequence();
                 effectSequence.OnEffectSequenceComplete += RemoveActiveEffectSequence;
                 _activeSequences.Add(effectSequence);

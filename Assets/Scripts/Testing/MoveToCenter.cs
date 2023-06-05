@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Tzipory.BaseSystem.TimeSystem;
 using UnityEngine;
 
 public class MoveToCenter : MonoBehaviour
@@ -8,6 +9,6 @@ public class MoveToCenter : MonoBehaviour
     float speed;
     void Update()
     {
-        transform.Translate((Vector3.zero-transform.position).normalized * speed* Time.deltaTime, Space.World); //moves to center   
+        transform.Translate((Vector3.zero-transform.position).normalized * speed* GAME_TIME.GameTimeDelta, Space.World); //moves to center   
     }
 }

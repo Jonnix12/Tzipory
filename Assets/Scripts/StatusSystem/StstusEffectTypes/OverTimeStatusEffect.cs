@@ -1,4 +1,5 @@
 ﻿using System;
+using Tzipory.BaseSystem.TimeSystem;
 using UnityEngine;
 
 namespace Tzipory.EntitySystem.StatusSystem
@@ -29,7 +30,7 @@ namespace Tzipory.EntitySystem.StatusSystem
 
         public override void Execute()
         {
-            _currentDuration -= Time.deltaTime;
+            _currentDuration -= GAME_TIME.GameTimeDelta;
 
             if (_currentDuration < 0)
                 StatusEffectFinish();

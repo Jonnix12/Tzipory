@@ -2,6 +2,7 @@ using UnityEngine;
 using ProjectDawn.Navigation.Hybrid;
 using PathCreation;
 using Sirenix.OdinInspector;
+using Tzipory.BaseSystem.TimeSystem;
 
 public class MoveTest : MonoBehaviour
 {
@@ -35,14 +36,14 @@ public class MoveTest : MonoBehaviour
         privateRabbitProgress = 0;
         pathCreator = pc;
         
-        TEMP_TIME.OnGameTimeTick += AdvanceOnPath;
+        GAME_TIME.OnGameTimeTick += AdvanceOnPath;
     }
 
     private void OnDisable()
     {
-        //TEMP_TIME.OnGameTimeTick -= GoToRabbit;
-        TEMP_TIME.OnGameTimeTick -= AdvanceOnPath;
-        TEMP_TIME.OnGameTimeTick -= CircleFinalDestination;
+        //GAME_TIME.OnGameTimeTick -= GoToRabbit;
+        GAME_TIME.OnGameTimeTick -= AdvanceOnPath;
+        GAME_TIME.OnGameTimeTick -= CircleFinalDestination;
     }
 
     private void AdvanceOnPath()
@@ -57,9 +58,9 @@ public class MoveTest : MonoBehaviour
             //if (privateRabbitProgress > pathCreator.path.length)
             if (privateRabbitProgress > pathCreator.path.length && Vector3.Distance(transform.position, pointOnPath) <= 2)
             {
-                TEMP_TIME.OnGameTimeTick -= AdvanceOnPath;
+                GAME_TIME.OnGameTimeTick -= AdvanceOnPath;
                 privateRabbitProgress = 0f;
-                TEMP_TIME.OnGameTimeTick += CircleFinalDestination;
+                GAME_TIME.OnGameTimeTick += CircleFinalDestination;
             }
         }
     }

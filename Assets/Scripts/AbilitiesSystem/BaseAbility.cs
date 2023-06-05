@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
+using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.TargetingSystem;
 using Tzipory.EntitySystem.TargetingSystem.TargetingPriorites;
-using Tzipory.Helpers;
-using UnityEngine;
 
 namespace Tzipory.AbilitiesSystem
 {
@@ -26,6 +24,8 @@ namespace Tzipory.AbilitiesSystem
         
         protected IEntityTargetingComponent entityCasterTargetingComponent;
 
+        protected IEntityTargetAbleComponent CurrentTarget;
+        
         private Stat Cooldown { get; }
 
         private Stat CastTime { get; }
@@ -33,6 +33,7 @@ namespace Tzipory.AbilitiesSystem
         private bool _isReady;
         
         private IPriorityTargeting _entityTargetingComponent;
+
         
         protected BaseAbility(IEntityTargetingComponent entityCasterTargetingComponent,AbilityConfig config)
         {
@@ -41,7 +42,6 @@ namespace Tzipory.AbilitiesSystem
             AbilityName = config.AbilityName;
             AbilityId = config.AbilityId;
             
-            TargetType = config.TargetType;
             EffectType = config.EffectType;
 
             AbilityParameter = new Dictionary<string, Stat>();
@@ -75,28 +75,22 @@ namespace Tzipory.AbilitiesSystem
             _isReady = true;
         }
 
-        public IEnumerator Execute(IEnumerable<IEntityTargetAbleComponent> availableTarget)
+        public void Execute(IEnumerable<IEntityTargetAbleComponent> availableTarget)
         {
             if (!_isReady)
-                yield break;
+                return;
             
             _isReady = false;
 
-            yield return new WaitForSeconds(CastTime.CurrentValue);//may need to by set in tick
+            CurrentTarget = _entityTargetingComponent.GetPriorityTarget(availableTarget);
             
-            Cast(_entityTargetingComponent.GetPriorityTarget(availableTarget));
-            
-            CoroutineHelper.Instance.StartCoroutineHelper(StartCooldown());
+            GAME_TIME.TimerHandler.StartNewTimer(CastTime.CurrentValue, ExecuteAbility);
         }
 
-        protected abstract void Cast(IEntityTargetAbleComponent target);
+        protected abstract void ExecuteAbility();
 
-        private IEnumerator StartCooldown()//may need to by set in tick
-        {
-            yield return new WaitForSeconds(Cooldown.CurrentValue);
-
-            _isReady = true;
-        }
+        private void StartCooldown()=>
+            GAME_TIME.TimerHandler.StartNewTimer(Cooldown.CurrentValue, () => _isReady = true);
     }
 
     public abstract class BaseAbilityCaster
