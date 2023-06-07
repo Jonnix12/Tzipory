@@ -24,15 +24,17 @@ public class AoeAbilityEntity : BaseAbilityEntity
         {
             if (collider.isTrigger)
                 continue;
-
+            
             if (collider.TryGetComponent(out IEntityTargetAbleComponent entityTargetAbleComponent))
                 Cast(entityTargetAbleComponent);
         }
     }
 
-    private void Update()
+    protected override void Update()
     {
-        _duration -= GAME_TIME.GameTimeDelta;
+        base.Update();
+        
+        _duration -= GAME_TIME.GameTimeDelta;//need to be a timer
         
         if(_duration <= 0)
             Destroy(gameObject);//temp need to add pool
@@ -44,11 +46,8 @@ public class AoeAbilityEntity : BaseAbilityEntity
         {
             // if (entityCasterTargetingComponent.EntityTeamType == entityTargetAbleComponent.EntityTeamType)//temp!!! need to be able to activate status effect on friendly
             //     continue;
-
-            Debug.Log($"ExecuteAbility on {entityTargetAbleComponent.EntityTransform.name}");
-                    
-            foreach (var statusEffect in statusEffect)
-                entityTargetAbleComponent.StatusHandler.AddStatusEffect(statusEffect);
+            
+            Cast(entityTargetAbleComponent);
         }
     }
 }

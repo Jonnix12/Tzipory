@@ -32,6 +32,7 @@ namespace Tzipory.AbilitiesSystem
             var dir = CurrentTarget.EntityTransform.position - casterPosition;
             var projectilePrefab = GameObject.Instantiate(_projectilePrefab,casterPosition,Quaternion.Euler(dir));
             projectilePrefab.GetComponent<ProjectileAbilityEntity>().Init(ProjectileSpeed.CurrentValue,5,StatusEffects);
+            StartCooldown();//temp!!! need to start cooldown after done execute
 
         }
     }

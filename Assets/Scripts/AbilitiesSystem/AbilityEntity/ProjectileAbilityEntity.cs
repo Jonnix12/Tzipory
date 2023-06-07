@@ -18,8 +18,10 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
             base.statusEffect  = statusEffect;
         }
 
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
+            
             transform.Translate(Vector3.up * (_speed * GAME_TIME.GameTimeDelta));
 
             if (_penetrationNumber <= 0)

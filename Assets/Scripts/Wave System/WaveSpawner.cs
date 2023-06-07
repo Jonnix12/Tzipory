@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using PathCreation;
 using Tzipory.BaseSystem.TimeSystem;
+using Tzipory.EntitySystem;
 
 [System.Serializable]
 public class WaveSpawner : MonoBehaviour
@@ -70,7 +71,11 @@ public class WaveSpawner : MonoBehaviour
             if (enemyGroup.ticker.DoTick())
             {
                 //GameObject go = Instantiate(enemyGroup.prefab, spawnPositions.GetRandomElementFromArray()); //this should be pulling from an ItemPool, as Units
-                GameObject go = Instantiate(enemyGroup.prefab); //this should be pulling from an ItemPool, as Units
+                GameObject go = Instantiate(enemyGroup.prefab);//this should be pulling from an ItemPool, as Units
+#if UNITY_EDITOR
+                var entity = go.GetComponent<BaseGameEntity>();
+                go.name = $"Enemy ID: {entity.EntityInstanceID}";//teasting      
+#endif
                 go.transform.position = spawnPositions.GetRandomElementFromArray().position;
                 //go.GetComponent<MoveTest>().SetRabbit(pf.transform);
                 go.GetComponent<MoveTest>().SetPath(myPathCreator, destinationPath);

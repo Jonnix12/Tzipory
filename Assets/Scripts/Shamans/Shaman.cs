@@ -19,9 +19,14 @@ namespace Shamans
         {
             base.Attack();
             
-            AbilityHandler.CastAbilityByName("ProjectileTest",TargetingHandler.AvailableTargets);
+            AbilityHandler.CastAbilityByName("AoeFire",TargetingHandler.AvailableTargets);
             
             bool canAttack = false;
+
+            if (AbilityHandler.IsCasting)//temp!!!
+            {
+                return;
+            }
             
             _currentAttackRate -= GAME_TIME.GameTimeDelta;
             

@@ -34,8 +34,8 @@ namespace Tzipory.VisualSystem.EffectSequence
         protected virtual void StartEffectAction()
         {
             IsActive = true;
-            
-            GAME_TIME.TimerHandler.StartNewTimer(_startDelay,ExecuteEffect);
+
+            VisualComponent.GameEntity.EntityTimer.StartNewTimer(_startDelay, ExecuteEffect);
             
             OnEffectActionStart?.Invoke();
         }

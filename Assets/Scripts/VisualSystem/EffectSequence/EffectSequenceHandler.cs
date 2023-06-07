@@ -10,10 +10,14 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         private List<EffectSequence> _activeSequences;
 
+        private IEntityVisualComponent _entityVisualComponent;
+
         public EffectSequenceHandler(IEntityVisualComponent visualComponent,IEnumerable<EffectSequence> sequences)
         {
             _sequencesDictionary = new();
             _activeSequences = new();
+            
+            _entityVisualComponent = visualComponent;
 
             foreach (var sequence in sequences)
             {
@@ -62,8 +66,10 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         public void ActiveEffectSequence(EffectSequence effectSequence)
         {
+            effectSequence.Init(_entityVisualComponent);
             effectSequence.PlaySequence();
             _activeSequences.Add(effectSequence);
+            effectSequence.OnEffectSequenceComplete += RemoveActiveEffectSequence;
         }
     }
 }

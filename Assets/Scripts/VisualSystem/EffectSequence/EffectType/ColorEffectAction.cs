@@ -27,14 +27,13 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
             _originalColor = VisualComponent.SpriteRenderer.color;
             
             VisualComponent.SpriteRenderer.color = newColor;
-            
-            GAME_TIME.TimerHandler.StartNewTimer(_duration,RestEffect);
+            VisualComponent.GameEntity.EntityTimer.StartNewTimer(_duration,RestEffect);
         }
 
         protected override void RestEffect()
         {
             VisualComponent.SpriteRenderer.color = _originalColor;
-            GAME_TIME.TimerHandler.StartNewTimer(_endDelay,OnCompleteEffectAction);
+            VisualComponent.GameEntity.EntityTimer.StartNewTimer(_endDelay,OnCompleteEffectAction);
         }
     }
 }

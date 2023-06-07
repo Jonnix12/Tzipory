@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
-using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.TargetingSystem;
@@ -18,11 +16,13 @@ namespace Tzipory.AbilitiesSystem
 
         public EffectType EffectType { get; }//not in use
 
+        public bool IsCasting { get; private set; }
+
         protected Dictionary<string, Stat> AbilityParameter { get; }
 
         protected List<BaseStatusEffect> StatusEffects { get; }
         
-        protected IEntityTargetingComponent entityCasterTargetingComponent;
+        protected readonly IEntityTargetingComponent entityCasterTargetingComponent;
 
         protected IEntityTargetAbleComponent CurrentTarget;
         
@@ -83,61 +83,61 @@ namespace Tzipory.AbilitiesSystem
             _isReady = false;
 
             CurrentTarget = _entityTargetingComponent.GetPriorityTarget(availableTarget);
-            
-            GAME_TIME.TimerHandler.StartNewTimer(CastTime.CurrentValue, ExecuteAbility);
+            IsCasting = true;
+            entityCasterTargetingComponent.GameEntity.EntityTimer.StartNewTimer(CastTime.CurrentValue, ExecuteAbility);
         }
 
         protected abstract void ExecuteAbility();
 
-        private void StartCooldown()=>
-            GAME_TIME.TimerHandler.StartNewTimer(Cooldown.CurrentValue, () => _isReady = true);
+        protected void StartCooldown()=>
+            entityCasterTargetingComponent.GameEntity.EntityTimer.StartNewTimer(Cooldown.CurrentValue,
+                () => { _isReady = true; IsCasting  = false; });
     }
 
-    public abstract class BaseAbilityCaster
-    {
-        public abstract void Cast(IEntityTargetAbleComponent target);
-    }
-
-    public class StatusEffectAbilityCaster : BaseAbilityCaster
-    {
-        private BaseStatusEffect[] _statusEffects;
-        
-        public StatusEffectAbilityCaster(BaseStatusEffect[] statusEffects)
-        {
-            _statusEffects = statusEffects;
-        }
-
-        public override void Cast(IEntityTargetAbleComponent target)
-        {
-            foreach (var statusEffect in _statusEffects)
-                target.StatusHandler.AddStatusEffect(statusEffect);
-        }
-    }
-
-    public class ActionAbilityCaster : BaseAbilityCaster
-    {
-        private AbilityActionType _abilityType;
-        private float _amount;
-        
-        public ActionAbilityCaster(AbilityActionType abilityType,float amount)
-        {
-            _abilityType = abilityType;
-            _amount = amount;
-        }
-
-        public override void Cast(IEntityTargetAbleComponent target)
-        {
-            switch (_abilityType)
-            {
-                case AbilityActionType.Heal:
-                    target.Heal(_amount);
-                    break;
-                case AbilityActionType.Damage:
-                    target.TakeDamage(_amount);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(_abilityType), _abilityType, null);
-            }
-        }
-    }
+    // public abstract class BaseAbilityCaster
+    // {
+    //     public abstract void Cast(IEntityTargetAbleComponent target);
+    // }
+    //
+    // public class StatusEffectAbilityCaster : BaseAbilityCaster
+    // {
+    //     private BaseStatusEffect[] _statusEffects;
+    //     
+    //     public StatusEffectAbilityCaster(BaseStatusEffect[] statusEffects)
+    //     {
+    //         _statusEffects = statusEffects;
+    //     }
+    //
+    //     public override void Cast(IEntityTargetAbleComponent target)
+    //     {
+    //         foreach (var statusEffect in _statusEffects)
+    //             target.StatusHandler.AddStatusEffect(statusEffect);
+    //     }
+    // }
+    //
+    // public class ActionAbilityCaster : BaseAbilityCaster
+    // {
+    //     private AbilityActionType _abilityType;
+    //     private float _amount;
+    //     
+    //     public ActionAbilityCaster(AbilityActionType abilityType,float amount)
+    //     {
+    //         _abilityType = abilityType;
+    //         _amount = amount;
+    //     }
+    //
+    //     public override void Cast(IEntityTargetAbleComponent target)
+    //     {
+    //         switch (_abilityType)
+    //         {
+    //             case AbilityActionType.Heal:
+    //                 target.Heal(_amount);
+    //                 break;
+    //             case AbilityActionType.Damage:
+    //                 target.TakeDamage(_amount);
+    //                 break;
+    //             default:
+    //                 throw new ArgumentOutOfRangeException(nameof(_abilityType), _abilityType, null);
+    //         }
+    //     }
 }

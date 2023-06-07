@@ -8,9 +8,7 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectActionTypeSO
         [SerializeField,Tooltip("")] private Color _color;
         [SerializeField,Tooltip("")] private float _alpha;
         [SerializeField,Tooltip("")] private float _duration;
-        
-        
-        
+
         public Color Color => _color;
 
         public float Alpha => _alpha;

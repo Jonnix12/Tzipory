@@ -12,6 +12,7 @@ namespace Tzipory.AbilitiesSystem
 
         protected override void ExecuteAbility()
         {
+            StartCooldown();//temp!!! need to start cooldown after done execute
         }
     }
 }

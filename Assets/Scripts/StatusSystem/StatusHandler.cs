@@ -75,14 +75,15 @@ namespace Tzipory.EntitySystem.StatusSystem
             
             baseStatusEffect.StatusEffectStart();
             
-#if UNITY_EDITOR
-         //   Debug.Log($"Add Statues Effect on {_entity.EntityTransform.name}");
-#endif
             InterruptStatusEffects(baseStatusEffect.StatusEffectToInterrupt);
             
             _activeStatusEffects.Add(baseStatusEffect.StatusEffectId, baseStatusEffect);
             OnStatusEffectAdded?.Invoke(baseStatusEffect);
             baseStatusEffect.OnStatusEffectDone += RemoveStatusEffect;
+            
+#if UNITY_EDITOR
+            Debug.Log($"Add Statues Effect on {_entity.EntityTransform.name}");
+#endif
         }
 
         private void InterruptStatusEffects(IEnumerable<StatusEffectConfigSo> effectConfigSos)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace Tzipory.AbilitiesSystem
     {
         public IEntityTargetingComponent Caster { get; }
         public Dictionary<string, BaseAbility> Abilities { get; }
+        
+        public bool IsCasting => Abilities.Any(ability => ability.Value.IsCasting);
         
         public AbilityHandler(IEntityTargetingComponent caster,IEnumerable<AbilityConfig> abilitiesConfig)//temp
         {

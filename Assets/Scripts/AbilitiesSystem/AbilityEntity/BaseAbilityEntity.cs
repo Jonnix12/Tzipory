@@ -18,8 +18,6 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
         {
             foreach (var target in targets)
             {
-                Debug.Log($"ExecuteAbility on {target.EntityTransform.name}");
-                    
                 foreach (var statusEffect in statusEffect)
                     target.StatusHandler.AddStatusEffect(statusEffect);
             }

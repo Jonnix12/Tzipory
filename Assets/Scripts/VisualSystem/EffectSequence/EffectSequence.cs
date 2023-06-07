@@ -28,7 +28,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         private List<BaseEffectAction> _activeEffectActions;
 
-        //private IEntityVisualComponent _visualComponent;
+        private IEntityVisualComponent _visualComponent;
         
         private int _currentEffectActionIndex;
 
@@ -40,7 +40,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         public void Init(IEntityVisualComponent visualComponent)
         {
-            //_visualComponent  = visualComponent;
+            _visualComponent  = visualComponent;
             _activeEffectActions = new List<BaseEffectAction>();
             _effectActions = new List<BaseEffectAction>();
 
@@ -64,7 +64,7 @@ namespace Tzipory.VisualSystem.EffectSequence
             
             OnEffectSequenceStart.Invoke();
 
-            GAME_TIME.TimerHandler.StartNewTimer(_startDelay, PlayAction);
+            _visualComponent.GameEntity.EntityTimer.StartNewTimer(_startDelay, PlayAction);
         }
 
         private void OnCompleteEffectSequence()
@@ -103,7 +103,7 @@ namespace Tzipory.VisualSystem.EffectSequence
                 return;
             }
 
-            if (_effectActions[_currentEffectActionIndex].ActionStartType == EffectActionStartType.WithPrevious)
+            if (_effectActions[_currentEffectActionIndex].ActionStartType == EffectActionStartType.WithPrevious && _currentEffectActionIndex + 1 < _effectActions.Count)
                 PlayAction();
         }
         
@@ -114,7 +114,7 @@ namespace Tzipory.VisualSystem.EffectSequence
 
             if (_currentEffectActionIndex == _effectActions.Count)
             {
-                GAME_TIME.TimerHandler.StartNewTimer(_endDelay, OnCompleteEffectSequence);
+                _visualComponent.GameEntity.EntityTimer.StartNewTimer(_endDelay, OnCompleteEffectSequence);
                 return;
             }
 

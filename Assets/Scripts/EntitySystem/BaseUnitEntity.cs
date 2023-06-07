@@ -44,6 +44,7 @@ namespace Tzipory.EntitySystem.Entitys
         [SerializeField] private EffectSequence _onDeath;
         [SerializeField] private EffectSequence _onAttack;
         [SerializeField] private EffectSequence _onMove;
+        [SerializeField] private EffectSequence _onGetHit;
         
         [Header("Entity config")]
         [SerializeField] private BaseUnitEntityConfig _config;
@@ -77,7 +78,8 @@ namespace Tzipory.EntitySystem.Entitys
             {
                 _onDeath,
                 _onAttack,
-                _onMove
+                _onMove,
+                _onGetHit
             };
 
             EffectSequenceHandler = new EffectSequenceHandler(this,effectSequence);
@@ -91,8 +93,10 @@ namespace Tzipory.EntitySystem.Entitys
             _rangeCollider.isTrigger = true;
         }
         
-        protected virtual void Update()
+        protected override void Update()
         {
+            base.Update();
+            
             HealthComponentUpdate();
             StatusHandler.UpdateStatusEffects();
 
@@ -168,6 +172,7 @@ namespace Tzipory.EntitySystem.Entitys
         {
             if (IsDamageable)
             {
+                EffectSequenceHandler.PlaySequenceById(111);
                 HP.ReduceFromValue(damage);
                 IsDamageable = false;
             }
@@ -241,8 +246,7 @@ namespace Tzipory.EntitySystem.Entitys
         #endregion
         
         #region VisualComponent
-
-
+        
         public EffectSequenceHandler EffectSequenceHandler { get; private set; }
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
         public Transform ParticleEffectPosition => _particleEffectPosition;

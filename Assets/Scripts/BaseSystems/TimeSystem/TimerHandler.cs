@@ -40,7 +40,6 @@ namespace Tzipory.BaseSystem.TimeSystem
                 
                 return  timer;
             }
-           
             
             timer = new Timer(timerName,time,onComplete);
             timer.OnTimerComplete  += TimeComplete;
@@ -48,8 +47,7 @@ namespace Tzipory.BaseSystem.TimeSystem
             
             return timer;
         }
-
-
+        
         public void TickAllTimers()
         {
             foreach (var keyValuePair in _timersDictionary)

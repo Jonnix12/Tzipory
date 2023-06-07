@@ -33,6 +33,7 @@ namespace Tzipory.AbilitiesSystem
         {
             var aoeEntity = GameObject.Instantiate(_aoePrefab,CurrentTarget.EntityTransform.position,Quaternion.identity);
             aoeEntity.GetComponent<AoeAbilityEntity>().Init(Radius.CurrentValue,Duration.CurrentValue,StatusEffects);
+            StartCooldown();//temp!!! need to start cooldown after done execute
         }
     }
 }
