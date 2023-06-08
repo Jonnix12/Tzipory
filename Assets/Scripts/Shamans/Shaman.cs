@@ -19,13 +19,13 @@ namespace Shamans
         {
             base.Attack();
             
-            AbilityHandler.CastAbilityByName("AoeFire",TargetingHandler.AvailableTargets);
+                //AbilityHandler.CastAbilityByName("AoeFire",TargetingHandler.AvailableTargets);
             
             bool canAttack = false;
 
             if (AbilityHandler.IsCasting)//temp!!!
             {
-                return;
+                //  return;
             }
             
             _currentAttackRate -= GAME_TIME.GameTimeDelta;
@@ -51,7 +51,6 @@ namespace Shamans
 
             //  Debug.Log(
             //    $"{Target.EntityTransform.name} been attacked by {gameObject.name}, hp left {Target.HP.CurrentValue}");
-            
         }
     }
 }
