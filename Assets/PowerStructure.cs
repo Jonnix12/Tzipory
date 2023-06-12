@@ -12,18 +12,35 @@ public class PowerStructure : BaseGameEntity
     CircleCollider2D effectArea;
     [SerializeField]
     StatusEffectConfigSo myEffectSO;
-    [SerializeField]
-    LayerMask shamanLayer;
+    [SerializeField] //temp
+    StatusEffectConfigSo myOppositeEffectSO;
 
-    Collider2D[] _cols;
-    //TEMP! This should probably sub to game-tick instead, fixedupdated is still too often IMO
-    private void FixedUpdate()
+    List<Shamans.Shaman> _currentShamans; //not really used, but good to have
+    private void OnEnable()
     {
-        _cols = Physics2D.OverlapCircleAll((Vector2)transform.position + effectArea.offset, effectArea.radius, shamanLayer);
-
-        foreach (var item in _cols)
+        _currentShamans = new List<Shamans.Shaman>();
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        print($"{collision.name} entered!");
+        if (collision.gameObject.CompareTag("Shaman"))
         {
-            item.GetComponent<Shamans.Shaman>().StatusHandler.AddStatusEffect(new InstantStatusEffect(myEffectSO));
+            print($"{collision.name} is Shaman!");
+            Shamans.Shaman s = collision.GetComponentInParent<Shamans.Shaman>();
+            s.StatusHandler.AddStatusEffect(new InstantStatusEffect(myEffectSO));
+            _currentShamans.Add(s);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        print($"{collision.name} entered!");
+        if (collision.gameObject.CompareTag("Shaman"))
+        {
+            print($"{collision.name} is Shaman!");
+            //collision.GetComponentInParent<Shamans.Shaman>().StatusHandler.AddStatusEffect(new InstantStatusEffect(myOppositeEffectSO));
+            Shamans.Shaman s = collision.GetComponentInParent<Shamans.Shaman>();
+            s.StatusHandler.AddStatusEffect(new InstantStatusEffect(myOppositeEffectSO));
+            _currentShamans.Remove(s);
         }
     }
 

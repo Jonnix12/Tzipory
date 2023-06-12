@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 35077401}
   - component: {fileID: 35077403}
   - component: {fileID: 35077402}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PS_AttackSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,9 +206,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectArea: {fileID: 35077402}
   myEffectSO: {fileID: 11400000, guid: 47e394e9ce7c7e54cb526db9c61e56db, type: 2}
+  myOppositeEffectSO: {fileID: 11400000, guid: 0ca3e690993d60444857408bef8f4c76, type: 2}
   shamanLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
 --- !u!1 &62772686
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,6 +754,33 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 5.12
+--- !u!50 &402377931
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402377922}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &505963363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,7 +1495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 968643746}
   - component: {fileID: 968643747}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CircleGFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1709,6 +1737,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7049967731696592419, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 402377926}
+    - targetCorrespondingSourceObject: {fileID: 7049967731696592419, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 402377931}
   m_SourcePrefab: {fileID: 100100000, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
 --- !u!4 &1078848104 stripped
 Transform:

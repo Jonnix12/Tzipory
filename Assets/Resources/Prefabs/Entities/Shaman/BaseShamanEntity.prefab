@@ -14,7 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+      propertyPath: m_TagString
+      value: Shaman
       objectReference: {fileID: 0}
     - target: {fileID: 7921501042575430128, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       propertyPath: m_RootOrder
@@ -371,7 +375,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2023487458723815554, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2023487458723815554, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
+      propertyPath: m_TagString
+      value: Shaman
       objectReference: {fileID: 0}
     - target: {fileID: 6489605381146350932, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
       propertyPath: m_Name
@@ -379,11 +387,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6489605381146350932, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489605381146350932, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
+      propertyPath: m_TagString
+      value: Shaman
       objectReference: {fileID: 0}
     - target: {fileID: 8822867710584737078, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8822867710584737078, guid: 2e1f23141a7b02f429ca4ff039dcaefc, type: 3}
+      propertyPath: m_TagString
+      value: Shaman
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -485,6 +501,14 @@ PrefabInstance:
     - target: {fileID: 7410199653995873437, guid: 7cf74ddf32e5e5c4098129768eefab1c, type: 3}
       propertyPath: m_Name
       value: Targeting
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410199653995873437, guid: 7cf74ddf32e5e5c4098129768eefab1c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410199653995873437, guid: 7cf74ddf32e5e5c4098129768eefab1c, type: 3}
+      propertyPath: m_TagString
+      value: Shaman
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

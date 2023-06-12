@@ -25,7 +25,7 @@ namespace Tzipory.EntitySystem.StatusSystem
             _name = name;
             _id = id;  
             _baseValue = baseValue;
-            MaxValue = StatLimiters.MaxStatValue;
+            MaxValue = StatLimiters.MaxStatValue; //TBD is this still a thing?
             _currentValue = _baseValue;
         }
 
@@ -35,8 +35,10 @@ namespace Tzipory.EntitySystem.StatusSystem
         public void MultiplyValue(float amount)=>
             _currentValue *= amount;
         
+        //public void DivideValue(float amount)=> //THIS IS WHY I DON'T LIKE THESE THINGS!
+        //    _currentValue *= amount;
         public void DivideValue(float amount)=>
-            _currentValue *= amount;
+            _currentValue /= amount;
         
         public void AddToValue(float amount)=>
             _currentValue += amount;
