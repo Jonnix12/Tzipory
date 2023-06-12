@@ -7,6 +7,7 @@ namespace Shamans
 {
     public class Shaman : BaseUnitEntity
     {
+        [SerializeField] private Temp_ShamanShotVisual _shotVisual;//temp!
         private float _currentAttackRate;
 
         protected override void Awake()
@@ -19,7 +20,7 @@ namespace Shamans
         {
             base.Attack();
             
-                //AbilityHandler.CastAbilityByName("AoeFire",TargetingHandler.AvailableTargets);
+                //AbilityHandler.CastAbilityByName("AoeFire",Targeting.AvailableTargets);
             
             bool canAttack = false;
 
@@ -28,7 +29,7 @@ namespace Shamans
                 //  return;
             }
             
-            _currentAttackRate -= GAME_TIME.GameTimeDelta;
+            _currentAttackRate -= GAME_TIME.GameDeltaTime;
             
             if (_currentAttackRate < 0)
             {
@@ -41,13 +42,12 @@ namespace Shamans
             
             if (CritChance.CurrentValue > Random.Range(0, 100))
             {
-                Target.TakeDamage(CritDamage.CurrentValue);
+                _shotVisual.Shot(Target,CritDamage.CurrentValue);
                 return;
             }
             
-            Target.TakeDamage(AttackDamage.CurrentValue);
-            
-            EffectSequenceHandler.PlaySequenceById(999);
+            _shotVisual.Shot(Target,AttackDamage.CurrentValue);
+            //EffectSequenceHandler.PlaySequenceById(999);
 
             //  Debug.Log(
             //    $"{Target.EntityTransform.name} been attacked by {gameObject.name}, hp left {Target.HP.CurrentValue}");

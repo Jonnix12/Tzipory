@@ -16,7 +16,7 @@ namespace Tzipory.BaseSystem.TimeSystem
         private static TimerHandler _timerHandler;
 
         //SACLED DELTA TIME (smoothStep)
-        public static float GameTimeDelta => Time.deltaTime * _timeRate;
+        public static float GameDeltaTime => Time.deltaTime * _timeRate;
 
         public static TimerHandler TimerHandler => _timerHandler;
         

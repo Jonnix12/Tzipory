@@ -59,7 +59,8 @@ namespace Tzipory.EntitySystem.Entitys
 
             DefaultPriorityTargeting = new ClosestTarget(this);//temp
             
-            TargetingHandler = new TargetingHandler(this);
+            Targeting = GetComponentInChildren<TargetingHandler>();//temp
+            Targeting.Init(this);
             
             List<Stat> stats = new List<Stat>();
 
@@ -101,10 +102,10 @@ namespace Tzipory.EntitySystem.Entitys
             StatusHandler.UpdateStatusEffects();
 
             if (_target == null || _target.IsEntityDead)
-                _target = TargetingHandler.GetPriorityTarget();
+                _target = Targeting.GetPriorityTarget();
             
             
-            if (_target != null)
+            if (_target != null)//temp
                 Attack();
             
             _rangeCollider.radius = StatusHandler.GetStatByName(ATTACK_RANGE).CurrentValue;//temp
@@ -126,8 +127,9 @@ namespace Tzipory.EntitySystem.Entitys
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             StatusHandler.OnStatusEffectInterrupt -= EffectSequenceHandler.RemoveEffectSequence;
             StatusHandler.OnStatusEffectAdded -= AddStatusEffectVisual;
         }
@@ -139,15 +141,12 @@ namespace Tzipory.EntitySystem.Entitys
         public EntityTeamType EntityTeamType { get; protected set; }
         
         public IPriorityTargeting DefaultPriorityTargeting { get; private set; }
-        public ITargeting TargetingHandler { get; set; }
+        public TargetingHandler Targeting { get; set; }
         public float GetDistanceToTarget(IEntityTargetAbleComponent targetAbleComponent)
         {
             return Vector2.Distance(transform.position, targetAbleComponent.EntityTransform.position);
         }
 
-        public void SetTargeting(ITargeting targeting) => 
-            TargetingHandler = targeting;
-        
         #endregion
 
         #region HealthComponent
@@ -182,7 +181,7 @@ namespace Tzipory.EntitySystem.Entitys
         {
             if (!IsDamageable)
             {
-                _currentInvincibleTime -= GAME_TIME.GameTimeDelta;
+                _currentInvincibleTime -= GAME_TIME.GameDeltaTime;
 
                 if (_currentInvincibleTime < 0)
                 {
@@ -193,7 +192,8 @@ namespace Tzipory.EntitySystem.Entitys
             
             if (HP.CurrentValue < 0)
             {
-                Destroy(gameObject);//temp 
+                gameObject.SetActive(false);
+                EntityTimer.StartNewTimer(2f, () => { Destroy(gameObject); });
                 //effectplay
             }
         }
@@ -254,26 +254,6 @@ namespace Tzipory.EntitySystem.Entitys
 
         private void AddStatusEffectVisual(BaseStatusEffect baseStatusEffect) =>
             EffectSequenceHandler.ActiveEffectSequence(baseStatusEffect.EffectSequence);
-
-        #endregion
-
-        #region Trriger
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.TryGetComponent<BaseUnitEntity>(out BaseUnitEntity unitEntity))
-            {
-                TargetingHandler.AddTarget(unitEntity);
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.gameObject.TryGetComponent<BaseUnitEntity>(out BaseUnitEntity unitEntity))
-            {
-                TargetingHandler.RemoveTarget(unitEntity);
-            }
-        }
 
         #endregion
     }

@@ -1,51 +1,127 @@
 ﻿using System;
 using System.Collections.Generic;
+using NUnit.Framework.Interfaces;
 using UnityEngine;
 
 namespace Tzipory.BaseSystem.TimeSystem
 {
     public class TimerHandler
     {
-        private Dictionary<string, Timer> _timersDictionary;
-        private List<Timer> _timersList;
+        private Dictionary<string, ITimer> _timersDictionary;
+        private List<ITimer> _timersList;
 
         public TimerHandler()
         {
-            _timersDictionary = new Dictionary<string, Timer>();
-            _timersList = new List<Timer>();
+            _timersDictionary = new Dictionary<string, ITimer>();
+            _timersList = new List<ITimer>();
         }
 
-        public Timer StartNewTimer(float time,Action onComplete)
+        public ITimer StartNewTimer(float time,Action onComplete,string timerName = null)
         {
-            return StartNewTimer(time, null, onComplete);
+            if (!ValidateTime(timerName))
+                return null;
+            
+            Timer timer = new Timer(timerName,time, onComplete);
+            
+            AddTimer(timer);
+            
+            return  timer;
         }
         
-        public Timer StartNewTimer(float time,string timerName)
+        public ITimer StartNewTimer<T1>(float time,Action<T1> onComplete,ref T1 parameter ,string timerName = null)
         {
-            return  StartNewTimer(time, timerName, null);
-        }
-        
-        public Timer StartNewTimer(float time, string timerName = null, Action onComplete = null)
-        {
-            Timer timer = null;
+            if (!ValidateTime(timerName))
+                return null;
             
-            if (!string.IsNullOrEmpty(timerName))
-            {
-                if(_timersDictionary.ContainsKey(timerName))
-                    throw new Exception("Timer with name " + timerName + " already exists");
-                
-                timer = new Timer(timerName,time,onComplete);
-                timer.OnTimerComplete  += TimeComplete;
-                _timersDictionary.Add(timerName,timer);
-                
-                return  timer;
-            }
+            var timer = new Timer<T1>(timerName,time, onComplete,ref parameter);
             
-            timer = new Timer(timerName,time,onComplete);
-            timer.OnTimerComplete  += TimeComplete;
-            _timersList.Add(timer);
+            AddTimer(timer);
             
             return timer;
+        }
+        
+        public ITimer StartNewTimer<T1,T2>(float time,Action<T1,T2> onComplete,ref T1 parameter1,ref T2 parameter2,string timerName = null)
+        {
+            if (!ValidateTime(timerName))
+                return null;
+            
+            var timer = new Timer<T1,T2>(timerName,time, onComplete,ref parameter1,ref parameter2);
+            
+            AddTimer(timer);
+            
+            return timer;
+        }
+        
+        public ITimer StartNewTimer<T1,T2,T3>(float time,Action<T1,T2,T3> onComplete,ref T1 parameter1,ref T2 parameter2, ref T3 parameter3,string timerName = null)
+        {
+            if (!ValidateTime(timerName))
+                return null;
+            
+            var timer = new Timer<T1,T2,T3>(timerName,time, onComplete,ref parameter1,ref parameter2,ref parameter3);
+            
+            AddTimer(timer);
+            
+            return timer;
+        }
+        
+        public ITimer StartNewTimer<T1,T2,T3,T4>(float time,Action<T1,T2,T3,T4> onComplete,ref T1 parameter1,ref T2 parameter2, ref T3 parameter3, ref T4 parameter4,string timerName = null)
+        {
+            if (!ValidateTime(timerName))
+                return null;
+            
+            var timer = new Timer<T1,T2,T3,T4>(timerName,time, onComplete,ref parameter1,ref parameter2,ref parameter3,ref parameter4);
+            
+            AddTimer(timer);
+            
+            return timer;
+        }
+        
+        public ITimer StartNewTimer<T1,T2,T3,T4,T5>(float time,Action<T1,T2,T3,T4,T5> onComplete,ref T1 parameter1,ref T2 parameter2, ref T3 parameter3, ref T4 parameter4, ref T5 parameter5,string timerName = null)
+        {
+            if (!ValidateTime(timerName))
+                return null;
+            
+            var timer = new Timer<T1,T2,T3,T4,T5>(timerName,time, onComplete,ref parameter1,ref parameter2,ref parameter3,ref parameter4,ref parameter5);
+            
+            AddTimer(timer);
+            
+            return timer;
+        }
+        
+        public ITimer StartNewTimer(float time,string timerName = null)
+        {
+            if (!ValidateTime(timerName))
+                return null;
+            
+            var timer = new Timer(timerName,time);
+            
+            AddTimer(timer);
+            
+            return timer;
+        }
+
+        private bool ValidateTime(string timerName = null)
+        {
+            if (!string.IsNullOrEmpty(timerName))
+            {
+                if (_timersDictionary.ContainsKey(timerName))
+                {
+                    Debug.LogError("Timer with name " + timerName + " already exists");
+                    return false;
+                }
+            }
+            return  true;
+        }
+
+        private void AddTimer(ITimer timer)
+        {
+            if (!string.IsNullOrEmpty(timer.TimerName))
+                _timersDictionary.Add(timer.TimerName, timer);
+            else
+                _timersList.Add(timer);
+           
+            
+            timer.OnTimerComplete += TimeComplete;
         }
         
         public void TickAllTimers()
@@ -57,7 +133,7 @@ namespace Tzipory.BaseSystem.TimeSystem
                 _timersList[i].TickTimer();
         }
         
-        private void TimeComplete(Timer timer)
+        private void TimeComplete(ITimer timer)
         {
             if (!string.IsNullOrEmpty(timer.TimerName))
             {

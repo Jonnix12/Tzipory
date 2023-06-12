@@ -6,7 +6,7 @@ namespace Tzipory.EntitySystem.EntityComponents
     {
         public EntityTeamType EntityTeamType { get; }//temp
         public IPriorityTargeting DefaultPriorityTargeting { get; }
-        public ITargeting TargetingHandler { get; set; }
+        public TargetingHandler Targeting { get; set; }
         public float GetDistanceToTarget(IEntityTargetAbleComponent targetAbleComponent);
     }
 }
