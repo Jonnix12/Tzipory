@@ -22,7 +22,7 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
         {
             base.Update();
             
-            transform.Translate(Vector3.up * (_speed * GAME_TIME.GameTimeDelta));
+            transform.Translate(Vector3.up * (_speed * GAME_TIME.GameDeltaTime));
 
             if (_penetrationNumber <= 0)
                 Destroy(gameObject);
