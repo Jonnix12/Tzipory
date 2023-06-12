@@ -155,9 +155,6 @@ PrefabInstance:
       addedObject: {fileID: 4453479690777420381}
     - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 91326260368638451}
-    - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4235573210777679976}
   m_SourcePrefab: {fileID: 100100000, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
 --- !u!4 &1761856195470886152 stripped
@@ -184,7 +181,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats: []
   _bodyCollider: {fileID: 4453479690777420381}
-  _rangeCollider: {fileID: 91326260368638451}
+  _rangeCollider: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
+  _visualQueueEffectPosition: {fileID: 0}
+  _particleEffectPosition: {fileID: 0}
+  _onDeath:
+    OnEffectSequenceStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEffectSequenceCompleteUnityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    _sequenceName: 
+    _id: 0
+    _startDelay: 0
+    _endDelay: 0
+    _effectActionSos: []
+  _onAttack:
+    OnEffectSequenceStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEffectSequenceCompleteUnityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    _sequenceName: 
+    _id: 0
+    _startDelay: 0
+    _endDelay: 0
+    _effectActionSos: []
+  _onMove:
+    OnEffectSequenceStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEffectSequenceCompleteUnityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    _sequenceName: 
+    _id: 0
+    _startDelay: 0
+    _endDelay: 0
+    _effectActionSos: []
+  _onGetHit:
+    OnEffectSequenceStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEffectSequenceCompleteUnityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    _sequenceName: 
+    _id: 0
+    _startDelay: 0
+    _endDelay: 0
+    _effectActionSos: []
   _config: {fileID: 11400000, guid: cf8b6009cbd29a4429faf8b243fbe51f, type: 2}
 --- !u!114 &7221615852569552283
 MonoBehaviour:
@@ -286,41 +334,6 @@ MonoBehaviour:
   _followRabbit: {fileID: 0}
   _target: {fileID: 0}
 --- !u!58 &4453479690777420381
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7362225495168421975}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!58 &91326260368638451
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

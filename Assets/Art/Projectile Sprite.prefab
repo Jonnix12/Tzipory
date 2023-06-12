@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1806464389674245562}
   - component: {fileID: 6820444270360034478}
   - component: {fileID: 7475782419685799244}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Projectile Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2076417175133644823}
   - component: {fileID: 3455648553868361018}
   - component: {fileID: 4590037102323142688}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

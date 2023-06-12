@@ -23,14 +23,22 @@ public class Temp_Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _elapsedTime += GAME_TIME.GameDeltaTime;
-        float percentageComplete = _elapsedTime / _speed;
         if (!_target.GameEntity.isActiveAndEnabled)
         {
             Destroy(gameObject);
             return;
         }
-        transform.position = Vector3.Lerp(_startPosition, _target.EntityTransform.position, percentageComplete);   
+        
+        var position = transform.position;
+        var dir=(_target.EntityTransform.position - position).normalized;
+ 
+        position += dir * (_speed * GAME_TIME.GameDeltaTime);
+        transform.position = position;
+
+
+        // _elapsedTime += GAME_TIME.GameDeltaTime;
+        // float percentageComplete = _elapsedTime / _speed;
+        // transform.position = Vector3.Lerp(_startPosition, _target.EntityTransform.position, percentageComplete);   
     }
 
     private void OnTriggerEnter2D(Collider2D other)

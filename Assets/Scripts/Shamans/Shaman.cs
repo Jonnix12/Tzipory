@@ -20,7 +20,7 @@ namespace Shamans
         {
             base.Attack();
             
-                //AbilityHandler.CastAbilityByName("AoeFire",TargetingHandler.AvailableTargets);
+                //AbilityHandler.CastAbilityByName("AoeFire",Targeting.AvailableTargets);
             
             bool canAttack = false;
 
