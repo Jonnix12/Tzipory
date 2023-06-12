@@ -182,7 +182,7 @@ namespace Tzipory.EntitySystem.Entitys
         {
             if (!IsDamageable)
             {
-                _currentInvincibleTime -= GAME_TIME.GameTimeDelta;
+                _currentInvincibleTime -= GAME_TIME.GameDeltaTime;
 
                 if (_currentInvincibleTime < 0)
                 {

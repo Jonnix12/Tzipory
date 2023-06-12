@@ -41,7 +41,7 @@ namespace Tzipory.EntitySystem.StatusSystem
 
         public override void Execute()
         {
-            _currentDuration -= GAME_TIME.GameTimeDelta;
+            _currentDuration -= GAME_TIME.GameDeltaTime;
 
             if (_currentDuration < 0)
             {
@@ -49,7 +49,7 @@ namespace Tzipory.EntitySystem.StatusSystem
                 return;
             }
 
-            _currentInterval -= GAME_TIME.GameTimeDelta;
+            _currentInterval -= GAME_TIME.GameDeltaTime;
             if (_currentInterval <= 0)
             {
                 _currentInterval = _interval.CurrentValue;

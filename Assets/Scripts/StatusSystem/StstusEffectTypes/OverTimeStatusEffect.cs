@@ -30,7 +30,7 @@ namespace Tzipory.EntitySystem.StatusSystem
 
         public override void Execute()
         {
-            _currentDuration -= GAME_TIME.GameTimeDelta;
+            _currentDuration -= GAME_TIME.GameDeltaTime;
 
             if (_currentDuration < 0)
                 StatusEffectFinish();

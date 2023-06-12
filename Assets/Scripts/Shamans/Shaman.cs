@@ -28,7 +28,7 @@ namespace Shamans
                 //  return;
             }
             
-            _currentAttackRate -= GAME_TIME.GameTimeDelta;
+            _currentAttackRate -= GAME_TIME.GameDeltaTime;
             
             if (_currentAttackRate < 0)
             {
