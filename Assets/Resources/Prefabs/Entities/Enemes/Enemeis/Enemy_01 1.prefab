@@ -220,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7362225495168421975, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: m_Name
-      value: Enemy_01
+      value: Enemy_01 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6647277265521214185, guid: cff2810ae1250e149b86838176340862, type: 3}
@@ -239,10 +239,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7362225495168421975, guid: cff2810ae1250e149b86838176340862, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2933641989313193542}
+      addedObject: {fileID: 4135297126441057796}
     - targetCorrespondingSourceObject: {fileID: 7362225495168421975, guid: cff2810ae1250e149b86838176340862, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8446668870984111816}
+      addedObject: {fileID: 3116885331737403696}
     - targetCorrespondingSourceObject: {fileID: 5482650913520786931, guid: cff2810ae1250e149b86838176340862, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4274843468941577406}
@@ -284,26 +284,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7362225495168421975, guid: cff2810ae1250e149b86838176340862, type: 3}
   m_PrefabInstance: {fileID: 1711530463703184467}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2933641989313193542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8208781154159895556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 382429cdb6a4e454fbfaee6490b349b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicMoveComponent: {fileID: 8446668870984111816}
-  privateRabbitIncrement: 1
-  acceptableDistanceFromPath: 1.5
-  acceptableDistanceToCompletion: 2
-  finalLoopSpeed: 0.5
-  rabbitGizmoBoxSize: 0.5
-  alwaysShowGizmo: 0
---- !u!114 &8446668870984111816
+--- !u!114 &4135297126441057796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -316,6 +297,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 8356647603570823624}
+--- !u!114 &3116885331737403696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8208781154159895556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382429cdb6a4e454fbfaee6490b349b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicMoveComponent: {fileID: 4135297126441057796}
+  privateRabbitIncrement: 1
+  acceptableDistanceFromPath: 1.5
+  acceptableDistanceToCompletion: 2
+  finalLoopSpeed: 0.5
+  rabbitGizmoBoxSize: 0.5
+  alwaysShowGizmo: 0
 --- !u!114 &8356647603570823624 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7221615852569552283, guid: cff2810ae1250e149b86838176340862, type: 3}

@@ -223,9 +223,8 @@ namespace Tzipory.EntitySystem.Entitys
 
         public Stat MoveSpeed => StatusHandler.GetStatByName(MOVE_SPEED); 
         
-        //Dont we prefer a vector3? unless we're planning on making some form of "data/info map" that would be the 2D logic of the battle field,
-        //then translate that to a 3D representation of the battle -> seperatly.
-        public void SetDestination(Vector2 destination, MoveType moveType) 
+       //This is not really needed - we can remove the movement interface from baseunit I think... - it should have a BasicMovement, controlled by something else
+        public void SetDestination(Vector3 destination, MoveType moveType) 
         {
             throw new System.NotImplementedException();
         }

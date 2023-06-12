@@ -207,9 +207,6 @@ MonoBehaviour:
   effectArea: {fileID: 35077402}
   myEffectSO: {fileID: 11400000, guid: 47e394e9ce7c7e54cb526db9c61e56db, type: 2}
   myOppositeEffectSO: {fileID: 11400000, guid: 0ca3e690993d60444857408bef8f4c76, type: 2}
-  shamanLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1 &62772686
 GameObject:
   m_ObjectHideFlags: 0
