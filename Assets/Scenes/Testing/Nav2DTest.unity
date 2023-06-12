@@ -1424,6 +1424,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1713223655816970375, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
+      propertyPath: _projectileSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1800454651558910966, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
       propertyPath: m_Radius
       value: 1.13
