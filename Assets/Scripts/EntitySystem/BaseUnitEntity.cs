@@ -193,7 +193,8 @@ namespace Tzipory.EntitySystem.Entitys
             
             if (HP.CurrentValue < 0)
             {
-                Destroy(gameObject);//temp 
+                gameObject.SetActive(false);
+                EntityTimer.StartNewTimer(2f, () => { Destroy(gameObject); });
                 //effectplay
             }
         }
