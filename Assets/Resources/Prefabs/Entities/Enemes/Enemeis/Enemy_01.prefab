@@ -83,6 +83,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 72b74f5cc71304545b6202cb2faff0df, type: 3}
     - target: {fileID: 23235249120961202, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23235249120961202, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -136,12 +140,16 @@ PrefabInstance:
       objectReference: {fileID: 1838474305419022276}
     - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: _onGetHit._effectActionSos.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: _onGetHit._effectActionSos.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: efd2a47c331e44c4d80a605273ecc06f, type: 2}
+    - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: _onGetHit._effectActionSos.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e3bbd25b4e4ece6468527d830b63569a, type: 2}
     - target: {fileID: 1761856195470886152, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: m_RootOrder
       value: 0

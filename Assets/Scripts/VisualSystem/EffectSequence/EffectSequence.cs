@@ -28,7 +28,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         private List<BaseEffectAction> _activeEffectActions;
 
-        private IEntityVisualComponent _visualComponent;
+        private IEntityVisualComponent _entityVisualComponent;
         
         private int _currentEffectActionIndex;
 
@@ -40,7 +40,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         public void Init(IEntityVisualComponent visualComponent)
         {
-            _visualComponent  = visualComponent;
+            _entityVisualComponent  = visualComponent;
             _activeEffectActions = new List<BaseEffectAction>();
             _effectActions = new List<BaseEffectAction>();
 
@@ -64,7 +64,7 @@ namespace Tzipory.VisualSystem.EffectSequence
             
             OnEffectSequenceStart.Invoke();
 
-            _visualComponent.GameEntity.EntityTimer.StartNewTimer(_startDelay, PlayAction);
+            _entityVisualComponent.GameEntity.EntityTimer.StartNewTimer(_startDelay, PlayAction);
         }
 
         private void OnCompleteEffectSequence()
@@ -92,16 +92,15 @@ namespace Tzipory.VisualSystem.EffectSequence
             
             if (!effectAction.IsActive)
             {
-                effectAction.PlayAction();
+                effectAction.StartEffectAction();
                 _activeEffectActions.Add(effectAction);
+                effectAction.ProcessEffect(_entityVisualComponent);
                 effectAction.OnEffectActionComplete += OnActionComplete;
                 _currentEffectActionIndex++;
             }
 
             if (_currentEffectActionIndex == _effectActions.Count)
-            {
                 return;
-            }
 
             if (_effectActions[_currentEffectActionIndex].ActionStartType == EffectActionStartType.WithPrevious && _currentEffectActionIndex + 1 < _effectActions.Count)
                 PlayAction();
@@ -109,12 +108,15 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         private void OnActionComplete(BaseEffectAction effectAction)
         {
+            if (effectAction.HaveUnDo)
+                effectAction.RestEffect(_entityVisualComponent);
+            
             effectAction.OnEffectActionComplete -= OnActionComplete;
             _activeEffectActions.Remove(effectAction);
 
             if (_currentEffectActionIndex == _effectActions.Count)
             {
-                _visualComponent.GameEntity.EntityTimer.StartNewTimer(_endDelay, OnCompleteEffectSequence);
+                _entityVisualComponent.GameEntity.EntityTimer.StartNewTimer(_endDelay, OnCompleteEffectSequence);
                 return;
             }
 

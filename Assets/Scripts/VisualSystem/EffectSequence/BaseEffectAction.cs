@@ -1,5 +1,4 @@
 ﻿using System;
-using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 
 namespace Tzipory.VisualSystem.EffectSequence
@@ -12,39 +11,27 @@ namespace Tzipory.VisualSystem.EffectSequence
         private readonly float _startDelay;
         protected readonly float _endDelay;
 
-        protected IEntityVisualComponent VisualComponent;
+        public bool HaveUnDo { get; }
+        public abstract float Duration { get; }
         
         public EffectActionStartType ActionStartType { get; }
 
         public bool IsActive { get; private set; }
 
-        protected BaseEffectAction(BaseEffectActionSO effectActionSO,IEntityVisualComponent visualComponent)
+        protected BaseEffectAction(BaseEffectActionSO effectActionSO)
         {
             _startDelay = effectActionSO.StartDelay;
             _endDelay = effectActionSO.EndDelay;
             ActionStartType = effectActionSO.ActionStartType;
-            VisualComponent = visualComponent;
-        }
-        
-        public void PlayAction()
-        {
-            StartEffectAction();
         }
 
-        protected virtual void StartEffectAction()
+        public virtual void StartEffectAction()
         {
             IsActive = true;
 
-            VisualComponent.GameEntity.EntityTimer.StartNewTimer(_startDelay, ExecuteEffect);
-            
             OnEffectActionStart?.Invoke();
         }
 
-        private void ExecuteEffect()
-        {
-            ProcessEffect();
-            //may need to add Effect time
-        }
 
         protected virtual void OnCompleteEffectAction()
         {
@@ -61,8 +48,15 @@ namespace Tzipory.VisualSystem.EffectSequence
             throw new Exception($"Can't cast {effectActionSO.GetType()} to {typeof(T)}");
         }
 
-        protected abstract void ProcessEffect();
-        protected abstract void RestEffect();
+        public virtual void ProcessEffect(IEntityVisualComponent visualComponent)
+        {
+            visualComponent.GameEntity.EntityTimer.StartNewTimer(Duration, OnCompleteEffectAction);
+        }
+
+        public virtual void RestEffect(IEntityVisualComponent visualComponent)
+        {
+            
+        }
     }
 
     public enum EffectActionStartType

@@ -1509,6 +1509,14 @@ PrefabInstance:
       value: 999
       objectReference: {fileID: 0}
     - target: {fileID: 7330099708541644612, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
+      propertyPath: _onDeath._effectActionTypeToAdd
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330099708541644612, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
+      propertyPath: _onDeath._effectActions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330099708541644612, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
       propertyPath: _onDeath._effectActionSos.Array.size
       value: 0
       objectReference: {fileID: 0}

@@ -35,10 +35,10 @@ namespace Factory.EffectActionFactory
             switch (effectActionSO.ActionType)
             {
                 case EffectActionType.Transform:
-                    return new TransformEffectAction(effectActionSO,visualComponent);
+                    return new TransformEffectAction(effectActionSO);
                     break;
                 case EffectActionType.Color:
-                    return new ColorEffectAction(effectActionSO,visualComponent);
+                    return new ColorEffectAction(effectActionSO);
                     break;
                 case EffectActionType.Outline:
                     throw  new NotImplementedException();

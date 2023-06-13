@@ -11,8 +11,10 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
         private Color _originalColor;
         private float _alpha;
         private float _duration;
+
+        public override float Duration => _duration;
         
-        public ColorEffectAction(BaseEffectActionSO effectActionSO,IEntityVisualComponent visualComponent) : base(effectActionSO,visualComponent)
+        public ColorEffectAction(BaseEffectActionSO effectActionSO) : base(effectActionSO)
         {
             var config = GetConfig<ColorEffectActionSO>(effectActionSO);
             
@@ -21,19 +23,20 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
             _duration = config.Duration;
         }
 
-        protected override void ProcessEffect()
+
+        public override void ProcessEffect(IEntityVisualComponent visualComponent)
         {
             var newColor = new Color(_color.r, _color.g, _color.b, _alpha);
-            _originalColor = VisualComponent.SpriteRenderer.color;
+            _originalColor = visualComponent.SpriteRenderer.color;
             
-            VisualComponent.SpriteRenderer.color = newColor;
-            VisualComponent.GameEntity.EntityTimer.StartNewTimer(_duration,RestEffect);
+            visualComponent.SpriteRenderer.color = newColor;
         }
 
-        protected override void RestEffect()
+        public override void RestEffect(IEntityVisualComponent visualComponent)
         {
-            VisualComponent.SpriteRenderer.color = _originalColor;
-            VisualComponent.GameEntity.EntityTimer.StartNewTimer(_endDelay,OnCompleteEffectAction);
+            visualComponent.SpriteRenderer.color = _originalColor;
+            
+            visualComponent.GameEntity.EntityTimer.StartNewTimer(_endDelay,OnCompleteEffectAction);
         }
     }
 }
