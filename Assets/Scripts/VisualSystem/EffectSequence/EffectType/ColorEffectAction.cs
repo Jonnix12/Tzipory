@@ -30,6 +30,8 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
             _originalColor = visualComponent.SpriteRenderer.color;
             
             visualComponent.SpriteRenderer.color = newColor;
+            
+            base.ProcessEffect(visualComponent);
         }
 
         public override void RestEffect(IEntityVisualComponent visualComponent)

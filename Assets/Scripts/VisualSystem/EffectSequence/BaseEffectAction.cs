@@ -11,7 +11,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         private readonly float _startDelay;
         protected readonly float _endDelay;
 
-        public bool HaveUnDo { get; }
+        public bool HaveUndo { get; }
         public abstract float Duration { get; }
         
         public EffectActionStartType ActionStartType { get; }
@@ -23,6 +23,8 @@ namespace Tzipory.VisualSystem.EffectSequence
             _startDelay = effectActionSO.StartDelay;
             _endDelay = effectActionSO.EndDelay;
             ActionStartType = effectActionSO.ActionStartType;
+            HaveUndo = effectActionSO.HaveUndo;
+
         }
 
         public virtual void StartEffectAction()

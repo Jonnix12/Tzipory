@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Tzipory.VisualSystem.EffectSequence
 {
     public abstract class BaseEffectActionSO : ScriptableObject
     {
-        [SerializeField] private bool  _isHaveUnDo;
+        [FormerlySerializedAs("_isHaveUnDo")] [SerializeField] private bool  haveUndo;
         
         public abstract EffectActionType ActionType { get;  }
         public float StartDelay { get; set; }
         public float EndDelay { get; set; }
-        public bool IsHaveUnDo => _isHaveUnDo;
+        public bool HaveUndo => haveUndo;
         public EffectActionStartType ActionStartType { get; set; }
     }
 

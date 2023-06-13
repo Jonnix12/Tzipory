@@ -96,19 +96,19 @@ namespace Tzipory.VisualSystem.EffectSequence
                 _activeEffectActions.Add(effectAction);
                 effectAction.ProcessEffect(_entityVisualComponent);
                 effectAction.OnEffectActionComplete += OnActionComplete;
-                _currentEffectActionIndex++;
             }
+            _currentEffectActionIndex++;
 
             if (_currentEffectActionIndex == _effectActions.Count)
                 return;
 
-            if (_effectActions[_currentEffectActionIndex].ActionStartType == EffectActionStartType.WithPrevious && _currentEffectActionIndex + 1 < _effectActions.Count)
+            if (_effectActions[_currentEffectActionIndex].ActionStartType == EffectActionStartType.WithPrevious)
                 PlayAction();
         }
         
         private void OnActionComplete(BaseEffectAction effectAction)
         {
-            if (effectAction.HaveUnDo)
+            if (effectAction.HaveUndo)
                 effectAction.RestEffect(_entityVisualComponent);
             
             effectAction.OnEffectActionComplete -= OnActionComplete;

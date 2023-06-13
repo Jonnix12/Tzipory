@@ -47,6 +47,7 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
             _originalRotation = visualComponent.EntityTransform.eulerAngles;
             
             visualComponent.EntityTransform.Transition(_transformEffectActionSO);
+            base.ProcessEffect(visualComponent);
         }
 
         public override void RestEffect(IEntityVisualComponent visualComponent)
