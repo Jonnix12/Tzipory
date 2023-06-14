@@ -9,7 +9,6 @@ public class TransitionPackSOEditorScript : Editor
     public override void OnInspectorGUI()
     {
         var obj = (TransformEffectActionSO)target;
-        obj._haveUndo = EditorGUILayout.Toggle("Have undo", obj._haveUndo);
 
         #region Movement
         obj.HaveMovement = EditorGUILayout.Toggle("Have Position", obj.HaveMovement);
