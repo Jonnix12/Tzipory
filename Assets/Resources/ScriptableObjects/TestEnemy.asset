@@ -16,7 +16,7 @@ MonoBehaviour:
   _stats:
   - _name: Hp
     _id: 1
-    _baseValue: 100
+    _baseValue: 500
     _currentValue: 0
   - _name: Invincible Time
     _id: 2

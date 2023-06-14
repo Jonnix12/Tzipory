@@ -5,12 +5,12 @@ namespace Tzipory.VisualSystem.EffectSequence
 {
     public abstract class BaseEffectActionSO : ScriptableObject
     {
-        [FormerlySerializedAs("_isHaveUnDo")] [SerializeField] private bool  haveUndo;
+        [SerializeField] public bool  _haveUndo;//temp
         
         public abstract EffectActionType ActionType { get;  }
         public float StartDelay { get; set; }
         public float EndDelay { get; set; }
-        public bool HaveUndo => haveUndo;
+        public bool HaveUndo => _haveUndo;
         public EffectActionStartType ActionStartType { get; set; }
     }
 

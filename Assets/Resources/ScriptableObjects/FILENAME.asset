@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fda2dce8ea904f8e946388756e0c895f, type: 3}
   m_Name: FILENAME
   m_EditorClassIdentifier: 
-  _isHaveUnDo: 0
+  _haveUndo: 1

@@ -13,19 +13,22 @@ public static class TransitionManager
     public static Sequence Transition(this Transform transform ,TransformEffectActionSO transitionPackSo, Action onComplete = null)
     {
         Vector3 destination = Vector3.zero;
-        
-        switch (transitionPackSo.PositionMoveTypeEnum)
+
+        if (transitionPackSo.HaveMovement)
         {
-            case TransformEffectActionSO.PositionMoveType.Local:
-                destination = transform.localPosition + transitionPackSo.MoveOffSet;
-                break;
-            case TransformEffectActionSO.PositionMoveType.Word:
-                destination = transform.position + transitionPackSo.MoveOffSet;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            switch (transitionPackSo.PositionMoveTypeEnum)
+            {
+                case TransformEffectActionSO.PositionMoveType.Local:
+                    destination = transform.localPosition + transitionPackSo.MoveOffSet;
+                    break;
+                case TransformEffectActionSO.PositionMoveType.Word:
+                    destination = transform.position + transitionPackSo.MoveOffSet;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
-        
+
         return transform.Transition(destination, transitionPackSo, onComplete);
     }
     
