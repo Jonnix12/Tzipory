@@ -34,7 +34,7 @@ public class AoeAbilityEntity : BaseAbilityEntity
     {
         base.Update();
         
-        _duration -= GAME_TIME.GameTimeDelta;//need to be a timer
+        _duration -= GAME_TIME.GameDeltaTime;//need to be a timer
         
         if(_duration <= 0)
             Destroy(gameObject);//temp need to add pool
