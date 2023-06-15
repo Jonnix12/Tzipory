@@ -148,9 +148,9 @@ namespace Tzipory.EntitySystem.Entitys
 
         protected override void OnDestroy()
         {
-            base.OnDestroy();
             StatusHandler.OnStatusEffectInterrupt -= EffectSequenceHandler.RemoveEffectSequence;
             StatusHandler.OnStatusEffectAdded -= AddStatusEffectVisual;
+            base.OnDestroy();
         }
 
         #endregion

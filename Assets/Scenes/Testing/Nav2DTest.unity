@@ -1691,6 +1691,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1064942038}
   - component: {fileID: 1064942039}
+  - component: {fileID: 1064942041}
+  - component: {fileID: 1064942040}
   m_Layer: 0
   m_Name: PS
   m_TagString: Untagged
@@ -1765,6 +1767,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1064942040
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064942037}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.38
+--- !u!114 &1064942041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064942037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ebdde7d67fc4f498dc5bce4ecd2025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectArea: {fileID: 1064942040}
+  myEffectSO: {fileID: 11400000, guid: 47e394e9ce7c7e54cb526db9c61e56db, type: 2}
+  myOppositeEffectSO: {fileID: 11400000, guid: 0ca3e690993d60444857408bef8f4c76, type: 2}
 --- !u!4 &1078848104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1829067622123580326, guid: 7f5d203fededcc94296aa46dbe02655a, type: 3}

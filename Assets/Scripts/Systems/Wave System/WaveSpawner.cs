@@ -78,7 +78,8 @@ public class WaveSpawner : MonoBehaviour
 #endif
                 go.transform.position = spawnPositions.GetRandomElementFromArray().position;
                 //go.GetComponent<MoveTest>().SetRabbit(pf.transform);
-                go.GetComponent<MoveTest>().SetPath(myPathCreator, destinationPath);
+                //go.GetComponent<MoveTest>().SetPath(myPathCreator, destinationPath);
+                go.GetComponent<MovementOnPath>().SetPath(myPathCreator, destinationPath);
             }
         }
 
