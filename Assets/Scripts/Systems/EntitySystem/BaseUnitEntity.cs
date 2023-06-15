@@ -40,6 +40,7 @@ namespace Tzipory.EntitySystem.Entitys
 #endif
         [SerializeField,TabGroup("Component")] private CircleCollider2D _bodyCollider;
         [SerializeField,TabGroup("Component")] private CircleCollider2D _rangeCollider;
+        [Header("Visual components")]
         [SerializeField,TabGroup("Component")] private SpriteRenderer _spriteRenderer;
         [SerializeField,TabGroup("Component")] private Transform _visualQueueEffectPosition;
         [SerializeField,TabGroup("Component")] private Transform _particleEffectPosition;
@@ -84,6 +85,13 @@ namespace Tzipory.EntitySystem.Entitys
             _onMove.ID = Constant.EffectSequenceIds.OnMove;
             _onGetHit.ID = Constant.EffectSequenceIds.OnGetHit;
             _onGetCritHit.ID = Constant.EffectSequenceIds.OnGetCritHit;
+            
+            _onDeath.SequenceName = "OnDeath";
+            _onAttack.SequenceName = "OnAttack";
+            _onCritAttack.SequenceName = "OnCritAttack";
+            _onMove.SequenceName = "OnMove";
+            _onGetHit.SequenceName = "OnGetHit";
+            _onGetCritHit.SequenceName = "OnGetCritHit";
             
             var effectSequence = new EffectSequence[]
             {

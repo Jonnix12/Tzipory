@@ -9,7 +9,7 @@ namespace Tzipory.VisualSystem.EffectSequence
     {
         public event Action OnEffectActionStart;
         public event Action<BaseEffectAction> OnEffectActionComplete;
-        public event Action<BaseEffectAction> OnEffectActionInterrupt;
+        
 
         private ITimer _completeTimer;
         
@@ -71,7 +71,6 @@ namespace Tzipory.VisualSystem.EffectSequence
         public virtual void InterruptEffectAction(IEntityVisualComponent visualComponent)
         {
             visualComponent.GameEntity.EntityTimer.StopTimer(_completeTimer);
-            OnEffectActionInterrupt?.Invoke(this);
         }
     }
 

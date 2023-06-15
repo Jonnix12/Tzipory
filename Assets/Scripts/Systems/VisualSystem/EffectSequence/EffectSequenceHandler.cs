@@ -34,6 +34,7 @@ namespace Tzipory.VisualSystem.EffectSequence
                 if (_activeSequences[i].ID == id && _activeSequences[i].IsInterruptable)
                 {
                     _activeSequences[i].StopSequence();
+                    _activeSequences.RemoveAt(i);
                 }
                     
             }

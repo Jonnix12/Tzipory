@@ -102,11 +102,11 @@ namespace Tzipory.BaseSystem.TimeSystem
 
         public void StopTimer(ITimer timer)
         {
-            if (string.IsNullOrEmpty(timer.TimerName))
+            if (!string.IsNullOrEmpty(timer.TimerName))
             {
-                if (_timersList.Contains(timer))
+                if (_timersDictionary.TryGetValue(timer.TimerName, out var value))
                 {
-                    _timersList.Remove(timer);
+                    _timersDictionary.Remove(timer.TimerName);
                     return;
                 }
             }

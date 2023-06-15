@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Factory.EffectActionFactory;
+using Sirenix.OdinInspector;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using UnityEngine;
@@ -19,10 +21,10 @@ namespace Tzipory.VisualSystem.EffectSequence
         #region SerializeField
 
         public UnityEvent OnEffectSequenceStart; 
-        public UnityEvent OnEffectSequenceCompleteUnityEvent;
+        public UnityEvent OnEffectSequenceCompleteUnityEvent;//may need to change to a effectAction to do at end and start
         
-        [SerializeField] private string _sequenceName;
-        [SerializeField] private int _id;
+        [SerializeField,ReadOnly] private string _sequenceName;//need to see if can stay readOnly
+        [SerializeField,ReadOnly] private int _id;
         
         [SerializeField] private float _startDelay;
         [SerializeField] private float _endDelay;
@@ -49,14 +51,21 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         public bool IsInterruptable => isInterruptable;
 
-        public string SequenceName => _sequenceName;
+        public string SequenceName
+        {
+            get => _sequenceName;
+#if UNITY_EDITOR
+            set => _sequenceName = value;
+#endif
+        }
 
         public int ID {get => _id;
 #if UNITY_EDITOR
             set => _id = value;}
 #endif
 
-
+        public bool IsAllEffectActionDone => _activeEffectActions.All(effectAction => !effectAction.IsActive);
+        
         #endregion
 
         #region PublicMethod
@@ -83,8 +92,10 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         public void StopSequence()
         {
-            foreach (var activeEffectAction in _activeEffectActions)
-                activeEffectAction.InterruptEffectAction(_entityVisualComponent);
+            for (int i = 0; i < _activeEffectActions.Count; i++)
+            {
+                InterruptEffectAction(_activeEffectActions[i]);   
+            }
 
             ResetSequence();
         }
@@ -93,13 +104,13 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         #region PrivateMethod
 
-         private void StartEffectSequence()
+        private void StartEffectSequence()
         {
             IsActive = true;
             
             OnEffectSequenceStart.Invoke();
 
-            _entityVisualComponent.GameEntity.EntityTimer.StartNewTimer(_startDelay, PlayAction);
+            _entityVisualComponent.GameEntity.EntityTimer.StartNewTimer(_startDelay, PlayActions);
         }
 
         private void OnCompleteEffectSequence()
@@ -118,7 +129,7 @@ namespace Tzipory.VisualSystem.EffectSequence
             _activeEffectActions.Clear();
         }
 
-        private void PlayAction()
+        private void PlayActions()
         {
             if (_effectActions.Count == 0)
                 return;
@@ -137,7 +148,6 @@ namespace Tzipory.VisualSystem.EffectSequence
                 _activeEffectActions.Add(effectAction);
                 effectAction.ProcessEffect(_entityVisualComponent);
                 effectAction.OnEffectActionComplete += OnActionComplete;
-                effectAction.OnEffectActionInterrupt += OnEffectActionInterrupt;
             }
             _currentEffectActionIndex++;
 
@@ -145,7 +155,7 @@ namespace Tzipory.VisualSystem.EffectSequence
                 return;
 
             if (_effectActions[_currentEffectActionIndex].ActionStartType == EffectActionStartType.WithPrevious)
-                PlayAction();
+                PlayActions();
         }
         
         private void OnActionComplete(BaseEffectAction effectAction)
@@ -153,32 +163,31 @@ namespace Tzipory.VisualSystem.EffectSequence
             if (!effectAction.DisableUndo)
                 effectAction.UndoEffect(_entityVisualComponent);
             
-            CompleteAction(effectAction);
+            effectAction.OnEffectActionComplete -= OnActionComplete;
+            _activeEffectActions.Remove(effectAction);
+
+            if (_currentEffectActionIndex == _effectActions.Count && IsAllEffectActionDone)
+            {
+                _entityVisualComponent.GameEntity.EntityTimer.StartNewTimer(_endDelay, OnCompleteEffectSequence);
+                return;
+            }
 
             if (_currentEffectActionIndex == 0)
                 return;
 
             if (!_effectActions[_currentEffectActionIndex - 1].IsActive)
-                PlayAction();
+                PlayActions();
         }
 
-        private void OnEffectActionInterrupt(BaseEffectAction effectAction)
+        private void InterruptEffectAction(BaseEffectAction effectAction)
         {
-            CompleteAction(effectAction);
-        }
-
-        private void CompleteAction(BaseEffectAction effectAction)
-        {
-            effectAction.OnEffectActionInterrupt -= OnEffectActionInterrupt;
             effectAction.OnEffectActionComplete -= OnActionComplete;
             
+            effectAction.InterruptEffectAction(_entityVisualComponent);
             _activeEffectActions.Remove(effectAction);
             
-            if (_currentEffectActionIndex == _effectActions.Count)
-                _entityVisualComponent.GameEntity.EntityTimer.StartNewTimer(_endDelay, OnCompleteEffectSequence);
         }
-
-
+        
         #endregion
     }
 }
