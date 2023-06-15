@@ -14,7 +14,7 @@ public class TEMP_HPBarConnector : MonoBehaviour
 
     private void Awake()
     {
-        hP_Bar.Init(coreTemple.HP.MaxValue);
+        hP_Bar.Init(coreTemple.HP.BaseValue);
     }
     private void OnEnable()
     {
@@ -26,7 +26,8 @@ public class TEMP_HPBarConnector : MonoBehaviour
     }
     void SetBarToHealth()
     {
-        hP_Bar.SetBarValueSmoothly(coreTemple.HP.CurrentValue);
+        //hP_Bar.SetBarValueSmoothly(coreTemple.HP.CurrentValue);
+        hP_Bar.SetBarValue(coreTemple.HP.CurrentValue);
     }
 
 
