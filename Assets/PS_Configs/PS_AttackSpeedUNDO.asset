@@ -18,7 +18,7 @@ MonoBehaviour:
   _statusEffectToInterrupt: []
   _statusEffectType: 1
   _statModifier:
-  - _statusModifierType: 4
+  - _statusModifierType: 3
     _modifier:
       _name: Attack Speed Buff
       _id: 0
