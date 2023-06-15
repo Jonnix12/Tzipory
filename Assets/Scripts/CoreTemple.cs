@@ -23,6 +23,8 @@ public class CoreTemple : BaseGameEntity, IEntityTargetAbleComponent
 
     public StatusHandler StatusHandler => throw new System.NotImplementedException();
 
+    public System.Action OnHealthChanged;
+
     private void Awake()
     {
         _hp = new Stat("Health", 100, 100, 0);
@@ -32,12 +34,15 @@ public class CoreTemple : BaseGameEntity, IEntityTargetAbleComponent
     public void Heal(float amount)
     {
         _hp.AddToValue(amount);
+        OnHealthChanged?.Invoke();
     }
 
     public void TakeDamage(float damage, bool isCrit)
     {
         _hp.ReduceFromValue(damage);
-        if(IsEntityDead)
+        OnHealthChanged?.Invoke();
+
+        if (IsEntityDead)
         {
             print("DEAD");
         }
