@@ -12,9 +12,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseShamanEntity
       objectReference: {fileID: 0}
+    - target: {fileID: 4357314417853133059, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7921501042575430128, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7921501042575430128, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -65,9 +69,6 @@ PrefabInstance:
       addedObject: {fileID: 7330099708541644612}
     - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8794722136165047818}
-    - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1713223655816970375}
     - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       insertIndex: -1
@@ -84,6 +85,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6462607467692719273}
+    - targetCorrespondingSourceObject: {fileID: 7669193949609386206, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4678074425004765986}
   m_SourcePrefab: {fileID: 100100000, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
 --- !u!4 &800062657850464996 stripped
 Transform:
@@ -117,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1e065fac3b46878dc2431931f9e290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: d70639d457685f643a3e0fc3fc9e32aa, type: 2}
   _stats: []
   _bodyCollider: {fileID: 1800454651558910966}
   _rangeCollider: {fileID: 4027376282283327668}
@@ -151,6 +156,19 @@ MonoBehaviour:
     isInterruptable: 0
     _effectActionSos:
     - {fileID: 11400000, guid: 6081846283e0d3c409354e7b11a1bd3a, type: 2}
+  _onCritAttack:
+    OnEffectSequenceStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEffectSequenceCompleteUnityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    _sequenceName: 
+    _id: 0
+    _startDelay: 0
+    _endDelay: 0
+    isInterruptable: 0
+    _effectActionSos: []
   _onMove:
     OnEffectSequenceStart:
       m_PersistentCalls:
@@ -177,21 +195,20 @@ MonoBehaviour:
     _endDelay: 0
     isInterruptable: 0
     _effectActionSos: []
-  _config: {fileID: 11400000, guid: d70639d457685f643a3e0fc3fc9e32aa, type: 2}
+  _onGetCritHit:
+    OnEffectSequenceStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEffectSequenceCompleteUnityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    _sequenceName: 
+    _id: 0
+    _startDelay: 0
+    _endDelay: 0
+    isInterruptable: 0
+    _effectActionSos: []
   _shotVisual: {fileID: 1713223655816970375}
---- !u!114 &8794722136165047818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3104813651261807675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbecd0d552654be5a7e6ea39fde78046, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _agentAuthoring: {fileID: 5023256848365871121}
 --- !u!114 &1713223655816970375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2bcca7a7912a2b4f837973101d13351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSpeed: 5
+  _projectileSpeed: 7
   _projectile: {fileID: 6820444270360034478, guid: e64a8a0f859a6954cab1ec02005d3f61, type: 3}
 --- !u!58 &1800454651558910966
 CircleCollider2D:
@@ -319,3 +336,21 @@ CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 1100270541626497056, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
   m_PrefabInstance: {fileID: 4080524451218561172}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5966878208776697930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7669193949609386206, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+  m_PrefabInstance: {fileID: 4080524451218561172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4678074425004765986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966878208776697930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbecd0d552654be5a7e6ea39fde78046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agentAuthoring: {fileID: 5023256848365871121}
