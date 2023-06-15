@@ -1,4 +1,5 @@
-﻿using Tzipory.VisualSystem.EffectSequence.EffectType;
+﻿using Sirenix.OdinInspector;
+using Tzipory.VisualSystem.EffectSequence.EffectType;
 using UnityEngine;
 
 namespace Tzipory.VisualSystem.EffectSequence.EffectActionTypeSO
@@ -7,125 +8,53 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectActionTypeSO
     public class TransformEffectActionSO : BaseEffectActionSO
     {
         #region Position
+        
+        [SerializeField,TabGroup("Position")] private bool _haveMovement = true; 
+        [SerializeField,TabGroup("Position"),ShowIf("_haveMovement")] private PositionMoveType _positionMoveTypeEnum;
+        [SerializeField,TabGroup("Position"),ShowIf("_haveMovement")] private Vector3 _moveOffSet;
+        [SerializeField,TabGroup("Position"),ShowIf("_haveMovement")] private Transition3D _movement;
 
-        private bool _haveMovement = true; 
-        private Transition3D _movement;
-        private PositionMoveType _positionMoveTypeEnum;
-        private Vector3 _moveOffSet;
+        public bool HaveMovement => _haveMovement;
 
-        public bool HaveMovement
-        {
-            get => _haveMovement;
-#if UNITY_EDITOR
-            set => _haveMovement = value;
-#endif
-        }
+        public Transition3D Movement => _movement;
 
-        public Transition3D Movement
-        {
-            get => _movement;
-#if UNITY_EDITOR
-            set => _movement = value;
-#endif
-        }
+        public PositionMoveType PositionMoveTypeEnum => _positionMoveTypeEnum;
 
-        public PositionMoveType PositionMoveTypeEnum
-        {
-            get => _positionMoveTypeEnum;
-#if UNITY_EDITOR
-            set => _positionMoveTypeEnum = value;
-#endif
-        }
-
-        public Vector3 MoveOffSet
-        {
-            get => _moveOffSet;
-#if UNITY_EDITOR
-            set => _moveOffSet = value;
-#endif
-        }
+        public Vector3 MoveOffSet => _moveOffSet;
 
         #endregion
         
         #region Scale
         
-        private ScaleTypeEnum _scaleType;
-        private bool _haveScale = false; 
-        private float _scaleMultiplier;
-        private Vector3 _scaleVector;
-        private Transition3D _scale;
+        [SerializeField,TabGroup("Scale")] private bool _haveScale = false; 
+        [SerializeField,TabGroup("Scale"),ShowIf("_haveScale")] private ScaleTypeEnum _scaleType;
+        [SerializeField,TabGroup("Scale"),ShowIf("_haveScale")] private float _scaleMultiplier;
+        [SerializeField,TabGroup("Scale"),ShowIf("_haveScale")] private Vector3 _scaleVector;
+        [SerializeField,TabGroup("Scale"),ShowIf("_haveScale")] private Transition3D _scale;
 
-        public ScaleTypeEnum ScaleType
-        {
-            get => _scaleType;
-#if UNITY_EDITOR
-            set => _scaleType = value;
-#endif
-        }
+        public ScaleTypeEnum ScaleType => _scaleType;
 
-        public bool HaveScale
-        {
-            get => _haveScale;
-#if UNITY_EDITOR
-            set => _haveScale = value;
-#endif
-        }
+        public bool HaveScale => _haveScale;
 
-        public float ScaleMultiplier
-        {
-            get => _scaleMultiplier;
-#if UNITY_EDITOR
-            set => _scaleMultiplier = value;
-#endif
-        }
+        public float ScaleMultiplier => _scaleMultiplier;
 
-        public Vector3 ScaleVector
-        {
-            get => _scaleVector;
-#if UNITY_EDITOR
-            set => _scaleVector = value;
-#endif
-        }
+        public Vector3 ScaleVector => _scaleVector;
 
-        public Transition3D Scale
-        {
-            get => _scale;
-#if UNITY_EDITOR
-            set => _scale = value;
-#endif
-        }
+        public Transition3D Scale => _scale;
 
         #endregion
 
         #region Rotation
 
-        private bool _haveRotation = false; 
-        private Vector3 _rotate; 
-        private Transition3D _rotation;
+        [SerializeField,TabGroup("Rotation")] private bool _haveRotation = false; 
+        [SerializeField,TabGroup("Rotation"),ShowIf("_haveRotation")] private Vector3 _rotate; 
+        [SerializeField,TabGroup("Rotation"),ShowIf("_haveRotation")] private Transition3D _rotation;
 
-        public bool HaveRotation
-        {
-            get => _haveRotation;
-#if UNITY_EDITOR
-            set => _haveRotation = value;
-#endif
-        }
+        public bool HaveRotation => _haveRotation;
 
-        public Vector3 Rotate
-        {
-            get => _rotate;
-#if UNITY_EDITOR
-            set => _rotate = value;
-#endif
-        }
+        public Vector3 Rotate => _rotate;
 
-        public Transition3D Rotation
-        {
-            get => _rotation;
-#if UNITY_EDITOR
-            set => _rotation = value;
-#endif
-        }
+        public Transition3D Rotation => _rotation;
 
         #endregion
         

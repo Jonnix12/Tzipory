@@ -16,19 +16,7 @@ namespace Tzipory.EntitySystem.Entitys
 {
     public abstract class BaseUnitEntity : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent , IEntityAbilitiesComponent,IEntityVisualComponent
     {
-        #region Const
 
-        private const string HEALTH = "Hp";
-        private const string INVINCIBLE_TIME = "Invincible Time";
-        private const string ATTACK_DAMAGE = "Attack Damage";
-        private const string CRIT_DAMAGE = "Crit Damage";
-        private const string CRIT_CHANCE = "Crit Chance";
-        private const string ATTACK_RATE = "Attack Rate";
-        private const string ATTACK_RANGE = "Attack Range";
-        private const string MOVE_SPEED = "Move Speed";
-
-        #endregion
-        
         #region Fields
         
         [Header("Entity config")]
@@ -67,7 +55,16 @@ namespace Tzipory.EntitySystem.Entitys
             Targeting.Init(this);
             
             List<Stat> stats = new List<Stat>();
-
+            
+            stats.Add(new Stat(Constant.StatNames.Health, _config.Health.BaseValue, _config.Health.MaxValue, Constant.StatIds.Health));
+            stats.Add(new Stat(Constant.StatNames.InvincibleTime, _config.InvincibleTime.BaseValue, _config.InvincibleTime.MaxValue, Constant.StatIds.InvincibleTime));
+            stats.Add(new Stat(Constant.StatNames.AttackDamage, _config.AttackDamage.BaseValue, _config.AttackDamage.MaxValue, Constant.StatIds.AttackDamage));
+            stats.Add(new Stat(Constant.StatNames.CritDamage, _config.CritDamage.BaseValue, _config.CritDamage.MaxValue, Constant.StatIds.CritDamage));
+            stats.Add(new Stat(Constant.StatNames.CritChance, _config.CritChance.BaseValue, _config.CritChance.MaxValue, Constant.StatIds.CritChance));
+            stats.Add(new Stat(Constant.StatNames.AttackRate, _config.AttackRate.BaseValue, _config.AttackRate.MaxValue, Constant.StatIds.AttackRate));
+            stats.Add(new Stat(Constant.StatNames.AttackRange, _config.AttackRange.BaseValue, _config.AttackRange.MaxValue, Constant.StatIds.AttackRange));
+            stats.Add(new Stat(Constant.StatNames.MovementSpeed, _config.MovementSpeed.BaseValue, _config.MovementSpeed.MaxValue, Constant.StatIds.MovementSpeed));
+            
             if (_config.Stats != null && _config.Stats.Count > 0)
             {
                 foreach (var stat in _config.Stats)
@@ -128,7 +125,7 @@ namespace Tzipory.EntitySystem.Entitys
             if (_target != null)//temp
                 Attack();
             
-            _rangeCollider.radius = StatusHandler.GetStatByName(ATTACK_RANGE).CurrentValue;//temp
+            _rangeCollider.radius = StatusHandler.GetStatById(Constant.StatIds.AttackRange).CurrentValue;//temp
         }
 
         private void OnValidate()
@@ -175,9 +172,9 @@ namespace Tzipory.EntitySystem.Entitys
         
         private float  _currentInvincibleTime;
 
-        public Stat HP => StatusHandler.GetStatByName(HEALTH);
+        public Stat HP => StatusHandler.GetStatById(Constant.StatIds.Health);
         
-        public Stat InvincibleTime => StatusHandler.GetStatByName(INVINCIBLE_TIME);
+        public Stat InvincibleTime => StatusHandler.GetStatById(Constant.StatIds.InvincibleTime);
         public bool IsDamageable { get; private set; }
         public bool IsEntityDead => HP.CurrentValue <= 0;
 
@@ -189,11 +186,14 @@ namespace Tzipory.EntitySystem.Entitys
             //     HP.ResetValue();
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage,bool isCrit)
         {
             if (IsDamageable)
             {
-                EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnGetHit);
+                EffectSequenceHandler.PlaySequenceById(isCrit
+                    ? Constant.EffectSequenceIds.OnGetCritHit
+                    : Constant.EffectSequenceIds.OnGetHit);
+                
                 HP.ReduceFromValue(damage);
                 IsDamageable = false;
             }
@@ -228,15 +228,14 @@ namespace Tzipory.EntitySystem.Entitys
         
         public IEntityTargetAbleComponent Target => _target;
         
-        public Stat AttackDamage => StatusHandler.GetStatByName(ATTACK_DAMAGE);
-        public Stat CritDamage => StatusHandler.GetStatByName(CRIT_DAMAGE);
-        public Stat CritChance => StatusHandler.GetStatByName(CRIT_CHANCE);
-        public Stat AttackRate => StatusHandler.GetStatByName(ATTACK_RATE);
-        public Stat AttackRange => StatusHandler.GetStatByName(ATTACK_RANGE);
+        public Stat AttackDamage => StatusHandler.GetStatById(Constant.StatIds.AttackDamage);
+        public Stat CritDamage => StatusHandler.GetStatById(Constant.StatIds.CritDamage);
+        public Stat CritChance => StatusHandler.GetStatById(Constant.StatIds.CritChance);
+        public Stat AttackRate => StatusHandler.GetStatById(Constant.StatIds.AttackRate);
+        public Stat AttackRange => StatusHandler.GetStatById(Constant.StatIds.AttackRange);
         
         public virtual void Attack()
         {
-            EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnAttack);
         }
 
         #endregion
@@ -244,7 +243,7 @@ namespace Tzipory.EntitySystem.Entitys
         #region MovementComponent
 
 
-        public Stat MoveSpeed => StatusHandler.GetStatByName(MOVE_SPEED); 
+        public Stat MoveSpeed => StatusHandler.GetStatById(Constant.StatIds.MovementSpeed);
         
         //Dont we prefer a vector3? unless we're planning on making some form of "data/info map" that would be the 2D logic of the battle field,
         //then translate that to a 3D representation of the battle -> seperatly.

@@ -175,7 +175,8 @@ MonoBehaviour:
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionSos: []
+    _effectActionSos:
+    - {fileID: 11400000, guid: b3ad6d4026754c544bc40f7d83df4bcb, type: 2}
   _onMove:
     OnEffectSequenceStart:
       m_PersistentCalls:

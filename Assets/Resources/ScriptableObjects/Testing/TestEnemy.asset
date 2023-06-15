@@ -12,37 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea472f36b2a4dc0b0810fdfb6687265, type: 3}
   m_Name: TestEnemy
   m_EditorClassIdentifier: 
-  _abilityConfigs: []
-  _stats:
-  - _name: Hp
+  _health:
+    _name: Health
     _id: 1
-    _baseValue: 500
+    _baseValue: 150
     _currentValue: 0
-  - _name: Invincible Time
-    _id: 2
+  _invincibleTime:
+    _name: InvincibleTime
+    _id: 8
     _baseValue: 0
     _currentValue: 0
-  - _name: Attack Damage
-    _id: 3
+  _attackDamage:
+    _name: AttackDamage
+    _id: 2
     _baseValue: 10
     _currentValue: 0
-  - _name: Crit Damage
+  _AttackRate:
+    _name: AttackRate
+    _id: 3
+    _baseValue: 3
+    _currentValue: 0
+  _attackRange:
+    _name: AttackRange
     _id: 4
-    _baseValue: 0
+    _baseValue: 4
     _currentValue: 0
-  - _name: Crit Chance
-    _id: 5
-    _baseValue: 25
-    _currentValue: 0
-  - _name: Attack Rate
+  _CritDamage:
+    _name: CritDamage
     _id: 6
-    _baseValue: 4
+    _baseValue: 6
     _currentValue: 0
-  - _name: Attack Range
+  _CritChance:
+    _name: CritChance
     _id: 7
-    _baseValue: 2
+    _baseValue: 20
     _currentValue: 0
-  - _name: Move Speed
-    _id: 8
+  _movementSpeed:
+    _name: MovementSpeed
+    _id: 5
     _baseValue: 4
     _currentValue: 0
+  _stats: []
+  _abilityConfigs: []

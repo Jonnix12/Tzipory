@@ -10,14 +10,17 @@ public class Temp_Projectile : MonoBehaviour
 
     private float _damage;
 
+    private bool _isCrit;
+
     private Vector2 _startPosition;
     
-    public void Init(IEntityTargetAbleComponent target,float speed,float damage)
+    public void Init(IEntityTargetAbleComponent target,float speed,float damage,bool isCrit)
     {
         _speed = speed;
         _target = target;
         _damage = damage;
         _startPosition  = transform.position;
+        _isCrit = isCrit;
     }
 
     // Update is called once per frame
@@ -47,7 +50,7 @@ public class Temp_Projectile : MonoBehaviour
         {
             if (target.EntityInstanceID == _target.EntityInstanceID)
             {
-                target.TakeDamage(_damage);
+                target.TakeDamage(_damage,_isCrit);
                 Destroy(gameObject);
             }
         }

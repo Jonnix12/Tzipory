@@ -1,4 +1,5 @@
-﻿using Tzipory.BaseSystem.TimeSystem;
+﻿using Helpers.Consts;
+using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.Entitys;
 using UnityEngine;
@@ -42,12 +43,12 @@ namespace Shamans
             
             if (CritChance.CurrentValue > Random.Range(0, 100))
             {
-                base.Attack();
-                _shotVisual.Shot(Target,CritDamage.CurrentValue);
+                EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnCritAttack);
+                _shotVisual.Shot(Target,CritDamage.CurrentValue,true);
                 return;
             }
-            base.Attack();
-            _shotVisual.Shot(Target,AttackDamage.CurrentValue);
+            EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnAttack);
+            _shotVisual.Shot(Target,AttackDamage.CurrentValue,false);
             //EffectSequenceHandler.PlaySequenceById(999);
 
             //  Debug.Log(

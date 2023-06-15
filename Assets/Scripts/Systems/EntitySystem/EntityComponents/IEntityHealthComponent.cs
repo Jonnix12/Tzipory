@@ -11,6 +11,6 @@ namespace Tzipory.EntitySystem.EntityComponents
         
         public void Heal(float amount);
         
-        public void TakeDamage(float damage);
+        public void TakeDamage(float damage,bool isCrit);
     }
 }

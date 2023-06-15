@@ -73,9 +73,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5584945364873908598}
     - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: _onGetHit.isInterruptable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: _visualQueueEffectPosition
       value: 
       objectReference: {fileID: 5901850595707986651}
+    - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: _onGetCritHit.isInterruptable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: _onDeath._effectActionSos.Array.size
       value: 1

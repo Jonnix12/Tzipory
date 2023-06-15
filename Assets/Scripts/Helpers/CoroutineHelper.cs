@@ -36,7 +36,7 @@ namespace Tzipory.Helpers
 
         public Coroutine StartCoroutineHelper(IEnumerator coroutine,string  coroutineName = null,bool overWriteCoroutine = false)
         {
-            Coroutine Newcoroutine = null;
+            Coroutine newCoroutine = null;
 
             if (!string.IsNullOrEmpty(coroutineName))
             {
@@ -48,29 +48,29 @@ namespace Tzipory.Helpers
                         
                         _coroutine.Remove(coroutineName);
                         
-                        Newcoroutine = StartCoroutine(coroutine);
+                        newCoroutine = StartCoroutine(coroutine);
                         
-                        _coroutine.Add(coroutineName, Newcoroutine);
+                        _coroutine.Add(coroutineName, newCoroutine);
                         
-                        return  Newcoroutine;
+                        return  newCoroutine;
                     }
                     
                     Debug.LogError("Trying to start a New coroutine whit the same name (can use the overWriteCoroutine parameter to overWrite the old coroutine)");
                     return null;
                 }
 
-                Newcoroutine = StartCoroutine(coroutine);
+                newCoroutine = StartCoroutine(coroutine);
                 
-                _coroutine.Add(coroutineName,Newcoroutine);
+                _coroutine.Add(coroutineName,newCoroutine);
 
-                return Newcoroutine;
+                return newCoroutine;
             }
             
-            Newcoroutine = StartCoroutine(coroutine);
+            newCoroutine = StartCoroutine(coroutine);
             
-            _coroutine.Add(nameof(coroutine), Newcoroutine);
+            _coroutine.Add(nameof(coroutine), newCoroutine);
             
-            return Newcoroutine;
+            return newCoroutine;
         }
 
         public void StopCoroutineByName(string coroutineName)
