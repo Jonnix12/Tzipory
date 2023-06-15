@@ -34,7 +34,7 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
             base.ProcessEffect(visualComponent);
         }
 
-        public override void RestEffect(IEntityVisualComponent visualComponent)
+        public override void UndoEffect(IEntityVisualComponent visualComponent)
         {
             visualComponent.SpriteRenderer.color = _originalColor;
             

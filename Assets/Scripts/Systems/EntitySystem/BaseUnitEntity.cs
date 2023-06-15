@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Helpers.Consts;
 using Sirenix.OdinInspector;
 using Tzipory.AbilitiesSystem;
@@ -32,26 +31,27 @@ namespace Tzipory.EntitySystem.Entitys
         
         #region Fields
         
-#if UNITY_EDITOR
-        [SerializeField, ReadOnly] private List<Stat> _stats;
-#endif
-        [Header("Component")]
-        [SerializeField] private CircleCollider2D _bodyCollider;
-        [SerializeField] private CircleCollider2D _rangeCollider;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Transform _visualQueueEffectPosition;
-        [SerializeField] private Transform _particleEffectPosition;
-        [SerializeField] private SoundHandler _soundHandler;
-
-        [Header("Visual Events")] 
-        [SerializeField] private EffectSequence _onDeath;
-        [SerializeField] private EffectSequence _onAttack;
-        [SerializeField] private EffectSequence _onMove;
-        [SerializeField] private EffectSequence _onGetHit;
-        
         [Header("Entity config")]
         [SerializeField] private BaseUnitEntityConfig _config;
+      
         
+#if UNITY_EDITOR
+        [SerializeField, ReadOnly,TabGroup("Stats")] private List<Stat> _stats;
+#endif
+        [SerializeField,TabGroup("Component")] private CircleCollider2D _bodyCollider;
+        [SerializeField,TabGroup("Component")] private CircleCollider2D _rangeCollider;
+        [SerializeField,TabGroup("Component")] private SpriteRenderer _spriteRenderer;
+        [SerializeField,TabGroup("Component")] private Transform _visualQueueEffectPosition;
+        [SerializeField,TabGroup("Component")] private Transform _particleEffectPosition;
+        [SerializeField,TabGroup("Component")] private SoundHandler _soundHandler;
+
+        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onDeath;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onAttack;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onCritAttack;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onMove;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onGetHit;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onGetCritHit;
+
         #endregion
 
         #region UnityCallBacks
@@ -80,15 +80,19 @@ namespace Tzipory.EntitySystem.Entitys
 
             _onDeath.ID = Constant.EffectSequenceIds.OnDeath;
             _onAttack.ID = Constant.EffectSequenceIds.OnAttack;
+            _onCritAttack.ID = Constant.EffectSequenceIds.OnCritAttack;
             _onMove.ID = Constant.EffectSequenceIds.OnMove;
             _onGetHit.ID = Constant.EffectSequenceIds.OnGetHit;
+            _onGetCritHit.ID = Constant.EffectSequenceIds.OnGetCritHit;
             
             var effectSequence = new EffectSequence[]
             {
                 _onDeath,
                 _onAttack,
+                _onCritAttack,
                 _onMove,
-                _onGetHit
+                _onGetHit,
+                _onGetCritHit
             };
 
             EffectSequenceHandler = new EffectSequenceHandler(this,effectSequence);

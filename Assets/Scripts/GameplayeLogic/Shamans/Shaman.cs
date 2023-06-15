@@ -7,6 +7,8 @@ namespace Shamans
 {
     public class Shaman : BaseUnitEntity
     {
+        [Space]
+        [Header("Temps")]
         [SerializeField] private Temp_ShamanShotVisual _shotVisual;//temp!
         private float _currentAttackRate;
 

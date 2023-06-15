@@ -14,19 +14,25 @@ namespace Tzipory.VisualSystem.EffectSequence
     {
         public event Action<int> OnEffectSequenceComplete;
 
+        #region Fields
+
+        #region SerializeField
+
         public UnityEvent OnEffectSequenceStart; 
         public UnityEvent OnEffectSequenceCompleteUnityEvent;
-
+        
         [SerializeField] private string _sequenceName;
         [SerializeField] private int _id;
         
         [SerializeField] private float _startDelay;
         [SerializeField] private float _endDelay;
         
-        [FormerlySerializedAs("_inInterruptable")] [SerializeField] private bool isInterruptable;
+        [SerializeField] private bool isInterruptable;
         
         [SerializeField] private List<BaseEffectActionSO> _effectActionSos;
 
+        #endregion
+        
         private List<BaseEffectAction> _effectActions;
         
         private List<BaseEffectAction> _activeEffectActions;
@@ -34,6 +40,10 @@ namespace Tzipory.VisualSystem.EffectSequence
         private IEntityVisualComponent _entityVisualComponent;
         
         private int _currentEffectActionIndex;
+
+        #endregion
+
+        #region Properties
 
         public bool IsActive { get; private set; }
 
@@ -45,6 +55,11 @@ namespace Tzipory.VisualSystem.EffectSequence
 #if UNITY_EDITOR
             set => _id = value;}
 #endif
+
+
+        #endregion
+
+        #region PublicMethod
 
         public void Init(IEntityVisualComponent visualComponent)
         {
@@ -65,8 +80,20 @@ namespace Tzipory.VisualSystem.EffectSequence
         {
             StartEffectSequence();
         }
+        
+        public void StopSequence()
+        {
+            foreach (var activeEffectAction in _activeEffectActions)
+                activeEffectAction.InterruptEffectAction(_entityVisualComponent);
 
-        private void StartEffectSequence()
+            ResetSequence();
+        }
+
+        #endregion
+
+        #region PrivateMethod
+
+         private void StartEffectSequence()
         {
             IsActive = true;
             
@@ -88,7 +115,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         private void ResetSequence()
         {
             _currentEffectActionIndex = 0;
-            //_activeEffectActions.Clear();
+            _activeEffectActions.Clear();
         }
 
         private void PlayAction()
@@ -124,7 +151,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         private void OnActionComplete(BaseEffectAction effectAction)
         {
             if (!effectAction.DisableUndo)
-                effectAction.RestEffect(_entityVisualComponent);
+                effectAction.UndoEffect(_entityVisualComponent);
             
             CompleteAction(effectAction);
 
@@ -151,9 +178,7 @@ namespace Tzipory.VisualSystem.EffectSequence
                 _entityVisualComponent.GameEntity.EntityTimer.StartNewTimer(_endDelay, OnCompleteEffectSequence);
         }
 
-        public void StopSequence()
-        {
-            ResetSequence();
-        }
+
+        #endregion
     }
 }

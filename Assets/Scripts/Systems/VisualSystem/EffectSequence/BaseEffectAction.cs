@@ -63,12 +63,12 @@ namespace Tzipory.VisualSystem.EffectSequence
             _completeTimer = visualComponent.GameEntity.EntityTimer.StartNewTimer(Duration, OnCompleteEffectAction);
         }
 
-        public virtual void RestEffect(IEntityVisualComponent visualComponent)
+        public virtual void UndoEffect(IEntityVisualComponent visualComponent)
         {
             
         }
 
-        public void InterruptEffectAction(IEntityVisualComponent visualComponent)
+        public virtual void InterruptEffectAction(IEntityVisualComponent visualComponent)
         {
             visualComponent.GameEntity.EntityTimer.StopTimer(_completeTimer);
             OnEffectActionInterrupt?.Invoke(this);

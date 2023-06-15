@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7921501042575430128, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7921501042575430128, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -135,6 +135,7 @@ MonoBehaviour:
     _id: 0
     _startDelay: 0
     _endDelay: 0
+    isInterruptable: 0
     _effectActionSos: []
   _onAttack:
     OnEffectSequenceStart:
@@ -147,6 +148,7 @@ MonoBehaviour:
     _id: 456
     _startDelay: 0
     _endDelay: 0
+    isInterruptable: 0
     _effectActionSos:
     - {fileID: 11400000, guid: 6081846283e0d3c409354e7b11a1bd3a, type: 2}
   _onMove:
@@ -160,6 +162,7 @@ MonoBehaviour:
     _id: 0
     _startDelay: 0
     _endDelay: 0
+    isInterruptable: 0
     _effectActionSos: []
   _onGetHit:
     OnEffectSequenceStart:
@@ -172,6 +175,7 @@ MonoBehaviour:
     _id: 0
     _startDelay: 0
     _endDelay: 0
+    isInterruptable: 0
     _effectActionSos: []
   _config: {fileID: 11400000, guid: d70639d457685f643a3e0fc3fc9e32aa, type: 2}
   _shotVisual: {fileID: 1713223655816970375}

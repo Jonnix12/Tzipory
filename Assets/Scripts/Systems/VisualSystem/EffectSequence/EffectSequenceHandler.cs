@@ -31,8 +31,11 @@ namespace Tzipory.VisualSystem.EffectSequence
         {
             for (int i = 0; i < _activeSequences.Count; i++)
             {
-                if (_activeSequences[i].ID == id && !_activeSequences[i].IsInterruptable)
-                    return;
+                if (_activeSequences[i].ID == id && _activeSequences[i].IsInterruptable)
+                {
+                    _activeSequences[i].StopSequence();
+                }
+                    
             }
 
             if(_sequencesDictionary.TryGetValue(id, out var effectSequence))
