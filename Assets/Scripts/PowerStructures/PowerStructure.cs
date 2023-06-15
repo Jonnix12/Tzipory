@@ -22,10 +22,10 @@ public class PowerStructure : BaseGameEntity
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print($"{collision.name} entered!");
+        
         if (collision.gameObject.CompareTag("Shaman"))
         {
-            print($"{collision.name} is Shaman!");
+           
             Shamans.Shaman s = collision.GetComponentInParent<Shamans.Shaman>();
             s.StatusHandler.AddStatusEffect(new InstantStatusEffect(myEffectSO));
             _currentShamans.Add(s);
@@ -33,11 +33,11 @@ public class PowerStructure : BaseGameEntity
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        print($"{collision.name} entered!");
+        
         if (collision.gameObject.CompareTag("Shaman"))
         {
-            print($"{collision.name} is Shaman!");
-            //collision.GetComponentInParent<Shamans.Shaman>().StatusHandler.AddStatusEffect(new InstantStatusEffect(myOppositeEffectSO));
+            
+            
             Shamans.Shaman s = collision.GetComponentInParent<Shamans.Shaman>();
             s.StatusHandler.AddStatusEffect(new InstantStatusEffect(myOppositeEffectSO));
             _currentShamans.Remove(s);

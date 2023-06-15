@@ -227,6 +227,7 @@ namespace Tzipory.EntitySystem.Entitys
         private IEntityTargetAbleComponent _target;
         
         public IEntityTargetAbleComponent Target => _target;
+        public void SetAttackTarget(IEntityTargetAbleComponent tgt) => _target = tgt;
         
         public Stat AttackDamage => StatusHandler.GetStatById(Constant.StatIds.AttackDamage);
         public Stat CritDamage => StatusHandler.GetStatById(Constant.StatIds.CritDamage);

@@ -4,6 +4,8 @@ using UnityEngine;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.BaseSystem.TimeSystem;
 using PathCreation;
+using Shamans;
+using Enemes;
 
 public class MovementOnPath : MonoBehaviour
 {
@@ -35,19 +37,21 @@ public class MovementOnPath : MonoBehaviour
     [SerializeField, Tooltip("Set to true if you want this Unit's Rabbit-gizmo to draw at all times (Default: false, only draws gizmo for this Unit when it is Selected in the editor (inspector)")]
     private bool alwaysShowGizmo = false;
 #endif
-
+    
+    IEntityTargetAbleComponent attackTarget;
     /// <summary>
     /// Basically THE method which sets the Unit on a path and hooks the AdvanceOnPath method.
     /// Starts following the path.
-    
+
     /// </summary>
     /// <param name="pc"></param>
     /// <param name="finalDest"></param>
-    public void SetPath(PathCreator pc, PathCreator finalDest)
+    public void SetPath(PathCreator pc, PathCreator finalDest, IEntityTargetAbleComponent target)
     {
         finalDestinaion = finalDest;
         privateRabbitProgress = 0;
         pathCreator = pc;
+        attackTarget = target;
 
         GAME_TIME.OnGameTimeTick += AdvanceOnPath;
     }
@@ -105,6 +109,9 @@ public class MovementOnPath : MonoBehaviour
             privateRabbitProgress += finalLoopSpeed;
         }
         basicMoveComponent.SetDestination(_currentPointOnPath, MoveType.Free);
+
+        //TEMP!!!!!!
+        GetComponent<Enemy>().SetAttackTarget(attackTarget);
     }
 
     #region Callbacks
