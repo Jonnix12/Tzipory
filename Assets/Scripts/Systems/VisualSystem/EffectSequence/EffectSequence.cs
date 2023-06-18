@@ -28,7 +28,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         [SerializeField] private bool isInterruptable;
         
-        [SerializeField] private List<EffectActionContainer> _effectActionSos;
+        [SerializeField] private List<EffectActionContainer> _effectActionContainers;
 
         #endregion
         
@@ -73,7 +73,7 @@ namespace Tzipory.VisualSystem.EffectSequence
             _activeEffectActions = new List<BaseEffectAction>();
             _effectActions = new List<BaseEffectAction>();
 
-            foreach (var effectActionContainer in _effectActionSos)
+            foreach (var effectActionContainer in _effectActionContainers)
             {
                 var effectAction = EffectActionFactory.GetEffectAction(effectActionContainer,visualComponent);
                 _effectActions.Add(effectAction);

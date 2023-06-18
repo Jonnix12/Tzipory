@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.StatusSystem.StatSystemConfig;
+using Tzipory.EntitySystem.TargetingSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 

@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using PathCreation;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem;
+using Tzipory.EntitySystem.EntityComponents;
 
 [System.Serializable]
 public class WaveSpawner : MonoBehaviour
@@ -29,6 +30,11 @@ public class WaveSpawner : MonoBehaviour
     public UnityEvent OnSpawnEnd;
     [SerializeField]
     private PathCreator destinationPath;
+    
+    [SerializeField, Tooltip("Cant serialize an IEntityTargetAbleComponent so just drag the GameOBject holding the IEntityTargetAbleComponent, for a temp GetComponenet solution")]
+    GameObject attackTargetableObj;
+    IEntityTargetAbleComponent attackTarget;
+
 
     //Should either Sub to LevelManager -> or report themeselves and then do nothing "of their own accord"
 
@@ -36,6 +42,7 @@ public class WaveSpawner : MonoBehaviour
     private void Start()
     {
         LevelManager.Instance.RegisterWaveSpawner(this);
+        attackTarget = attackTargetableObj.GetComponent<IEntityTargetAbleComponent>();
     }
     public void CallSpawnRandomWave()
     {
@@ -78,7 +85,8 @@ public class WaveSpawner : MonoBehaviour
 #endif
                 go.transform.position = spawnPositions.GetRandomElementFromArray().position;
                 //go.GetComponent<MoveTest>().SetRabbit(pf.transform);
-                go.GetComponent<MoveTest>().SetPath(myPathCreator, destinationPath);
+                //go.GetComponent<MoveTest>().SetPath(myPathCreator, destinationPath);
+                go.GetComponent<MovementOnPath>().SetPath(myPathCreator, destinationPath, attackTarget);
             }
         }
 

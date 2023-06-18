@@ -3,7 +3,7 @@ using Tzipory.EntitySystem.EntityComponents;
 
 namespace Tzipory.EntitySystem.TargetingSystem.TargetingPriorites
 {
-    public class ClosestTarget : BaseTargetingPriorityTargeting
+    public class ClosestTarget : BaseTargetingPriority
     {
         public ClosestTarget(IEntityTargetingComponent targetingComponent) : base(targetingComponent)
         {

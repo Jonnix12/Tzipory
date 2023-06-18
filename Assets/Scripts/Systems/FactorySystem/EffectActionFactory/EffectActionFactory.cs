@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.VisualSystem.EffectSequence;
 using Tzipory.VisualSystem.EffectSequence.EffectType;
@@ -11,6 +10,7 @@ namespace Factory
     {
         public static BaseEffectAction GetEffectAction(EffectActionContainer actionContainer,IEntityVisualComponent visualComponent)//need to change happens in update 
         {
+            //may need to add null check
             var effectActionSO = actionContainer.EffectActionSo;
             
             switch (effectActionSO.ActionType)

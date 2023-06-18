@@ -9,23 +9,32 @@ namespace Tzipory.BaseSystem.TimeSystem
     {
         //[SerializeField, Tooltip("Base duration for one Tick of game time.")]
         private static float _timeRate = 1f;
-        
+        private static float _tickBase = 1f;
+
         private static float _tickStep;
-        private static WaitForSeconds _waitTimeStep;
+
+
+        //private static WaitForSeconds _waitTimeStep;
+        private static WaitForSecondsRealtime _waitTimeStep;
         
         private static TimerHandler _timerHandler;
 
+
+        public static float GetCurrentTimeRate => _timeRate;
         //SACLED DELTA TIME (smoothStep)
         public static float GameDeltaTime => Time.deltaTime * _timeRate;
 
         public static TimerHandler TimerHandler => _timerHandler;
         
         public static Action OnGameTimeTick; //tbd static or private and static un/sub methods? - no added funtionality is really required to un/subbing that I can think of... 
-        
+        public static Action OnTimeRateChange;
+
         private void Start()
         {
             _timerHandler = new TimerHandler();
-            _waitTimeStep = new WaitForSeconds(_timeRate);
+            _tickStep = _tickBase / _timeRate;
+            //_waitTimeStep = new WaitForSeconds(_timeRate);
+            _waitTimeStep = new WaitForSecondsRealtime(_tickStep);
             StartCoroutine(nameof(RunTime));
         }
 
@@ -44,8 +53,10 @@ namespace Tzipory.BaseSystem.TimeSystem
             }
             
             _timeRate = time;
-            _tickStep = 1f / _timeRate;
-            _waitTimeStep = new WaitForSeconds(_tickStep);
+            //_tickStep = 1f / _timeRate;
+            _tickStep = _tickBase / _timeRate;
+            //_waitTimeStep = new WaitForSeconds(_tickStep);
+            _waitTimeStep = new WaitForSecondsRealtime(_tickStep);
         }
 
         private IEnumerator RunTime()
@@ -58,6 +69,12 @@ namespace Tzipory.BaseSystem.TimeSystem
                 yield return _waitTimeStep;
                 OnGameTimeTick?.Invoke();
             }
+        }
+
+        public void SetTimeRate(float newRate)
+        {
+            _timeRate = newRate;
+            OnTimeRateChange?.Invoke();
         }
     }
 }

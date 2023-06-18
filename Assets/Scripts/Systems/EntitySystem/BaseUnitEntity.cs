@@ -107,7 +107,7 @@ namespace Tzipory.EntitySystem.Entitys
             StatusHandler.OnStatusEffectAdded += AddStatusEffectVisual;
             
             
-            AbilityHandler = new AbilityHandler(this, _config.AbilityConfigs);
+//            AbilityHandler = new AbilityHandler(this, _config.AbilityConfigs);
 
             _rangeCollider.isTrigger = true;
         }
@@ -149,9 +149,9 @@ namespace Tzipory.EntitySystem.Entitys
 
         protected override void OnDestroy()
         {
-            base.OnDestroy();
             StatusHandler.OnStatusEffectInterrupt -= EffectSequenceHandler.RemoveEffectSequence;
             StatusHandler.OnStatusEffectAdded -= AddStatusEffectVisual;
+            base.OnDestroy();
         }
 
         #endregion
@@ -228,6 +228,7 @@ namespace Tzipory.EntitySystem.Entitys
         private IEntityTargetAbleComponent _target;
         
         public IEntityTargetAbleComponent Target => _target;
+        public void SetAttackTarget(IEntityTargetAbleComponent tgt) => _target = tgt;
         
         public Stat AttackDamage => StatusHandler.GetStatById(Constant.StatIds.AttackDamage);
         public Stat CritDamage => StatusHandler.GetStatById(Constant.StatIds.CritDamage);
@@ -246,9 +247,8 @@ namespace Tzipory.EntitySystem.Entitys
 
         public Stat MoveSpeed => StatusHandler.GetStatById(Constant.StatIds.MovementSpeed);
         
-        //Dont we prefer a vector3? unless we're planning on making some form of "data/info map" that would be the 2D logic of the battle field,
-        //then translate that to a 3D representation of the battle -> seperatly.
-        public void SetDestination(Vector2 destination, MoveType moveType) 
+       //This is not really needed - we can remove the movement interface from baseunit I think... - it should have a BasicMovement, controlled by something else
+        public void SetDestination(Vector3 destination, MoveType moveType) 
         {
             throw new System.NotImplementedException();
         }
