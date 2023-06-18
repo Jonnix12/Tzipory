@@ -2,6 +2,7 @@
 {
     public interface ICast
     {
+        
         public void Cast();
     }
 }

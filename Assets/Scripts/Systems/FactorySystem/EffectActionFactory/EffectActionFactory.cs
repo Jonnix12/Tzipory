@@ -4,7 +4,7 @@ using Tzipory.VisualSystem.EffectSequence;
 using Tzipory.VisualSystem.EffectSequence.EffectType;
 using Tzipory.VisualSystem.EffectSequence.EffectType.Sound;
 
-namespace Factory.EffectActionFactory
+namespace Factory
 {
     public class EffectActionFactory
     {

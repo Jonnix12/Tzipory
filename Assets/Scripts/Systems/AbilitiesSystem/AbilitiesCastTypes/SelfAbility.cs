@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Tzipory.AbilitiesSystem
 {
-    public class AoeAbility : BaseAbility
+    public class SelfAbility : BaseAbility
     {
         private const string  AoePrefabPath = "Prefabs/Ability/AoeAbilityEntity";
         
@@ -14,17 +14,17 @@ namespace Tzipory.AbilitiesSystem
         
         private GameObject _aoePrefab;
         
-        public AoeAbility(IEntityTargetingComponent entityCasterTargetingComponent ,AbilityConfig config) : base(entityCasterTargetingComponent ,config)
+        public SelfAbility(IEntityTargetingComponent entityCasterTargetingComponent ,AbilityConfig config) : base(entityCasterTargetingComponent ,config)
         {
             if(AbilityParameter.TryGetValue("Radius", out Stat radius))
                 Radius = radius;
             else
-                throw new System.Exception($"{nameof(AoeAbility)} Radius not found");
+                throw new System.Exception($"{nameof(SelfAbility)} Radius not found");
             
             if(AbilityParameter.TryGetValue("Duration", out Stat duration))
                 Duration = duration;
             else
-                throw new System.Exception($"{nameof(AoeAbility)} Duration not found");
+                throw new System.Exception($"{nameof(SelfAbility)} Duration not found");
             
             _aoePrefab = Resources.Load<GameObject>(AoePrefabPath);
         }

@@ -49,7 +49,8 @@ namespace Tzipory.EntitySystem.Entitys
         {
             base.Awake();
 
-            DefaultPriorityTargeting = new ClosestTarget(this);//temp
+            DefaultPriorityTargeting =
+                Factory.TargetingPriorityFactory.GetTargetingPriority(this, _config.TargetingPriority);
             
             Targeting = GetComponentInChildren<TargetingHandler>();//temp
             Targeting.Init(this);
