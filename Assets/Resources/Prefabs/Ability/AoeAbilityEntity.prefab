@@ -56,6 +56,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AoeAbilityEntity
       objectReference: {fileID: 0}
+    - target: {fileID: 5602764745902702606, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
+      propertyPath: _scale
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602764745902702606, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
+      propertyPath: _isoOffSet
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7754473551597568420, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
       propertyPath: m_Size.x
       value: 0.2
@@ -75,6 +83,14 @@ PrefabInstance:
     - target: {fileID: 7754473551597568420, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200931897204109112, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200931897204109112, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
