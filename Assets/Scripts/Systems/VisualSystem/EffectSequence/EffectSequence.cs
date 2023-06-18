@@ -20,8 +20,8 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         #region SerializeField
 
-        public UnityEvent OnEffectSequenceStart; 
-        public UnityEvent OnEffectSequenceCompleteUnityEvent;//may need to change to a effectAction to do at end and start
+        //public UnityEvent OnEffectSequenceStart; 
+        //public UnityEvent OnEffectSequenceCompleteUnityEvent;//may need to change to a effectAction to do at end and start
         
         [SerializeField,ReadOnly] private string _sequenceName;//need to see if can stay readOnly
         [SerializeField,ReadOnly] private int _id;
@@ -31,7 +31,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         [SerializeField] private bool isInterruptable;
         
-        [SerializeField] private List<BaseEffectActionSO> _effectActionSos;
+        [SerializeField] private List<EffectActionContainer> _effectActionSos;
 
         #endregion
         
@@ -76,20 +76,15 @@ namespace Tzipory.VisualSystem.EffectSequence
             _activeEffectActions = new List<BaseEffectAction>();
             _effectActions = new List<BaseEffectAction>();
 
-            foreach (var effectActionSO in _effectActionSos)
+            foreach (var effectActionContainer in _effectActionSos)
             {
-                var effectAction = EffectActionFactory.GetEffectAction(effectActionSO,visualComponent);
+                var effectAction = EffectActionFactory.GetEffectAction(effectActionContainer,visualComponent);
                 _effectActions.Add(effectAction);
             }
             
             _currentEffectActionIndex = 0;
         }
-        
-        public void PlaySequence()
-        {
-            StartEffectSequence();
-        }
-        
+
         public void StopSequence()
         {
             for (int i = 0; i < _activeEffectActions.Count; i++)
@@ -104,11 +99,11 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         #region PrivateMethod
 
-        private void StartEffectSequence()
+        public void StartEffectSequence()
         {
             IsActive = true;
             
-            OnEffectSequenceStart.Invoke();
+           // OnEffectSequenceStart.Invoke();
 
             _entityVisualComponent.GameEntity.EntityTimer.StartNewTimer(_startDelay, PlayActions);
         }
@@ -118,7 +113,7 @@ namespace Tzipory.VisualSystem.EffectSequence
             IsActive = false;
             
             OnEffectSequenceComplete?.Invoke(ID);
-            OnEffectSequenceCompleteUnityEvent.Invoke();
+           // OnEffectSequenceCompleteUnityEvent.Invoke();
             
             ResetSequence();
         }
@@ -127,6 +122,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         {
             _currentEffectActionIndex = 0;
             _activeEffectActions.Clear();
+            IsActive = false;
         }
 
         private void PlayActions()
@@ -189,5 +185,29 @@ namespace Tzipory.VisualSystem.EffectSequence
         }
         
         #endregion
+    }
+    
+    [Serializable]
+    public class EffectActionContainer
+    {
+        [HideInInspector] private bool _isStackable;//need to see what to do
+        [SerializeField] private bool _disableUndo;
+        [SerializeField] private float _startDelay;
+        [SerializeField] private float _endDelay;
+        [SerializeField] private EffectActionStartType _effectActionStart; 
+        
+        [SerializeField] private BaseEffectActionSO _effectActionSO;
+
+        public bool IsStackable => _isStackable;
+
+        public bool DisableUndo => _disableUndo;
+
+        public float StartDelay => _startDelay;
+
+        public float EndDelay => _endDelay;
+
+        public EffectActionStartType EffectActionStart => _effectActionStart;
+        
+        public BaseEffectActionSO EffectActionSo => _effectActionSO;
     }
 }

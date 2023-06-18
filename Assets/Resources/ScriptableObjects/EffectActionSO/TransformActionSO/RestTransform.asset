@@ -10,8 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fda2dce8ea904f8e946388756e0c895f, type: 3}
-  m_Name: OnCritAttackTransform
+  m_Name: RestTransform
   m_EditorClassIdentifier: 
+  _isStackable: 0
+  _disableUndo: 1
+  _startDelay: 0
+  _endDelay: 0
+  _effectActionStart: 0
   _haveMovement: 1
   _positionMoveTypeEnum: 0
   _moveOffSet: {x: 0.1, y: 0, z: 0}
@@ -71,7 +76,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  _haveScale: 0
+  _haveScale: 1
   _scaleType: 0
   _scaleMultiplier: 1.1
   _scaleVector: {x: 0, y: 0, z: 0}

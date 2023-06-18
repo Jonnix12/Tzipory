@@ -2,6 +2,7 @@
 using Helpers.Consts;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.Helpers;
+using UnityEngine;
 
 namespace Tzipory.VisualSystem.EffectSequence
 {
@@ -27,24 +28,33 @@ namespace Tzipory.VisualSystem.EffectSequence
             }
         }
 
+        private void PlaySequence(EffectSequence effectSequence)
+        {
+            for (var i = 0; i < _activeSequences.Count; i++)
+            {
+                if (_activeSequences[i].ID != effectSequence.ID) continue;
+
+                if (!effectSequence.IsInterruptable) return;
+
+                _activeSequences[i].StopSequence();
+                _activeSequences.RemoveAt(i);
+                break;
+            }
+            
+            effectSequence.StartEffectSequence();
+            effectSequence.OnEffectSequenceComplete += RemoveActiveEffectSequence;
+            _activeSequences.Add(effectSequence);
+        }
+
         public void PlaySequenceById(int id)
         {
-            for (int i = 0; i < _activeSequences.Count; i++)
+            if (!_sequencesDictionary.TryGetValue(id, out var effectSequence))
             {
-                if (_activeSequences[i].ID == id && _activeSequences[i].IsInterruptable)
-                {
-                    _activeSequences[i].StopSequence();
-                    _activeSequences.RemoveAt(i);
-                }
-                    
+                Debug.LogWarning($"Sequence with id {id} not found");
+                return;
             }
-
-            if(_sequencesDictionary.TryGetValue(id, out var effectSequence))
-            {
-                effectSequence.PlaySequence();
-                effectSequence.OnEffectSequenceComplete += RemoveActiveEffectSequence;
-                _activeSequences.Add(effectSequence);
-            }
+            
+            PlaySequence(effectSequence);
         }
 
         private void RemoveActiveEffectSequence(int id)
@@ -72,9 +82,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         public void ActiveEffectSequence(EffectSequence effectSequence)
         {
             effectSequence.Init(_entityVisualComponent);
-            effectSequence.PlaySequence();
-            _activeSequences.Add(effectSequence);
-            effectSequence.OnEffectSequenceComplete += RemoveActiveEffectSequence;
+            PlaySequence(effectSequence);
         }
     }
 }

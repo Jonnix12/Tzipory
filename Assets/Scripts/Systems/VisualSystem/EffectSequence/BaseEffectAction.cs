@@ -26,13 +26,13 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         public bool IsActive { get; private set; }
 
-        protected BaseEffectAction(BaseEffectActionSO effectActionSO)
+        protected BaseEffectAction(EffectActionContainer actionContainer)
         {
-            _startDelay = effectActionSO.StartDelay;
-            _endDelay = effectActionSO.EndDelay;
-            ActionStartType = effectActionSO.ActionStartType;
-            IsStackable = effectActionSO.IsStackable;
-            DisableUndo = effectActionSO.DisableUndo;
+            _startDelay = actionContainer.StartDelay;
+            _endDelay = actionContainer.EndDelay;
+            ActionStartType = actionContainer.EffectActionStart;
+            IsStackable = actionContainer.IsStackable;
+            DisableUndo = actionContainer.DisableUndo;
         }
 
         public virtual void StartEffectAction()
@@ -71,6 +71,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         public virtual void InterruptEffectAction(IEntityVisualComponent visualComponent)
         {
             visualComponent.GameEntity.EntityTimer.StopTimer(_completeTimer);
+            IsActive = false;
         }
     }
 
