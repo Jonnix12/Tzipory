@@ -2591,6 +2591,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nadia
       objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _onAttack.isInterruptable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _onCritAttack.isInterruptable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _onCritAttack._effectActionSos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _onAttack._effectActionSos.Array.data[0]._disableUndo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _onAttack._effectActionSos.Array.data[0]._isStackable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _onCritAttack._effectActionSos.Array.data[0]._effectActionSO
+      value: 
+      objectReference: {fileID: 11400000, guid: b3ad6d4026754c544bc40f7d83df4bcb, type: 2}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _onCritAttack._effectActionSos.Array.data[1]._effectActionSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6081846283e0d3c409354e7b11a1bd3a, type: 2}
     - target: {fileID: 7198979197876659983, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3067,6 +3095,38 @@ PrefabInstance:
     - target: {fileID: 2166869988640558642, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _onAttack.isInterruptable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _onCritAttack.isInterruptable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _onCritAttack._effectActionSos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _onGetCritHit._effectActionSos.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _onAttack._effectActionSos.Array.data[0]._disableUndo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _onAttack._effectActionSos.Array.data[0]._isStackable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _onCritAttack._effectActionSos.Array.data[1]._effectActionSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6081846283e0d3c409354e7b11a1bd3a, type: 2}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _onGetCritHit._effectActionSos.Array.data[3]._effectActionStart
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6938634372059470701, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
       propertyPath: m_RootOrder

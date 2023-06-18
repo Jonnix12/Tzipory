@@ -19,9 +19,9 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType.Sound
         
         public override float Duration => _selectedAudioClip.length;
         
-        public SoundEffectAction(BaseEffectActionSO effectActionSO) : base(effectActionSO)
+        public SoundEffectAction(EffectActionContainer actionContainer) : base(actionContainer)
         {
-            var config = GetConfig<SoundEffectActionSO>(effectActionSO);
+            var config = GetConfig<SoundEffectActionSO>(actionContainer.EffectActionSo);
 
             _audioClips = config.AudioClips;
             _volume = config.VolumeRange;

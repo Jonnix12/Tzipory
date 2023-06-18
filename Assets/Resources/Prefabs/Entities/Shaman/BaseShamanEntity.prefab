@@ -162,7 +162,12 @@ MonoBehaviour:
     _endDelay: 0
     isInterruptable: 1
     _effectActionSos:
-    - {fileID: 11400000, guid: 6081846283e0d3c409354e7b11a1bd3a, type: 2}
+    - _isStackable: 0
+      _disableUndo: 0
+      _startDelay: 0
+      _endDelay: 0
+      _effectActionStart: 0
+      _effectActionSO: {fileID: 11400000, guid: 6081846283e0d3c409354e7b11a1bd3a, type: 2}
   _onCritAttack:
     OnEffectSequenceStart:
       m_PersistentCalls:
@@ -176,7 +181,12 @@ MonoBehaviour:
     _endDelay: 0
     isInterruptable: 0
     _effectActionSos:
-    - {fileID: 11400000, guid: b3ad6d4026754c544bc40f7d83df4bcb, type: 2}
+    - _isStackable: 0
+      _disableUndo: 0
+      _startDelay: 0
+      _endDelay: 0
+      _effectActionStart: 0
+      _effectActionSO: {fileID: 11400000, guid: b3ad6d4026754c544bc40f7d83df4bcb, type: 2}
   _onMove:
     OnEffectSequenceStart:
       m_PersistentCalls:

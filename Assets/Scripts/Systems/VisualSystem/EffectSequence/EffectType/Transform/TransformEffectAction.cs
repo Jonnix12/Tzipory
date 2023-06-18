@@ -33,9 +33,9 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
             }
         }
 
-        public TransformEffectAction(BaseEffectActionSO effectActionSO) : base(effectActionSO)
+        public TransformEffectAction(EffectActionContainer actionContainer) : base(actionContainer)
         {
-            var config = GetConfig<TransformEffectActionSO>(effectActionSO);
+            var config = GetConfig<TransformEffectActionSO>(actionContainer.EffectActionSo);
             
             _transformEffectActionSO  = config;
         }
