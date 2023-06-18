@@ -3,11 +3,11 @@ using Tzipory.EntitySystem.EntityComponents;
 
 namespace Tzipory.EntitySystem.TargetingSystem
 {
-    public abstract class BaseTargetingPriorityTargeting : IPriorityTargeting
+    public abstract class BaseTargetingPriority : IPriorityTargeting
     {
         protected IEntityTargetingComponent TargetingComponent;
 
-        protected BaseTargetingPriorityTargeting(IEntityTargetingComponent targetingComponent)
+        protected BaseTargetingPriority(IEntityTargetingComponent targetingComponent)
         {
             TargetingComponent  = targetingComponent;
         }
