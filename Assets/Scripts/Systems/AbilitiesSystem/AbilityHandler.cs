@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Tzipory.AbilitiesSystem
 {
-    public class AbilityHandler : IAbilityCaster
+    public class AbilityHandler
     {
         public IEntityTargetingComponent Caster { get; }
         public Dictionary<string, BaseAbility> Abilities { get; }
@@ -21,15 +21,15 @@ namespace Tzipory.AbilitiesSystem
 
             foreach (var baseAbilityConfig in abilitiesConfig)//need to add factory
             {
-                switch (baseAbilityConfig.AbilityType)
+                switch (baseAbilityConfig.AbilityExecuteType)
                 {
-                    case AbilityType.AOE:
-                        Abilities.Add(baseAbilityConfig.AbilityName,new AoeAbility(caster,baseAbilityConfig));
+                    case AbilityExecuteType.AOE:
+                        Abilities.Add(baseAbilityConfig.AbilityName,new SelfAbility(caster,baseAbilityConfig));
                         break;
-                    case AbilityType.Single:
+                    case AbilityExecuteType.Single:
                         Abilities.Add(baseAbilityConfig.AbilityName,new SingleAbility(caster,baseAbilityConfig));
                         break;
-                    case AbilityType.Chain:
+                    case AbilityExecuteType.Chain:
                         Abilities.Add(baseAbilityConfig.AbilityName,new ProjectileAbility(caster,baseAbilityConfig));
                         break;
                     default:
@@ -42,7 +42,7 @@ namespace Tzipory.AbilitiesSystem
         {
             if (Abilities.TryGetValue(abilityName, out var ability))
             {
-                ability.Execute(availableTarget);
+                ability.Cast(availableTarget);
             }
             else
                 Debug.LogError($"{Caster.EntityTransform.name} cant find ability {abilityName}");

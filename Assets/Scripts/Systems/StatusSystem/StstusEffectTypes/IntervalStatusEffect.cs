@@ -56,7 +56,7 @@ namespace Tzipory.EntitySystem.StatusSystem
                 foreach (var statModifier in modifiers)
                 {
 #if UNITY_EDITOR
-                   // Debug.Log($"Execute effect {currentStat.Name} by {statModifier.Modifier.CurrentValue}");    
+                   // Debug.Log($"Cast effect {currentStat.Name} by {statModifier.Modifier.CurrentValue}");    
 #endif
                     statModifier.Process(currentStat);
                 }

@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 
 namespace Tzipory.AbilitiesSystem
 {
     public interface IAbilityCaster
     {
-        public IEntityTargetingComponent Caster { get; }
-        public Dictionary<string, BaseAbility> Abilities { get; }
+        public AbilityCastType AbilityCastType  { get; }
+
+        public void Cast(IEntityTargetAbleComponent target,IAbilityExecutor abilityExecutor);
     }
 }

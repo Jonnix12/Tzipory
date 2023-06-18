@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Tzipory.EntitySystem.StatusSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,60 +12,64 @@ namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
         [SerializeField,Tooltip("")] private int _abilityId;
         [SerializeField,Tooltip("")] private string _abilityName;
         [Header("Ability config")]
-        [SerializeField,Tooltip("")] private AbilityType _abilityType;
-        [SerializeField,Tooltip("")] private CastType _castType;
+        [SerializeField,Tooltip("")] private AbilityCastType abilityCastType;
+        [SerializeField,ShowIf("abilityCastType",AbilityCastType.Projectile)] private float _projectileSpeed;
+        [SerializeField,ShowIf("abilityCastType",AbilityCastType.Projectile)] private float _projectilePenetration;
+        
+        [SerializeField,Tooltip("")] private AbilityExecuteType abilityExecuteType;
+        [SerializeField,ShowIf("abilityExecuteType",AbilityExecuteType.AOE)] private float _aoeRadius;
+        [SerializeField,ShowIf("abilityExecuteType",AbilityExecuteType.AOE)] private float _aoeDuration;
+        [SerializeField,ShowIf("abilityExecuteType",AbilityExecuteType.Chain)] private float _chainRadius;
+        [SerializeField,ShowIf("abilityExecuteType",AbilityExecuteType.Chain)] private float _chainDuration;
+        [SerializeField,ShowIf("abilityExecuteType",AbilityExecuteType.Chain)] private float _chainAmount;
+        
         [Header("Targeting")]
-        [SerializeField,Tooltip("")] private TargetingPriority _targetingPriority;
-        [SerializeField,Tooltip("")] private EffectType _effectType;
+        [SerializeField,Tooltip("")] private TargetingPriorityType targetingPriorityType;
         [Header("Ability parameters")]
-        [SerializeField,Tooltip("")] private Stat _cooldown;
-        [SerializeField,Tooltip("")] private Stat _castTime;
-        [FormerlySerializedAs("_statsConfig")] [SerializeField,Tooltip("")] private List<Stat> abilityParameter;
-        [FormerlySerializedAs("_statusEffect")] [SerializeField,Tooltip("")] private List<StatusEffectConfigSo> _statusEffectConfigs;
+        [SerializeField,Tooltip("")] private float _cooldown;
+        [SerializeField,Tooltip("")] private float _castTime;
+        [SerializeField,Tooltip("")] private List<StatusEffectConfigSo> _statusEffectConfigs;
         
         public string AbilityName => _abilityName;
         public int AbilityId => _abilityId;
-        public AbilityType AbilityType => _abilityType;
-        public TargetingPriority TargetingPriority => _targetingPriority;
-        public EffectType EffectType => _effectType;
-        public Stat Cooldown => _cooldown;
-        public Stat CastTime => _castTime;
-        public List<Stat> AbilityParameter => abilityParameter;
+        public AbilityExecuteType AbilityExecuteType => abilityExecuteType;
+        public AbilityCastType AbilityCastType => abilityCastType;
+
+        public TargetingPriorityType TargetingPriorityType => targetingPriorityType;
+        
+        public float Cooldown => _cooldown;
+        public float CastTime => _castTime;
         public List<StatusEffectConfigSo> StatusEffectConfigs => _statusEffectConfigs;
     }
 
-    public enum AbilityType
+    public enum AbilityExecuteType
     {
         AOE,
         Single,
         Chain
     }
     
-    public enum CastType
+    public enum AbilityCastType
     {
         Projectile,
         Instant,
         Self
     }
 
-    public enum TargetingPriority
+    public enum TargetingPriorityType
     {
-        ClosesToEntity
-    }
-    
-    public enum AbilityActionType
-    {
-        Heal,
-        Damage
+        Default,
+        Random,
+        ClosesToEntity,
+        FarthestFromEntity,
+        ClosesToCore,
+        FarthestFromCore,
+        LowestHpEntity,
+        HighestHpEntity,
+        LowestHpPercentageEntity,
+        HighestHpPercentageEntity,
     }
 
-    public enum TargetType
-    {
-        Self,
-        Enemy,
-        Ally,
-    }
-    
     public enum EffectType
     {
         Positive,

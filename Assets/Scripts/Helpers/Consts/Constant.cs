@@ -22,6 +22,8 @@
             public const int CritDamage = 6;
             public const int CritChance = 7;
             public const int InvincibleTime = 8;
+            public const int AbilityCooldown = 9;
+            public const int AbilityCastTime = 10;
         }
         
         public static class StatNames
@@ -34,6 +36,8 @@
             public const string CritDamage = "CritDamage";
             public const string CritChance = "CritChance";
             public const string InvincibleTime = "InvincibleTime";
+            public const string AbilityCooldown = "Cooldown";
+            public const string AbilityCastTime = "CastTime";
         }
     }
 

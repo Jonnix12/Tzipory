@@ -15,7 +15,7 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
         {
             _speed = speed;
             _penetrationNumber = penetrationNumber;
-            base.statusEffect  = statusEffect;
+            //base.statusEffect  = statusEffect;//need to work on that
         }
 
         protected override void Update()
