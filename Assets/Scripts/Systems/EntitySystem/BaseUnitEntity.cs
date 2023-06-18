@@ -106,7 +106,7 @@ namespace Tzipory.EntitySystem.Entitys
             StatusHandler.OnStatusEffectAdded += AddStatusEffectVisual;
             
             
-            AbilityHandler = new AbilityHandler(this, _config.AbilityConfigs);
+//            AbilityHandler = new AbilityHandler(this, _config.AbilityConfigs);
 
             _rangeCollider.isTrigger = true;
         }

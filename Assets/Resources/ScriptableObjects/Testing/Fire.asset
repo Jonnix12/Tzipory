@@ -33,15 +33,9 @@ MonoBehaviour:
       _baseValue: -2
       _currentValue: 0
   _effectSequence:
-    OnEffectSequenceStart:
-      m_PersistentCalls:
-        m_Calls: []
-    OnEffectSequenceCompleteUnityEvent:
-      m_PersistentCalls:
-        m_Calls: []
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
-    _effectActionSos:
-    - {fileID: 11400000, guid: efd2a47c331e44c4d80a605273ecc06f, type: 2}
+    isInterruptable: 0
+    _effectActionContainers: []

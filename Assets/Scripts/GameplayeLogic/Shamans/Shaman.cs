@@ -25,10 +25,10 @@ namespace Shamans
             
             bool canAttack = false;
 
-            if (AbilityHandler.IsCasting)//temp!!!
-            {
-                //  return;
-            }
+            // if (AbilityHandler.IsCasting)//temp!!!
+            // {
+            //     //  return;
+            // }
             
             _currentAttackRate -= GAME_TIME.GameDeltaTime;
             

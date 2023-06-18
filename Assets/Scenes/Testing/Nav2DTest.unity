@@ -2698,6 +2698,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1656414293}
     m_Modifications:
+    - target: {fileID: 807097535173241973, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2143527074958602832, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
       propertyPath: m_Name
       value: Nadia
@@ -2721,6 +2725,10 @@ PrefabInstance:
     - target: {fileID: 5925383425770498389, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _onGetCritHit._effectActionSos.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7198979197876659983, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
       propertyPath: m_RootOrder
