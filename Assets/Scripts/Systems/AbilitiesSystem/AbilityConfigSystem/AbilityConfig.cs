@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Tzipory.EntitySystem.StatusSystem;
+using Tzipory.EntitySystem.TargetingSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
 {
@@ -54,20 +54,6 @@ namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
         Projectile,
         Instant,
         Self
-    }
-
-    public enum TargetingPriorityType
-    {
-        Default,
-        Random,
-        ClosesToEntity,
-        FarthestFromEntity,
-        ClosesToCore,
-        FarthestFromCore,
-        LowestHpEntity,
-        HighestHpEntity,
-        LowestHpPercentageEntity,
-        HighestHpPercentageEntity,
     }
 
     public enum EffectType
