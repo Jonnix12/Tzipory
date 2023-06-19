@@ -145,66 +145,73 @@ MonoBehaviour:
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionSos: []
+    _effectActionContainers:
+    - _disableUndo: 0
+      _startDelay: 0
+      _endDelay: 0
+      _effectActionStart: 0
+      _effectActionSO: {fileID: 11400000, guid: efd2a47c331e44c4d80a605273ecc06f, type: 2}
+    - _disableUndo: 0
+      _startDelay: 0
+      _endDelay: 0
+      _effectActionStart: 0
+      _effectActionSO: {fileID: 11400000, guid: 6c0015ba36e55234b97a8e707264ae82, type: 2}
   _onAttack:
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionSos: []
+    _effectActionContainers: []
   _onCritAttack:
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionSos: []
+    _effectActionContainers: []
   _onMove:
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionSos: []
+    _effectActionContainers: []
   _onGetHit:
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 1
-    _effectActionSos:
-    - _isStackable: 0
-      _disableUndo: 0
+    _effectActionContainers:
+    - _disableUndo: 0
       _startDelay: 0
       _endDelay: 0
       _effectActionStart: 0
       _effectActionSO: {fileID: 11400000, guid: efd2a47c331e44c4d80a605273ecc06f, type: 2}
-    - _isStackable: 0
-      _disableUndo: 0
+    - _disableUndo: 0
       _startDelay: 0
       _endDelay: 0
       _effectActionStart: 0
       _effectActionSO: {fileID: 11400000, guid: a623487578b155d448fa5c0657da923b, type: 2}
-    - _isStackable: 0
-      _disableUndo: 0
-      _startDelay: 0
-      _endDelay: 0
-      _effectActionStart: 0
-      _effectActionSO: {fileID: 11400000, guid: e3bbd25b4e4ece6468527d830b63569a, type: 2}
-    - _isStackable: 0
-      _disableUndo: 0
-      _startDelay: 0
-      _endDelay: 0
-      _effectActionStart: 1
-      _effectActionSO: {fileID: 11400000, guid: 0c334641f7489664990ef56577da2ac2, type: 2}
   _onGetCritHit:
     _sequenceName: 
     _id: 0
     _startDelay: 0
-    _endDelay: 0
-    isInterruptable: 0
-    _effectActionSos: []
+    _endDelay: 11.5
+    isInterruptable: 1
+    _effectActionContainers:
+    - _disableUndo: 0
+      _startDelay: 0
+      _endDelay: 0
+      _effectActionStart: 0
+      _effectActionSO: {fileID: 11400000, guid: efd2a47c331e44c4d80a605273ecc06f, type: 2}
+    - _disableUndo: 0
+      _startDelay: 0
+      _endDelay: 0
+      _effectActionStart: 0
+      _effectActionSO: {fileID: 11400000, guid: 1b22e0a237eeefa448293adc8adacc19, type: 2}
+  BasicMoveComponent: {fileID: 0}
 --- !u!114 &7221615852569552283
 MonoBehaviour:
   m_ObjectHideFlags: 0

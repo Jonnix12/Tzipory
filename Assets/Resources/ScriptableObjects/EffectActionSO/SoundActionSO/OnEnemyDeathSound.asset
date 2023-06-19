@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f16aef66cbee4e868f58a5cfe141edb4, type: 3}
-  m_Name: OnHitSound
+  m_Name: OnEnemyDeathSound
   m_EditorClassIdentifier: 
   _isStackable: 1
   _disableUndo: 1
@@ -18,8 +18,8 @@ MonoBehaviour:
   _endDelay: 0
   _effectActionStart: 0
   audioClips:
-  - {fileID: 8300000, guid: 7911ca3bb396f50488c91009077175ac, type: 3}
+  - {fileID: 8300000, guid: bef7e706103bcca49985730193c2c612, type: 3}
   _randomPitch: 0
   _randomVolume: 0
   _volumeRange: {x: 0, y: 0}
-  _pitchRange: {x: 0.9363059, y: 1.1273886}
+  _pitchRange: {x: 0, y: 0}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f16aef66cbee4e868f58a5cfe141edb4, type: 3}
-  m_Name: OnCritHitSound
+  m_Name: OnEnemyCritHitSound
   m_EditorClassIdentifier: 
   audioClips:
   - {fileID: 8300000, guid: 8d6b70dfafa23034ea2d817b3ebad211, type: 3}

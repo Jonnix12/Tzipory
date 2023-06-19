@@ -1,4 +1,5 @@
-﻿using Tzipory.EntitySystem.EntityComponents;
+﻿using Helpers.Consts;
+using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.Entitys;
 using UnityEngine;
 
@@ -36,5 +37,13 @@ namespace Enemes
                 timer += Time.deltaTime;
             }
         }
+
+
+
+        //protected override void Update()
+        //{
+        //    base.Update();
+        //    EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnMove);
+        //}
     }
 }
