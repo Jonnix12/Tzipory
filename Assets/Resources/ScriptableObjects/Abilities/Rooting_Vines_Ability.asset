@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929bf20fee544513a43c5c82f42f499a, type: 3}
+  m_Name: Rooting_Vines_Ability
+  m_EditorClassIdentifier: 
+  _abilityId: 11
+  _abilityName: Rooting Vines
+  abilityCastType: 1
+  _projectileSpeed: 0
+  _projectilePenetration: 0
+  abilityExecuteType: 0
+  _aoeRadius: 15
+  _aoeDuration: 0.1
+  _chainRadius: 0
+  _chainDuration: 0
+  _chainAmount: 0
+  targetingPriorityType: 4
+  _cooldown: 8
+  _castTime: 2
+  _statusEffectConfigs:
+  - {fileID: 11400000, guid: 8bb693849af258646b923c908f621942, type: 2}
+  - {fileID: 11400000, guid: 7678dc94c3f364644b6e5f5e040d2afd, type: 2}

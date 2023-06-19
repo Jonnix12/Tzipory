@@ -10,27 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbec1bc4bb0b4e8391bcef723400cf0d, type: 3}
-  m_Name: Fire
+  m_Name: Rooting_Vines_Slow
   m_EditorClassIdentifier: 
-  _statName: Health
-  _statusEffectId: 0
+  _statName: MovementSpeed
+  _statusEffectId: 5
   _statusEffectParameter:
-  - _name: Interval
+  - _name: 
     _id: 0
-    _baseValue: 1
-    _currentValue: 0
-  - _name: Duration
-    _id: 0
-    _baseValue: 60
+    _baseValue: 2
     _currentValue: 0
   _statusEffectToInterrupt: []
-  _statusEffectType: 2
+  _statusEffectType: 0
   _statModifier:
-  - _statusModifierType: 1
+  - _statusModifierType: 0
     _modifier:
-      _name: HpRedus
-      _id: 10
-      _baseValue: -2
+      _name: 
+      _id: 0
+      _baseValue: 0
       _currentValue: 0
   _effectSequence:
     _sequenceName: 

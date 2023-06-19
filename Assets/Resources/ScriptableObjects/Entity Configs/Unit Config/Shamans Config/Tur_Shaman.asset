@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dea472f36b2a4dc0b0810fdfb6687265, type: 3}
-  m_Name: TestEnemy
+  m_Name: Tur_Shaman
   m_EditorClassIdentifier: 
   _health:
     _name: Health
     _id: 1
-    _baseValue: 150
+    _baseValue: 450
     _currentValue: 0
   _invincibleTime:
     _name: InvincibleTime
@@ -25,33 +25,34 @@ MonoBehaviour:
   _attackDamage:
     _name: AttackDamage
     _id: 2
-    _baseValue: 1
+    _baseValue: 50
     _currentValue: 0
   _AttackRate:
     _name: AttackRate
     _id: 3
-    _baseValue: 3
+    _baseValue: 0.8
     _currentValue: 0
   _attackRange:
     _name: AttackRange
     _id: 4
-    _baseValue: 4
+    _baseValue: 8
     _currentValue: 0
   _CritDamage:
     _name: CritDamage
     _id: 6
-    _baseValue: 6
+    _baseValue: 110
     _currentValue: 0
   _CritChance:
     _name: CritChance
     _id: 7
-    _baseValue: 20
+    _baseValue: 2
     _currentValue: 0
   _movementSpeed:
     _name: MovementSpeed
     _id: 5
-    _baseValue: 4
+    _baseValue: 5
     _currentValue: 0
   _stats: []
-  _abilityConfigs: []
-  _targetingPriority: 0
+  _abilityConfigs:
+  - {fileID: 11400000, guid: 1ae853bb9bae2264d947b505396fb4e8, type: 2}
+  _targetingPriority: 2
