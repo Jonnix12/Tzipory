@@ -1,31 +1,33 @@
-﻿using System.Collections.Generic;
+using System.Collections;
+using System.Collections.Generic;
 using Tzipory.EntitySystem.EntityComponents;
-
+using UnityEngine;
 namespace Tzipory.EntitySystem.TargetingSystem.TargetingPriorites
 {
-    public class ClosestTarget : BaseTargetingPriority
+
+    public class ClosestToCoreTarget : BaseTargetingPriority
     {
-        public ClosestTarget(IEntityTargetingComponent targetingComponent) : base(targetingComponent)
+        public ClosestToCoreTarget(IEntityTargetingComponent targetingComponent) : base(targetingComponent)
         {
         }
 
         public override IEntityTargetAbleComponent GetPriorityTarget(IEnumerable<IEntityTargetAbleComponent> targets)
         {
             IEntityTargetAbleComponent currentClosestTarget = null;
-            
-            float currentClosestTargetDistance = float.MaxValue;
+
+            float currentClosestDistance = float.MaxValue;
 
             foreach (var target in targets)
             {
-                var distance = TargetingComponent.GetDistanceToTarget(target);
-                
-                if (distance < currentClosestTargetDistance)
+                var distance = Vector3.Distance(CoreTemple.CoreTrans.position, target.EntityTransform.position);
+
+                if (distance < currentClosestDistance)
                 {
                     currentClosestTarget = target;
-                    currentClosestTargetDistance = distance;
+                    currentClosestDistance = distance;
                 }
             }
-            
+
             return currentClosestTarget;
         }
     }
