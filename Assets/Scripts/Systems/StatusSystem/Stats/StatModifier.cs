@@ -7,16 +7,17 @@ namespace Tzipory.EntitySystem.StatusSystem
     public class StatModifier
     {
         [SerializeField] private StatusModifierType _statusModifierType;
-        [SerializeField] private Stat _modifier;
+        [SerializeField] private float _modifier;
 
+        private Stat _modifierStat;
         public StatusModifierType ModifierType => _statusModifierType;
-        public Stat Modifier => _modifier;
+        public Stat Modifier => _modifierStat;
         
         private float _value;
 
         public StatModifier(Stat modifier,StatusModifierType statusModifierType)
         {
-            _modifier = new Stat(modifier.Name,modifier.BaseValue,modifier.MaxValue,modifier.Id);
+            _modifierStat = new Stat(modifier.Name,_modifier,modifier.MaxValue,modifier.Id);
             _statusModifierType = statusModifierType;
         }
 

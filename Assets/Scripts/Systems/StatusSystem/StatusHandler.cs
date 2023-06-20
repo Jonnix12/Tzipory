@@ -13,7 +13,7 @@ namespace Tzipory.EntitySystem.StatusSystem
         public event Action<int> OnStatusEffectInterrupt; 
 
         private IEntityStatusEffectComponent _entity;
-        
+        private  readonly Dictionary<int, IStatHolder> _stats;
         private readonly Dictionary<int, Stat> _statsById;
         private readonly Dictionary<string, Stat> _statsByName;
 
@@ -107,19 +107,6 @@ namespace Tzipory.EntitySystem.StatusSystem
                 OnStatusEffectRemoved?.Invoke(baseStatusEffect.StatusEffectId);
                 _activeStatusEffects.Remove(id);
             }
-        }
-        
-        public static BaseStatusEffect GetStatusEffect(StatusEffectConfigSo statusEffectConfigSo)
-        {
-            BaseStatusEffect baseStatusEffect = statusEffectConfigSo.StatusEffectType switch
-            {
-                StatusEffectType.OverTime => new OverTimeStatusEffect(statusEffectConfigSo),
-                StatusEffectType.Instant => new InstantStatusEffect(statusEffectConfigSo),
-                StatusEffectType.Interval => new IntervalStatusEffect(statusEffectConfigSo),
-                _ => null
-            };
-            
-            return  baseStatusEffect;
         }
     }
 }

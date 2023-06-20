@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Tzipory.BaseSystem.TimeSystem;
+﻿using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
-using Tzipory.EntitySystem.StatusSystem;
 using UnityEngine;
 
 namespace Tzipory.AbilitiesSystem.AbilityEntity
@@ -11,18 +9,18 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
         private float _penetrationNumber;
         private float _speed;
         
-        public void Init(float speed, float penetrationNumber,IEnumerable<BaseStatusEffect> statusEffect)
+        public void Init(IEntityTargetAbleComponent target,float speed, float penetrationNumber,IAbilityExecutor abilityExecutor) 
         {
+            base.Init(target, abilityExecutor);
             _speed = speed;
             _penetrationNumber = penetrationNumber;
-            //base.statusEffect  = statusEffect;//need to work on that
         }
 
         protected override void Update()
         {
             base.Update();
             
-            transform.Translate(Vector3.up * (_speed * GAME_TIME.GameDeltaTime));
+            transform.Translate(transform.up * (_speed * GAME_TIME.GameDeltaTime));
 
             if (_penetrationNumber <= 0)
                 Destroy(gameObject);
@@ -30,11 +28,12 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out IEntityTargetAbleComponent entityTargetAbleComponent))
-            {
-                _penetrationNumber--;
-                Cast(entityTargetAbleComponent);
-            }
+            if (!other.TryGetComponent<IEntityTargetAbleComponent>(out var targetAbleComponent)) return;
+            
+            if (targetAbleComponent.EntityInstanceID == _abilityExecutor.Caster.EntityInstanceID) return;
+            
+            _abilityExecutor.Execute(targetAbleComponent);
+            _penetrationNumber--;
         }
     }
 }

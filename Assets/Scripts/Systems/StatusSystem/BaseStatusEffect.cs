@@ -23,7 +23,7 @@ namespace Tzipory.EntitySystem.StatusSystem
         
         protected BaseStatusEffect(StatusEffectConfigSo statusEffectConfigSo)
         {
-            StatName = statusEffectConfigSo.StatName;
+            StatName = statusEffectConfigSo.AffectedStatName;
             StatusEffectId = statusEffectConfigSo.StatusEffectId;
             StatusEffectToInterrupt = statusEffectConfigSo.StatusEffectToInterrupt;
             EffectSequence = statusEffectConfigSo.EffectSequence;

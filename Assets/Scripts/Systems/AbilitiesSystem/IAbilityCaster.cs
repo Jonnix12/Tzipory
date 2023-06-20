@@ -1,11 +1,13 @@
-﻿using Tzipory.AbilitiesSystem.AbilityConfigSystem;
+﻿using System;
+using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
 
 namespace Tzipory.AbilitiesSystem
 {
     public interface IAbilityCaster
     {
-        public AbilityCastType AbilityCastType  { get; }
+        public event Action OnCast;
+        public AbilityCastType AbilityCastType  { get; }//how
 
         public void Cast(IEntityTargetAbleComponent target,IAbilityExecutor abilityExecutor);
     }

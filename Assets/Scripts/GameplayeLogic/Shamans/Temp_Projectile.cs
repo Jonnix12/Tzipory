@@ -26,6 +26,12 @@ public class Temp_Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_target is null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (!_target.GameEntity.isActiveAndEnabled)
         {
             Destroy(gameObject);

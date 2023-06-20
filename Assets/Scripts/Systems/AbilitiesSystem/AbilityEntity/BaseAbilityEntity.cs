@@ -9,11 +9,12 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
         [SerializeField] protected CircleCollider2D _collider2D;
         [SerializeField] protected Transform _sprite;
         
-        private IAbilityExecutor _abilityExecutor;
-        private IEntityTargetAbleComponent _target;
+        protected IAbilityExecutor _abilityExecutor;
+        protected IEntityTargetAbleComponent _target;
 
-        public virtual void Init(IEntityTargetAbleComponent target, IAbilityExecutor abilityExecutor)
+        protected void Init(IEntityTargetAbleComponent target, IAbilityExecutor abilityExecutor)
         {
+            _collider2D.isTrigger = true;
             _target = target;
             _abilityExecutor = abilityExecutor;
         }
@@ -21,12 +22,6 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
         protected virtual void Cast(IEntityTargetAbleComponent target)
         {
             _abilityExecutor.Execute(target);
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.TryGetComponent<IEntityTargetAbleComponent>(out var targetAbleComponent))
-                _abilityExecutor.Execute(targetAbleComponent);
         }
     }
 }

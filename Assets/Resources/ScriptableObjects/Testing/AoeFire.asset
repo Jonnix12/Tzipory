@@ -14,21 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _abilityId: 1
   _abilityName: AoeFire
-  _abilityType: 0
-  _castType: 0
-  _targetingPriority: 0
-  _effectType: 0
-  _cooldown:
-    _name: 
-    _id: 0
-    _baseValue: 0
-    _currentValue: 0
-  _castTime:
-    _name: 
-    _id: 0
-    _baseValue: 0
-    _currentValue: 0
-  abilityParameter: []
+  abilityCastType: 0
+  _projectileSpeed: 5
+  _projectilePenetration: 1
+  abilityExecuteType: 0
+  _aoeRadius: 4
+  _aoeDuration: 5
+  _chainRadius: 0
+  _chainDuration: 0
+  _chainAmount: 0
+  targetingPriorityType: 2
+  _cooldown: 2
+  _castTime: 1
   _statusEffectConfigs:
   - {fileID: 11400000, guid: b88d00e68281c724c889c9df070b136a, type: 2}
   - {fileID: 11400000, guid: 893d57d2a93463f4a9e65298f82c1bf0, type: 2}

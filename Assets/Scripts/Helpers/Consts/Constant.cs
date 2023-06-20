@@ -24,6 +24,34 @@
             public const int InvincibleTime = 8;
             public const int AbilityCooldown = 9;
             public const int AbilityCastTime = 10;
+            public const int ProjectileSpeed = 11;
+            public const int ProjectilePenetration = 12;
+            public const int AoeRadius = 13;
+            public const int AoeDuration = 14;
+            public const int ChainRadius = 15;
+            public const int ChainDuration = 16;
+            public const int ChainAmount = 17;
+        }
+        
+        public enum Stats
+        {
+            Health,
+            AttackDamage,
+            AttackRate,
+            AttackRange,
+            MovementSpeed,
+            CritDamage,
+            CritChance,
+            InvincibleTime,
+            AbilityCooldown,
+            AbilityCastTime,
+            ProjectileSpeed,
+            ProjectilePenetration,
+            AoeRadius,
+            AoeDuration,
+            ChainRadius,
+            ChainDuration,
+            ChainAmount,
         }
         
         public static class StatNames

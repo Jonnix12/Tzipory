@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.EntityComponents;
@@ -9,41 +8,24 @@ namespace Tzipory.AbilitiesSystem
 {
     public class AbilityHandler
     {
-        public IEntityTargetingComponent Caster { get; }
-        public Dictionary<string, BaseAbility> Abilities { get; }
+        private IEntityTargetAbleComponent Caster { get; }
+        private Dictionary<string, Ability> Abilities { get; }
         
         public bool IsCasting => Abilities.Any(ability => ability.Value.IsCasting);
         
-        public AbilityHandler(IEntityTargetingComponent caster,IEnumerable<AbilityConfig> abilitiesConfig)//temp
+        public AbilityHandler(IEntityTargetAbleComponent caster,IEntityTargetingComponent entityTargetingComponent,IEnumerable<AbilityConfig> abilitiesConfig)//temp
         {
-            Abilities = new Dictionary<string, BaseAbility>();
+            Abilities = new Dictionary<string, Ability>();
             Caster = caster;
 
-            foreach (var baseAbilityConfig in abilitiesConfig)//need to add factory
-            {
-                switch (baseAbilityConfig.AbilityExecuteType)
-                {
-                    case AbilityExecuteType.AOE:
-                        Abilities.Add(baseAbilityConfig.AbilityName,new SelfAbility(caster,baseAbilityConfig));
-                        break;
-                    case AbilityExecuteType.Single:
-                        Abilities.Add(baseAbilityConfig.AbilityName,new SingleAbility(caster,baseAbilityConfig));
-                        break;
-                    case AbilityExecuteType.Chain:
-                        Abilities.Add(baseAbilityConfig.AbilityName,new ProjectileAbility(caster,baseAbilityConfig));
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
+            foreach (var abilityConfig in abilitiesConfig)
+                Abilities.Add(abilityConfig.AbilityName,new Ability(caster,entityTargetingComponent,abilityConfig));
         }
 
-        public void CastAbilityByName(string abilityName,IEnumerable<IEntityTargetAbleComponent> availableTarget)
+        public void CastAbilityByName(string abilityName,IEnumerable<IEntityTargetAbleComponent> availableTargets)
         {
             if (Abilities.TryGetValue(abilityName, out var ability))
-            {
-                ability.Cast(availableTarget);
-            }
+                ability.Cast(availableTargets);
             else
                 Debug.LogError($"{Caster.EntityTransform.name} cant find ability {abilityName}");
         }

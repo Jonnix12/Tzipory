@@ -37,6 +37,22 @@ namespace Tzipory.AbilitiesSystem.AbilityConfigSystem
 
         public TargetingPriorityType TargetingPriorityType => targetingPriorityType;
         
+        public float ProjectileSpeed => _projectileSpeed;
+
+        public float ProjectilePenetration => _projectilePenetration;
+        
+        public float AoeRadius => _aoeRadius;
+
+        public float AoeDuration => _aoeDuration;
+
+        public float ChainRadius => _chainRadius;
+
+        public float ChainDuration => _chainDuration;
+
+        public float ChainAmount => _chainAmount;
+
+        public TargetingPriorityType TargetingPriorityType1 => targetingPriorityType;
+
         public float Cooldown => _cooldown;
         public float CastTime => _castTime;
         public List<StatusEffectConfigSo> StatusEffectConfigs => _statusEffectConfigs;

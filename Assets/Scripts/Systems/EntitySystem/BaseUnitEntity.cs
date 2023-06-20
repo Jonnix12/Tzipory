@@ -70,10 +70,11 @@ namespace Tzipory.EntitySystem.Entitys
             {
                 foreach (var stat in _config.Stats)
                     stats.Add(new Stat(stat.Name, stat.BaseValue, stat.MaxValue, stat.Id));
-#if UNITY_EDITOR
-                _stats = stats;
-#endif
             }
+            
+#if UNITY_EDITOR
+            _stats = stats;
+#endif
                
             StatusHandler = new StatusHandler(stats,this);
 
@@ -107,7 +108,7 @@ namespace Tzipory.EntitySystem.Entitys
             StatusHandler.OnStatusEffectAdded += AddStatusEffectVisual;
             
             
-//            AbilityHandler = new AbilityHandler(this, _config.AbilityConfigs);
+           AbilityHandler = new AbilityHandler(this,this, _config.AbilityConfigs);
 
             _rangeCollider.isTrigger = true;
         }

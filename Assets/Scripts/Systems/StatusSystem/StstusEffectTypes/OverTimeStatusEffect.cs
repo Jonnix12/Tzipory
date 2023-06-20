@@ -12,10 +12,10 @@ namespace Tzipory.EntitySystem.StatusSystem
         
         public OverTimeStatusEffect(StatusEffectConfigSo statusEffectConfigSo) : base(statusEffectConfigSo)
         {
-            if (statusEffectConfigSo.TryGetParameter(DURATION_KEY,out var stat))
-                _duration = new Stat(stat.Name,stat.BaseValue,stat.MaxValue,stat.Id);
-            else
-                throw new Exception($"{DURATION_KEY} was not found");
+            // if (statusEffectConfigSo.TryGetParameter(DURATION_KEY,out var stat))
+            //     _duration = new Stat(stat.Name,stat.BaseValue,stat.MaxValue,stat.Id);
+            // else
+            //     throw new Exception($"{DURATION_KEY} was not found");
 
             _currentDuration = _duration.CurrentValue;
         }

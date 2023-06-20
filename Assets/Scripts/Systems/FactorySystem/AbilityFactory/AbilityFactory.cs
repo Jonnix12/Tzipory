@@ -1,26 +1,45 @@
 ﻿using System;
 using Tzipory.AbilitiesSystem;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
+using Tzipory.AbilitiesSystem.AbilityExecuteTypes;
+using Tzipory.EntitySystem.EntityComponents;
 
 namespace Factory
 {
     public class AbilityFactory
     {
-        public static BaseAbility GetAbility(AbilityConfig abilityConfig)
+        public static IAbilityCaster GetAbilityCaster(IEntityTargetingComponent entityCasterTargetingComponent,AbilityConfig abilityConfig)
         {
             switch (abilityConfig.AbilityCastType)
             {
                 case AbilityCastType.Projectile:
-                    break;
+                    return new ProjectileAbilityCaster(entityCasterTargetingComponent,abilityConfig);
                 case AbilityCastType.Instant:
-                    break;
+                    return  new InstantAbility(entityCasterTargetingComponent,abilityConfig);
                 case AbilityCastType.Self:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            return null; //temp
+        }
+
+        public static IAbilityExecutor GetAbilityExecutor(IEntityTargetAbleComponent caster,AbilityConfig abilityConfig)
+        {
+            switch (abilityConfig.AbilityExecuteType)
+            {
+                case AbilityExecuteType.AOE:
+                    return  new AoeAbilityExecuter(caster,abilityConfig);
+                case AbilityExecuteType.Single:
+                    break;
+                case AbilityExecuteType.Chain:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             
-            return  null;//tempppp
+            return  null;//temp
         }
     }
 }

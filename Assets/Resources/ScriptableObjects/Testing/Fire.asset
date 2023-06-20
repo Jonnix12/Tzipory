@@ -12,26 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbec1bc4bb0b4e8391bcef723400cf0d, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  _statName: Hp
-  _statusEffectId: 0
-  _statusEffectParameter:
-  - _name: Interval
-    _id: 0
-    _baseValue: 1
-    _currentValue: 0
-  - _name: Duration
-    _id: 0
-    _baseValue: 60
-    _currentValue: 0
+  _StatusEffectName: 
+  _affectedStat: 0
   _statusEffectToInterrupt: []
-  _statusEffectType: 2
+  _statusEffectType: 1
+  _duration: 0
+  _interval: 0
   _statModifier:
   - _statusModifierType: 1
-    _modifier:
-      _name: HpRedus
-      _id: 10
-      _baseValue: -2
-      _currentValue: 0
+    _modifier: 0
   _effectSequence:
     _sequenceName: 
     _id: 0
