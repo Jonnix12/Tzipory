@@ -5416,6 +5416,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6448687465216425320, guid: f842a8889eed7f44da670a3ea79af0db, type: 3}
+      propertyPath: myEffectSO
+      value: 
+      objectReference: {fileID: 11400000, guid: dd18ec917e1de9341a571b410c3cdf88, type: 2}
+    - target: {fileID: 6448687465216425320, guid: f842a8889eed7f44da670a3ea79af0db, type: 3}
+      propertyPath: myOppositeEffectSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 17c4dafb90ba4f243a16e7fc2f4d19ec, type: 2}
     - target: {fileID: 8275930077482909604, guid: f842a8889eed7f44da670a3ea79af0db, type: 3}
       propertyPath: m_Name
       value: PS
