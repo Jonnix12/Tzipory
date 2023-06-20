@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _abilityId: 1
   _abilityName: AoeFire
-  abilityCastType: 0
+  abilityCastType: 1
   _projectileSpeed: 5
   _projectilePenetration: 1
   abilityExecuteType: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   _chainDuration: 0
   _chainAmount: 0
   targetingPriorityType: 2
-  _cooldown: 2
+  _cooldown: 30
   _castTime: 1
   _statusEffectConfigs:
   - {fileID: 11400000, guid: b88d00e68281c724c889c9df070b136a, type: 2}

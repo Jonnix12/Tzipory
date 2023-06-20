@@ -21,6 +21,9 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
 
         protected virtual void Cast(IEntityTargetAbleComponent target)
         {
+            if (target.EntityInstanceID == _abilityExecutor.Caster.EntityInstanceID)
+                return;
+            
             _abilityExecutor.Execute(target);
         }
     }

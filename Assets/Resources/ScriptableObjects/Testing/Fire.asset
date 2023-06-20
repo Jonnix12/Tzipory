@@ -16,11 +16,11 @@ MonoBehaviour:
   _affectedStat: 0
   _statusEffectToInterrupt: []
   _statusEffectType: 2
-  _duration: 5
-  _interval: 1
+  _duration: 10
+  _interval: 1.5
   _statModifier:
   - _statusModifierType: 2
-    _modifier: -2
+    _modifier: 2
   _effectSequence:
     _sequenceName: 
     _id: 0
