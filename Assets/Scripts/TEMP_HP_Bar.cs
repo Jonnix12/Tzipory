@@ -13,18 +13,23 @@ public class TEMP_HP_Bar : MonoBehaviour
     float drainDuration;
 
     float _maxValue;
+    Vector3 _originalScale;
     //float targetValue;
     Coroutine _runningSmoothBar;
   
     public void Init(float max)
     {
-        fillImage.fillAmount = 1f; //just to make sure. later on this will be removed and it will just read the value
+        //fillImage.fillAmount = 1f; //just to make sure. later on this will be removed and it will just read the value
+        _originalScale = fillSprite.localScale;
+        fillSprite.localScale = new Vector3(1f, _originalScale.y, _originalScale.z);
+
         _maxValue = max;
     }
 
     public void SetBarValue(float value)
     {
-        fillImage.fillAmount = value/ _maxValue;
+        //fillImage.fillAmount = value/ _maxValue;
+        fillSprite.localScale = new Vector3(value/ _maxValue, _originalScale.y, _originalScale.z);
     }
 
     public void SetBarValueSmoothly(float value)
@@ -40,8 +45,8 @@ public class TEMP_HP_Bar : MonoBehaviour
     IEnumerator SmoothBar(float duration, float targetValue)
     {
         float t = 0f;
-        float _startValue = fillImage.fillAmount;
-        float _currentValue = fillImage.fillAmount;
+        float _startValue = fillSprite.localScale.x;
+        float _currentValue = fillSprite.localScale.x;
         while(t<=duration)
         {
             _currentValue = Mathf.Lerp(_startValue, targetValue, t);

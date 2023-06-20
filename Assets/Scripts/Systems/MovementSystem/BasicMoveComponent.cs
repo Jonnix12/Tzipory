@@ -54,6 +54,7 @@ namespace Tzipory.EntitySystem.EntityComponents
         private void OnDisable()
         {
             GAME_TIME.OnTimeRateChange -= AdjustAgentSpeedToTime;
+            if(_speedStat != null)
             _speedStat.OnCurrentValueChanged -= AdjustAgentSpeedToTime;
         }
 
