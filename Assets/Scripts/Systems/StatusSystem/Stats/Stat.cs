@@ -29,6 +29,9 @@ namespace Tzipory.EntitySystem.StatusSystem
         public float CurrentValue => _currentValue;
         
         public float MaxValue { get; private set; }
+
+        //TEMP!
+        public System.Action OnCurrentValueChanged;
         
         public Stat(string name, float baseValue,float maxValue,int id)
         {
@@ -39,24 +42,36 @@ namespace Tzipory.EntitySystem.StatusSystem
             _currentValue = _baseValue;
         }
 
+        private void ChangeValue(float value)
+        {
+            _currentValue = value;
+            OnCurrentValueChanged?.Invoke();
+        }
+
         public void SetValue(float amount) =>
-            _currentValue = amount;
+            //_currentValue = amount;
+            ChangeValue(amount);
 
         public void MultiplyValue(float amount)=>
-            _currentValue *= amount;
+            //_currentValue *= amount;
+            ChangeValue(_currentValue * amount);
         
         //public void DivideValue(float amount)=> //THIS IS WHY I DON'T LIKE THESE THINGS!
         //    _currentValue *= amount;
         public void DivideValue(float amount)=>
-            _currentValue /= amount;
+            //_currentValue /= amount;
+            ChangeValue(_currentValue / amount);
         
         public void AddToValue(float amount)=>
-            _currentValue += amount;
+            //_currentValue += amount;
+            ChangeValue(_currentValue + amount);
         
         public void ReduceFromValue(float amount)=>
-            _currentValue -= amount;
-        
-        public void ResetValue()=>
-            _currentValue = _baseValue;
+            //_currentValue -= amount;
+            ChangeValue(_currentValue - amount);
+
+        public void ResetValue() =>
+            //_currentValue = _baseValue;
+            ChangeValue(_baseValue);
     }
 }

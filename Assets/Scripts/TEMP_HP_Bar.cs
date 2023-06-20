@@ -8,6 +8,8 @@ public class TEMP_HP_Bar : MonoBehaviour
     [SerializeField]
     Image fillImage;
     [SerializeField]
+    Transform fillSprite;
+    [SerializeField]
     float drainDuration;
 
     float _maxValue;
