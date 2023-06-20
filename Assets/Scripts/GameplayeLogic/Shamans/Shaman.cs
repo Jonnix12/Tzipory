@@ -21,13 +21,13 @@ namespace Shamans
 
         public override void Attack()
         {
-            AbilityHandler.CastAbilityByName("AoeFire",Targeting.AvailableTargets);
+           AbilityHandler.CastAbilityByName("AoeFire",Targeting.AvailableTargets);
             
             bool canAttack = false;
 
             if (AbilityHandler.IsCasting)//temp!!!
             {
-                //  return;
+                 return;
             }
             
             _currentAttackRate -= GAME_TIME.GameDeltaTime;

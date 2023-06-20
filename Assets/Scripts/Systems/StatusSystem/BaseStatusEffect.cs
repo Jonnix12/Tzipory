@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tzipory.VisualSystem.EffectSequence;
+using SerializeData.VisualSystemSerializeData;
 
 namespace Tzipory.EntitySystem.StatusSystem
 {
@@ -14,16 +14,18 @@ namespace Tzipory.EntitySystem.StatusSystem
         
         protected Stat currentStat;
 
-        public string StatName { get; }
+        public string StatusEffectName { get; }
+        public string AffectedStatName { get; }
         public int StatusEffectId { get; }
 
-        public EffectSequence EffectSequence { get; }
+        public EffectSequenceData EffectSequence { get; }
 
         public List<StatusEffectConfigSo> StatusEffectToInterrupt { get; }
         
         protected BaseStatusEffect(StatusEffectConfigSo statusEffectConfigSo)
         {
-            StatName = statusEffectConfigSo.AffectedStatName;
+            StatusEffectName = statusEffectConfigSo.StatusEffectName;
+            AffectedStatName = statusEffectConfigSo.AffectedStatName;
             StatusEffectId = statusEffectConfigSo.StatusEffectId;
             StatusEffectToInterrupt = statusEffectConfigSo.StatusEffectToInterrupt;
             EffectSequence = statusEffectConfigSo.EffectSequence;
@@ -32,7 +34,7 @@ namespace Tzipory.EntitySystem.StatusSystem
 
             foreach (var modifier in statusEffectConfigSo.StatModifier)
             {
-                modifiers.Add(new StatModifier(modifier.Modifier, modifier.ModifierType));
+                modifiers.Add(new StatModifier(modifier.Modifier, modifier.StatusModifierType));
             }
             //need to add 
         }
@@ -57,7 +59,7 @@ namespace Tzipory.EntitySystem.StatusSystem
             currentStat = stat;
         }
         
-        public abstract void Execute();
+        public abstract void ProcessStatusEffect();
     }
     
     public enum StatusEffectType

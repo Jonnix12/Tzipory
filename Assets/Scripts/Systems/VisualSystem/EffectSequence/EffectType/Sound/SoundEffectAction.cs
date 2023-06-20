@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+﻿using SerializeData.VisualSystemSerializeData;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.VisualSystem.EffectSequence.EffectActionTypeSO;
 using UnityEngine;
@@ -19,9 +19,9 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType.Sound
         
         public override float Duration => _selectedAudioClip.length;
         
-        public SoundEffectAction(EffectActionContainer actionContainer) : base(actionContainer)
+        public SoundEffectAction(EffectActionContainerData actionContainerData) : base(actionContainerData)
         {
-            var config = GetConfig<SoundEffectActionSO>(actionContainer.EffectActionSo);
+            var config = GetConfig<SoundEffectActionSO>(actionContainerData.EffectActionSo);
 
             _audioClips = config.AudioClips;
             _volume = config.VolumeRange;

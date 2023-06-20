@@ -11,6 +11,8 @@ namespace Tzipory.AbilitiesSystem
         public IEntityTargetAbleComponent Caster { get; }
         
         public List<BaseStatusEffect> StatusEffects { get; }
+
+        public void Init(IEntityTargetAbleComponent target);
         
         public void Execute(IEntityTargetAbleComponent target);
     }

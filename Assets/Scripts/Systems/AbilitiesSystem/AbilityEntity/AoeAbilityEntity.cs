@@ -1,4 +1,3 @@
-using System;
 using Tzipory.AbilitiesSystem;
 using Tzipory.AbilitiesSystem.AbilityEntity;
 using Tzipory.BaseSystem.TimeSystem;
@@ -44,6 +43,10 @@ public class AoeAbilityEntity : BaseAbilityEntity
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (!other.TryGetComponent<IEntityTargetAbleComponent>(out var targetAbleComponent)) return;
+            
+        if (targetAbleComponent.EntityInstanceID == _abilityExecutor.Caster.EntityInstanceID) return;
+            
+        _abilityExecutor.Execute(targetAbleComponent);
     }
 }

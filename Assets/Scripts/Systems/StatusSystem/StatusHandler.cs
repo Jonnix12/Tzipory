@@ -62,7 +62,7 @@ namespace Tzipory.EntitySystem.StatusSystem
             for (int index = 0; index < _activeStatusEffects.Count; index++)
             {
                 var statusEffect = _activeStatusEffects.ElementAt(index).Value;
-                statusEffect.Execute();
+                statusEffect.ProcessStatusEffect();
             }
         }
         
@@ -71,7 +71,7 @@ namespace Tzipory.EntitySystem.StatusSystem
             if (_activeStatusEffects.ContainsKey(baseStatusEffect.StatusEffectId))
                 return;
 
-            baseStatusEffect.SetStat(GetStatByName(baseStatusEffect.StatName));
+            baseStatusEffect.SetStat(GetStatByName(baseStatusEffect.AffectedStatName));
             
             baseStatusEffect.StatusEffectStart();
             
@@ -82,7 +82,7 @@ namespace Tzipory.EntitySystem.StatusSystem
             baseStatusEffect.OnStatusEffectDone += RemoveStatusEffect;
             
 #if UNITY_EDITOR
-            Debug.Log($"Add Statues Effect on {_entity.EntityTransform.name}");
+            Debug.Log($"Add Statues Effect {baseStatusEffect.StatusEffectName} on {_entity.EntityTransform.name}, Affected stat is {baseStatusEffect.AffectedStatName}");
 #endif
         }
 

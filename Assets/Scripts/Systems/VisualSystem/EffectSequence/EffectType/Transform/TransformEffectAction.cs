@@ -1,4 +1,5 @@
 ﻿using System;
+using SerializeData.VisualSystemSerializeData;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.VisualSystem.EffectSequence.EffectActionTypeSO;
 using UnityEngine;
@@ -33,9 +34,9 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
             }
         }
 
-        public TransformEffectAction(EffectActionContainer actionContainer) : base(actionContainer)
+        public TransformEffectAction(EffectActionContainerData actionContainerData) : base(actionContainerData)
         {
-            var config = GetConfig<TransformEffectActionSO>(actionContainer.EffectActionSo);
+            var config = GetConfig<TransformEffectActionSO>(actionContainerData.EffectActionSo);
             
             _transformEffectActionSO  = config;
         }

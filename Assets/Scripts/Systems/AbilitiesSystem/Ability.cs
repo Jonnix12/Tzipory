@@ -48,19 +48,21 @@ namespace Tzipory.AbilitiesSystem
             _isReady = true;
         }
 
-        public void Cast(IEnumerable<IEntityTargetAbleComponent> availableTarget)
+        public void ExecuteAbility(IEnumerable<IEntityTargetAbleComponent> availableTarget)
         {
             if (!_isReady)
                 return;
 
             _isReady = false;
-
-            var currentTarget = _priorityTargeting.GetPriorityTarget(availableTarget);
-            IAbilityExecutor abilityExecutor = AbilityExecutor;
             IsCasting = true;
-            _entityTargetingComponent.GameEntity.EntityTimer.StartNewTimer(CastTime.CurrentValue,
-                AbilityCaster.Cast, ref currentTarget, ref abilityExecutor);
+            _entityTargetingComponent.GameEntity.EntityTimer.StartNewTimer(CastTime.CurrentValue, Cast,ref availableTarget);
+        }
 
+        private void Cast(IEnumerable<IEntityTargetAbleComponent> availableTarget)
+        {
+            var currentTarget = _priorityTargeting.GetPriorityTarget(availableTarget);
+            AbilityCaster.Cast(currentTarget,AbilityExecutor);
+            IsCasting = false;
         }
 
         private void StartCooldown() =>

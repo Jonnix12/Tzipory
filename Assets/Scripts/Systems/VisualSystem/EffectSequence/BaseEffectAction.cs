@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Timers;
+using SerializeData.VisualSystemSerializeData;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 
@@ -26,13 +27,13 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         public bool IsActive { get; private set; }
 
-        protected BaseEffectAction(EffectActionContainer actionContainer)
+        protected BaseEffectAction(EffectActionContainerData actionContainerData)
         {
-            _startDelay = actionContainer.StartDelay;
-            _endDelay = actionContainer.EndDelay;
-            ActionStartType = actionContainer.EffectActionStart;
-            IsStackable = actionContainer.IsStackable;
-            DisableUndo = actionContainer.DisableUndo;
+            _startDelay = actionContainerData.StartDelay;
+            _endDelay = actionContainerData.EndDelay;
+            ActionStartType = actionContainerData.EffectActionStart;
+            IsStackable = actionContainerData.IsStackable;
+            DisableUndo = actionContainerData.DisableUndo;
         }
 
         public virtual void StartEffectAction()

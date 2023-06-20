@@ -25,7 +25,7 @@ namespace Tzipory.AbilitiesSystem
         public void CastAbilityByName(string abilityName,IEnumerable<IEntityTargetAbleComponent> availableTargets)
         {
             if (Abilities.TryGetValue(abilityName, out var ability))
-                ability.Cast(availableTargets);
+                ability.ExecuteAbility(availableTargets);
             else
                 Debug.LogError($"{Caster.EntityTransform.name} cant find ability {abilityName}");
         }

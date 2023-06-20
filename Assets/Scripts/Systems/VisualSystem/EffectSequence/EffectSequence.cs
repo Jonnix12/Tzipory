@@ -2,41 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using Factory;
+using SerializeData.VisualSystemSerializeData;
 using Sirenix.OdinInspector;
 using Tzipory.EntitySystem.EntityComponents;
 using UnityEngine;
 
 namespace Tzipory.VisualSystem.EffectSequence
 {
-    [Serializable]
     public class EffectSequence
     {
         public event Action<int> OnEffectSequenceComplete;
 
         #region Fields
 
-        #region SerializeField
-
-        //public UnityEvent OnEffectSequenceStart; 
-        //public UnityEvent OnEffectSequenceCompleteUnityEvent;//may need to change to a effectAction to do at end and start
-        
-        [SerializeField,ReadOnly] private string _sequenceName;//need to see if can stay readOnly
-        [SerializeField,ReadOnly] private int _id;
-        
-        [SerializeField] private float _startDelay;
-        [SerializeField] private float _endDelay;
-        
-        [SerializeField] private bool isInterruptable;
-        
-        [SerializeField] private List<EffectActionContainer> _effectActionContainers;
-
-        #endregion
-        
         private List<BaseEffectAction> _effectActions;
         
         private List<BaseEffectAction> _activeEffectActions;
 
         private IEntityVisualComponent _entityVisualComponent;
+        
+        private float _startDelay;
+        private float _endDelay;
         
         private int _currentEffectActionIndex;
 
@@ -46,20 +32,11 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         public bool IsActive { get; private set; }
 
-        public bool IsInterruptable => isInterruptable;
+        public bool IsInterruptable { get; }
 
-        public string SequenceName
-        {
-            get => _sequenceName;
-#if UNITY_EDITOR
-            set => _sequenceName = value;
-#endif
-        }
+        public string SequenceName { get; }
 
-        public int ID {get => _id;
-#if UNITY_EDITOR
-            set => _id = value;}
-#endif
+        public int ID { get; }
 
         public bool IsAllEffectActionDone => _activeEffectActions.All(effectAction => !effectAction.IsActive);
         
@@ -67,19 +44,27 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         #region PublicMethod
 
-        public void Init(IEntityVisualComponent visualComponent)
+        public EffectSequence(IEntityVisualComponent visualComponent,EffectSequenceData sequenceData)
         {
+            SequenceName = sequenceData.SequenceName;
+            ID = sequenceData.ID;
+            _startDelay = sequenceData.StartDelay;
+            _endDelay = sequenceData.EndDelay;
+            IsInterruptable = sequenceData.IsInterruptable;
+            
             _entityVisualComponent  = visualComponent;
             _activeEffectActions = new List<BaseEffectAction>();
             _effectActions = new List<BaseEffectAction>();
 
-            foreach (var effectActionContainer in _effectActionContainers)
+            foreach (var effectActionContainer in sequenceData.EffectActionContainers)
             {
                 var effectAction = EffectActionFactory.GetEffectAction(effectActionContainer,visualComponent);
                 _effectActions.Add(effectAction);
             }
             
             _currentEffectActionIndex = 0;
+            
+           
         }
 
         public void StopSequence()
@@ -184,27 +169,5 @@ namespace Tzipory.VisualSystem.EffectSequence
         #endregion
     }
     
-    [Serializable]
-    public class EffectActionContainer
-    {
-        [HideInInspector] private bool _isStackable;//need to see what to do
-        [SerializeField] private bool _disableUndo;
-        [SerializeField] private float _startDelay;
-        [SerializeField] private float _endDelay;
-        [SerializeField] private EffectActionStartType _effectActionStart; 
-        
-        [SerializeField] private BaseEffectActionSO _effectActionSO;
-
-        public bool IsStackable => _isStackable;
-
-        public bool DisableUndo => _disableUndo;
-
-        public float StartDelay => _startDelay;
-
-        public float EndDelay => _endDelay;
-
-        public EffectActionStartType EffectActionStart => _effectActionStart;
-        
-        public BaseEffectActionSO EffectActionSo => _effectActionSO;
-    }
+   
 }

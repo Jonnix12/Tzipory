@@ -24,7 +24,7 @@ public class PowerStructure : BaseGameEntity
         if (collision.gameObject.CompareTag("Shaman"))
         {
             Shamans.Shaman s = collision.GetComponentInParent<Shamans.Shaman>();
-            s.StatusHandler.AddStatusEffect(new InstantStatusEffect(myEffectSO));
+            s.StatusHandler.AddStatusEffect(Factory.StatusEffectFactory.GetStatusEffect(myEffectSO));
             _currentShamans.Add(s);
         }
     }
@@ -33,7 +33,7 @@ public class PowerStructure : BaseGameEntity
         if (collision.gameObject.CompareTag("Shaman"))
         {
             Shamans.Shaman s = collision.GetComponentInParent<Shamans.Shaman>();
-            s.StatusHandler.AddStatusEffect(new InstantStatusEffect(myOppositeEffectSO));
+            s.StatusHandler.AddStatusEffect(Factory.StatusEffectFactory.GetStatusEffect(myOppositeEffectSO));
             _currentShamans.Remove(s);
         }
     }

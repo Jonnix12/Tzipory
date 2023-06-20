@@ -32,7 +32,7 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
             
             if (targetAbleComponent.EntityInstanceID == _abilityExecutor.Caster.EntityInstanceID) return;
             
-            _abilityExecutor.Execute(targetAbleComponent);
+            _abilityExecutor.Init(targetAbleComponent);
             _penetrationNumber--;
         }
     }

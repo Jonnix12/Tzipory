@@ -7,14 +7,12 @@ using UnityEngine;
 
 namespace Tzipory.AbilitiesSystem.AbilityExecuteTypes
 {
-    public class AoeAbilityExecuter :  IAbilityExecutor , IStatHolder
+    public class AoeAbilityExecuter :  IAbilityExecutor
     {
         private const string  AoePrefabPath = "Prefabs/Ability/AoeAbilityEntity";
         
         private GameObject _aoePrefab;
         
-        public Dictionary<int, Stat> Stats { get; }
-
         public Stat Radius { get; private set; }
         public Stat Duration { get; private set; }
         
@@ -38,10 +36,16 @@ namespace Tzipory.AbilitiesSystem.AbilityExecuteTypes
             _aoePrefab = Resources.Load<GameObject>(AoePrefabPath);
         }
 
+        public void Init(IEntityTargetAbleComponent target)//temp
+        {
+            var aoeGameobject = Object.Instantiate(_aoePrefab,target.EntityTransform.position,Quaternion.identity).GetComponent<AoeAbilityEntity>();
+            aoeGameobject.Init(target,Radius.CurrentValue,Duration.CurrentValue,this);
+        }
+
         public void Execute(IEntityTargetAbleComponent target)
         {
-            var aoeGameobject = Object.Instantiate(_aoePrefab).GetComponent<AoeAbilityEntity>();
-            aoeGameobject.Init(target,Radius.CurrentValue,Duration.CurrentValue,this);
+            foreach (var statusEffect in StatusEffects)
+                target.StatusHandler.AddStatusEffect(statusEffect);
         }
 
     }

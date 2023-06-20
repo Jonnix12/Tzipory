@@ -7,10 +7,10 @@ namespace Tzipory.EntitySystem.StatusSystem
         {
         }
 
-        public override void Execute()
+        public override void ProcessStatusEffect()
         {
             foreach (var statModifier in modifiers)
-                statModifier.Process(currentStat);
+                statModifier.ProcessStatModifier(currentStat);
 
             StatusEffectFinish();
         }

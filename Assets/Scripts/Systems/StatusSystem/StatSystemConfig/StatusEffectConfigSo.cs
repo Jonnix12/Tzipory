@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Helpers.Consts;
+using SerializeData.StatSerializeData;
+using SerializeData.VisualSystemSerializeData;
 using Sirenix.OdinInspector;
-using Tzipory.VisualSystem.EffectSequence;
 using UnityEngine;
 
 namespace Tzipory.EntitySystem.StatusSystem
@@ -19,9 +20,9 @@ namespace Tzipory.EntitySystem.StatusSystem
         [SerializeField, Tooltip("")] private StatusEffectType _statusEffectType;
         [SerializeField, Tooltip(""),ShowIf("_showDuration")] private float _duration;
         [SerializeField, Tooltip(""),ShowIf("_statusEffectType",StatusEffectType.Interval)] private float _interval;
-        [SerializeField, Tooltip("")] private List<StatModifier> _statModifier;
+        [SerializeField, Tooltip("")] private List<StatModifierSerializeData> _statModifier;
         [Header("Status effect visual")]
-        [SerializeField, Tooltip("")] private EffectSequence _effectSequence;
+        [SerializeField, Tooltip("")] private EffectSequenceData _effectSequence;
 
         public string StatusEffectName => _StatusEffectName;
 
@@ -29,15 +30,15 @@ namespace Tzipory.EntitySystem.StatusSystem
 
         public float Interval => _interval;
 
-        public string AffectedStatName => nameof(_affectedStat);
+        public string AffectedStatName => _affectedStat.ToString();
         public int StatusEffectId => (int)_affectedStat;
         public StatusEffectType StatusEffectType => _statusEffectType;
 
-        public List<StatModifier> StatModifier => _statModifier;
+        public List<StatModifierSerializeData> StatModifier => _statModifier;
 
         public List<StatusEffectConfigSo> StatusEffectToInterrupt => _statusEffectToInterrupt;
 
 
-        public EffectSequence EffectSequence => _effectSequence;
+        public EffectSequenceData EffectSequence => _effectSequence;
     }
 }

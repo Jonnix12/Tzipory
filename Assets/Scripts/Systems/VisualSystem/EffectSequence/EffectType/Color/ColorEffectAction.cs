@@ -1,4 +1,5 @@
-﻿using Tzipory.EntitySystem.EntityComponents;
+﻿using SerializeData.VisualSystemSerializeData;
+using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.VisualSystem.EffectSequence.EffectActionTypeSO;
 using UnityEngine;
 
@@ -13,9 +14,9 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
 
         public override float Duration => _duration;
         
-        public ColorEffectAction(EffectActionContainer actionContainer) : base(actionContainer)
+        public ColorEffectAction(EffectActionContainerData actionContainerData) : base(actionContainerData)
         {
-            var config = GetConfig<ColorEffectActionSO>(actionContainer.EffectActionSo);
+            var config = GetConfig<ColorEffectActionSO>(actionContainerData.EffectActionSo);
             
             _color = config.Color;
             _alpha = config.Alpha;

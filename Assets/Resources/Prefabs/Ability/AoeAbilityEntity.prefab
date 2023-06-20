@@ -128,4 +128,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider2D: {fileID: 1909779907853101283}
-  sprite: {fileID: 1260212071725068928}
+  _sprite: {fileID: 1260212071725068928}

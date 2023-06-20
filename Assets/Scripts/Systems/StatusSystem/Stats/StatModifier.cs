@@ -3,25 +3,21 @@ using UnityEngine;
 
 namespace Tzipory.EntitySystem.StatusSystem
 {
-    [Serializable]
     public class StatModifier
     {
-        [SerializeField] private StatusModifierType _statusModifierType;
-        [SerializeField] private float _modifier;
+        public StatusModifierType ModifierType { get; }
 
-        private Stat _modifierStat;
-        public StatusModifierType ModifierType => _statusModifierType;
-        public Stat Modifier => _modifierStat;
-        
+        private Stat Modifier { get; }
+
         private float _value;
 
-        public StatModifier(Stat modifier,StatusModifierType statusModifierType)
+        public StatModifier(float modifier,StatusModifierType statusModifierType)
         {
-            _modifierStat = new Stat(modifier.Name,_modifier,modifier.MaxValue,modifier.Id);
-            _statusModifierType = statusModifierType;
+            Modifier = new Stat("Modifier",modifier,int.MaxValue,999);//temp
+            ModifierType = statusModifierType;
         }
 
-        public void Process(Stat stat)
+        public void ProcessStatModifier(Stat stat)
         {
             _value = Modifier.CurrentValue;
 
@@ -63,7 +59,7 @@ namespace Tzipory.EntitySystem.StatusSystem
             }
         }
 
-        public void UnDo(Stat stat)
+        public void Undo(Stat stat)
         {
             switch (ModifierType)
             {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Helpers.Consts;
+using SerializeData.VisualSystemSerializeData;
 using Sirenix.OdinInspector;
 using Tzipory.AbilitiesSystem;
 using Tzipory.BaseSystem.TimeSystem;
@@ -7,7 +8,6 @@ using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.EntityConfigSystem;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.TargetingSystem;
-using Tzipory.EntitySystem.TargetingSystem.TargetingPriorites;
 using Tzipory.Tools.Sound;
 using Tzipory.VisualSystem.EffectSequence;
 using UnityEngine;
@@ -34,12 +34,12 @@ namespace Tzipory.EntitySystem.Entitys
         [SerializeField,TabGroup("Component")] private Transform _particleEffectPosition;
         [SerializeField,TabGroup("Component")] private SoundHandler _soundHandler;
 
-        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onDeath;
-        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onAttack;
-        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onCritAttack;
-        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onMove;
-        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onGetHit;
-        [SerializeField,TabGroup("Visual Events")] private EffectSequence _onGetCritHit;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequenceData _onDeath;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequenceData _onAttack;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequenceData _onCritAttack;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequenceData _onMove;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequenceData _onGetHit;
+        [SerializeField,TabGroup("Visual Events")] private EffectSequenceData _onGetCritHit;
 
         #endregion
 
@@ -92,7 +92,7 @@ namespace Tzipory.EntitySystem.Entitys
             _onGetHit.SequenceName = "OnGetHit";
             _onGetCritHit.SequenceName = "OnGetCritHit";
             
-            var effectSequence = new EffectSequence[]
+            var effectSequence = new EffectSequenceData[]
             {
                 _onDeath,
                 _onAttack,
@@ -278,7 +278,7 @@ namespace Tzipory.EntitySystem.Entitys
         public Transform VisualQueueEffectPosition => _visualQueueEffectPosition;
 
         private void AddStatusEffectVisual(BaseStatusEffect baseStatusEffect) =>
-            EffectSequenceHandler.ActiveEffectSequence(baseStatusEffect.EffectSequence);
+            EffectSequenceHandler.ActiveEffectSequence(baseStatusEffect.EffectSequence);//temp
 
         #endregion
     }
