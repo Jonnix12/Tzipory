@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectArea: {fileID: 8648411720197767754}
-  myEffectSO: {fileID: 11400000, guid: 47e394e9ce7c7e54cb526db9c61e56db, type: 2}
-  myOppositeEffectSO: {fileID: 11400000, guid: 0ca3e690993d60444857408bef8f4c76, type: 2}
+  myEffectSO: {fileID: 11400000, guid: 0339e834abce62c4c9f54be4eb4e2141, type: 2}
+  myOppositeEffectSO: {fileID: 11400000, guid: 9aaa2a28e0545dd4ca79bbabf17b5bca, type: 2}
 --- !u!58 &8648411720197767754
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -135,4 +135,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.38
+  m_Radius: 3

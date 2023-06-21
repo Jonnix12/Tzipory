@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7921501042575430128, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7921501042575430128, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -149,7 +149,12 @@ MonoBehaviour:
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 1
-    _effectActionContainers: []
+    _effectActionContainers:
+    - _disableUndo: 0
+      _startDelay: 0
+      _endDelay: 0
+      _effectActionStart: 0
+      _effectActionSO: {fileID: 11400000, guid: 6081846283e0d3c409354e7b11a1bd3a, type: 2}
   _onCritAttack:
     _sequenceName: 
     _id: 0
@@ -192,7 +197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpeed: 7
-  _timeToDie: 10
   _projectile: {fileID: 6820444270360034478, guid: e64a8a0f859a6954cab1ec02005d3f61, type: 3}
 --- !u!58 &1800454651558910966
 CircleCollider2D:

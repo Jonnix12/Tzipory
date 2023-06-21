@@ -54,3 +54,4 @@ MonoBehaviour:
     _currentValue: 0
   _stats: []
   _abilityConfigs: []
+  _targetingPriority: 0

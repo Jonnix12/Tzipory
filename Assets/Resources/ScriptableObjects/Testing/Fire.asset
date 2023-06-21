@@ -12,24 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbec1bc4bb0b4e8391bcef723400cf0d, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  _StatusEffectName: FireStatusEffect
-  _affectedStat: 0
+  _statName: Health
+  _statusEffectId: 0
+  _statusEffectParameter:
+  - _name: Interval
+    _id: 0
+    _baseValue: 1
+    _currentValue: 0
+  - _name: Duration
+    _id: 0
+    _baseValue: 60
+    _currentValue: 0
   _statusEffectToInterrupt: []
   _statusEffectType: 2
-  _duration: 10
-  _interval: 1.5
   _statModifier:
-  - _statusModifierType: 2
-    _modifier: 2
+  - _statusModifierType: 1
+    _modifier:
+      _name: HpRedus
+      _id: 10
+      _baseValue: -2
+      _currentValue: 0
   _effectSequence:
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionContainers:
-    - _disableUndo: 0
-      _startDelay: 0
-      _endDelay: 0
-      _effectActionStart: 0
-      _effectActionSO: {fileID: 11400000, guid: efd2a47c331e44c4d80a605273ecc06f, type: 2}
+    _effectActionContainers: []

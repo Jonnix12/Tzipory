@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929bf20fee544513a43c5c82f42f499a, type: 3}
+  m_Name: Piercing_Shot_Ability
+  m_EditorClassIdentifier: 
+  _abilityId: 10
+  _abilityName: Piercing Shot
+  abilityCastType: 0
+  _projectileSpeed: 30
+  _projectilePenetration: 5
+  abilityExecuteType: 1
+  _aoeRadius: 0
+  _aoeDuration: 0
+  _chainRadius: 0
+  _chainDuration: 0
+  _chainAmount: 0
+  targetingPriorityType: 4
+  _cooldown: 6
+  _castTime: 1
+  _statusEffectConfigs:
+  - {fileID: 11400000, guid: 87ec423eece20b047a9c4442edf8c57b, type: 2}
