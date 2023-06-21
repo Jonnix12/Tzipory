@@ -61,6 +61,10 @@ namespace Tzipory.AbilitiesSystem
         private void Cast(IEnumerable<IEntityTargetAbleComponent> availableTarget)
         {
             var currentTarget = _priorityTargeting.GetPriorityTarget(availableTarget);
+            
+            if (currentTarget == null)
+                return;
+            
             AbilityCaster.Cast(currentTarget,AbilityExecutor);
             IsCasting = false;
         }

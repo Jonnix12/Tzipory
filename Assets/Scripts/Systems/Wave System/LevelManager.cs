@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Tzipory;
 using Tzipory.Helpers;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager Instance;
+    public static LevelManager Instance;//need to be remove!!!
 
     [SerializeField]
     LevelRecepie _levelRecepie;

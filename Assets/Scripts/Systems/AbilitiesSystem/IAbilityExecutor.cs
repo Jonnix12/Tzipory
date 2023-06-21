@@ -10,7 +10,7 @@ namespace Tzipory.AbilitiesSystem
         public AbilityExecuteType AbilityExecuteType { get; }
         public IEntityTargetAbleComponent Caster { get; }
         
-        public List<BaseStatusEffect> StatusEffects { get; }
+        public List<StatusEffectConfigSo> StatusEffects { get; }
 
         public void Init(IEntityTargetAbleComponent target);
         

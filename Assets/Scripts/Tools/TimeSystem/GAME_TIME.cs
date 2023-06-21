@@ -11,6 +11,8 @@ namespace Tzipory.BaseSystem.TimeSystem
         private static float _timeRate = 1f;
         private static float _tickBase = 1f;
 
+        private float _tempTimeData; // temp
+
         private static float _tickStep;
 
 
@@ -46,7 +48,7 @@ namespace Tzipory.BaseSystem.TimeSystem
         [Button("Set time step")]
         public static void SetTimeStep(float time)
         {
-            if (time <= 0)
+            if (time < 0)
             {
                 Debug.LogError("Can not set timeStep to less or equal to 0");
                 return;
@@ -57,6 +59,31 @@ namespace Tzipory.BaseSystem.TimeSystem
             _tickStep = _tickBase / _timeRate;
             //_waitTimeStep = new WaitForSeconds(_tickStep);
             _waitTimeStep = new WaitForSecondsRealtime(_tickStep);
+            OnTimeRateChange?.Invoke();
+        }
+
+        public void ReduseTime()
+        {
+            SetTimeStep(_timeRate / 2);
+        }
+
+        public void AddTime()
+        {
+            SetTimeStep(_timeRate * 2);
+        }
+
+        public void PlayPause()
+        {
+            if (_timeRate != 0 )
+            {
+                _tempTimeData = _timeRate;
+                SetTimeStep(0);
+            }
+            else
+            {
+                SetTimeStep(_tempTimeData);
+                _tempTimeData = 0;
+            }
         }
 
         private IEnumerator RunTime()
@@ -69,12 +96,6 @@ namespace Tzipory.BaseSystem.TimeSystem
                 yield return _waitTimeStep;
                 OnGameTimeTick?.Invoke();
             }
-        }
-
-        public void SetTimeRate(float newRate)
-        {
-            _timeRate = newRate;
-            OnTimeRateChange?.Invoke();
         }
     }
 }

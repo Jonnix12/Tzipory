@@ -1,7 +1,5 @@
 using ProjectDawn.Navigation;
 using ProjectDawn.Navigation.Hybrid;
-using System.Collections;
-using System.Collections.Generic;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.BaseSystem.TimeSystem;
 using UnityEngine;
@@ -55,7 +53,7 @@ namespace Tzipory.EntitySystem.EntityComponents
         {
             GAME_TIME.OnTimeRateChange -= AdjustAgentSpeedToTime;
             if(_speedStat != null)
-            _speedStat.OnCurrentValueChanged -= AdjustAgentSpeedToTime;
+                _speedStat.OnCurrentValueChanged -= AdjustAgentSpeedToTime;
         }
 
     }

@@ -211,7 +211,6 @@ public static class TransitionManager
                 return transform.MoveWordPosition(destination,0, null, null, null, onComplete);
             default:
                 throw  new ArgumentOutOfRangeException();
-                break;
         }
     }
 

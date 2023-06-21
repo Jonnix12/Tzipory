@@ -19,17 +19,16 @@ namespace Tzipory.AbilitiesSystem.AbilityExecuteTypes
         private List<BaseStatusEffect> _statusEffects;
         public AbilityExecuteType AbilityExecuteType => AbilityExecuteType.AOE;
         public IEntityTargetAbleComponent Caster { get; }
-        public List<BaseStatusEffect> StatusEffects { get; }
+        public List<StatusEffectConfigSo> StatusEffects { get; }
 
 
         public AoeAbilityExecuter(IEntityTargetAbleComponent caster,AbilityConfig abilityConfig)
         {
             Caster = caster;
-            StatusEffects = new List<BaseStatusEffect>();
-
-            foreach (var effectConfigSo in abilityConfig.StatusEffectConfigs)
-                StatusEffects.Add(Factory.StatusEffectFactory.GetStatusEffect(effectConfigSo));
-
+            StatusEffects = new List<StatusEffectConfigSo>();
+            
+            StatusEffects.AddRange(abilityConfig.StatusEffectConfigs);
+            
             Radius = new Stat("AoeRadius", abilityConfig.AoeRadius, int.MaxValue, Constant.StatIds.AoeRadius);
             Duration = new Stat("AoeDuration", abilityConfig.AoeDuration, int.MaxValue, Constant.StatIds.AoeDuration);
 

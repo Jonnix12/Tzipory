@@ -1,3 +1,4 @@
+using System;
 using Tzipory.Helpers;
 using UnityEngine;
 using UnityEngine.Events;
@@ -98,5 +99,10 @@ public class WaveSpawner : MonoBehaviour
             _currentWaveGroup.isLive = false;
             GAME_TIME.OnGameTimeTick -= OnTick_SpawnCurrentWaveGroup;
         }
+    }
+
+    private void OnDestroy()
+    {
+        GAME_TIME.OnGameTimeTick -= OnTick_SpawnCurrentWaveGroup;
     }
 }

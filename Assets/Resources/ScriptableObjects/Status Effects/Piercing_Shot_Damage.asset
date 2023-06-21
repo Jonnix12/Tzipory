@@ -12,22 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbec1bc4bb0b4e8391bcef723400cf0d, type: 3}
   m_Name: Piercing_Shot_Damage
   m_EditorClassIdentifier: 
-  _statName: Health
-  _statusEffectId: 1
-  _statusEffectParameter: []
+  _StatusEffectName: 
+  _affectedStat: 0
   _statusEffectToInterrupt: []
   _statusEffectType: 1
+  _duration: 0
+  _interval: 0
   _statModifier:
   - _statusModifierType: 2
-    _modifier:
-      _name: 
-      _id: 0
-      _baseValue: 75
-      _currentValue: 0
+    _modifier: 75
   _effectSequence:
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionContainers: []
+    _effectActionContainers:
+    - _disableUndo: 0
+      _startDelay: 0
+      _endDelay: 0
+      _effectActionStart: 0
+      _effectActionSO: {fileID: 11400000, guid: efd2a47c331e44c4d80a605273ecc06f, type: 2}

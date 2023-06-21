@@ -1,4 +1,5 @@
-﻿using Helpers.Consts;
+﻿using System;
+using Helpers.Consts;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.Entitys;
 using UnityEngine;
@@ -17,6 +18,11 @@ namespace Enemes
             base.Awake();
             EntityTeamType = EntityTeamType.Enemy;
             timer = 0;
+        }
+
+        private void Start()
+        {
+            BasicMoveComponent.Init(MoveSpeed);//temp!
         }
 
         public void TakeTarget(IEntityTargetAbleComponent target)

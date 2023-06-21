@@ -21,15 +21,11 @@ namespace SerializeData.VisualSystemSerializeData
         public string SequenceName
         {
             get => _sequenceName;
-#if UNITY_EDITOR
             set => _sequenceName = value;
-#endif
         }
 
         public int ID {get => _id;
-#if UNITY_EDITOR
             set => _id = value;}
-#endif
 
         public float StartDelay => _startDelay;
 

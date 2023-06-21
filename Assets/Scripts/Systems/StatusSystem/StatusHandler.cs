@@ -64,25 +64,34 @@ namespace Tzipory.EntitySystem.StatusSystem
                 var statusEffect = _activeStatusEffects.ElementAt(index).Value;
                 statusEffect.ProcessStatusEffect();
             }
+            
+            for (int index = 0; index < _activeStatusEffects.Count; index++)//temp
+            {
+                var statusEffect = _activeStatusEffects.ElementAt(index).Value;
+                if (statusEffect.IsDone)
+                    RemoveStatusEffect(statusEffect.StatusEffectId);
+            }
         }
         
-        public void AddStatusEffect(BaseStatusEffect baseStatusEffect)
+        public void AddStatusEffect(StatusEffectConfigSo statusEffectConfigSo)
         {
-            if (_activeStatusEffects.ContainsKey(baseStatusEffect.StatusEffectId))
+            if (_activeStatusEffects.ContainsKey(statusEffectConfigSo.StatusEffectId))
                 return;
 
-            baseStatusEffect.SetStat(GetStatByName(baseStatusEffect.AffectedStatName));
+            var statusEffect = Factory.StatusEffectFactory.GetStatusEffect(statusEffectConfigSo);
             
-            baseStatusEffect.StatusEffectStart();
+            statusEffect.SetStat(GetStatByName(statusEffectConfigSo.AffectedStatName));
             
-            InterruptStatusEffects(baseStatusEffect.StatusEffectToInterrupt);
+            statusEffect.StatusEffectStart();
             
-            _activeStatusEffects.Add(baseStatusEffect.StatusEffectId, baseStatusEffect);
-            OnStatusEffectAdded?.Invoke(baseStatusEffect);
-            baseStatusEffect.OnStatusEffectDone += RemoveStatusEffect;
+            InterruptStatusEffects(statusEffectConfigSo.StatusEffectToInterrupt);
+            
+            _activeStatusEffects.Add(statusEffectConfigSo.StatusEffectId, statusEffect);
+            OnStatusEffectAdded?.Invoke(statusEffect);
+            //statusEffectConfigSo.OnStatusEffectDone += RemoveStatusEffect;
             
 #if UNITY_EDITOR
-            Debug.Log($"Add Statues Effect {baseStatusEffect.StatusEffectName} on {_entity.EntityTransform.name}, Affected stat is {baseStatusEffect.AffectedStatName}");
+            Debug.Log($"Add Statues Effect {statusEffectConfigSo.StatusEffectName} on {_entity.EntityTransform.name}, Affected stat is {statusEffectConfigSo.AffectedStatName}");
 #endif
         }
 
@@ -103,7 +112,7 @@ namespace Tzipory.EntitySystem.StatusSystem
         {
             if(_activeStatusEffects.TryGetValue(id, out BaseStatusEffect baseStatusEffect))
             {
-                baseStatusEffect.OnStatusEffectDone -= RemoveStatusEffect;
+                //statusEffectConfigSo.OnStatusEffectDone -= RemoveStatusEffect;
                 OnStatusEffectRemoved?.Invoke(baseStatusEffect.StatusEffectId);
                 _activeStatusEffects.Remove(id);
             }

@@ -11,6 +11,8 @@ namespace Tzipory.EntitySystem.StatusSystem
 
         private float _value;
 
+        private float _previousValue;
+
         public StatModifier(float modifier,StatusModifierType statusModifierType)
         {
             Modifier = new Stat("Modifier",modifier,int.MaxValue,999);//temp
@@ -19,6 +21,7 @@ namespace Tzipory.EntitySystem.StatusSystem
 
         public void ProcessStatModifier(Stat stat)
         {
+            _previousValue = stat.CurrentValue;
             _value = Modifier.CurrentValue;
 
             switch (ModifierType)
@@ -75,7 +78,7 @@ namespace Tzipory.EntitySystem.StatusSystem
                     break;
                 case StatusModifierType.Set:
                     //set dos not have a undo
-                    //stat.SetValue(Modifier.BaseValue); //returns to previous value
+                    stat.SetValue(_previousValue); //returns to previous value
 
                     break;
                 case StatusModifierType.Reduce:

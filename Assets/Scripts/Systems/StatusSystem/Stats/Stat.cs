@@ -6,6 +6,9 @@ namespace Tzipory.EntitySystem.StatusSystem
     [System.Serializable]
     public class Stat
     {
+        //TEMP!
+        public System.Action OnCurrentValueChanged;
+        
         [SerializeField,ReadOnly] private string _name;
         [SerializeField,ReadOnly] private int _id;
         [SerializeField] private float _baseValue;
@@ -14,24 +17,18 @@ namespace Tzipory.EntitySystem.StatusSystem
         public string Name
         {
             get => _name;
-#if UNITY_EDITOR
-            set => _name = value;
-#endif
+            set => _name = value;//temp
         }
         public int Id
         {
             get => _id;
-#if UNITY_EDITOR
-            set => _id = value;
-#endif
+            set => _id = value;//temp
         }
         public float BaseValue => _baseValue;
         public float CurrentValue => _currentValue;
         
         public float MaxValue { get; private set; }
 
-        //TEMP!
-        public System.Action OnCurrentValueChanged;
         
         public Stat(string name, float baseValue,float maxValue,int id)
         {
@@ -49,29 +46,22 @@ namespace Tzipory.EntitySystem.StatusSystem
         }
 
         public void SetValue(float amount) =>
-            //_currentValue = amount;
             ChangeValue(amount);
 
         public void MultiplyValue(float amount)=>
-            //_currentValue *= amount;
             ChangeValue(_currentValue * amount);
         
         //public void DivideValue(float amount)=> //THIS IS WHY I DON'T LIKE THESE THINGS!
-        //    _currentValue *= amount;
         public void DivideValue(float amount)=>
-            //_currentValue /= amount;
             ChangeValue(_currentValue / amount);
         
         public void AddToValue(float amount)=>
-            //_currentValue += amount;
             ChangeValue(_currentValue + amount);
         
-        public void ReduceFromValue(float amount)=>
-            //_currentValue -= amount;
+        public void ReduceFromValue(float amount) =>
             ChangeValue(_currentValue - amount);
-
+        
         public void ResetValue() =>
-            //_currentValue = _baseValue;
             ChangeValue(_baseValue);
     }
 }

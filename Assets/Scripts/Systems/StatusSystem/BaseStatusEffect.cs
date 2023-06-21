@@ -18,6 +18,8 @@ namespace Tzipory.EntitySystem.StatusSystem
         public string AffectedStatName { get; }
         public int StatusEffectId { get; }
 
+        public bool IsDone { get; private set; }
+
         public EffectSequenceData EffectSequence { get; }
 
         public List<StatusEffectConfigSo> StatusEffectToInterrupt { get; }
@@ -42,6 +44,7 @@ namespace Tzipory.EntitySystem.StatusSystem
         public virtual void StatusEffectStart()
         {
             OnStatusEffectStart?.Invoke(StatusEffectId);
+            IsDone  = false;
         }
 
         public virtual void StatusEffectInterrupt()
@@ -52,6 +55,7 @@ namespace Tzipory.EntitySystem.StatusSystem
         protected virtual void StatusEffectFinish()
         {
             OnStatusEffectDone?.Invoke(StatusEffectId);
+            IsDone = true;
         }
 
         public void SetStat(Stat stat)

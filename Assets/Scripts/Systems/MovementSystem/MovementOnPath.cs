@@ -120,11 +120,13 @@ public class MovementOnPath : MonoBehaviour
         GAME_TIME.OnGameTimeTick -= AdvanceOnPath;
         GAME_TIME.OnGameTimeTick -= CircleFinalDestination;
     }
-
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (alwaysShowGizmo || UnityEditor.Selection.activeGameObject == gameObject)
             Gizmos.DrawCube(_currentPointOnPath, Vector3.one * rabbitGizmoBoxSize);
     }
+    
+#endif
     #endregion
 }

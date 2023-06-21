@@ -15,7 +15,7 @@ MonoBehaviour:
   _abilityId: 10
   _abilityName: Piercing Shot
   abilityCastType: 0
-  _projectileSpeed: 30
+  _projectileSpeed: 20
   _projectilePenetration: 5
   abilityExecuteType: 1
   _aoeRadius: 0
