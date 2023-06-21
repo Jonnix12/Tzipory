@@ -8,19 +8,21 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
     {
         private float _penetrationNumber;
         private float _speed;
+        private Vector3 _dir;
         
         public void Init(IEntityTargetAbleComponent target,float speed, float penetrationNumber,IAbilityExecutor abilityExecutor) 
         {
             base.Init(target, abilityExecutor);
             _speed = speed;
             _penetrationNumber = penetrationNumber;
+            _dir = (target.EntityTransform.position - transform.position).normalized;
         }
 
         protected override void Update()
         {
             base.Update();
             
-            transform.Translate(transform.up * (_speed * GAME_TIME.GameDeltaTime));
+            transform.Translate(_dir * (_speed * GAME_TIME.GameDeltaTime));
 
             if (_penetrationNumber <= 0)
                 Destroy(gameObject);

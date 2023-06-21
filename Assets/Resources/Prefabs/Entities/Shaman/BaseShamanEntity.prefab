@@ -137,95 +137,47 @@ MonoBehaviour:
   _particleEffectPosition: {fileID: 1692306035326806345}
   _soundHandler: {fileID: 3215233828703679931}
   _onDeath:
-    OnEffectSequenceStart:
-      m_PersistentCalls:
-        m_Calls: []
-    OnEffectSequenceCompleteUnityEvent:
-      m_PersistentCalls:
-        m_Calls: []
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionSos: []
+    _effectActionContainers: []
   _onAttack:
-    OnEffectSequenceStart:
-      m_PersistentCalls:
-        m_Calls: []
-    OnEffectSequenceCompleteUnityEvent:
-      m_PersistentCalls:
-        m_Calls: []
     _sequenceName: 
     _id: 456
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 1
-    _effectActionSos:
-    - _isStackable: 0
-      _disableUndo: 0
-      _startDelay: 0
-      _endDelay: 0
-      _effectActionStart: 0
-      _effectActionSO: {fileID: 11400000, guid: 6081846283e0d3c409354e7b11a1bd3a, type: 2}
+    _effectActionContainers: []
   _onCritAttack:
-    OnEffectSequenceStart:
-      m_PersistentCalls:
-        m_Calls: []
-    OnEffectSequenceCompleteUnityEvent:
-      m_PersistentCalls:
-        m_Calls: []
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionSos:
-    - _isStackable: 0
-      _disableUndo: 0
-      _startDelay: 0
-      _endDelay: 0
-      _effectActionStart: 0
-      _effectActionSO: {fileID: 11400000, guid: b3ad6d4026754c544bc40f7d83df4bcb, type: 2}
+    _effectActionContainers: []
   _onMove:
-    OnEffectSequenceStart:
-      m_PersistentCalls:
-        m_Calls: []
-    OnEffectSequenceCompleteUnityEvent:
-      m_PersistentCalls:
-        m_Calls: []
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionSos: []
+    _effectActionContainers: []
   _onGetHit:
-    OnEffectSequenceStart:
-      m_PersistentCalls:
-        m_Calls: []
-    OnEffectSequenceCompleteUnityEvent:
-      m_PersistentCalls:
-        m_Calls: []
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionSos: []
+    _effectActionContainers: []
   _onGetCritHit:
-    OnEffectSequenceStart:
-      m_PersistentCalls:
-        m_Calls: []
-    OnEffectSequenceCompleteUnityEvent:
-      m_PersistentCalls:
-        m_Calls: []
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
     isInterruptable: 0
-    _effectActionSos: []
+    _effectActionContainers: []
   _shotVisual: {fileID: 1713223655816970375}
 --- !u!114 &1713223655816970375
 MonoBehaviour:
@@ -240,6 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpeed: 7
+  _timeToDie: 10
   _projectile: {fileID: 6820444270360034478, guid: e64a8a0f859a6954cab1ec02005d3f61, type: 3}
 --- !u!58 &1800454651558910966
 CircleCollider2D:

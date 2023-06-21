@@ -41,10 +41,7 @@ namespace Tzipory.AbilitiesSystem
         
         public void Cast(IEntityTargetAbleComponent target, IAbilityExecutor abilityExecutor)
         {
-            var dir = (target.EntityTransform.position - EntityCasterTargetingComponent.EntityTransform.position).normalized;
-            dir *= 360;
             var projectilePrefab = Object.Instantiate(_projectilePrefab,EntityCasterTargetingComponent.EntityTransform.position,Quaternion.identity);
-            projectilePrefab.transform.up = dir;
             projectilePrefab.GetComponent<ProjectileAbilityEntity>().Init(target,ProjectileSpeed.CurrentValue,ProjectilePenetration.CurrentValue,abilityExecutor);
             OnCast?.Invoke();
         }

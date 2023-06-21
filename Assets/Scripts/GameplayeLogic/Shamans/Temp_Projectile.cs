@@ -1,3 +1,4 @@
+using System;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using UnityEngine;
@@ -6,55 +7,50 @@ public class Temp_Projectile : MonoBehaviour
 {
     private IEntityTargetAbleComponent _target;
     private float _speed;
-    private float _elapsedTime;
 
     private float _damage;
+    private float _timeToDie;
 
     private bool _isCrit;
+    private int _casterId;
 
-    private Vector2 _startPosition;
+    private Vector3 _dir;
+
     
-    public void Init(IEntityTargetAbleComponent target,float speed,float damage,bool isCrit)
+    public void Init(IEntityTargetAbleComponent target,float speed,float damage,float timeToDie,int caterId,bool isCrit)
     {
+        _casterId  = caterId;
+        _timeToDie = timeToDie;
         _speed = speed;
         _target = target;
         _damage = damage;
-        _startPosition  = transform.position;
         _isCrit = isCrit;
+        _dir =(_target.EntityTransform.position - transform.position).normalized;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_target is null)
+        if (!_target.EntityTransform.gameObject.activeInHierarchy)
         {
-            Destroy(gameObject);
-            return;
+            transform.Translate(_dir * (_speed * GAME_TIME.GameDeltaTime));
+            _timeToDie -= GAME_TIME.GameDeltaTime;
+        }
+        else
+        {
+            _dir =(_target.EntityTransform.position - transform.position).normalized;
+            transform.position  += _dir * (_speed * GAME_TIME.GameDeltaTime);
         }
 
-        if (!_target.GameEntity.isActiveAndEnabled)
-        {
+        if (_timeToDie  <= 0f)
             Destroy(gameObject);
-            return;
-        }
-        
-        var position = transform.position;
-        var dir=(_target.EntityTransform.position - position).normalized;
- 
-        position += dir * (_speed * GAME_TIME.GameDeltaTime);
-        transform.position = position;
-
-
-        // _elapsedTime += GAME_TIME.GameDeltaTime;
-        // float percentageComplete = _elapsedTime / _speed;
-        // transform.position = Vector3.Lerp(_startPosition, _target.EntityTransform.position, percentageComplete);   
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent<IEntityTargetAbleComponent>(out var target))
         {
-            if (target.EntityInstanceID == _target.EntityInstanceID)
+            if (target.EntityInstanceID != _casterId)
             {
                 target.TakeDamage(_damage,_isCrit);
                 Destroy(gameObject);

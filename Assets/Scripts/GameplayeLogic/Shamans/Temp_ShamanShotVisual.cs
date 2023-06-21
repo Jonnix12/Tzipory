@@ -4,11 +4,12 @@ using UnityEngine;
 public class Temp_ShamanShotVisual : MonoBehaviour
 {
     [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _timeToDie;
     [SerializeField] private Temp_Projectile _projectile;
     
-    public void Shot(IEntityTargetAbleComponent target,float damage,bool isCrit)
+    public void Shot(IEntityTargetAbleComponent target,float damage,int casterId,bool isCrit)
     {
         var projectile = Instantiate(_projectile, transform.position, Quaternion.identity);
-        projectile.Init(target,_projectileSpeed,damage,isCrit);
+        projectile.Init(target,_projectileSpeed,damage,_timeToDie,casterId,isCrit);
     }
 }

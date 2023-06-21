@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _abilityId: 1
   _abilityName: AoeFire
-  abilityCastType: 1
+  abilityCastType: 0
   _projectileSpeed: 5
   _projectilePenetration: 1
   abilityExecuteType: 0
