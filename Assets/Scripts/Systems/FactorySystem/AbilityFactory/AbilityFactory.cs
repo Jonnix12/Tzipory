@@ -32,7 +32,7 @@ namespace Factory
                 case AbilityExecuteType.AOE:
                     return  new AoeAbilityExecuter(caster,abilityConfig);
                 case AbilityExecuteType.Single:
-                    break;
+                    return new SingleAbilityExecuter(caster,abilityConfig);
                 case AbilityExecuteType.Chain:
                     break;
                 default:

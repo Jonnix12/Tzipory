@@ -21,7 +21,7 @@ namespace Shamans
 
         public override void Attack()
         {
-           AbilityHandler.CastAbilityByName("AoeFire",Targeting.AvailableTargets);
+           AbilityHandler.CastAbility(Targeting.AvailableTargets);
             
             bool canAttack = false;
 

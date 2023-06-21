@@ -12,22 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbec1bc4bb0b4e8391bcef723400cf0d, type: 3}
   m_Name: Rooting_Vines_Slow
   m_EditorClassIdentifier: 
-  _statName: MovementSpeed
-  _statusEffectId: 5
-  _statusEffectParameter:
-  - _name: 
-    _id: 0
-    _baseValue: 2
-    _currentValue: 0
+  _StatusEffectName: 
+  _affectedStat: 4
   _statusEffectToInterrupt: []
   _statusEffectType: 0
+  _duration: 5
+  _interval: 0
   _statModifier:
   - _statusModifierType: 0
-    _modifier:
-      _name: 
-      _id: 0
-      _baseValue: 0
-      _currentValue: 0
+    _modifier: 0
   _effectSequence:
     _sequenceName: 
     _id: 0

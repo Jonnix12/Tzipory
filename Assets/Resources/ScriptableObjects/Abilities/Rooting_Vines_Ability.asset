@@ -18,8 +18,8 @@ MonoBehaviour:
   _projectileSpeed: 0
   _projectilePenetration: 0
   abilityExecuteType: 0
-  _aoeRadius: 15
-  _aoeDuration: 0.1
+  _aoeRadius: 4
+  _aoeDuration: 1
   _chainRadius: 0
   _chainDuration: 0
   _chainAmount: 0

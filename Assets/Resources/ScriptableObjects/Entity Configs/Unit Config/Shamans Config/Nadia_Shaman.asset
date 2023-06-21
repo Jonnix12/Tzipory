@@ -53,5 +53,6 @@ MonoBehaviour:
     _baseValue: 6
     _currentValue: 0
   _stats: []
-  _abilityConfigs: []
+  _abilityConfigs:
+  - {fileID: 11400000, guid: 75928f8badccef2498c77125ef0f7375, type: 2}
   _targetingPriority: 1

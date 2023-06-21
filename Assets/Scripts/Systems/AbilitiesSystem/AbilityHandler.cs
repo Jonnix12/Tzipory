@@ -29,5 +29,10 @@ namespace Tzipory.AbilitiesSystem
             else
                 Debug.LogError($"{Caster.EntityTransform.name} cant find ability {abilityName}");
         }
+
+        public void CastAbility(IEnumerable<IEntityTargetAbleComponent> availableTargets)
+        {
+            Abilities.First().Value?.ExecuteAbility(availableTargets);
+        }
     }
 }
