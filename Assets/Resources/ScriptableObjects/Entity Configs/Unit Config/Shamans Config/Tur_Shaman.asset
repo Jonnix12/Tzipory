@@ -55,4 +55,4 @@ MonoBehaviour:
   _stats: []
   _abilityConfigs:
   - {fileID: 11400000, guid: 1ae853bb9bae2264d947b505396fb4e8, type: 2}
-  _targetingPriority: 2
+  _targetingPriority: 6

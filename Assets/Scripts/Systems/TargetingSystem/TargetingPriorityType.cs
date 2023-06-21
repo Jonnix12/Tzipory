@@ -4,9 +4,9 @@
     {
         Default,
         Random,
-        ClosesToEntity,
+        ClosestToEntity,
         FarthestFromEntity,
-        ClosesToCore,
+        ClosestToCore,
         FarthestFromCore,
         LowestHpEntity,
         HighestHpEntity,

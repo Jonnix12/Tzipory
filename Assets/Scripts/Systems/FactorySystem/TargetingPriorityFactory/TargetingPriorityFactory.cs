@@ -13,25 +13,25 @@ namespace Factory
             switch (targetingPriorityType)
             {
                 case TargetingPriorityType.Random:
-                    throw  new ArgumentOutOfRangeException(nameof(targetingPriorityType), targetingPriorityType, null);
-                case TargetingPriorityType.ClosesToEntity:
-                    return new ClosestTarget(entityTargetingComponent);
+                    return new RandomTarget(entityTargetingComponent);
+                case TargetingPriorityType.ClosestToEntity:
+                    return new ClosestToEntityTarget(entityTargetingComponent);
                 case TargetingPriorityType.FarthestFromEntity:
-                    throw  new ArgumentOutOfRangeException(nameof(targetingPriorityType), targetingPriorityType, null);
-                case TargetingPriorityType.ClosesToCore:
-                    throw  new ArgumentOutOfRangeException(nameof(targetingPriorityType), targetingPriorityType, null);
+                    return new FarthestFromEntityTarget(entityTargetingComponent);
+                case TargetingPriorityType.ClosestToCore:
+                    return new ClosestToCoreTarget(entityTargetingComponent);
                 case TargetingPriorityType.FarthestFromCore:
-                    throw  new ArgumentOutOfRangeException(nameof(targetingPriorityType), targetingPriorityType, null);
+                    return new FarthestFromCoreTarget(entityTargetingComponent);
                 case TargetingPriorityType.LowestHpEntity:
-                    throw  new ArgumentOutOfRangeException(nameof(targetingPriorityType), targetingPriorityType, null);
+                    return new LowestHealthTarget(entityTargetingComponent);
                 case TargetingPriorityType.HighestHpEntity:
-                    throw  new ArgumentOutOfRangeException(nameof(targetingPriorityType), targetingPriorityType, null);
+                    return new HighestHealthTarget(entityTargetingComponent);
                 case TargetingPriorityType.LowestHpPercentageEntity:
-                    throw  new ArgumentOutOfRangeException(nameof(targetingPriorityType), targetingPriorityType, null);
+                    return new LowestHealthPercentageTarget(entityTargetingComponent);
                 case TargetingPriorityType.HighestHpPercentageEntity:
-                    throw  new ArgumentOutOfRangeException(nameof(targetingPriorityType), targetingPriorityType, null);
+                    return new HighestHealthPercentageTarget(entityTargetingComponent);
                 case TargetingPriorityType.Default:
-                    return entityTargetingComponent.DefaultPriorityTargeting ?? new ClosestTarget(entityTargetingComponent);
+                    return entityTargetingComponent.DefaultPriorityTargeting ?? new ClosestToEntityTarget(entityTargetingComponent);
                 default:
                     throw  new ArgumentOutOfRangeException();
             }

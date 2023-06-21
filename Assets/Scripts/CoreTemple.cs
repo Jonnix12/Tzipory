@@ -25,10 +25,20 @@ public class CoreTemple : BaseGameEntity, IEntityTargetAbleComponent
 
     public System.Action OnHealthChanged;
 
-    private void Awake()
+    //SUPER TEMP! this needs to move to the Blackboard if we're really doing it
+    public static Transform CoreTrans;
+
+
+    protected override void Awake()
     {
-        _hp = new Stat("Health", 100, 100, 0);
+        CoreTrans = transform;
+        _hp = new Stat("Health", 100, 100, 0); //TEMP! Requires a config
         base.Awake();
+    }
+
+    private void OnDisable() //override OnDestroy() instead?
+    {
+        CoreTrans = null;
     }
 
     public void Heal(float amount)
@@ -44,7 +54,7 @@ public class CoreTemple : BaseGameEntity, IEntityTargetAbleComponent
 
         if (IsEntityDead)
         {
-            print("DEAD");
+            print("GAME OVER!");
         }
     }
 }
