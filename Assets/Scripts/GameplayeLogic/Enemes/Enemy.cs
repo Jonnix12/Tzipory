@@ -1,5 +1,6 @@
 ﻿using System;
 using Helpers.Consts;
+using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.Entitys;
 using UnityEngine;
@@ -40,7 +41,7 @@ namespace Enemes
             }
             else
             {
-                timer += Time.deltaTime;
+                timer += GAME_TIME.GameDeltaTime;
             }
         }
 
