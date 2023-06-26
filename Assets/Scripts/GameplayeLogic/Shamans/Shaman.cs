@@ -1,7 +1,9 @@
 ﻿using Helpers.Consts;
+using MovementSystem.HerosMovementSystem;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.Entitys;
+using Tzipory.Helpers;
 using UnityEngine;
 
 namespace Shamans
@@ -10,13 +12,23 @@ namespace Shamans
     {
         [Space]
         [Header("Temps")]
-        [SerializeField] private Temp_ShamanShotVisual _shotVisual;//temp!
+        [SerializeField] private Temp_ShamanShotVisual _shotVisual;
+        [SerializeField] private ClickHelper _clickHelper;
+        [SerializeField] private Temp_HeroMovement _tempHeroMovement;
+        
         private float _currentAttackRate;
 
         protected override void Awake()
         {
             base.Awake();
             EntityTeamType = EntityTeamType.Hero;
+            _clickHelper.OnClick += _tempHeroMovement.SelectHero;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _clickHelper.OnClick -= _tempHeroMovement.SelectHero;
         }
 
         public override void Attack()
@@ -49,10 +61,6 @@ namespace Shamans
             }
             EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnAttack);
             _shotVisual.Shot(Target,AttackDamage.CurrentValue,EntityInstanceID,false);
-            //EffectSequenceHandler.PlaySequenceById(999);
-
-            //  Debug.Log(
-            //    $"{Target.EntityTransform.name} been attacked by {gameObject.name}, hp left {Target.HP.CurrentValue}");
         }
     }
 }

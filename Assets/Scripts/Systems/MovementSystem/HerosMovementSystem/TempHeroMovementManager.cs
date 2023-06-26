@@ -10,7 +10,7 @@ namespace MovementSystem.HerosMovementSystem
     {
         public event Action<Vector3> OnMove;
 
-        private TempHeroMovement _currentTarget;
+        private Temp_HeroMovement _currentTarget;
         private Camera _camera;
 
         private bool _isValidClick;
@@ -20,7 +20,7 @@ namespace MovementSystem.HerosMovementSystem
             _camera = Camera.main;
         }
 
-        public void SelectTarget(TempHeroMovement  target)
+        public void SelectTarget(Temp_HeroMovement  target)
         {
             _currentTarget = target;
         }

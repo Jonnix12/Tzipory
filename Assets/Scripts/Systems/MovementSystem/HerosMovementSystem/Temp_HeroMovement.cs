@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MovementSystem.HerosMovementSystem
 {
-    public class TempHeroMovement : MonoBehaviour
+    public class Temp_HeroMovement : MonoBehaviour
     {
         [SerializeField] private AgentAuthoring _agentAuthoring;
         [SerializeField] private BasicMoveComponent _moveComponent;
@@ -19,7 +19,7 @@ namespace MovementSystem.HerosMovementSystem
             _moveComponent.SetDestination(pos, MoveType.Free); //MoveType is not really used at all
         }
 
-        private void OnMouseDown()
+        public void SelectHero()
         {
             TempHeroMovementManager.Instance.SelectTarget(this);
             Debug.Log($"{gameObject.name} has Selected");
