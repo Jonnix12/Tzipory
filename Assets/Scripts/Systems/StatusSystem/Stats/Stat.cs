@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Tzipory.EntitySystem.StatusSystem
@@ -7,7 +8,7 @@ namespace Tzipory.EntitySystem.StatusSystem
     public class Stat
     {
         //TEMP!
-        public System.Action OnCurrentValueChanged;
+        public Action OnCurrentValueChanged;
         
         [SerializeField,ReadOnly] private string _name;
         [SerializeField,ReadOnly] private int _id;
@@ -17,12 +18,16 @@ namespace Tzipory.EntitySystem.StatusSystem
         public string Name
         {
             get => _name;
-            set => _name = value;//temp
+#if UNITY_EDITOR
+            set => _name = value;
+#endif
         }
         public int Id
         {
             get => _id;
-            set => _id = value;//temp
+#if UNITY_EDITOR
+            set => _id = value;
+#endif
         }
         public float BaseValue => _baseValue;
         public float CurrentValue => _currentValue;

@@ -13,12 +13,12 @@ namespace Tzipory.Helpers
         public bool IsHover { get; private set; }   
         
         private const int CLICKABLE_LAYER_INDEX = 11;
-
-        private void OnValidate()
+        
+        private void Awake()
         {
             gameObject.layer = CLICKABLE_LAYER_INDEX;
         }
-        
+
         public void OnPointerClick(PointerEventData eventData)
         {
             OnClick?.Invoke();

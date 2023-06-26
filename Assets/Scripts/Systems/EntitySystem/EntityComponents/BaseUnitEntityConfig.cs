@@ -3,7 +3,6 @@ using Helpers.Consts;
 using Sirenix.OdinInspector;
 using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.EntitySystem.StatusSystem;
-using Tzipory.EntitySystem.StatusSystem.StatSystemConfig;
 using Tzipory.EntitySystem.TargetingSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -30,8 +29,7 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
         public List<Stat> Stats => _stats;
 
         public Stat Health => _health;
-
-
+        
         public Stat InvincibleTime => _invincibleTime;
 
         public Stat AttackDamage => _attackDamage;
@@ -52,6 +50,7 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
 
         private void OnValidate()
         {
+#if UNITY_EDITOR
             _health.Name = Constant.StatNames.Health;
             _invincibleTime.Name = Constant.StatNames.InvincibleTime;
             _attackDamage.Name = Constant.StatNames.AttackDamage;
@@ -69,20 +68,7 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
             _CritDamage.Id = Constant.StatIds.CritDamage;
             _CritChance.Id = Constant.StatIds.CritChance;
             _movementSpeed.Id = Constant.StatIds.MovementSpeed;
-        }
-
-        public void AddStat(StatConfig statConfig)
-        {
-            //Just adding the implied logic of this method
-
-            //Check if this new stat is OK to add:
-            //cases such as "a stat of the same type already existing on this unit. should it override or ignore?"
-            //if this is relevant, my suggestion is to add a virtual (not an asbstact!) method to BaseUnitEntityConfig which looks like this:
-            //_existingStatConfig.StackWithNewConfig(StatConfig toStack);
-            //  1)Letting each Stat implement either the base virtual type of stacking
-            //  2) 
-
-            //_stats.Add(statConfig);
+#endif
         }
     }
 }
