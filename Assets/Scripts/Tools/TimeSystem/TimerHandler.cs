@@ -1,19 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework.Interfaces;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Tzipory.BaseSystem.TimeSystem
 {
+    [Serializable]
     public class TimerHandler
     {
         private Dictionary<string, ITimer> _timersDictionary;
         private List<ITimer> _timersList;
 
+#if UNITY_EDITOR
+        [FormerlySerializedAs("_timers")] [SerializeField, ReadOnly] private List<TimerSerializeData> _timerSerializeDatas;
+#endif
+
         public TimerHandler()
         {
             _timersDictionary = new Dictionary<string, ITimer>();
             _timersList = new List<ITimer>();
+#if UNITY_EDITOR
+            _timerSerializeDatas = new List<TimerSerializeData>();
+#endif
         }
 
         public ITimer StartNewTimer(float time,Action onComplete,string timerName = null)
@@ -139,8 +148,9 @@ namespace Tzipory.BaseSystem.TimeSystem
                 _timersDictionary.Add(timer.TimerName, timer);
             else
                 _timersList.Add(timer);
-           
-            
+#if UNITY_EDITOR
+            _timerSerializeDatas.Add(new TimerSerializeData(timer));
+#endif
             timer.OnTimerComplete += TimeComplete;
         }
         
@@ -151,10 +161,24 @@ namespace Tzipory.BaseSystem.TimeSystem
 
             for (int i = 0; i < _timersList.Count; i++)
                 _timersList[i].TickTimer();
+#if UNITY_EDITOR
+            for (int i = 0; i < _timerSerializeDatas.Count; i++)
+                _timerSerializeDatas[i].Update();
+#endif
         }
         
         private void TimeComplete(ITimer timer)
         {
+            
+#if UNITY_EDITOR
+            for (int i = 0; i < _timerSerializeDatas.Count; i++)
+            {
+                if (_timerSerializeDatas[i].Timer != timer) continue;
+                _timerSerializeDatas.RemoveAt(i);
+                break;
+            }
+#endif
+            
             if (!string.IsNullOrEmpty(timer.TimerName))
             {
                 if (_timersDictionary.TryGetValue(timer.TimerName, out var value))
