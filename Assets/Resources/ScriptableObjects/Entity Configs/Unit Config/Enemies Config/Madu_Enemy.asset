@@ -15,7 +15,7 @@ MonoBehaviour:
   _health:
     _name: Health
     _id: 1
-    _baseValue: 150
+    _baseValue: 200
     _currentValue: 0
   _invincibleTime:
     _name: InvincibleTime

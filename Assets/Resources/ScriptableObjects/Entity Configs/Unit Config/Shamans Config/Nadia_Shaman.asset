@@ -50,7 +50,7 @@ MonoBehaviour:
   _movementSpeed:
     _name: MovementSpeed
     _id: 5
-    _baseValue: 6
+    _baseValue: 3.5
     _currentValue: 0
   _stats: []
   _abilityConfigs:
