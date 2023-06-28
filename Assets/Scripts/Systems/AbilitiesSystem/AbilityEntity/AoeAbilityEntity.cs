@@ -17,7 +17,7 @@ public class AoeAbilityEntity : BaseAbilityEntity
         _duration = duration;
         //base.statusEffect = statusEffect;
 
-        _sprite.localScale = Vector3.one * (radius * 10);
+        visualTransform.localScale = Vector3.one * (radius * 10);
 
         var colliders = Physics2D.OverlapCircleAll(transform.position, _collider2D.radius);
         

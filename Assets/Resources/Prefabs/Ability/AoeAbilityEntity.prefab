@@ -127,5 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2663e81ef4e17334abba4f88ac68d376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timerHandler:
+    _timerSerializeDatas: []
   _collider2D: {fileID: 1909779907853101283}
-  _sprite: {fileID: 1260212071725068928}
+  visualTransform: {fileID: 1260212071725068928}

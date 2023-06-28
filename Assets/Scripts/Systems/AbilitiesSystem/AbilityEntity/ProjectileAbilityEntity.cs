@@ -6,6 +6,7 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
 {
     public class ProjectileAbilityEntity : BaseAbilityEntity
     {
+        
         private float _penetrationNumber;
         private float _speed;
         private Vector3 _dir;
@@ -16,7 +17,7 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
             _speed = speed;
             _penetrationNumber = penetrationNumber;
             _dir = (target.EntityTransform.position - transform.position).normalized;
-            transform.right  = _dir;
+            visualTransform.up = _dir;
         }
 
         protected override void Update()

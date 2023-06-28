@@ -4959,7 +4959,7 @@ MonoBehaviour:
   _timerHandler:
     _timerSerializeDatas: []
   _collider2D: {fileID: 7187797249985068545}
-  _sprite: {fileID: 7511411553648010338}
+  visualTransform: {fileID: 7511411553648010338}
 --- !u!58 &7187797249985068545 stripped
 CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 8805199842458645851, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
