@@ -4886,11 +4886,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5602764745902702606, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
       propertyPath: _scale
-      value: 0.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5602764745902702606, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
       propertyPath: _isoOffSet
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7754473551597568420, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
       propertyPath: m_Sprite
@@ -4914,11 +4914,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8200931897204109112, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8200931897204109112, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.16000001
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8200931897204109112, guid: 1dae34f03049acf4489678e375ca7d8b, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -4956,6 +4956,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5298c9833d471f97901d2d758b0804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timerHandler:
+    _timerSerializeDatas: []
   _collider2D: {fileID: 7187797249985068545}
   _sprite: {fileID: 7511411553648010338}
 --- !u!58 &7187797249985068545 stripped

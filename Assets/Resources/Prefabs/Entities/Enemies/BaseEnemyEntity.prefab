@@ -80,9 +80,6 @@ PrefabInstance:
       addedObject: {fileID: 2884303950413280423}
     - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1760107509981029536}
-    - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4453479690777420381}
     - targetCorrespondingSourceObject: {fileID: 1420442367539004591, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       insertIndex: -1
@@ -131,6 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67849a218de2487cb0857705b5126ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timerHandler:
+    _timerSerializeDatas: []
   _config: {fileID: 11400000, guid: cf8b6009cbd29a4429faf8b243fbe51f, type: 2}
   _stats: []
   _bodyCollider: {fileID: 4453479690777420381}
@@ -291,26 +290,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Radius: 0.5
---- !u!114 &1760107509981029536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7362225495168421975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 843b60c548b637e458b234d84843547b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 7221615852569552283}
-  privateRabbitSpeed: 3
-  finalLoopSpeed: 0.5
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _followRabbit: {fileID: 0}
-  _target: {fileID: 0}
 --- !u!58 &4453479690777420381
 CircleCollider2D:
   m_ObjectHideFlags: 0
