@@ -6,6 +6,7 @@ namespace MovementSystem.HerosMovementSystem
 {
     public class Temp_HeroMovement : MonoBehaviour
     {
+
         [SerializeField] private AgentAuthoring _agentAuthoring;
         [SerializeField] private BasicMoveComponent _moveComponent;
         [SerializeField] Shamans.Shaman _shaman;

@@ -8,6 +8,9 @@ namespace MovementSystem.HerosMovementSystem
 {
     public class TempHeroMovementManager : MonoSingleton<TempHeroMovementManager>
     {
+        public static System.Action OnAnyShamanSelected;
+        public static System.Action OnAnyShamanDeselected;
+
         public event Action<Vector3> OnMove;
 
         private Temp_HeroMovement _currentTarget;
@@ -23,11 +26,13 @@ namespace MovementSystem.HerosMovementSystem
         public void SelectTarget(Temp_HeroMovement  target)
         {
             _currentTarget = target;
+            OnAnyShamanSelected?.Invoke();
         }
 
         public void ClearTarget()
         {
             _currentTarget = null;
+            OnAnyShamanDeselected?.Invoke();
         }
 
         private void Update()

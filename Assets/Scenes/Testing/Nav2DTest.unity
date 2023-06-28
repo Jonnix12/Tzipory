@@ -4728,6 +4728,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nadia
       objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _proximityConfig.IndicatorConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _proximityConfig.IndicatorConditions.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _proximityConfig.IndicatorConditions.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7198979197876659983, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
       propertyPath: m_RootOrder
       value: -1

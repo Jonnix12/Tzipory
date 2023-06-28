@@ -13,6 +13,8 @@ public class PowerStructure : BaseGameEntity
     CircleCollider2D effectArea;
     [SerializeField]
     StatusEffectConfigSo myEffectSO;
+    [SerializeField]
+    ProximityIndicatorHandler _proximityIndicatorHandler;
 
     private Dictionary<int, IDisposable> _activeStatusEffectOnShaman;
 
@@ -20,8 +22,13 @@ public class PowerStructure : BaseGameEntity
     {
         base.Awake();
         _activeStatusEffectOnShaman = new Dictionary<int, IDisposable>();
+        _proximityIndicatorHandler.Init();
     }
-    
+    private void OnDisable()
+    {
+        _proximityIndicatorHandler.Disable();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Shaman"))

@@ -13,8 +13,6 @@ namespace Shamans
     {
 
         [SerializeField, TabGroup("Proximity Indicator")] private ProximityIndicatorHandler _proximityHandler;
-        //[SerializeField, TabGroup("Proximity Indicator")] private ProximityConfig _proximityConfig;
-        [SerializeField, TabGroup("Proximity Indicator")] private SpriteRenderer _proximityIndicatorSpriteRenderer;
 
         [Space]
         [Header("Temps")]
