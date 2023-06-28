@@ -33,7 +33,10 @@ namespace Shamans
 
         public override void Attack()
         {
-           AbilityHandler.CastAbility(Targeting.AvailableTargets);
+            if (_tempHeroMovement.IsMoveing)
+                return;
+            
+            AbilityHandler.CastAbility(Targeting.AvailableTargets);
             
             bool canAttack = false;
 
