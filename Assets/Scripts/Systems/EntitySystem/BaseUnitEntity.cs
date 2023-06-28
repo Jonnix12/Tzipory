@@ -152,6 +152,14 @@ namespace Tzipory.EntitySystem.Entitys
         private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(transform.position,_config.AttackRange.BaseValue);
+            if (_target != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(transform.position,_target.EntityTransform.position);
+                Gizmos.color = Color.white;
+            }
+            
+            
         }
 
         protected override void OnDestroy()
