@@ -2939,7 +2939,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: bb43d8ff91de9c440a302c0d4f22a628, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4728,6 +4728,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nadia
       objectReference: {fileID: 0}
+    - target: {fileID: 2892310050656758112, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _proximityHandler._currentSprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
       propertyPath: _proximityConfig.IndicatorConditions.Array.size
       value: 1
@@ -5146,6 +5154,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tur
       objectReference: {fileID: 0}
+    - target: {fileID: 3138620710055236866, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _proximityHandler._currentSprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 6938634372059470701, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -7528,6 +7544,10 @@ PrefabInstance:
     - target: {fileID: 8275930077482909604, guid: f842a8889eed7f44da670a3ea79af0db, type: 3}
       propertyPath: m_Name
       value: PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 9089168511579575227, guid: f842a8889eed7f44da670a3ea79af0db, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

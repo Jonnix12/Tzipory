@@ -8,21 +8,33 @@ public class ProximityIndicatorHandler
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Sprite _currentSprite;
     [SerializeField] private ProximityConfig _proximityConfig;
+    [SerializeField] Tzipory.Helpers.ClickHelper clickHelper;
+    
     private float _range;
 
-    public void Init()
+    private bool _isOn;
+    private bool _isLock;
+
+    public void Init(float range)
     {
+        _range = range;
+        _isLock = false;
+
+        _spriteRenderer.transform.localScale = new Vector3(_range, _range,1);
+
         foreach (var condition in _proximityConfig.IndicatorConditions)
         {
             switch (condition)
             {
                 case IndicatorCondition.AnyShamanSelected:
                     //Subscribe to OnAnyShamanSelected
-                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanSelected += () => SetToActive(true);
-                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanDeselected += () => SetToActive(false);
+                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanSelected += () => SetToActiveAndLock(true, true);
+                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanDeselected += () => SetToActiveAndLock(false, false);
                     break;
                 case IndicatorCondition.HoverSelf:
-                    //
+                    //_spriteRenderer.
+                    clickHelper.OnEnterHover += () => SetToActive(true);
+                    clickHelper.OnExitHover += () => SetToActive(false);
                     break;
                 case IndicatorCondition.AllCall:
                     //Subscribe to AllCall
@@ -43,10 +55,12 @@ public class ProximityIndicatorHandler
             {
                 case IndicatorCondition.AnyShamanSelected:
                     //Subscribe to OnAnyShamanSelected
-                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanSelected -= () => SetToActive(true);
-                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanDeselected -= () => SetToActive(false);
+                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanSelected -= () => SetToActiveAndLock(true, true);
+                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanDeselected -= () => SetToActiveAndLock(false, false);
                     break;
                 case IndicatorCondition.HoverSelf:
+                    clickHelper.OnEnterHover -= () => SetToActive(true);
+                    clickHelper.OnExitHover -= () => SetToActive(false);
                     //
                     break;
                 case IndicatorCondition.AllCall:
@@ -62,6 +76,14 @@ public class ProximityIndicatorHandler
     void SetToActive(bool doActive)
     {
         //Some logic and stuff
+        if (_isLock)
+            return;
+        _spriteRenderer.enabled = doActive;
+    }
+    void SetToActiveAndLock(bool doActive, bool doLock)
+    {
+        //Some logic and stuff
+        _isLock = doLock;
         _spriteRenderer.enabled = doActive;
     }
 }

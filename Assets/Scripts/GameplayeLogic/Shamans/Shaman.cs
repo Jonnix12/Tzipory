@@ -30,6 +30,14 @@ namespace Shamans
 
             //_proximityConfig
         }
+        private void Start()
+        {
+            _proximityHandler.Init(AttackRange.CurrentValue *2f);//MAY need to move to OnEnable - especially if we use ObjectPooling instead of instantiate
+        }
+        private void OnDisable()
+        {
+            _proximityHandler.Disable();
+        }
 
         protected override void OnDestroy()
         {
