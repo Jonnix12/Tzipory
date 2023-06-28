@@ -4,12 +4,18 @@ using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.Entitys;
 using Tzipory.Helpers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Shamans
 {
     public class Shaman : BaseUnitEntity
     {
+
+        [SerializeField, TabGroup("Proximity Indicator")] private ProximityIndicatorHandler _proximityHandler;
+        //[SerializeField, TabGroup("Proximity Indicator")] private ProximityConfig _proximityConfig;
+        [SerializeField, TabGroup("Proximity Indicator")] private SpriteRenderer _proximityIndicatorSpriteRenderer;
+
         [Space]
         [Header("Temps")]
         [SerializeField] private Temp_ShamanShotVisual _shotVisual;
@@ -23,6 +29,8 @@ namespace Shamans
             base.Awake();
             EntityTeamType = EntityTeamType.Hero;
             _clickHelper.OnClick += _tempHeroMovement.SelectHero;
+
+            //_proximityConfig
         }
 
         protected override void OnDestroy()
