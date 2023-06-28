@@ -37,6 +37,8 @@ namespace Enemes
             {
                 timer = 0f;
                 Target.TakeDamage(StatusHandler.GetStatById((int)Constant.Stats.AttackDamage).CurrentValue, false);
+                //Target.TakeDamage(AttackDamage.CurrentValue, false);// Why not like this? TBD
+                
             }
             else
             {

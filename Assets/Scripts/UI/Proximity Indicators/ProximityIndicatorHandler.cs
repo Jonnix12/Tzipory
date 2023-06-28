@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class ProximityIndicatorHandler
 {
+    public static System.Action TEMP_CallAll_TAB;
+
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Sprite _currentSprite;
     [SerializeField] private ProximityConfig _proximityConfig;
@@ -12,13 +14,15 @@ public class ProximityIndicatorHandler
     
     private float _range;
 
-    private bool _isOn;
+    private bool _isToggleOn;
     private bool _isLock;
 
+    
     public void Init(float range)
     {
         _range = range;
         _isLock = false;
+        _isToggleOn = false;
 
         _spriteRenderer.transform.localScale = new Vector3(_range, _range,1);
 
@@ -38,6 +42,7 @@ public class ProximityIndicatorHandler
                     break;
                 case IndicatorCondition.AllCall:
                     //Subscribe to AllCall
+                    TEMP_CallAll_TAB += ToggleActive;
                     break;
                 default:
                     break;
@@ -65,6 +70,7 @@ public class ProximityIndicatorHandler
                     break;
                 case IndicatorCondition.AllCall:
                     //Subscribe to AllCall
+                    TEMP_CallAll_TAB -= ToggleActive;
                     break;
                 default:
                     break;
@@ -80,6 +86,16 @@ public class ProximityIndicatorHandler
             return;
         _spriteRenderer.enabled = doActive;
     }
+    void ToggleActive()
+    {
+        //Some logic and stuff
+        if (_isLock)
+            return;
+
+        _isToggleOn = !_isToggleOn;
+        _spriteRenderer.enabled = _isToggleOn;
+    }
+
     void SetToActiveAndLock(bool doActive, bool doLock)
     {
         //Some logic and stuff
