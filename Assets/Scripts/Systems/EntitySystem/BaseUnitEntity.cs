@@ -58,14 +58,14 @@ namespace Tzipory.EntitySystem.Entitys
             
             List<Stat> stats = new List<Stat>();
             
-            stats.Add(new Stat(Constant.StatNames.Health, _config.Health.BaseValue, _config.Health.MaxValue, Constant.StatIds.Health));
-            stats.Add(new Stat(Constant.StatNames.InvincibleTime, _config.InvincibleTime.BaseValue, _config.InvincibleTime.MaxValue, Constant.StatIds.InvincibleTime));
-            stats.Add(new Stat(Constant.StatNames.AttackDamage, _config.AttackDamage.BaseValue, _config.AttackDamage.MaxValue, Constant.StatIds.AttackDamage));
-            stats.Add(new Stat(Constant.StatNames.CritDamage, _config.CritDamage.BaseValue, _config.CritDamage.MaxValue, Constant.StatIds.CritDamage));
-            stats.Add(new Stat(Constant.StatNames.CritChance, _config.CritChance.BaseValue, _config.CritChance.MaxValue, Constant.StatIds.CritChance));
-            stats.Add(new Stat(Constant.StatNames.AttackRate, _config.AttackRate.BaseValue, _config.AttackRate.MaxValue, Constant.StatIds.AttackRate));
-            stats.Add(new Stat(Constant.StatNames.AttackRange, _config.AttackRange.BaseValue, _config.AttackRange.MaxValue, Constant.StatIds.AttackRange));
-            stats.Add(new Stat(Constant.StatNames.MovementSpeed, _config.MovementSpeed.BaseValue, _config.MovementSpeed.MaxValue, Constant.StatIds.MovementSpeed));
+            stats.Add(new Stat(Constant.Stats.Health.ToString(), _config.Health.BaseValue, _config.Health.MaxValue,                         (int)Constant.Stats.Health));
+            stats.Add(new Stat(Constant.Stats.InvincibleTime.ToString(), _config.InvincibleTime.BaseValue, _config.InvincibleTime.MaxValue, (int)Constant.Stats.InvincibleTime));
+            stats.Add(new Stat(Constant.Stats.AttackDamage.ToString(), _config.AttackDamage.BaseValue, _config.AttackDamage.MaxValue,       (int)Constant.Stats.AttackDamage));
+            stats.Add(new Stat(Constant.Stats.CritDamage.ToString(), _config.CritDamage.BaseValue, _config.CritDamage.MaxValue,             (int)Constant.Stats.CritDamage));
+            stats.Add(new Stat(Constant.Stats.CritChance.ToString(), _config.CritChance.BaseValue, _config.CritChance.MaxValue,             (int)Constant.Stats.CritChance));
+            stats.Add(new Stat(Constant.Stats.AttackRate.ToString(), _config.AttackRate.BaseValue, _config.AttackRate.MaxValue,             (int)Constant.Stats.AttackRate));
+            stats.Add(new Stat(Constant.Stats.AttackRange.ToString(), _config.AttackRange.BaseValue, _config.AttackRange.MaxValue,          (int)Constant.Stats.AttackRange));
+            stats.Add(new Stat(Constant.Stats.MovementSpeed.ToString(), _config.MovementSpeed.BaseValue, _config.MovementSpeed.MaxValue,    (int)Constant.Stats.MovementSpeed));
             
             if (_config.Stats != null && _config.Stats.Count > 0)
             {
@@ -109,7 +109,7 @@ namespace Tzipory.EntitySystem.Entitys
             StatusHandler.OnStatusEffectAdded += AddStatusEffectVisual;
             
             
-           AbilityHandler = new AbilityHandler(this,this, _config.AbilityConfigs);
+            AbilityHandler = new AbilityHandler(this,this, _config.AbilityConfigs);
 
             _rangeCollider.isTrigger = true;
         }
@@ -128,7 +128,7 @@ namespace Tzipory.EntitySystem.Entitys
             if (_target != null)//temp
                 Attack();
             
-            _rangeCollider.radius = StatusHandler.GetStatById(Constant.StatIds.AttackRange).CurrentValue;//temp
+            _rangeCollider.radius = StatusHandler.GetStatById((int)Constant.Stats.AttackRange).CurrentValue;//temp
         }
 
         private void OnValidate()
@@ -180,9 +180,9 @@ namespace Tzipory.EntitySystem.Entitys
         
         private float  _currentInvincibleTime;
 
-        public Stat HP => StatusHandler.GetStatById(Constant.StatIds.Health);
+        public Stat HP => StatusHandler.GetStatById((int)Constant.Stats.Health);
         
-        public Stat InvincibleTime => StatusHandler.GetStatById(Constant.StatIds.InvincibleTime);
+        public Stat InvincibleTime => StatusHandler.GetStatById((int)Constant.Stats.InvincibleTime);
         public bool IsDamageable { get; private set; }
         public bool IsEntityDead => HP.CurrentValue <= 0;
 
@@ -237,11 +237,11 @@ namespace Tzipory.EntitySystem.Entitys
         public IEntityTargetAbleComponent Target => _target;
         public void SetAttackTarget(IEntityTargetAbleComponent tgt) => _target = tgt;
         
-        public Stat AttackDamage => StatusHandler.GetStatById(Constant.StatIds.AttackDamage);
-        public Stat CritDamage => StatusHandler.GetStatById(Constant.StatIds.CritDamage);
-        public Stat CritChance => StatusHandler.GetStatById(Constant.StatIds.CritChance);
-        public Stat AttackRate => StatusHandler.GetStatById(Constant.StatIds.AttackRate);
-        public Stat AttackRange => StatusHandler.GetStatById(Constant.StatIds.AttackRange);
+        public Stat AttackDamage => StatusHandler.GetStatById((int)Constant.Stats.AttackDamage);
+        public Stat CritDamage => StatusHandler.GetStatById((int)Constant.Stats.CritDamage);
+        public Stat CritChance => StatusHandler.GetStatById((int)Constant.Stats.CritChance);
+        public Stat AttackRate => StatusHandler.GetStatById((int)Constant.Stats.AttackRate);
+        public Stat AttackRange => StatusHandler.GetStatById((int)Constant.Stats.AttackRange);
         
         public virtual void Attack()
         {
@@ -252,9 +252,9 @@ namespace Tzipory.EntitySystem.Entitys
         #region MovementComponent
 
 
-        public Stat MoveSpeed => StatusHandler.GetStatById(Constant.StatIds.MovementSpeed);
+        public Stat MoveSpeed => StatusHandler.GetStatById((int)Constant.Stats.MovementSpeed);
         
-       //This is not really needed - we can remove the movement interface from baseunit I think... - it should have a BasicMovement, controlled by something else
+        //This is not really needed - we can remove the movement interface from baseunit I think... - it should have a BasicMovement, controlled by something else
         public void SetDestination(Vector3 destination, MoveType moveType) 
         {
             throw new System.NotImplementedException();

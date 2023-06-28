@@ -4,33 +4,47 @@ using SerializeData.VisualSystemSerializeData;
 
 namespace Tzipory.EntitySystem.StatusSystem
 {
-    public abstract class BaseStatusEffect
+    public abstract class BaseStatusEffect : IDisposable
     {
+        #region Events
+
         public event Action<int> OnStatusEffectStart;
         public event Action<int> OnStatusEffectDone;
         public event  Action<int> OnStatusEffectInterrupt;
+
+        #endregion
+
+        #region Fields
+
+        protected readonly Stat StatToEffect;
         
-        protected List<StatModifier> modifiers;
-        
-        protected Stat currentStat;
+        protected readonly List<StatModifier> modifiers;
+
+        #endregion
+
+        #region Property
 
         public string StatusEffectName { get; }
-        public string AffectedStatName { get; }
-        public int StatusEffectId { get; }
+
+        public string AffectedStatName => StatToEffect.Name;
+        public int AffectedStatId => StatToEffect.Id;
 
         public bool IsDone { get; private set; }
 
         public EffectSequenceData EffectSequence { get; }
 
         public List<StatusEffectConfigSo> StatusEffectToInterrupt { get; }
+
+        #endregion
+       
         
-        protected BaseStatusEffect(StatusEffectConfigSo statusEffectConfigSo)
+        protected BaseStatusEffect(StatusEffectConfigSo statusEffectConfigSo,Stat statToEffectToEffect)
         {
             StatusEffectName = statusEffectConfigSo.StatusEffectName;
-            AffectedStatName = statusEffectConfigSo.AffectedStatName;
-            StatusEffectId = statusEffectConfigSo.StatusEffectId;
             StatusEffectToInterrupt = statusEffectConfigSo.StatusEffectToInterrupt;
             EffectSequence = statusEffectConfigSo.EffectSequence;
+
+            StatToEffect = statToEffectToEffect;
 
             modifiers = new List<StatModifier>();
 
@@ -43,27 +57,24 @@ namespace Tzipory.EntitySystem.StatusSystem
 
         public virtual void StatusEffectStart()
         {
-            OnStatusEffectStart?.Invoke(StatusEffectId);
+            OnStatusEffectStart?.Invoke(AffectedStatId);
             IsDone  = false;
         }
 
         public virtual void StatusEffectInterrupt()
         {
-            OnStatusEffectInterrupt?.Invoke(StatusEffectId);
+            OnStatusEffectInterrupt?.Invoke(AffectedStatId);
         }
 
         protected virtual void StatusEffectFinish()
         {
-            OnStatusEffectDone?.Invoke(StatusEffectId);
+            OnStatusEffectDone?.Invoke(AffectedStatId);
             IsDone = true;
         }
 
-        public void SetStat(Stat stat)
-        {
-            currentStat = stat;
-        }
-        
         public abstract void ProcessStatusEffect();
+
+        public abstract void Dispose();
     }
     
     public enum StatusEffectType

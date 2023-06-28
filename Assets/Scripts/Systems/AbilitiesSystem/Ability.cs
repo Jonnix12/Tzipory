@@ -31,10 +31,10 @@ namespace Tzipory.AbilitiesSystem
             AbilityName = config.AbilityName;
             AbilityId = config.AbilityId;
 
-            Cooldown = new Stat(Constant.StatNames.AbilityCooldown, config.Cooldown, int.MaxValue,
-                Constant.StatIds.AbilityCooldown);
-            CastTime = new Stat(Constant.StatNames.AbilityCastTime, config.CastTime, int.MaxValue,
-                Constant.StatIds.AbilityCastTime);
+            Cooldown = new Stat(Constant.Stats.AbilityCooldown.ToString(), config.Cooldown, int.MaxValue,
+                (int)Constant.Stats.AbilityCooldown);
+            CastTime = new Stat(Constant.Stats.AbilityCastTime.ToString(), config.CastTime, int.MaxValue,
+                (int)Constant.Stats.AbilityCastTime);
 
             AbilityCaster = Factory.AbilityFactory.GetAbilityCaster(entityTargetingComponent,config);
             AbilityExecutor = Factory.AbilityFactory.GetAbilityExecutor(caster,config);

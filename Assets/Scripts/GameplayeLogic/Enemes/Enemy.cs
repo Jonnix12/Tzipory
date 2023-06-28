@@ -1,9 +1,7 @@
-﻿using System;
-using Helpers.Consts;
+﻿using Helpers.Consts;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.Entitys;
-using UnityEngine;
 
 namespace Enemes
 {
@@ -34,23 +32,16 @@ namespace Enemes
         public override void Attack()
         {
             base.Attack(); //empty
-            if (timer >= StatusHandler.GetStatByName("AttackRate").CurrentValue)
+            
+            if (timer >= StatusHandler.GetStatById((int)Constant.Stats.AttackRate).CurrentValue)
             {
                 timer = 0f;
-                Target.TakeDamage(StatusHandler.GetStatByName("AttackDamage").CurrentValue, false);
+                Target.TakeDamage(StatusHandler.GetStatById((int)Constant.Stats.AttackDamage).CurrentValue, false);
             }
             else
             {
                 timer += GAME_TIME.GameDeltaTime;
             }
         }
-
-
-
-        //protected override void Update()
-        //{
-        //    base.Update();
-        //    EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnMove);
-        //}
     }
 }

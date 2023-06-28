@@ -98,9 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ebdde7d67fc4f498dc5bce4ecd2025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timerHandler:
+    _timerSerializeDatas: []
   effectArea: {fileID: 8648411720197767754}
   myEffectSO: {fileID: 11400000, guid: 0339e834abce62c4c9f54be4eb4e2141, type: 2}
-  myOppositeEffectSO: {fileID: 11400000, guid: 9aaa2a28e0545dd4ca79bbabf17b5bca, type: 2}
 --- !u!58 &8648411720197767754
 CircleCollider2D:
   m_ObjectHideFlags: 0

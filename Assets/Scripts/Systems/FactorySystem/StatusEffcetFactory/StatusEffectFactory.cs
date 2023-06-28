@@ -5,13 +5,13 @@ namespace Factory
 {
     public class StatusEffectFactory
     {
-        public static BaseStatusEffect GetStatusEffect(StatusEffectConfigSo statusEffectConfigSo)
+        public static BaseStatusEffect GetStatusEffect(StatusEffectConfigSo statusEffectConfigSo,Stat statToEffect)
         {
             return statusEffectConfigSo.StatusEffectType switch
             {
-                StatusEffectType.OverTime => new OverTimeStatusEffect(statusEffectConfigSo),
-                StatusEffectType.Instant => new InstantStatusEffect(statusEffectConfigSo),
-                StatusEffectType.Interval => new IntervalStatusEffect(statusEffectConfigSo),
+                StatusEffectType.OverTime => new OverTimeStatusEffect(statusEffectConfigSo,statToEffect),
+                StatusEffectType.Instant => new InstantStatusEffect(statusEffectConfigSo,statToEffect),
+                StatusEffectType.Interval => new IntervalStatusEffect(statusEffectConfigSo,statToEffect),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

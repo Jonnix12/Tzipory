@@ -51,23 +51,23 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
         private void OnValidate()
         {
 #if UNITY_EDITOR
-            _health.Name = Constant.StatNames.Health;
-            _invincibleTime.Name = Constant.StatNames.InvincibleTime;
-            _attackDamage.Name = Constant.StatNames.AttackDamage;
-            _AttackRate.Name = Constant.StatNames.AttackRate;
-            _attackRange.Name = Constant.StatNames.AttackRange;
-            _CritDamage.Name = Constant.StatNames.CritDamage;
-            _CritChance.Name = Constant.StatNames.CritChance;
-            _movementSpeed.Name = Constant.StatNames.MovementSpeed;
+            _health.Name =         Constant.Stats.Health.ToString();
+            _invincibleTime.Name = Constant.Stats.InvincibleTime.ToString();
+            _attackDamage.Name =   Constant.Stats.AttackDamage.ToString();
+            _AttackRate.Name =     Constant.Stats.AttackRate.ToString();
+            _attackRange.Name =    Constant.Stats.AttackRange.ToString();
+            _CritDamage.Name =     Constant.Stats.CritDamage.ToString();
+            _CritChance.Name =     Constant.Stats.CritChance.ToString();
+            _movementSpeed.Name =  Constant.Stats.MovementSpeed.ToString();
 
-            _health.Id = Constant.StatIds.Health;
-            _invincibleTime.Id = Constant.StatIds.InvincibleTime;
-            _attackDamage.Id = Constant.StatIds.AttackDamage;
-            _AttackRate.Id = Constant.StatIds.AttackRate;
-            _attackRange.Id = Constant.StatIds.AttackRange;
-            _CritDamage.Id = Constant.StatIds.CritDamage;
-            _CritChance.Id = Constant.StatIds.CritChance;
-            _movementSpeed.Id = Constant.StatIds.MovementSpeed;
+            _health.Id =         (int)Constant.Stats.Health;
+            _invincibleTime.Id = (int)Constant.Stats.InvincibleTime;
+            _attackDamage.Id =   (int)Constant.Stats.AttackDamage;
+            _AttackRate.Id =     (int)Constant.Stats.AttackRate;
+            _attackRange.Id =    (int)Constant.Stats.AttackRange;
+            _CritDamage.Id =     (int)Constant.Stats.CritDamage;
+            _CritChance.Id =     (int)Constant.Stats.CritChance;
+            _movementSpeed.Id =  (int)Constant.Stats.MovementSpeed;
 #endif
         }
     }
