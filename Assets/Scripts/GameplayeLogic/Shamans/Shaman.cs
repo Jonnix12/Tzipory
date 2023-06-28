@@ -25,6 +25,12 @@ namespace Shamans
             _clickHelper.OnClick += _tempHeroMovement.SelectHero;
         }
 
+        protected override void UpdateEntity()
+        {
+             if (Target != null)//temp
+                 Attack();
+        }
+
         protected override void OnDestroy()
         {
             base.OnDestroy();
