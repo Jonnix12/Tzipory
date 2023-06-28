@@ -9,6 +9,7 @@ namespace Tzipory.AI.WeightSystem
         /// The base perference to perform this action by this character
         /// </summary>
         public int baseweight; 
+        
 
         public virtual List<ActionVariation> CalculateVariations()
         {

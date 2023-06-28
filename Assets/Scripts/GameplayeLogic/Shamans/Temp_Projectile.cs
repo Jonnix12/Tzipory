@@ -16,9 +16,8 @@ public class Temp_Projectile : MonoBehaviour
     private Vector3 _dir;
 
     
-    public void Init(IEntityTargetAbleComponent target,float speed,float damage,float timeToDie,int caterId,bool isCrit)
+    public void Init(IEntityTargetAbleComponent target,float speed,float damage,float timeToDie,bool isCrit)
     {
-        _casterId  = caterId;
         _timeToDie = timeToDie;
         _speed = speed;
         _target = target;
@@ -27,7 +26,6 @@ public class Temp_Projectile : MonoBehaviour
         _dir =(_target.EntityTransform.position - transform.position).normalized;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!_target.EntityTransform.gameObject.activeInHierarchy)
@@ -49,11 +47,11 @@ public class Temp_Projectile : MonoBehaviour
     {
         if (other.TryGetComponent<IEntityTargetAbleComponent>(out var target))
         {
-            if (target.EntityInstanceID != _casterId)
-            {
-                target.TakeDamage(_damage,_isCrit);
-                Destroy(gameObject);
-            }
+            if (_target.EntityTeamType == EntityTeamType.Hero) return;
+            //if (target.EntityInstanceID == _casterId) return;
+            
+            target.TakeDamage(_damage,_isCrit);
+            Destroy(gameObject);
         }
     }
 }
