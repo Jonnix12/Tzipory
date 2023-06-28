@@ -16,6 +16,7 @@ namespace Tzipory.AbilitiesSystem.AbilityEntity
             _speed = speed;
             _penetrationNumber = penetrationNumber;
             _dir = (target.EntityTransform.position - transform.position).normalized;
+            transform.right  = _dir;
         }
 
         protected override void Update()

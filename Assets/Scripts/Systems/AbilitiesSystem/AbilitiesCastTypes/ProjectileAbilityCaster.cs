@@ -28,10 +28,10 @@ namespace Tzipory.AbilitiesSystem
             EntityCasterTargetingComponent = entityCasterTargetingComponent;
 
             ProjectileSpeed = new Stat("ProjectileSpeed", config.ProjectileSpeed, int.MaxValue,
-                Constant.StatIds.ProjectileSpeed);
+                (int)Constant.Stats.ProjectileSpeed);
             
             ProjectilePenetration = new Stat("ProjectilePenetration", config.ProjectilePenetration, int.MaxValue,
-                Constant.StatIds.ProjectilePenetration);
+                (int)Constant.Stats.ProjectilePenetration);
 
             _projectilePrefab = Resources.Load<GameObject>(ProjectilePrefabPath);
 

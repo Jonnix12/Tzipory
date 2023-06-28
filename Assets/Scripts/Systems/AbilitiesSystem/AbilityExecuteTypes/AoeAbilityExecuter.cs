@@ -29,8 +29,8 @@ namespace Tzipory.AbilitiesSystem.AbilityExecuteTypes
             
             StatusEffects.AddRange(abilityConfig.StatusEffectConfigs);
             
-            Radius = new Stat("AoeRadius", abilityConfig.AoeRadius, int.MaxValue, Constant.StatIds.AoeRadius);
-            Duration = new Stat("AoeDuration", abilityConfig.AoeDuration, int.MaxValue, Constant.StatIds.AoeDuration);
+            Radius = new Stat("AoeRadius", abilityConfig.AoeRadius, int.MaxValue, (int)Constant.Stats.AoeRadius);
+            Duration = new Stat("AoeDuration", abilityConfig.AoeDuration, int.MaxValue, (int)Constant.Stats.AoeDuration);
 
             _aoePrefab = Resources.Load<GameObject>(AoePrefabPath);
         }

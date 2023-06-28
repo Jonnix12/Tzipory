@@ -22,21 +22,18 @@ namespace Tzipory.Helpers
         public void OnPointerClick(PointerEventData eventData)
         {
             OnClick?.Invoke();
-            Debug.Log("OnClick");
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             IsHover = true;
             OnEnterHover?.Invoke();
-            Debug.Log("On enter hover");
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             IsHover = false;
             OnExitHover?.Invoke();
-            Debug.Log("On exit hover");
         }
     }
    

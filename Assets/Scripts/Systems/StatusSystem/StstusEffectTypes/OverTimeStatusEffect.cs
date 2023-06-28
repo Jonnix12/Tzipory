@@ -7,7 +7,7 @@ namespace Tzipory.EntitySystem.StatusSystem
         private Stat _duration;
         private float _currentDuration;
         
-        public OverTimeStatusEffect(StatusEffectConfigSo statusEffectConfigSo) : base(statusEffectConfigSo)
+        public OverTimeStatusEffect(StatusEffectConfigSo statusEffectConfigSo,Stat statToEffectToEffect) : base(statusEffectConfigSo,statToEffectToEffect)
         {
             _duration = new Stat("Duration", statusEffectConfigSo.Duration, int.MaxValue,999 );//temp need to find what to do 
             _currentDuration = _duration.CurrentValue;
@@ -17,7 +17,7 @@ namespace Tzipory.EntitySystem.StatusSystem
         public override void StatusEffectStart()
         {
             foreach (var statModifier in modifiers)
-                statModifier.ProcessStatModifier(currentStat);
+                statModifier.ProcessStatModifier(StatToEffect);
             base.StatusEffectStart();
         }
 
@@ -29,10 +29,15 @@ namespace Tzipory.EntitySystem.StatusSystem
                 StatusEffectFinish();
         }
 
-        protected override void StatusEffectFinish()
+        public override void Dispose()
         {
             foreach (var statModifier in modifiers)
-                statModifier.Undo(currentStat);
+                statModifier.Undo(StatToEffect);
+        }
+
+        protected override void StatusEffectFinish()
+        {
+            Dispose();
             base.StatusEffectFinish();
         }
     }

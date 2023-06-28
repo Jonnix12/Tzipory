@@ -31,7 +31,7 @@ namespace Tzipory.EntitySystem.StatusSystem
         public float Interval => _interval;
 
         public string AffectedStatName => _affectedStat.ToString();
-        public int StatusEffectId => (int)_affectedStat;
+        public int AffectedStatId => (int)_affectedStat;
         public StatusEffectType StatusEffectType => _statusEffectType;
 
         public List<StatModifierSerializeData> StatModifier => _statModifier;

@@ -10,7 +10,7 @@ namespace Tzipory.EntitySystem.StatusSystem
         private float _currentInterval;
         private float _currentDuration;
         
-        public IntervalStatusEffect(StatusEffectConfigSo statusEffectConfigSo) : base(statusEffectConfigSo)
+        public IntervalStatusEffect(StatusEffectConfigSo statusEffectConfigSo,Stat statToEffectToEffect) : base(statusEffectConfigSo,statToEffectToEffect)
         {
             _interval = new Stat("Interval", statusEffectConfigSo.Interval, int.MaxValue, 999);
             _duration = new Stat("Duration", statusEffectConfigSo.Duration, int.MaxValue, 999);
@@ -22,7 +22,7 @@ namespace Tzipory.EntitySystem.StatusSystem
             _currentDuration = _duration.CurrentValue;
             
             foreach (var statModifier in modifiers)
-                statModifier.ProcessStatModifier(currentStat);
+                statModifier.ProcessStatModifier(StatToEffect);
             
             base.StatusEffectStart();
         }
@@ -44,11 +44,16 @@ namespace Tzipory.EntitySystem.StatusSystem
                 foreach (var statModifier in modifiers)
                 {
 #if UNITY_EDITOR
-                   // Debug.Log($"Cast effect {currentStat.Name} by {statModifier.Modifier.CurrentValue}");    
+                   // Debug.Log($"Cast effect {StatToEffect.Name} by {statModifier.Modifier.CurrentValue}");    
 #endif
-                    statModifier.ProcessStatModifier(currentStat);
+                    statModifier.ProcessStatModifier(StatToEffect);
                 }
             }
+        }
+
+        public override void Dispose()
+        {
+            StatusEffectFinish();
         }
     }
 }
