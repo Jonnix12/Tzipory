@@ -23,7 +23,7 @@ MonoBehaviour:
   _chainRadius: 0
   _chainDuration: 0
   _chainAmount: 0
-  targetingPriorityType: 4
+  targetingPriorityType: 3
   _cooldown: 6
   _castTime: 1
   _statusEffectConfigs:
