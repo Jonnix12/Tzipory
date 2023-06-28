@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Helpers.Consts;
 using SerializeData.VisualSystemSerializeData;
 using Sirenix.OdinInspector;
@@ -146,6 +147,11 @@ namespace Tzipory.EntitySystem.Entitys
                         _bodyCollider = collider;
                 }
             }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireSphere(transform.position,_config.AttackRange.BaseValue);
         }
 
         protected override void OnDestroy()

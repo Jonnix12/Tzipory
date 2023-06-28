@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Tzipory.BaseSystem.TimeSystem
 {
@@ -13,7 +12,7 @@ namespace Tzipory.BaseSystem.TimeSystem
         private List<ITimer> _timersList;
 
 #if UNITY_EDITOR
-        [FormerlySerializedAs("_timers")] [SerializeField, ReadOnly] private List<TimerSerializeData> _timerSerializeDatas;
+        [SerializeField, ReadOnly] private List<TimerSerializeData> _timerSerializeDatas;
 #endif
 
         public TimerHandler()
