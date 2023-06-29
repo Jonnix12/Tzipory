@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class CallAll : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Call()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        ProximityIndicatorHandler.TEMP_CallAll_TAB?.Invoke();
     }
 }

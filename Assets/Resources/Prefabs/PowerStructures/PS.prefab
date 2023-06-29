@@ -188,7 +188,7 @@ MonoBehaviour:
     _spriteRenderer: {fileID: 1742861827799515538}
     _currentSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
     _proximityConfig:
-      IndicatorConditions: 0000000001000000
+      IndicatorConditions: 000000000100000002000000
     clickHelper: {fileID: 7087297887235683216}
 --- !u!58 &8648411720197767754
 CircleCollider2D:

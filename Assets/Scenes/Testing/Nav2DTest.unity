@@ -3015,7 +3015,7 @@ GameObject:
   - component: {fileID: 1101922143}
   - component: {fileID: 1101922146}
   m_Layer: 0
-  m_Name: CallAll_ToggleProximityIndicators
+  m_Name: TEMP_CallAll_ProximityIndicators
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3086,9 +3086,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1521469694}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Reset
+      - m_Target: {fileID: 1101922146}
+        m_TargetAssemblyTypeName: CallAll, Assembly-CSharp
+        m_MethodName: Call
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4895,6 +4895,14 @@ PrefabInstance:
       propertyPath: _proximityConfig.IndicatorConditions.Array.data[1]
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _proximityHandler._proximityConfig.IndicatorConditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985402435063578927, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: _proximityHandler._proximityConfig.IndicatorConditions.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7198979197876659983, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -5309,6 +5317,14 @@ PrefabInstance:
       propertyPath: _proximityHandler._currentSprite
       value: 
       objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _proximityHandler._proximityConfig.IndicatorConditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817939952437034317, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: _proximityHandler._proximityConfig.IndicatorConditions.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6938634372059470701, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -6804,7 +6820,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"CallAll"'
+  m_text: Toggle Indicators
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6831,8 +6847,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 17
+  m_fontSizeBase: 17
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
