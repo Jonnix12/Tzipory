@@ -10,11 +10,13 @@ public class PowerStructure : BaseGameEntity
 {
     //This is actually not temp, it's a good gizmo to help move the area of influence a bit, as needed
     [SerializeField]
-    CircleCollider2D effectArea;
+    private CircleCollider2D effectArea;
     [SerializeField]
-    StatusEffectConfigSo myEffectSO;
+    private StatusEffectConfigSo myEffectSO;
     [SerializeField]
-    ProximityIndicatorHandler _proximityIndicatorHandler;
+    private ProximityIndicatorHandler _proximityIndicatorHandler;
+    [SerializeField]
+    private Color activeColor;
 
     private Dictionary<int, IDisposable> _activeStatusEffectOnShaman;
 
@@ -39,6 +41,10 @@ public class PowerStructure : BaseGameEntity
             IDisposable disposable = shaman.StatusHandler.AddStatusEffect(myEffectSO);
             _activeStatusEffectOnShaman.Add(shaman.EntityInstanceID, disposable);
         }
+        else if(collision.gameObject.CompareTag("ShadowShaman"))
+        {
+            _proximityIndicatorHandler.ChangeColor(activeColor);
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -54,6 +60,10 @@ public class PowerStructure : BaseGameEntity
                 disposable.Dispose();
                 _activeStatusEffectOnShaman.Remove(shaman.EntityInstanceID);
             }
+        }
+        else if (collision.gameObject.CompareTag("ShadowShaman"))
+        {
+            _proximityIndicatorHandler.ResetColor();
         }
     }
 

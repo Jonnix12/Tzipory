@@ -9,4 +9,5 @@ public enum IndicatorCondition {AnyShamanSelected, HoverSelf, AllCall}
 public struct ProximityConfig 
 {
     public List<IndicatorCondition> IndicatorConditions;
+    public Color Color;
 }

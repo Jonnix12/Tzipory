@@ -18,8 +18,14 @@ namespace MovementSystem.HerosMovementSystem
 
         private bool _isValidClick;
 
+        //Shadow
+        [SerializeField]
+        SpriteRenderer _shadowSpriteRenderer;
+
+
         private void Start()
         {
+            _shadowSpriteRenderer.enabled = false;
             _camera = Camera.main;
         }
 
@@ -28,10 +34,19 @@ namespace MovementSystem.HerosMovementSystem
             _currentTarget = target;
             OnAnyShamanSelected?.Invoke();
         }
+        public void SelectTarget(Temp_HeroMovement  target, Sprite shadowSprite)
+        {
+            _currentTarget = target;
+            _shadowSpriteRenderer.sprite = shadowSprite;
+            _shadowSpriteRenderer.enabled = true;
+            OnAnyShamanSelected?.Invoke();
+        }
 
         public void ClearTarget()
         {
             _currentTarget = null;
+            _shadowSpriteRenderer.sprite = null;
+            _shadowSpriteRenderer.enabled = false;
             OnAnyShamanDeselected?.Invoke();
         }
 
@@ -41,6 +56,13 @@ namespace MovementSystem.HerosMovementSystem
             {
                 _isValidClick = false;
                 return;
+            }
+
+            if (_shadowSpriteRenderer.enabled)
+            {
+                Vector3 newPos = _camera.ScreenToWorldPoint(Input.mousePosition);
+                newPos.z = 0f; //TEMP, needs to be set to same Z as shaman
+                _shadowSpriteRenderer.transform.position = newPos;
             }
 
             if (Mouse.current.leftButton.wasPressedThisFrame && _isValidClick)

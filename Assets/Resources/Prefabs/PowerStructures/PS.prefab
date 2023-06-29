@@ -189,7 +189,9 @@ MonoBehaviour:
     _currentSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
     _proximityConfig:
       IndicatorConditions: 000000000100000002000000
+      Color: {r: 1, g: 1, b: 1, a: 0.34901962}
     clickHelper: {fileID: 7087297887235683216}
+  activeColor: {r: 0.43867922, g: 0.899109, b: 1, a: 0.34901962}
 --- !u!58 &8648411720197767754
 CircleCollider2D:
   m_ObjectHideFlags: 0

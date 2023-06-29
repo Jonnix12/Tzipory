@@ -26,6 +26,9 @@ public class ProximityIndicatorHandler
 
         _spriteRenderer.transform.localScale = new Vector3(_range, _range,1);
 
+        if (_proximityConfig.Color != null)
+            _spriteRenderer.color = _proximityConfig.Color;
+
         foreach (var condition in _proximityConfig.IndicatorConditions)
         {
             switch (condition)
@@ -37,8 +40,8 @@ public class ProximityIndicatorHandler
                     break;
                 case IndicatorCondition.HoverSelf:
                     //_spriteRenderer.
-                    clickHelper.OnEnterHover += () => SetToActive(true);
-                    clickHelper.OnExitHover += () => SetToActive(false);
+                    clickHelper.OnEnterHover += () => WeakSetToActive(true);
+                    clickHelper.OnExitHover += () => WeakSetToActive(false);
                     break;
                 case IndicatorCondition.AllCall:
                     //Subscribe to AllCall
@@ -64,8 +67,8 @@ public class ProximityIndicatorHandler
                     MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanDeselected -= () => SetToActiveAndLock(false, false);
                     break;
                 case IndicatorCondition.HoverSelf:
-                    clickHelper.OnEnterHover -= () => SetToActive(true);
-                    clickHelper.OnExitHover -= () => SetToActive(false);
+                    clickHelper.OnEnterHover -= () => WeakSetToActive(true);
+                    clickHelper.OnExitHover -= () => WeakSetToActive(false);
                     //
                     break;
                 case IndicatorCondition.AllCall:
@@ -79,14 +82,14 @@ public class ProximityIndicatorHandler
     }
 
 
-    void SetToActive(bool doActive)
+    void WeakSetToActive(bool doActive)
     {
         //Some logic and stuff
         if (_isLock)
             return;
         _spriteRenderer.enabled = doActive;
     }
-    void ToggleActive()
+    void ToggleActive() //also weak
     {
         //Some logic and stuff
         if (_isLock)
@@ -96,10 +99,25 @@ public class ProximityIndicatorHandler
         _spriteRenderer.enabled = _isToggleOn;
     }
 
-    void SetToActiveAndLock(bool doActive, bool doLock)
+    void SetToActiveAndLock(bool doActive, bool doLock) //strong!
     {
         //Some logic and stuff
         _isLock = doLock;
         _spriteRenderer.enabled = doActive;
+
+        if (!doActive)
+            ResetColor(); //Just to make sure we reset the color 
     }
+
+    //not sure if temp or not (either way, it should change the config, just the current color (temporarly)
+    public void ChangeColor(Color col)
+    {
+        _spriteRenderer.color = col;
+    }
+    //Resets color back to the color data in config
+    public void ResetColor()
+    {
+        _spriteRenderer.color = _proximityConfig.Color;
+    }
+
 }
