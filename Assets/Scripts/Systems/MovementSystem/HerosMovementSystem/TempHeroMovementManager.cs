@@ -36,7 +36,7 @@ namespace MovementSystem.HerosMovementSystem
         public void SelectTarget(Temp_HeroMovement  target, Sprite shadowSprite, float range)
         {
             _currentTarget = target;
-            _shadow.SetShadow(shadowSprite, range);
+            _shadow.SetShadow(target.transform, shadowSprite, range);
 
             Cursor.visible = false;
 
