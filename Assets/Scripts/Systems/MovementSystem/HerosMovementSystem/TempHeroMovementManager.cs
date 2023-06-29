@@ -18,16 +18,13 @@ namespace MovementSystem.HerosMovementSystem
 
         private bool _isValidClick;
 
-        //Shadow
-        [SerializeField]
-        SpriteRenderer _shadowSpriteRenderer;
-        [SerializeField]
-        SpriteRenderer _shadowProximitySpriteRenderer;
+        [SerializeField] private Shadow _shadow;
+       
 
 
         private void Start()
         {
-            _shadowSpriteRenderer.gameObject.SetActive(false);
+            _shadow.gameObject.SetActive(false);
             _camera = Camera.main;
         }
 
@@ -39,12 +36,9 @@ namespace MovementSystem.HerosMovementSystem
         public void SelectTarget(Temp_HeroMovement  target, Sprite shadowSprite, float range)
         {
             _currentTarget = target;
-            _shadowSpriteRenderer.sprite = shadowSprite;
+            _shadow.SetShadow(shadowSprite, range);
 
-            _shadowSpriteRenderer.gameObject.SetActive(true);
-
-
-            _shadowProximitySpriteRenderer.transform.localScale = new Vector3(range, range,1);
+            Cursor.visible = false;
 
             OnAnyShamanSelected?.Invoke();
         }
@@ -52,10 +46,9 @@ namespace MovementSystem.HerosMovementSystem
         public void ClearTarget()
         {
             _currentTarget = null;
-            _shadowSpriteRenderer.sprite = null;
-            
-            _shadowSpriteRenderer.gameObject.SetActive(false);
-            
+            _shadow.ClearShadow();
+            Cursor.visible = true;
+
             OnAnyShamanDeselected?.Invoke();
         }
 
@@ -67,11 +60,11 @@ namespace MovementSystem.HerosMovementSystem
                 return;
             }
 
-            if (_shadowSpriteRenderer.enabled)
+            if (_shadow.IsOn)
             {
                 Vector3 newPos = _camera.ScreenToWorldPoint(Input.mousePosition);
                 newPos.z = 0f; //TEMP, needs to be set to same Z as shaman
-                _shadowSpriteRenderer.transform.position = newPos;
+                _shadow.transform.position = newPos;
             }
 
             if (Mouse.current.leftButton.wasPressedThisFrame && _isValidClick)

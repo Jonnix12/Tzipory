@@ -68,6 +68,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8783141836976998822, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+      propertyPath: _toFlip
+      value: 
+      objectReference: {fileID: 2200670044425848587}
+    - target: {fileID: 8783141836976998822, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+      propertyPath: _agentAuthoring
+      value: 
+      objectReference: {fileID: 5023256848365871121}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -135,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1e065fac3b46878dc2431931f9e290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timerHandler:
+    _timerSerializeDatas: []
   _config: {fileID: 11400000, guid: d70639d457685f643a3e0fc3fc9e32aa, type: 2}
   _stats: []
   _bodyCollider: {fileID: 1800454651558910966}
@@ -190,6 +200,13 @@ MonoBehaviour:
     _endDelay: 0
     isInterruptable: 0
     _effectActionContainers: []
+  _proximityHandler:
+    _spriteRenderer: {fileID: 0}
+    _currentSprite: {fileID: 0}
+    _proximityConfig:
+      IndicatorConditions: 
+      Color: {r: 0, g: 0, b: 0, a: 0}
+    clickHelper: {fileID: 0}
   _shotVisual: {fileID: 1713223655816970375}
   _clickHelper: {fileID: 6944006319847339363}
   _tempHeroMovement: {fileID: 3810353860800280865}
