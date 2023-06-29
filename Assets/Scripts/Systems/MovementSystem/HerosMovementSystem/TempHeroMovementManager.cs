@@ -27,7 +27,7 @@ namespace MovementSystem.HerosMovementSystem
 
         private void Start()
         {
-            _shadowSpriteRenderer.enabled = false;
+            _shadowSpriteRenderer.gameObject.SetActive(false);
             _camera = Camera.main;
         }
 
@@ -40,8 +40,9 @@ namespace MovementSystem.HerosMovementSystem
         {
             _currentTarget = target;
             _shadowSpriteRenderer.sprite = shadowSprite;
-            _shadowSpriteRenderer.enabled = true;
-            _shadowProximitySpriteRenderer.enabled = true;
+
+            _shadowSpriteRenderer.gameObject.SetActive(true);
+
 
             _shadowProximitySpriteRenderer.transform.localScale = new Vector3(range, range,1);
 
@@ -52,10 +53,9 @@ namespace MovementSystem.HerosMovementSystem
         {
             _currentTarget = null;
             _shadowSpriteRenderer.sprite = null;
-            _shadowSpriteRenderer.enabled = false;
-            //no need to change _shadowProximitySpriteRenderer.sprite
-            _shadowProximitySpriteRenderer.enabled = false;
-
+            
+            _shadowSpriteRenderer.gameObject.SetActive(false);
+            
             OnAnyShamanDeselected?.Invoke();
         }
 
