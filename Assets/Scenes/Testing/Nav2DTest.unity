@@ -233,6 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shadowSpriteRenderer: {fileID: 1976984519}
+  _shadowProximitySpriteRenderer: {fileID: 1384144617}
 --- !u!1 &78931031
 GameObject:
   m_ObjectHideFlags: 0
@@ -4054,6 +4055,10 @@ PrefabInstance:
       value: ProximityIndicator (With no handler!)
       objectReference: {fileID: 0}
     - target: {fileID: 6307555882966484031, guid: 1ce8a27c6209e374f96bf1bbb06f6528, type: 3}
+      propertyPath: m_Color.a
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307555882966484031, guid: 1ce8a27c6209e374f96bf1bbb06f6528, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -4065,6 +4070,11 @@ PrefabInstance:
 --- !u!4 &1384144616 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3229880739477402777, guid: 1ce8a27c6209e374f96bf1bbb06f6528, type: 3}
+  m_PrefabInstance: {fileID: 1384144615}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1384144617 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6307555882966484031, guid: 1ce8a27c6209e374f96bf1bbb06f6528, type: 3}
   m_PrefabInstance: {fileID: 1384144615}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1397508967

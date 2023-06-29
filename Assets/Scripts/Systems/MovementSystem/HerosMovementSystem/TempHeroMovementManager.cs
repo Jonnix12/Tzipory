@@ -21,6 +21,8 @@ namespace MovementSystem.HerosMovementSystem
         //Shadow
         [SerializeField]
         SpriteRenderer _shadowSpriteRenderer;
+        [SerializeField]
+        SpriteRenderer _shadowProximitySpriteRenderer;
 
 
         private void Start()
@@ -34,11 +36,15 @@ namespace MovementSystem.HerosMovementSystem
             _currentTarget = target;
             OnAnyShamanSelected?.Invoke();
         }
-        public void SelectTarget(Temp_HeroMovement  target, Sprite shadowSprite)
+        public void SelectTarget(Temp_HeroMovement  target, Sprite shadowSprite, float range)
         {
             _currentTarget = target;
             _shadowSpriteRenderer.sprite = shadowSprite;
             _shadowSpriteRenderer.enabled = true;
+            _shadowProximitySpriteRenderer.enabled = true;
+
+            _shadowProximitySpriteRenderer.transform.localScale = new Vector3(range, range,1);
+
             OnAnyShamanSelected?.Invoke();
         }
 
@@ -47,6 +53,9 @@ namespace MovementSystem.HerosMovementSystem
             _currentTarget = null;
             _shadowSpriteRenderer.sprite = null;
             _shadowSpriteRenderer.enabled = false;
+            //no need to change _shadowProximitySpriteRenderer.sprite
+            _shadowProximitySpriteRenderer.enabled = false;
+
             OnAnyShamanDeselected?.Invoke();
         }
 
