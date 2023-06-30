@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.BaseSystem.TimeSystem;
 using PathCreation;
-using Shamans;
 using Enemes;
 
 public class MovementOnPath : MonoBehaviour

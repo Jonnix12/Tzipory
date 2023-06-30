@@ -1,8 +1,8 @@
-using System;
 using Tzipory.Helpers;
 using UnityEngine;
 using UnityEngine.Events;
 using PathCreation;
+using Sirenix.OdinInspector;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem;
 using Tzipory.EntitySystem.EntityComponents;
@@ -10,11 +10,9 @@ using Tzipory.EntitySystem.EntityComponents;
 [System.Serializable]
 public class WaveSpawner : MonoBehaviour
 {
-    [SerializeField]
-    Transform[] spawnPositions; 
+    [SerializeField,TabGroup("Spawners")] Transform[] spawnPositions; 
 
-    [SerializeField]
-    WaveGroup[] waveGroups;
+    [SerializeField] WaveGroup[] waveGroups;
 
     //[SerializeField]
     //GameObject rabbitPrefab;
@@ -42,7 +40,6 @@ public class WaveSpawner : MonoBehaviour
     //PathFollower pf;
     private void Start()
     {
-        LevelManager.Instance.RegisterWaveSpawner(this);
         attackTarget = attackTargetableObj.GetComponent<IEntityTargetAbleComponent>();
     }
     public void CallSpawnRandomWave()
