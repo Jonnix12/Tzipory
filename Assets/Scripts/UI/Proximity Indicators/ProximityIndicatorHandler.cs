@@ -26,8 +26,7 @@ public class ProximityIndicatorHandler
 
         _spriteRenderer.transform.localScale = new Vector3(_range, _range,1);
 
-        if (_proximityConfig.Color != null)
-            _spriteRenderer.color = _proximityConfig.Color;
+        _spriteRenderer.color = _proximityConfig.Color;
 
         foreach (var condition in _proximityConfig.IndicatorConditions)
         {
@@ -74,8 +73,6 @@ public class ProximityIndicatorHandler
                 case IndicatorCondition.AllCall:
                     //Subscribe to AllCall
                     TEMP_CallAll_TAB -= ToggleActive;
-                    break;
-                default:
                     break;
             }
         }
