@@ -46,8 +46,6 @@ public class ProximityIndicatorHandler
                     //Subscribe to AllCall
                     TEMP_CallAll_TAB += ToggleActive;
                     break;
-                default:
-                    break;
             }
         }
     }
