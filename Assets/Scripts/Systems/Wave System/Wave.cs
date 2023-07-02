@@ -1,17 +1,31 @@
 ﻿using System;
-using UnityEngine;
+using Tzipory.SerializeData.LevalSerializeData;
 
 namespace Systems.Wave_System
 {
-    [Serializable]
     public class Wave
     {
-        [SerializeField] WaveSpawner[] _waveSpawners;
+        public event Action OnWaveStart;
+        public event Action OnWaveEnd;
         
-        public void Init(WaveSpawner[] waveSpawners)
+        
+        private WaveSpawner[] _waveSpawners;
+        
+        public Wave(WaveSpawner[] waveSpawners,WaveSerializeData waveSerializeData)
         {
-            _waveSpawners = waveSpawners;
+            _waveSpawners  = waveSpawners;
             
+            StartWave();
+        }
+
+        private void StartWave()
+        {
+            OnWaveStart?.Invoke();
+        }
+        
+        public void EndWave()
+        {
+            OnWaveEnd?.Invoke();
         }
     }
 }

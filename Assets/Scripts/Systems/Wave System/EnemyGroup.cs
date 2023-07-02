@@ -1,14 +1,22 @@
 using UnityEngine;
 
-[System.Serializable]
-public class EnemyGroup 
+namespace Tzipory.WaveSystem
 {
-    //[SerializeField]
-    public GameObject prefab;
-    [Tooltip("X - amount of enemies remaining to spawn. Y - ticks between spawns.")]
-    public Vector2Int spawnRate;
+    public struct EnemyGroup 
+    {
+        public GameObject EnemyPrefab { get; }
 
-    public float tick = 0f;
+        public int SpawnAmount { get; }
 
-    public Ticker ticker;
+        public float SpawnInterval { get; }
+
+        public EnemyGroup(GameObject enemyPrefab, int spawnAmount, float spawnInterval)
+        {
+            EnemyPrefab = enemyPrefab;
+            SpawnAmount = spawnAmount;
+            SpawnInterval = spawnInterval;
+        }
+    }
 }
+
+

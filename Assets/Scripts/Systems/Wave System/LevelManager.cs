@@ -1,38 +1,109 @@
-using System.Collections;
 using System.Collections.Generic;
-using Tzipory.Helpers;
+using Sirenix.OdinInspector;
+using Tzipory.SerializeData.LevalSerializeData;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField]
-    LevelRecepie _levelRecepie;
+    [SerializeField] private GameObject _waveSpawnerPrefab;
+    [SerializeField] private LevelSerializeData _levelSerializeData;
+    private static List<WaveSpawner> _waveSpawners;
 
-    int _waveCount;
+    private static Dictionary<Color,bool> SpawnerColors = new()
+    {
+        {Color.red,false},
+        {Color.gray,false},
+        {Color.green,false},
+        {Color.blue,false},
+        {Color.magenta,false},
+        {Color.cyan,false},
+        {Color.yellow,false},
+    };
+    
+    private int _waveCount;
 
-    [SerializeField] List<WaveSpawner> _waveSpawners;
-
-    //Ticker _waveTicker;
-
-    //Temp TBF
-    [SerializeField] float _levelStartDelay = 0.2f;
-    [SerializeField] float _interwaveDelay;
-
+    public static List<WaveSpawner> WaveSpawners => _waveSpawners;
 
     private void Awake()
     {
-        _waveCount = _levelRecepie.NumberOfWaves;
-       
+        
     }
     
-    void Start()
+   
+    [Button("Add new wave spawner")]
+    private void AddWaveSpawner()
     {
-        Invoke(nameof(StartLevel), _levelStartDelay);
+        var waveSpawner = Instantiate(_waveSpawnerPrefab, transform, true).GetComponent<WaveSpawner>();
+        _levelSerializeData.AddWaveSpawner(waveSpawner);
+        _waveSpawners.Add(waveSpawner);
+    }
+    
+    private void OnValidate()
+    {
+        // if (_waveSpawners == null)
+        //     _waveSpawners  = new List<WaveSpawner>();
+        //
+        // foreach (var waveSpawner in _waveSpawners)
+        // {
+        //     if (waveSpawner == null)
+        //     {
+        //         Debug.Log("waveSpawner is null");
+        //         _waveSpawners.Remove(waveSpawner);
+        //     }
+        // }
+        //
+        // var waveSpwners = FindObjectsOfType<WaveSpawner>();
+        //
+        // foreach (var waveSpawner in waveSpwners)
+        // {
+        //     if (!_waveSpawners.Contains(waveSpawner))
+        //     {
+        //         _waveSpawners.Add(waveSpawner);
+        //         foreach (var waveSerializeData in _levelSerializeData.Waves)
+        //             waveSerializeData.AddWaveSpawner(waveSpawner);
+        //     }
+        // }
     }
 
-    void StartLevel()
+    public static Color GetSpawnerColor()
     {
-        StartCoroutine(nameof( LevelLoop));
+        foreach (var color in SpawnerColors)
+        {
+            if (!color.Value)
+            {
+                SpawnerColors[color.Key] = true;
+                return color.Key;
+            }
+        }
+
+        Debug.Log("No free color!");
+        return Color.white;
+    }
+
+    public static void ReturnColor(Color color) =>
+        SpawnerColors[color] = false;
+    
+
+    private static void ResetColors()
+    {
+        foreach (var color in SpawnerColors)
+            SpawnerColors[color.Key] = false;
+    }
+
+    void Start()
+    {
+        
+    }
+    
+    private void Update()
+    {
+        
+    }
+
+    private void OnDisable()
+    {
+        _waveSpawners = null;
+        ResetColors();
     }
 
     bool AreAllSpawnersDone()
@@ -47,25 +118,5 @@ public class LevelManager : MonoBehaviour
             }
         }
         return toReturn;
-    }
-
-    private IEnumerator LevelLoop()
-    {
-        while (_waveCount > 0)
-        {
-            for (int i = 0; i < _levelRecepie.MaxSimultaniousSpawners; i++)
-            {
-                WaveSpawner ws = _waveSpawners.GetRandomElementFromList();
-                if (ws.IsSpawnning) //This may call the same spawner twice - sometimes causing less simultanious spawners than max
-                {
-                    //Debug.Log($"{ws.name} is aleady spawning!");
-                    continue;
-                }
-                ws.CallSpawnRandomWave();
-                _waveCount--;
-                yield return new WaitForSecondsRealtime(_interwaveDelay);
-            }
-            yield return new WaitUntil(AreAllSpawnersDone);
-        }
     }
 }
