@@ -14,12 +14,10 @@ namespace Tzipory.SerializeData.LevalSerializeData
         private WaveSpawner _waveSpawner;
         
         public EnemyGroupSerializeData[] EnemyGroups => _enemyGroups;
-
-        public Color WaveSpawnerColor => _waveSpawner.WaveSpawnerColor;
-
+        
         public WaveSpawnerSerializeData(WaveSpawner waveSpawner)
         {
-            _waveSpawnerColor = LevelManager.GetSpawnerColor();
+            _waveSpawnerColor = waveSpawner.WaveSpawnerColor;
             _currentEnemyGroup = 0;
         }
         

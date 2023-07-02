@@ -7,7 +7,6 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject _waveSpawnerPrefab;
     [SerializeField] private LevelSerializeData _levelSerializeData;
-    private static List<WaveSpawner> _waveSpawners;
 
     private static Dictionary<Color,bool> SpawnerColors = new()
     {
@@ -22,7 +21,7 @@ public class LevelManager : MonoBehaviour
     
     private int _waveCount;
 
-    public static List<WaveSpawner> WaveSpawners => _waveSpawners;
+    public static List<WaveSpawner> WaveSpawners { get; private set; }
 
     private void Awake()
     {
@@ -34,8 +33,11 @@ public class LevelManager : MonoBehaviour
     private void AddWaveSpawner()
     {
         var waveSpawner = Instantiate(_waveSpawnerPrefab, transform, true).GetComponent<WaveSpawner>();
+        waveSpawner.Init();
+
+        WaveSpawners ??= new List<WaveSpawner>();
+        WaveSpawners.Add(waveSpawner);
         _levelSerializeData.AddWaveSpawner(waveSpawner);
-        _waveSpawners.Add(waveSpawner);
     }
     
     private void OnValidate()
@@ -102,7 +104,7 @@ public class LevelManager : MonoBehaviour
 
     private void OnDisable()
     {
-        _waveSpawners = null;
+        WaveSpawners = null;
         ResetColors();
     }
 
@@ -110,7 +112,7 @@ public class LevelManager : MonoBehaviour
     {
         bool toReturn = true;
         
-        foreach (var waveSpawner in _waveSpawners)
+        foreach (var waveSpawner in WaveSpawners)
         {
             if(waveSpawner.IsSpawnning)
             {
