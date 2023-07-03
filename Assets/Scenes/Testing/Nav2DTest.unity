@@ -4308,91 +4308,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3032196736318558372, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
   m_PrefabInstance: {fileID: 1577394010}
   m_PrefabAsset: {fileID: 0}
---- !u!60 &1375150910
+--- !u!60 &1375150910 stripped
 PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 5880725972028794321, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+  m_PrefabInstance: {fileID: 1577394010}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375150907}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.296875, y: -0.4140625}
-      - {x: 0.3984375, y: -0.3125}
-      - {x: 0.43359375, y: -0.26171875}
-      - {x: 0.46875, y: -0.1875}
-      - {x: 0.48828125, y: -0.14453125}
-      - {x: 0.5, y: -0.07421875}
-      - {x: 0.5, y: 0.08203125}
-      - {x: 0.4921875, y: 0.11328125}
-      - {x: 0.46875, y: 0.1953125}
-      - {x: 0.42578125, y: 0.2734375}
-      - {x: 0.3984375, y: 0.3125}
-      - {x: 0.33984375, y: 0.375}
-      - {x: 0.26171875, y: 0.43359375}
-      - {x: 0.17578125, y: 0.4765625}
-      - {x: 0.1328125, y: 0.4921875}
-      - {x: 0.0859375, y: 0.5}
-      - {x: -0.07421875, y: 0.5}
-      - {x: -0.11328125, y: 0.49609375}
-      - {x: -0.1953125, y: 0.46875}
-      - {x: -0.2734375, y: 0.4296875}
-      - {x: -0.33984375, y: 0.375}
-      - {x: -0.37890625, y: 0.33984375}
-      - {x: -0.43359375, y: 0.26171875}
-      - {x: -0.4765625, y: 0.1796875}
-      - {x: -0.5, y: 0.09765625}
-      - {x: -0.5, y: -0.08203125}
-      - {x: -0.484375, y: -0.14453125}
-      - {x: -0.46484375, y: -0.1953125}
-      - {x: -0.42578125, y: -0.2734375}
-      - {x: -0.3984375, y: -0.3125}
-      - {x: -0.33984375, y: -0.37890625}
-      - {x: -0.26171875, y: -0.43359375}
-      - {x: -0.1953125, y: -0.46484375}
-      - {x: -0.15625, y: -0.484375}
-      - {x: -0.09375, y: -0.49609375}
-      - {x: -0.078125, y: -0.5}
-      - {x: 0.0703125, y: -0.5}
-      - {x: 0.09375, y: -0.49609375}
-      - {x: 0.14453125, y: -0.484375}
-      - {x: 0.19921875, y: -0.46875}
-  m_UseDelaunayMesh: 0
 --- !u!212 &1375150911
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5430,17 +5350,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8295600180041731706, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
+      propertyPath: AngularSpeed
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 93951552187559647, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3032196736318558372, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 1375150911}
-    - targetCorrespondingSourceObject: {fileID: 3032196736318558372, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1375150910}
   m_SourcePrefab: {fileID: 100100000, guid: 28789c179ec2a3d4aaf524f93133550e, type: 3}
 --- !u!4 &1577394011 stripped
 Transform:
@@ -5511,7 +5432,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.3
+    widthMultiplier: 0.05
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -5557,8 +5478,8 @@ LineRenderer:
       m_ColorSpace: -1
       m_NumColorKeys: 3
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 6
+    numCapVertices: 6
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
@@ -5979,6 +5900,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1656414293}
     m_Modifications:
+    - target: {fileID: 122566058860980974, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.455
+      objectReference: {fileID: 0}
     - target: {fileID: 2166869988640558642, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
       propertyPath: m_Name
       value: Tur
@@ -6065,6 +5990,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6938634372059470701, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8120823746072883736, guid: 039641748c9397f4ab1cfa8891ad9ae1, type: 3}
+      propertyPath: AngularSpeed
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
