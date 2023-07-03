@@ -8,15 +8,15 @@ using UnityEngine;
 //TEMP NAME! BAD NAME!
 public class PowerStructure : BaseGameEntity
 {
-    //This is actually not temp, it's a good gizmo to help move the area of influence a bit, as needed
-    [SerializeField]
-    private CircleCollider2D effectArea;
-    [SerializeField]
-    private StatusEffectConfigSo myEffectSO;
-    [SerializeField]
-    private ProximityIndicatorHandler _proximityIndicatorHandler;
-    [SerializeField]
-    private Color activeColor;
+    
+    //temp config stuff
+    [SerializeField] private float _range;
+
+
+    [SerializeField] private Collider2D effectArea;
+    [SerializeField] private StatusEffectConfigSo myEffectSO;
+    [SerializeField] private ProximityIndicatorHandler _proximityIndicatorHandler;
+    [SerializeField] private Color activeColor;
 
     private Dictionary<int, IDisposable> _activeStatusEffectOnShaman;
 
@@ -24,7 +24,8 @@ public class PowerStructure : BaseGameEntity
     {
         base.Awake();
         _activeStatusEffectOnShaman = new Dictionary<int, IDisposable>();
-        _proximityIndicatorHandler.Init(effectArea.radius*2f); //MAY need to move to OnEnable - especially if we use ObjectPooling instead of instantiate
+        //_proximityIndicatorHandler.Init(effectArea.radius*2f); //MAY need to move to OnEnable - especially if we use ObjectPooling instead of instantiate
+        _proximityIndicatorHandler.Init(_range); 
     }
 
     private void OnDisable()

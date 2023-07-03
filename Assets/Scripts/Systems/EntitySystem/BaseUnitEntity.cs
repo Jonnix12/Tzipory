@@ -28,7 +28,8 @@ namespace Tzipory.EntitySystem.Entitys
         [SerializeField, ReadOnly,TabGroup("Stats")] private List<Stat> _stats;
 #endif
         [SerializeField,TabGroup("Component")] private CircleCollider2D _bodyCollider;
-        [SerializeField,TabGroup("Component")] private CircleCollider2D _rangeCollider;
+        //[SerializeField,TabGroup("Component")] private CircleCollider2D _rangeCollider;
+        [SerializeField,TabGroup("Component")] private Collider2D _rangeCollider;
         [Header("Visual components")]
         [SerializeField,TabGroup("Component")] private SpriteRenderer _spriteRenderer;
         [SerializeField,TabGroup("Component")] private Transform _visualQueueEffectPosition;
@@ -128,7 +129,10 @@ namespace Tzipory.EntitySystem.Entitys
             if (_target != null)//temp
                 Attack();
             
-            _rangeCollider.radius = StatusHandler.GetStatById((int)Constant.Stats.AttackRange).CurrentValue;//temp
+            //_rangeCollider.radius = StatusHandler.GetStatById((int)Constant.Stats.AttackRange).CurrentValue;//temp
+            //TEMP AF!!!
+            _rangeCollider.transform.localScale = new Vector3(AttackRange.CurrentValue* 1.455f, AttackRange.CurrentValue,1f);//temp
+            //TEMP AF!!!
         }
 
         private void OnValidate()

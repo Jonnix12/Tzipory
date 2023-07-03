@@ -56,6 +56,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProximityIndicator
       objectReference: {fileID: 0}
+    - target: {fileID: 6307555882966484031, guid: 1ce8a27c6209e374f96bf1bbb06f6528, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307555882966484031, guid: 1ce8a27c6209e374f96bf1bbb06f6528, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -105,7 +113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6146916942116931940, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6146916942116931940, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
       propertyPath: m_LocalPosition.x
