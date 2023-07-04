@@ -374,7 +374,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2781890195402564894}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -433,7 +433,7 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 69
       flipNormals: 1
-    vertexPathUpToDate: 0
+    vertexPathUpToDate: 1
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0
     showTransformTool: 1
@@ -486,7 +486,7 @@ Transform:
   - {fileID: 2785805267884413867}
   - {fileID: 1245876284550912502}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5318435613015951157
 MonoBehaviour:
@@ -500,9 +500,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d26bbc4351e2c041be7c4b8fe0edff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPosition: {fileID: 0}
+  _spawnPositions:
+  - {fileID: 2425327829690486336}
+  - {fileID: 5817519935316844203}
+  - {fileID: 5662734289844567177}
+  - {fileID: 1671020999881895457}
   myPathCreator: {fileID: 1501144478277227792}
-  _isSpawnning: 0
 --- !u!1 &6902967483193495810
 GameObject:
   m_ObjectHideFlags: 0

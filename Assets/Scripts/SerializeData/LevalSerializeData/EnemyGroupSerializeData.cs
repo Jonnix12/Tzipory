@@ -6,13 +6,16 @@ namespace Tzipory.SerializeData.LevalSerializeData
     public class EnemyGroupSerializeData
     {
         [SerializeField] private GameObject _enemyPrefab;
-        [SerializeField] private int _spawnAmount;
+        [SerializeField] private int _totalSpawnAmount;
+        [SerializeField] private int _spawnAmountPreInterval;
         [SerializeField] private float _spawnInterval;
 
         public GameObject EnemyPrefab => _enemyPrefab;
 
-        public int SpawnAmount => _spawnAmount;
+        public int TotalSpawnAmount => _totalSpawnAmount;
         
         public float SpawnInterval => _spawnInterval;
+
+        public int SpawnAmountPreInterval => _spawnAmountPreInterval;
     }
 }

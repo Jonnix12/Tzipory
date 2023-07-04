@@ -7,27 +7,24 @@ namespace Tzipory.SerializeData.LevalSerializeData
     [System.Serializable]
     public class WaveSerializeData
     {
-        [SerializeField] private List<WaveSpawnerSerializeData> _waveSpawners;
-        [SerializeField] private float _delayBetweenGroups;
-
-        public List<WaveSpawnerSerializeData> WaveSpawners => _waveSpawners;
-
-        public float DelayBetweenGroups => _delayBetweenGroups;
+        [SerializeField] private List<WaveSpawnerSerializeData> waveSpawnerSerializeDatas;
+        
+        public List<WaveSpawnerSerializeData> WaveSpawnerSerializeDatas => waveSpawnerSerializeDatas;
         
         public void SetWaveSpawners(IEnumerable<WaveSpawner> waveSpawners)
         {
-            if (_waveSpawners == null)
-                _waveSpawners = new List<WaveSpawnerSerializeData>();
+            if (waveSpawnerSerializeDatas == null)
+                waveSpawnerSerializeDatas = new List<WaveSpawnerSerializeData>();
 
             foreach (var waveSpawner in waveSpawners)
             {
-                _waveSpawners.Add(new WaveSpawnerSerializeData(waveSpawner));
+                waveSpawnerSerializeDatas.Add(new WaveSpawnerSerializeData(waveSpawner));
             }
         }
 
         public void AddWaveSpawner(WaveSpawner waveSpawner)
         {
-            _waveSpawners.Add(new WaveSpawnerSerializeData(waveSpawner));
+            waveSpawnerSerializeDatas.Add(new WaveSpawnerSerializeData(waveSpawner));
         }
         
         public void RemoveWaveSpawner(WaveSpawner waveSpawner)

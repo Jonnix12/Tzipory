@@ -17,6 +17,7 @@ namespace Enemes
         private float _currentDecisionInterval;
         
         //TEMP!
+        [SerializeField] private MovementOnPath _movementOnPath;
         public BasicMoveComponent BasicMoveComponent;
 
         float timer;
@@ -54,10 +55,8 @@ namespace Enemes
                     _isAttacking = false;
                 }
             }
-            else
-            {
-                
-            }
+            
+            _movementOnPath.AdvanceOnPath();
         }
 
         private void Start()

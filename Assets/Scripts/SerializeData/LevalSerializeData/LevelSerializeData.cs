@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace Tzipory.SerializeData.LevalSerializeData
 {
-    [System.Serializable]
-    public class LevelSerializeData
+    [CreateAssetMenu(fileName = "NewLevelConfig", menuName = "ScriptableObjects/New level config", order = 0)]
+    public class LevelSerializeData : ScriptableObject
     {
+        [SerializeField] private Level _level;
         [SerializeField] private List<WaveSerializeData> _waves;
         [SerializeField] private float _levelStartDelay = 0.2f;
         [SerializeField] private float _delayBetweenWaves;
         [SerializeField] private int _maxSimultaniousSpawners;
+
+        public Level Level => _level;
 
         public List<WaveSerializeData> Waves => _waves;
 
@@ -19,12 +22,12 @@ namespace Tzipory.SerializeData.LevalSerializeData
         public float DelayBetweenWaves => _delayBetweenWaves;
 
         public int MaxSimultaniousSpawners => _maxSimultaniousSpawners;
-        
+
         [Button("Add new wave")]
         public void AddWave()
         {
             var waveData = new WaveSerializeData();
-            waveData.SetWaveSpawners(LevelManager.WaveSpawners);
+            waveData.SetWaveSpawners(_level.WaveSpawners);
             _waves.Add(waveData);
         }
 
