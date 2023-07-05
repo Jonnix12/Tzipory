@@ -49,8 +49,9 @@ public class Shadow : MonoBehaviour
         {
             _agent.transform.position = _shamanTrans.position;
             _agent.SetDestination(transform.position); //resets destination, in case mouse moves? HEAVY AND BAD! 
-            _lineRenderer.positionCount = _agent.path.corners.Length;
-            _lineRenderer.SetPositions(_agent.path.corners);
+            //_lineRenderer.positionCount = _agent.path.corners.Length;
+            _lineRenderer.positionCount = 2;
+            _lineRenderer.SetPositions(new Vector3[] {_agent.transform.position, transform.position });
             //TEMP!
             //END TEMP!
         }
