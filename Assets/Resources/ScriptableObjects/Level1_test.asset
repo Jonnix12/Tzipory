@@ -13,27 +13,33 @@ MonoBehaviour:
   m_Name: Level1_test
   m_EditorClassIdentifier: 
   _level: {fileID: 8414148819223502613, guid: d30cbde7f0032a441ac92b2cd9910395, type: 3}
+  _levelStartDelay: 5
+  _delayBetweenWaves: 5
   _waves:
-  - waveSpawnerSerializeDatas:
-    - _waveSpawnerColor: {r: 1, g: 0, b: 0, a: 1}
+  - _name: Wave 1
+    waveSpawnerSerializeDatas:
+    - _delayBetweenEnemyGroup: 2
       _enemyGroups:
       - _enemyPrefab: {fileID: 8208781154159895556, guid: 79c07d52a32e9924f917344eb3fbc334, type: 3}
         _totalSpawnAmount: 20
         _spawnAmountPreInterval: 5
         _spawnInterval: 2
-      _delayBetweenEnemyGroup: 2
-  - waveSpawnerSerializeDatas:
-    - _waveSpawnerColor: {r: 1, g: 0, b: 0, a: 1}
+        _startType: 0
+      - _enemyPrefab: {fileID: 0}
+        _totalSpawnAmount: 0
+        _spawnAmountPreInterval: 0
+        _spawnInterval: 0
+        _startType: 0
+  - _name: Wave 2
+    waveSpawnerSerializeDatas:
+    - _delayBetweenEnemyGroup: 2
       _enemyGroups:
       - _enemyPrefab: {fileID: 8208781154159895556, guid: 79c07d52a32e9924f917344eb3fbc334, type: 3}
         _totalSpawnAmount: 10
         _spawnAmountPreInterval: 2
         _spawnInterval: 1
-      _delayBetweenEnemyGroup: 2
-  - waveSpawnerSerializeDatas:
-    - _waveSpawnerColor: {r: 1, g: 0, b: 0, a: 1}
+        _startType: 0
+  - _name: Wave 3
+    waveSpawnerSerializeDatas:
+    - _delayBetweenEnemyGroup: 0
       _enemyGroups: []
-      _delayBetweenEnemyGroup: 0
-  _levelStartDelay: 5
-  _delayBetweenWaves: 5
-  _maxSimultaniousSpawners: 0

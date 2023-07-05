@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 using Tzipory.SerializeData.LevalSerializeData;
+using Tzipory.Tools.Enums;
 using Tzipory.Tools.Interface;
 using Tzipory.WaveSystem;
 using Random = UnityEngine.Random;
@@ -20,7 +21,7 @@ public class WaveSpawner : MonoBehaviour , IProgress
     
     private float _delayBetweenEnemyGroup;
 
-    private EnemyGroup _currentEnemyGroup;
+    private List<EnemyGroup> _activeEnemyGroup;
     
     public Color WaveSpawnerColor { get; private set; }
 
@@ -29,6 +30,23 @@ public class WaveSpawner : MonoBehaviour , IProgress
     public float CompletionPercentage { get; }
 
     public int TotalNumberOfEnemiesPreWave { get; private set; }
+
+    private bool IsDoneActiveEnemyGroup
+    {
+        get
+        {
+            if (_activeEnemyGroup == null || _activeEnemyGroup.Count == 0)
+                return false;
+
+            foreach (var enemyGroup in _activeEnemyGroup)
+            {
+                if (!enemyGroup.IsDone)
+                    return false;
+            }
+
+            return true;
+        }
+    }
 
     public bool IsDone
     {
@@ -51,7 +69,7 @@ public class WaveSpawner : MonoBehaviour , IProgress
 
     public void Init(WaveSpawnerSerializeData waveSpawnerSerializeData)
     {
-        //_currentEnemyGroup = new List<EnemyGroup>();
+        _activeEnemyGroup = new List<EnemyGroup>();
         _completedEnemyGroups = new List<IProgress>();
         _enemyGroups = waveSpawnerSerializeData.EnemyGroups;
         _delayBetweenEnemyGroup = waveSpawnerSerializeData.DelayBetweenEnemyGroup;
@@ -60,47 +78,51 @@ public class WaveSpawner : MonoBehaviour , IProgress
         foreach (var enemyGroupSerializeData in _enemyGroups)
             TotalNumberOfEnemiesPreWave += enemyGroupSerializeData.TotalSpawnAmount;
 
-        if (TryGetNextEnemyGroup(out var enemyGroup))
-            _currentEnemyGroup = enemyGroup;
-        else
-            throw new Exception("Not enemy group for the spawner");
+        if (!TryGetNextEnemyGroup())
+            Debug.LogWarning("Not enemy group for the spawner");
     }
 
     private void Update()
     {
-        if (IsDone || _currentEnemyGroup == null)
+        if (IsDone || _activeEnemyGroup == null || _activeEnemyGroup.Count == 0)
             return;
         
-        if (_currentEnemyGroup.IsDone)
+        if (IsDoneActiveEnemyGroup)
         {
-            _completedEnemyGroups.Add(_currentEnemyGroup);
+            _completedEnemyGroups.AddRange(_activeEnemyGroup);
+            _activeEnemyGroup.Clear();
             
-            if (TryGetNextEnemyGroup(out var enemyGroup))
-                _currentEnemyGroup = enemyGroup;
+            if (!TryGetNextEnemyGroup())
+                return;
         }
 
-        if (!_currentEnemyGroup.TryGetEnemy(out var enemyPrefab))
-            return;
+        foreach (var enemyGroup in _activeEnemyGroup)
+        {
+            if (!enemyGroup.TryGetEnemy(out var enemyPrefab))
+                return;
 
-        var enemy = Instantiate(enemyPrefab, _spawnPositions[Random.Range(0, _spawnPositions.Length)].position,
-            Quaternion.identity); //temp!! need to add pool system
+            var enemy = Instantiate(enemyPrefab, _spawnPositions[Random.Range(0, _spawnPositions.Length)].position,
+                Quaternion.identity); //temp!! need to add pool system
 
-        var enemyMoveComponent = enemy.GetComponent<MovementOnPath>();
-        enemyMoveComponent.SetPath(myPathCreator);
+            var enemyMoveComponent = enemy.GetComponent<MovementOnPath>();
+            enemyMoveComponent.SetPath(myPathCreator);
 #if UNITY_EDITOR
-        enemy.gameObject.name = $"Enemy InstanceID: {enemy.EntityInstanceID}";
+            enemy.gameObject.name = $"Enemy InstanceID: {enemy.EntityInstanceID}";
 #endif
+        }
     }
 
-    private bool TryGetNextEnemyGroup(out EnemyGroup enemyGroup)
+    private bool TryGetNextEnemyGroup()
     {
-        enemyGroup = default;
-        
         if (_enemyGroups.Length == 0) return false;
         if (_currentEnemyGroupIndex >= _enemyGroups.Length) return false;
             
-        enemyGroup = new EnemyGroup(_enemyGroups[_currentEnemyGroupIndex]);
+        _activeEnemyGroup.Add(new EnemyGroup(_enemyGroups[_currentEnemyGroupIndex]));
         _currentEnemyGroupIndex++;
+        
+        if (_enemyGroups[_currentEnemyGroupIndex].StartType == ActionStartType.WithPrevious)
+            TryGetNextEnemyGroup();
+
         return true;
     }
     

@@ -7,8 +7,8 @@ namespace Tzipory.SerializeData.LevalSerializeData
     public class WaveSpawnerSerializeData
     {
         private Color _waveSpawnerColor;
-        [SerializeField,GUIColor("GetColor")] private EnemyGroupSerializeData[] _enemyGroups;
-        [SerializeField,GUIColor("GetColor")] private float _delayBetweenEnemyGroup;
+        [SerializeField] private float _delayBetweenEnemyGroup;
+        [SerializeField] private EnemyGroupSerializeData[] _enemyGroups;
         
         public EnemyGroupSerializeData[] EnemyGroups => _enemyGroups;
 
