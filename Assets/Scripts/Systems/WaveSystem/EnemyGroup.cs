@@ -1,13 +1,13 @@
 using System;
+using Enemes;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.SerializeData.LevalSerializeData;
-using UnityEngine;
 
 namespace Tzipory.WaveSystem
 {
     public class EnemyGroup : WaveComponent<EnemyGroupSerializeData>
     {
-        private GameObject _enemyPrefab;
+        private Enemy _enemyPrefab;
         
         private int _spawnAmountPreInterval;
 
@@ -27,7 +27,7 @@ namespace Tzipory.WaveSystem
             _spawnAmountPreInterval = enemyGroupSerializeData.SpawnAmountPreInterval;
         }
 
-        public bool TryGetEnemy(out GameObject enemyPrefab)
+        public bool TryGetEnemy(out Enemy enemyPrefab)
         {
             if (TotalSpawnAmount <= 0)
             {

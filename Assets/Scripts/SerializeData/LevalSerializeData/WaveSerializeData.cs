@@ -7,9 +7,23 @@ namespace Tzipory.SerializeData.LevalSerializeData
     [System.Serializable]
     public class WaveSerializeData
     {
-        [SerializeField] private List<WaveSpawnerSerializeData> waveSpawnerSerializeDatas;
+        [Title("$_name",bold:true,titleAlignment:TitleAlignments.Centered)] 
+        [SerializeField,ReadOnly] private string _name;
+        [SerializeField,ListDrawerSettings(HideAddButton = true,HideRemoveButton = true)] private List<WaveSpawnerSerializeData> waveSpawnerSerializeDatas;
+        private LevelSerializeData  _levelSerializeData;
         
         public List<WaveSpawnerSerializeData> WaveSpawnerSerializeDatas => waveSpawnerSerializeDatas;
+
+        public WaveSerializeData(IEnumerable<WaveSpawner> waveSpawners,LevelSerializeData levelSerializeData)
+        {
+            _levelSerializeData = levelSerializeData;
+            waveSpawnerSerializeDatas = new List<WaveSpawnerSerializeData>();
+
+            foreach (var waveSpawner in waveSpawners)
+            {
+                waveSpawnerSerializeDatas.Add(new WaveSpawnerSerializeData(waveSpawner));
+            }
+        }
         
         public void SetWaveSpawners(IEnumerable<WaveSpawner> waveSpawners)
         {
@@ -21,6 +35,9 @@ namespace Tzipory.SerializeData.LevalSerializeData
                 waveSpawnerSerializeDatas.Add(new WaveSpawnerSerializeData(waveSpawner));
             }
         }
+        
+        public void SetName(string  name)=>
+            _name = name;
 
         public void AddWaveSpawner(WaveSpawner waveSpawner)
         {
@@ -29,13 +46,10 @@ namespace Tzipory.SerializeData.LevalSerializeData
         
         public void RemoveWaveSpawner(WaveSpawner waveSpawner)
         {
-            
         }
 
         [Button("Delete wave")]
-        public void DeleteWave()
-        {
-            
-        }
+        public void DeleteWave()=>
+            _levelSerializeData.RemoveWave(this);
     }
 }

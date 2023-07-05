@@ -1,4 +1,5 @@
 ﻿using System;
+using Tzipory.Tools.Enums;
 using Tzipory.VisualSystem.EffectSequence;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace SerializeData.VisualSystemSerializeData
         [SerializeField] private bool _disableUndo;
         [SerializeField] private float _startDelay;
         [SerializeField] private float _endDelay;
-        [SerializeField] private EffectActionStartType _effectActionStart; 
+        [SerializeField] private ActionStartType actionStart; 
         
         [SerializeField] private BaseEffectActionSO _effectActionSO;
 
@@ -23,7 +24,7 @@ namespace SerializeData.VisualSystemSerializeData
 
         public float EndDelay => _endDelay;
 
-        public EffectActionStartType EffectActionStart => _effectActionStart;
+        public ActionStartType ActionStart => actionStart;
         
         public BaseEffectActionSO EffectActionSo => _effectActionSO;
     }

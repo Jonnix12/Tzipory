@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Enemes;
 using UnityEngine;
 using PathCreation;
 using Tzipory.SerializeData.LevalSerializeData;
@@ -52,6 +51,7 @@ public class WaveSpawner : MonoBehaviour , IProgress
 
     public void Init(WaveSpawnerSerializeData waveSpawnerSerializeData)
     {
+        //_currentEnemyGroup = new List<EnemyGroup>();
         _completedEnemyGroups = new List<IProgress>();
         _enemyGroups = waveSpawnerSerializeData.EnemyGroups;
         _delayBetweenEnemyGroup = waveSpawnerSerializeData.DelayBetweenEnemyGroup;
@@ -88,8 +88,7 @@ public class WaveSpawner : MonoBehaviour , IProgress
         var enemyMoveComponent = enemy.GetComponent<MovementOnPath>();
         enemyMoveComponent.SetPath(myPathCreator);
 #if UNITY_EDITOR
-        var enemyComponent = enemy.GetComponent<Enemy>();
-        enemy.gameObject.name = $"Enemy InstanceID: {enemyComponent.EntityInstanceID}";
+        enemy.gameObject.name = $"Enemy InstanceID: {enemy.EntityInstanceID}";
 #endif
     }
 

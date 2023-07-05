@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Factory;
 using SerializeData.VisualSystemSerializeData;
-using Sirenix.OdinInspector;
 using Tzipory.EntitySystem.EntityComponents;
-using UnityEngine;
+using Tzipory.Tools.Enums;
 
 namespace Tzipory.VisualSystem.EffectSequence
 {
@@ -132,7 +131,7 @@ namespace Tzipory.VisualSystem.EffectSequence
             if (_currentEffectActionIndex == _effectActions.Count)
                 return;
 
-            if (_effectActions[_currentEffectActionIndex].ActionStartType == EffectActionStartType.WithPrevious)
+            if (_effectActions[_currentEffectActionIndex].ActionStartType == ActionStartType.WithPrevious)
                 PlayActions();
         }
         

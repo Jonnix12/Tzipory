@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Timers;
 using SerializeData.VisualSystemSerializeData;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
+using Tzipory.Tools.Enums;
 
 namespace Tzipory.VisualSystem.EffectSequence
 {
@@ -23,7 +23,7 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         public bool DisableUndo { get; }
         
-        public EffectActionStartType ActionStartType { get; }
+        public ActionStartType ActionStartType { get; }
 
         public bool IsActive { get; private set; }
 
@@ -31,7 +31,7 @@ namespace Tzipory.VisualSystem.EffectSequence
         {
             _startDelay = actionContainerData.StartDelay;
             _endDelay = actionContainerData.EndDelay;
-            ActionStartType = actionContainerData.EffectActionStart;
+            ActionStartType = actionContainerData.ActionStart;
             IsStackable = actionContainerData.IsStackable;
             DisableUndo = actionContainerData.DisableUndo;
         }
@@ -74,11 +74,5 @@ namespace Tzipory.VisualSystem.EffectSequence
             visualComponent.GameEntity.EntityTimer.StopTimer(_completeTimer);
             IsActive = false;
         }
-    }
-
-    public enum EffectActionStartType
-    {
-        WithPrevious,
-        AfterPrevious,
     }
 }
