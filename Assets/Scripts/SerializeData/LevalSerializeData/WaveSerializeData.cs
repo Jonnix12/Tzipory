@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,30 +10,32 @@ namespace Tzipory.SerializeData.LevalSerializeData
     {
         [Title("$_name",bold:true,titleAlignment:TitleAlignments.Centered)] 
         [SerializeField,ReadOnly] private string _name;
-        [SerializeField,ListDrawerSettings(HideAddButton = true,HideRemoveButton = true)] private List<WaveSpawnerSerializeData> waveSpawnerSerializeDatas;
-        private LevelSerializeData  _levelSerializeData;
+        [SerializeField,ListDrawerSettings(HideAddButton = true,HideRemoveButton = true)] private List<WaveSpawnerSerializeData> _waveSpawnerSerializeDatas;
+        [ShowInInspector,ReadOnly]
+        public float TotalWaveTime => _waveSpawnerSerializeDatas.Sum(spawnerSerializeData => spawnerSerializeData.TotalSpawnTime);
         
-        public List<WaveSpawnerSerializeData> WaveSpawnerSerializeDatas => waveSpawnerSerializeDatas;
+        private LevelSerializeData  _levelSerializeData;
+        public List<WaveSpawnerSerializeData> WaveSpawnerSerializeDatas => _waveSpawnerSerializeDatas;
 
         public WaveSerializeData(IEnumerable<WaveSpawner> waveSpawners,LevelSerializeData levelSerializeData)
         {
             _levelSerializeData = levelSerializeData;
-            waveSpawnerSerializeDatas = new List<WaveSpawnerSerializeData>();
+            _waveSpawnerSerializeDatas = new List<WaveSpawnerSerializeData>();
 
             foreach (var waveSpawner in waveSpawners)
             {
-                waveSpawnerSerializeDatas.Add(new WaveSpawnerSerializeData(waveSpawner));
+                _waveSpawnerSerializeDatas.Add(new WaveSpawnerSerializeData(waveSpawner));
             }
         }
         
         public void SetWaveSpawners(IEnumerable<WaveSpawner> waveSpawners)
         {
-            if (waveSpawnerSerializeDatas == null)
-                waveSpawnerSerializeDatas = new List<WaveSpawnerSerializeData>();
+            if (_waveSpawnerSerializeDatas == null)
+                _waveSpawnerSerializeDatas = new List<WaveSpawnerSerializeData>();
 
             foreach (var waveSpawner in waveSpawners)
             {
-                waveSpawnerSerializeDatas.Add(new WaveSpawnerSerializeData(waveSpawner));
+                _waveSpawnerSerializeDatas.Add(new WaveSpawnerSerializeData(waveSpawner));
             }
         }
         
@@ -41,7 +44,7 @@ namespace Tzipory.SerializeData.LevalSerializeData
 
         public void AddWaveSpawner(WaveSpawner waveSpawner)
         {
-            waveSpawnerSerializeDatas.Add(new WaveSpawnerSerializeData(waveSpawner));
+            _waveSpawnerSerializeDatas.Add(new WaveSpawnerSerializeData(waveSpawner));
         }
         
         public void RemoveWaveSpawner(WaveSpawner waveSpawner)
@@ -51,5 +54,13 @@ namespace Tzipory.SerializeData.LevalSerializeData
         [Button("Delete wave")]
         public void DeleteWave()=>
             _levelSerializeData.RemoveWave(this);
+
+        public void OnValidate()
+        {
+            foreach (var spawnerSerializeData in _waveSpawnerSerializeDatas)
+            {
+                spawnerSerializeData.OnValidate();  
+            }
+        }
     }
 }

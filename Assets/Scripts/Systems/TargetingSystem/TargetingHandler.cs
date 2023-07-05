@@ -9,9 +9,7 @@ namespace Tzipory.EntitySystem.TargetingSystem
     {
         private IEntityTargetingComponent _entityTargetingComponent;
         private List<IEntityTargetAbleComponent> _availableTargets;
-
         
-
         public List<IEntityTargetAbleComponent> AvailableTargets => _availableTargets;
 
         public TargetingHandler(IEntityTargetingComponent targetingComponent)//may whnt to not be a monobehavior

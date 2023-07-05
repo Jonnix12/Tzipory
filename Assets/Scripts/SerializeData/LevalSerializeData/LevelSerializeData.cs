@@ -11,7 +11,7 @@ namespace Tzipory.SerializeData.LevalSerializeData
         [SerializeField,PropertyOrder(-1)] private float _levelStartDelay = 0.2f;
         [SerializeField,PropertyOrder(-1)] private float _delayBetweenWaves;
         [SerializeField,PropertyOrder(1),ListDrawerSettings(HideAddButton = true,HideRemoveButton = true)] private List<WaveSerializeData> _waves;
-
+        
         public Level Level => _level;
 
         public List<WaveSerializeData> Waves => _waves;
@@ -37,7 +37,10 @@ namespace Tzipory.SerializeData.LevalSerializeData
         private void OnValidate()
         {
             for (int i = 0; i < _waves.Count; i++)
+            {
                 _waves[i].SetName($"Wave {i + 1}"); 
+                _waves[i].OnValidate();
+            }
         }
     }
 }
