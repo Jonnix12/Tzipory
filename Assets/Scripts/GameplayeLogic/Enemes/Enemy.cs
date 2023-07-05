@@ -19,8 +19,9 @@ namespace Enemes
             timer = 0;
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             BasicMoveComponent.Init(MoveSpeed);//temp!
         }
 

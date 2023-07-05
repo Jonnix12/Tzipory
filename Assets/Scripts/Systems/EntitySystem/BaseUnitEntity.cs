@@ -45,18 +45,29 @@ namespace Tzipory.EntitySystem.Entitys
 
         #endregion
 
+        #region Temps
+        [Header("TEMPS")]
+        [SerializeField] private TEMP_UNIT_HPBarConnector _hpBarConnector;
+        #endregion
+
+        //Temp?
+        #region Events
+        //public event Action OnHealthChanged;
+        #endregion
+
         #region UnityCallBacks
 
         protected override void Awake()//temp!!!
         {
             base.Awake();
-
             DefaultPriorityTargeting =
                 Factory.TargetingPriorityFactory.GetTargetingPriority(this, _config.TargetingPriority);
             
             Targeting = GetComponentInChildren<TargetingHandler>();//temp
             Targeting.Init(this);
-            
+
+            //TEMP HP BAR INIT
+
             List<Stat> stats = new List<Stat>();
             
             stats.Add(new Stat(Constant.Stats.Health.ToString(), _config.Health.BaseValue, _config.Health.MaxValue,                         (int)Constant.Stats.Health));
@@ -113,8 +124,15 @@ namespace Tzipory.EntitySystem.Entitys
             AbilityHandler = new AbilityHandler(this,this, _config.AbilityConfigs);
 
             _rangeCollider.isTrigger = true;
+
         }
-        
+        protected virtual void Start()
+        {
+            HP.OnCurrentValueChanged +=  _hpBarConnector.SetBarToHealth;
+
+            _hpBarConnector.Init(this);
+        }
+
         protected override void Update()
         {
             base.Update();
@@ -162,6 +180,10 @@ namespace Tzipory.EntitySystem.Entitys
         {
             StatusHandler.OnStatusEffectInterrupt -= EffectSequenceHandler.RemoveEffectSequence;
             StatusHandler.OnStatusEffectAdded -= AddStatusEffectVisual;
+
+            HP.OnCurrentValueChanged  -= _hpBarConnector.SetBarToHealth;
+
+
             base.OnDestroy();
         }
 
@@ -193,7 +215,7 @@ namespace Tzipory.EntitySystem.Entitys
         public void Heal(float amount)
         {
             HP.AddToValue(amount);
-
+            //OnHealthChanged?.Invoke();
             // if (HP.CurrentValue > HP.BaseValue)
             //     HP.ResetValue();
         }

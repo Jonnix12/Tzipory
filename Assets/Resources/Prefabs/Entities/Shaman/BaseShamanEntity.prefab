@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Shaman
       objectReference: {fileID: 0}
+    - target: {fileID: 2750211597899472799, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4357314417853133059, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1
@@ -119,6 +123,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3727445444298982000, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
   m_PrefabInstance: {fileID: 4080524451218561172}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &953535957855614546 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3862765461723033286, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+  m_PrefabInstance: {fileID: 4080524451218561172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52ae96cd10f08234db301af7cc2f60b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1692306035326806345 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3448816137356898781, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
@@ -293,13 +308,14 @@ MonoBehaviour:
     _endDelay: 0
     isInterruptable: 0
     _effectActionContainers: []
+  _hpBarConnector: {fileID: 953535957855614546}
   _proximityHandler:
     _scaler: {fileID: 0}
     _spriteRenderer: {fileID: 0}
-    _currentSprite: {fileID: 0}
+    _currentSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     _proximityConfig:
-      IndicatorConditions: 
-      Color: {r: 0, g: 0, b: 0, a: 0}
+      IndicatorConditions: 0000000002000000
+      Color: {r: 1, g: 1, b: 1, a: 0.34901962}
     clickHelper: {fileID: 0}
   _shotVisual: {fileID: 1713223655816970375}
   _clickHelper: {fileID: 6944006319847339363}
@@ -381,7 +397,7 @@ MonoBehaviour:
   MotionType: 2
   Speed: 3.5
   Acceleration: 8
-  AngularSpeed: 120
+  AngularSpeed: 0
   StoppingDistance: 0
   AutoBreaking: 1
 --- !u!114 &7501979610179303972

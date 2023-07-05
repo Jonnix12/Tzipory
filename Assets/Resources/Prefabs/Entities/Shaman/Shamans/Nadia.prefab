@@ -100,20 +100,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: fc2805c32b6ccbe429d23e618777dbee, type: 3}
     - target: {fileID: 2200670044425848587, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2200670044425848587, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3104813651261807675, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
       propertyPath: m_Name
       value: Nadia
-      objectReference: {fileID: 0}
-    - target: {fileID: 5023256848365871121, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
-      propertyPath: AngularSpeed
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5023256848365871121, guid: 653c4468a24830841aa7c6d5cc9ef9b1, type: 3}
       propertyPath: StoppingDistance

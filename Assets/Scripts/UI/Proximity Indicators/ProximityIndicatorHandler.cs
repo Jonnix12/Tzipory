@@ -40,13 +40,13 @@ public class ProximityIndicatorHandler
             {
                 case IndicatorCondition.AnyShamanSelected:
                     //Subscribe to OnAnyShamanSelected
-                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanSelected += () => SetToActiveAndLock(true, true);
-                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanDeselected += () => SetToActiveAndLock(false, false);
+                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanSelected += StrongSetTrue;
+                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanDeselected += StrongSetFalse;
                     break;
                 case IndicatorCondition.HoverSelf:
                     //_spriteRenderer.
-                    clickHelper.OnEnterHover += () => WeakSetToActive(true);
-                    clickHelper.OnExitHover += () => WeakSetToActive(false);
+                    clickHelper.OnEnterHover += WeakSetTrue;
+                    clickHelper.OnExitHover += WeakSetFalse;
                     break;
                 case IndicatorCondition.AllCall:
                     //Subscribe to AllCall
@@ -66,12 +66,12 @@ public class ProximityIndicatorHandler
             {
                 case IndicatorCondition.AnyShamanSelected:
                     //Subscribe to OnAnyShamanSelected
-                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanSelected -= () => SetToActiveAndLock(true, true);
-                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanDeselected -= () => SetToActiveAndLock(false, false);
+                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanSelected -= StrongSetTrue;
+                    MovementSystem.HerosMovementSystem.TempHeroMovementManager.OnAnyShamanDeselected -= StrongSetFalse;
                     break;
                 case IndicatorCondition.HoverSelf:
-                    clickHelper.OnEnterHover -= () => WeakSetToActive(true);
-                    clickHelper.OnExitHover -= () => WeakSetToActive(false);
+                    clickHelper.OnEnterHover -= WeakSetTrue;
+                    clickHelper.OnExitHover -= WeakSetFalse;
                     //
                     break;
                 case IndicatorCondition.AllCall:
@@ -81,6 +81,25 @@ public class ProximityIndicatorHandler
             }
         }
     }
+
+    void WeakSetFalse()
+    {
+        WeakSetToActive(false);
+    }
+    void WeakSetTrue()
+    {
+        WeakSetToActive(true);
+    }
+     void StrongSetFalse()
+    {
+        SetToActiveAndLock(false, false);
+
+    }
+    void StrongSetTrue()
+    {
+        SetToActiveAndLock(true, true);
+    }
+
 
 
     void WeakSetToActive(bool doActive)

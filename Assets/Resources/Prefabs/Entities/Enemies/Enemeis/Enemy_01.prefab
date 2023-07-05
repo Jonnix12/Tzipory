@@ -249,14 +249,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4951585464830408945}
     - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
-      propertyPath: _onGetHit.isInterruptable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
-      propertyPath: _onGetCritHit.isInterruptable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: _onGetCritHit._effectActionSos.Array.size
       value: 4
       objectReference: {fileID: 0}
