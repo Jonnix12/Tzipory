@@ -8,8 +8,8 @@ namespace MovementSystem.HerosMovementSystem
 {
     public class TempHeroMovementManager : MonoSingleton<TempHeroMovementManager>
     {
-        public static System.Action OnAnyShamanSelected;
-        public static System.Action OnAnyShamanDeselected;
+        public static event Action OnAnyShamanSelected;
+        public static event Action OnAnyShamanDeselected;
 
         public event Action<Vector3> OnMove;
 
