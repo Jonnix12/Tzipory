@@ -5,11 +5,14 @@ using Tzipory.EntitySystem;
 using Tzipory.EntitySystem.TargetingSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.StatusSystem;
+using Sirenix.OdinInspector;
 
 public class CoreTemple : BaseGameEntity, IEntityTargetAbleComponent
 {
     [SerializeField]
-    Stat _hp;
+    float _hp;
+
+    [SerializeField,ReadOnly] private Stat _hpStat;
 
     public EntityTeamType EntityTeamType => EntityTeamType.Hero;
 
@@ -17,9 +20,8 @@ public class CoreTemple : BaseGameEntity, IEntityTargetAbleComponent
 
     public bool IsDamageable => true; //temp
 
-    public Stat HP => _hp;
-
-    public bool IsEntityDead => _hp.CurrentValue <= 0;
+    public Stat HP => _hpStat;
+    public bool IsEntityDead => HP.CurrentValue <= 0;
 
     public StatusHandler StatusHandler => throw new System.NotImplementedException();
 
@@ -32,7 +34,7 @@ public class CoreTemple : BaseGameEntity, IEntityTargetAbleComponent
     protected override void Awake()
     {
         CoreTrans = transform;
-        _hp = new Stat("Health", 100, 100, 0); //TEMP! Requires a config
+        _hpStat = new Stat("Health", _hp, int.MaxValue, 0); //TEMP! Requires a config
         base.Awake();
     }
 
@@ -43,13 +45,13 @@ public class CoreTemple : BaseGameEntity, IEntityTargetAbleComponent
 
     public void Heal(float amount)
     {
-        _hp.AddToValue(amount);
+        _hpStat.AddToValue(amount);
         OnHealthChanged?.Invoke();
     }
 
     public void TakeDamage(float damage, bool isCrit)
     {
-        _hp.ReduceFromValue(damage);
+        _hpStat.ReduceFromValue(damage);
         OnHealthChanged?.Invoke();
 
         if (IsEntityDead)

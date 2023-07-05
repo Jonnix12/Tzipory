@@ -124,11 +124,6 @@ namespace Tzipory.EntitySystem.Entitys
             if (_target == null || _target.IsEntityDead)
                 _target = Targeting.GetPriorityTarget();
             
-            
-            // if (_target != null)//temp
-            //     Attack();
-            
-            
             UpdateEntity();
 
             _rangeCollider.radius = StatusHandler.GetStatById((int)Constant.Stats.AttackRange).CurrentValue;//temp

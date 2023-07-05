@@ -21,7 +21,8 @@ namespace Enemes
 
         protected override void UpdateEntity()
         {
-            
+            if (Target != null)//temp
+                Attack();
         }
 
         private void Start()
