@@ -36,10 +36,10 @@ public class TEMP_UNIT_HPBarConnector : MonoBehaviour
     //    _unit.OnHealthChanged += SetBarToHealth;
 
     ////}
-    //private void OnDisable()
-    //{
-    //    _unit.OnHealthChanged -= SetBarToHealth;
-    //}
+    // private void OnDisable()
+    // {
+    //     _unit.OnHealthChanged -= SetBarToHealth;
+    // }
     public void SetBarToHealth()
     {
         hP_Bar.SetBarValue(_unit.HP.CurrentValue);

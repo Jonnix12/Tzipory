@@ -129,7 +129,8 @@ namespace Tzipory.EntitySystem.Entitys
         }
         protected virtual void Start()
         {
-            HP.OnCurrentValueChanged +=  _hpBarConnector.SetBarToHealth;
+            if (_doShowHPBar)//Temp!
+                HP.OnCurrentValueChanged +=  _hpBarConnector.SetBarToHealth;
 
             if (_doShowHPBar)
                 _hpBarConnector.Init(this);

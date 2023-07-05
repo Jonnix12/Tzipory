@@ -57,10 +57,6 @@ PrefabInstance:
       value: 111
       objectReference: {fileID: 0}
     - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
-      propertyPath: _rangeCollider
-      value: 
-      objectReference: {fileID: 7861574124059342987}
-    - target: {fileID: 1134529443593774009, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: _spriteRenderer
       value: 
       objectReference: {fileID: 4933597569125842740}
@@ -300,11 +296,6 @@ Transform:
 --- !u!4 &5901850595707986651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5055015959598962312, guid: cff2810ae1250e149b86838176340862, type: 3}
-  m_PrefabInstance: {fileID: 1711530463703184467}
-  m_PrefabAsset: {fileID: 0}
---- !u!58 &7861574124059342987 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 8852247142903581912, guid: cff2810ae1250e149b86838176340862, type: 3}
   m_PrefabInstance: {fileID: 1711530463703184467}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8208781154159895556 stripped

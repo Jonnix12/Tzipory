@@ -90,6 +90,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4453479690777420381}
   m_SourcePrefab: {fileID: 100100000, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+--- !u!60 &3028739526709266390 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6887608391384273710, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
+  m_PrefabInstance: {fileID: 8475086043216172280}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4613587498334124606 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3862765461723033286, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
@@ -149,7 +154,7 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: fd7bf99da41054542921947d038de0bd, type: 2}
   _stats: []
   _bodyCollider: {fileID: 4453479690777420381}
-  _rangeCollider: {fileID: 8852247142903581912}
+  _rangeCollider: {fileID: 3028739526709266390}
   _spriteRenderer: {fileID: 6032355350260239207}
   _visualQueueEffectPosition: {fileID: 5055015959598962312}
   _particleEffectPosition: {fileID: 6503520961240737061}
@@ -343,8 +348,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!58 &8852247142903581912 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 1100270541626497056, guid: 7c1a41cb864c24b4881d9c5fe8c356a1, type: 3}
-  m_PrefabInstance: {fileID: 8475086043216172280}
-  m_PrefabAsset: {fileID: 0}
