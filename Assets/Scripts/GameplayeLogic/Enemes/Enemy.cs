@@ -25,6 +25,12 @@ namespace Enemes
             BasicMoveComponent.Init(MoveSpeed);//temp!
         }
 
+        protected override void UpdateEntity()
+        {
+            if (Target != null)//temp
+                Attack();
+        }
+
         public void TakeTarget(IEntityTargetAbleComponent target)
         {
             SetAttackTarget(target);
