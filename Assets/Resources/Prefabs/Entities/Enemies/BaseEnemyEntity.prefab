@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timerHandler:
     _timerSerializeDatas: []
-  _config: {fileID: 11400000, guid: cf8b6009cbd29a4429faf8b243fbe51f, type: 2}
+  _config: {fileID: 11400000, guid: fd7bf99da41054542921947d038de0bd, type: 2}
   _stats: []
   _bodyCollider: {fileID: 4453479690777420381}
   _rangeCollider: {fileID: 8852247142903581912}
@@ -226,6 +226,7 @@ MonoBehaviour:
       _endDelay: 0
       _effectActionStart: 0
       _effectActionSO: {fileID: 11400000, guid: 1b22e0a237eeefa448293adc8adacc19, type: 2}
+  _doShowHPBar: 1
   _hpBarConnector: {fileID: 4613587498334124606}
   BasicMoveComponent: {fileID: 0}
 --- !u!114 &7221615852569552283

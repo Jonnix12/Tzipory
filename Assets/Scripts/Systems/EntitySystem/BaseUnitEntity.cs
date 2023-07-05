@@ -188,15 +188,12 @@ namespace Tzipory.EntitySystem.Entitys
             
         }
 
-        protected override void OnDestroy()
+        private void OnDisable()
         {
             StatusHandler.OnStatusEffectInterrupt -= EffectSequenceHandler.RemoveEffectSequence;
             StatusHandler.OnStatusEffectAdded -= AddStatusEffectVisual;
 
             HP.OnCurrentValueChanged  -= _hpBarConnector.SetBarToHealth;
-
-
-            base.OnDestroy();
         }
 
         #endregion
