@@ -47,6 +47,7 @@ namespace Tzipory.EntitySystem.Entitys
 
         #region Temps
         [Header("TEMPS")]
+        [SerializeField] private bool _doShowHPBar;
         [SerializeField] private TEMP_UNIT_HPBarConnector _hpBarConnector;
         #endregion
 
@@ -130,7 +131,10 @@ namespace Tzipory.EntitySystem.Entitys
         {
             HP.OnCurrentValueChanged +=  _hpBarConnector.SetBarToHealth;
 
-            _hpBarConnector.Init(this);
+            if (_doShowHPBar)
+                _hpBarConnector.Init(this);
+            else
+                _hpBarConnector.gameObject.SetActive(false);
         }
 
         protected override void Update()
