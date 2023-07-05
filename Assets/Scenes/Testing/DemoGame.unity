@@ -5776,10 +5776,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timerHandler:
     _timerSerializeDatas: []
-  _hp:
+  _hp: 3000
+  _hpStat:
     _name: 
     _id: 0
-    _baseValue: 1000
+    _baseValue: 0
     _currentValue: 0
 --- !u!114 &1869757096
 MonoBehaviour:

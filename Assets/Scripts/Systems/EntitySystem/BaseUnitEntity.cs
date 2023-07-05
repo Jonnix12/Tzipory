@@ -143,15 +143,15 @@ namespace Tzipory.EntitySystem.Entitys
             if (_target == null || _target.IsEntityDead)
                 _target = Targeting.GetPriorityTarget();
             
-            
-            if (_target != null)//temp
-                Attack();
-            
-            //_rangeCollider.radius = StatusHandler.GetStatById((int)Constant.Stats.AttackRange).CurrentValue;//temp
             //TEMP AF!!!
             _rangeCollider.transform.localScale = new Vector3(AttackRange.CurrentValue* 1.455f, AttackRange.CurrentValue,1f);//temp
-            //TEMP AF!!!
+          
+
+            UpdateEntity();
+
         }
+
+        protected abstract void UpdateEntity();
 
         private void OnValidate()
         {
@@ -174,6 +174,14 @@ namespace Tzipory.EntitySystem.Entitys
         private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(transform.position,_config.AttackRange.BaseValue);
+            if (_target != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(transform.position,_target.EntityTransform.position);
+                Gizmos.color = Color.white;
+            }
+            
+            
         }
 
         protected override void OnDestroy()

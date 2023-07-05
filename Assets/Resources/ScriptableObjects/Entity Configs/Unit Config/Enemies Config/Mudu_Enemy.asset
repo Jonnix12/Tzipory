@@ -10,47 +10,47 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dea472f36b2a4dc0b0810fdfb6687265, type: 3}
-  m_Name: Madu_Enemy
+  m_Name: Mudu_Enemy
   m_EditorClassIdentifier: 
   _health:
     _name: Health
-    _id: 1
+    _id: 0
     _baseValue: 200
     _currentValue: 0
   _invincibleTime:
     _name: InvincibleTime
-    _id: 8
+    _id: 7
     _baseValue: 0
     _currentValue: 0
   _attackDamage:
     _name: AttackDamage
-    _id: 2
+    _id: 1
     _baseValue: 30
     _currentValue: 0
   _AttackRate:
     _name: AttackRate
-    _id: 3
+    _id: 2
     _baseValue: 2
     _currentValue: 0
   _attackRange:
     _name: AttackRange
-    _id: 4
-    _baseValue: 5
+    _id: 3
+    _baseValue: 1
     _currentValue: 0
   _CritDamage:
     _name: CritDamage
-    _id: 6
+    _id: 5
     _baseValue: 110
     _currentValue: 0
   _CritChance:
     _name: CritChance
-    _id: 7
+    _id: 6
     _baseValue: 1
     _currentValue: 0
   _movementSpeed:
     _name: MovementSpeed
-    _id: 5
-    _baseValue: 1
+    _id: 4
+    _baseValue: 0.7
     _currentValue: 0
   _stats: []
   _abilityConfigs: []
