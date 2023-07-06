@@ -27,7 +27,7 @@ namespace Enemes
 
         protected override void UpdateEntity()
         {
-            if (Target != null)//temp
+            if (Targeting.CurrentTarget != null)//temp
                 Attack();
         }
 
@@ -43,7 +43,7 @@ namespace Enemes
             if (timer >= StatusHandler.GetStatById((int)Constant.Stats.AttackRate).CurrentValue)
             {
                 timer = 0f;
-                Target.TakeDamage(StatusHandler.GetStatById((int)Constant.Stats.AttackDamage).CurrentValue, false);
+                Targeting.CurrentTarget.TakeDamage(StatusHandler.GetStatById((int)Constant.Stats.AttackDamage).CurrentValue, false);
                 //Target.TakeDamage(AttackDamage.CurrentValue, false);// Why not like this? TBD
                 
             }

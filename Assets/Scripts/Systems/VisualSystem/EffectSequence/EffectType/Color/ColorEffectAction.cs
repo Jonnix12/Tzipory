@@ -12,9 +12,9 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
         private float _alpha;
         private float _duration;
 
-        public override float Duration => _duration;
-        
-        public ColorEffectAction(EffectActionContainerData actionContainerData) : base(actionContainerData)
+        protected override float Duration => _duration;
+
+        public ColorEffectAction(EffectActionContainerData actionContainerData,IEntityVisualComponent visualComponent) : base(actionContainerData,visualComponent)
         {
             var config = GetConfig<ColorEffectActionSO>(actionContainerData.EffectActionSo);
             
@@ -22,23 +22,31 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
             _alpha = config.Alpha;
             _duration = config.Duration;
         }
-
-
-        public override void ProcessEffect(IEntityVisualComponent visualComponent)
+        
+        protected override void OnStartEffectAction()
         {
             var newColor = new Color(_color.r, _color.g, _color.b, _alpha);
-            _originalColor = visualComponent.SpriteRenderer.color;
+            _originalColor = VisualComponent.SpriteRenderer.color;
             
-            visualComponent.SpriteRenderer.color = newColor;
-            
-            base.ProcessEffect(visualComponent);
+            VisualComponent.SpriteRenderer.color = newColor;
         }
 
-        public override void UndoEffect(IEntityVisualComponent visualComponent)
+        protected override void OnProcessEffectAction()
         {
-            visualComponent.SpriteRenderer.color = _originalColor;
-            
-            visualComponent.GameEntity.EntityTimer.StartNewTimer(_endDelay,OnCompleteEffectAction);
+        }
+
+        protected override void OnCompleteEffectAction()
+        {
+        }
+
+        protected override void OnUndoEffectAction()
+        {
+            VisualComponent.SpriteRenderer.color = _originalColor;
+        }
+
+        protected override void OnInterruptEffectAction()
+        {
+            OnUndoEffectAction();
         }
     }
 }

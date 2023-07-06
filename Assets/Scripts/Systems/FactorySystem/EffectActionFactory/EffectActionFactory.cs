@@ -17,9 +17,9 @@ namespace Factory
             switch (effectActionSO.ActionType)
             {
                 case EffectActionType.Transform:
-                    return new TransformEffectAction(actionContainerData);
+                    return new TransformEffectAction(actionContainerData,visualComponent);
                 case EffectActionType.Color:
-                    return new ColorEffectAction(actionContainerData);
+                    return new ColorEffectAction(actionContainerData,visualComponent);
                 case EffectActionType.Outline:
                     throw  new NotImplementedException();
                 case EffectActionType.PopUp:
@@ -27,7 +27,7 @@ namespace Factory
                 case EffectActionType.ParticleEffects:
                     throw  new NotImplementedException();
                 case EffectActionType.Sound:
-                    return new SoundEffectAction(actionContainerData);
+                    return new SoundEffectAction(actionContainerData,visualComponent);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
