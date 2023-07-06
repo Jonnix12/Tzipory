@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1933799114026493161, guid: 12edc6dffea2bb646bd99a8845698f07, type: 3}
       propertyPath: m_Name
-      value: Wave Text Counter Variant
+      value: Wave Text Counter
       objectReference: {fileID: 0}
     - target: {fileID: 5784455287167323202, guid: 12edc6dffea2bb646bd99a8845698f07, type: 3}
       propertyPath: m_AnchorMax.y
