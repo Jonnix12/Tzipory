@@ -1,4 +1,5 @@
 ﻿using System;
+using Helpers.Consts;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -42,6 +43,11 @@ namespace Tzipory.EntitySystem.StatusSystem
             _baseValue = baseValue;
             MaxValue = StatLimiters.MaxStatValue; //TBD is this still a thing?
             _currentValue = _baseValue;
+
+            StatStruct a = new StatStruct(Constant.Stats.AttackRange,5);
+            StatStruct b = new StatStruct(Constant.Stats.Health,6);
+
+            StatStruct c = a + b;
         }
 
         private void ChangeValue(float value)

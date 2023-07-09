@@ -40,7 +40,7 @@ namespace Tzipory.EntitySystem.StatusSystem
             }
 
             Debug.LogError($"Stat ID: {id} not found in StatusHandler");
-            return  null;
+            return default;
         }
 
         public void UpdateStatusEffects()
