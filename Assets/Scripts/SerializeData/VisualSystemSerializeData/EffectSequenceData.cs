@@ -14,7 +14,8 @@ namespace SerializeData.VisualSystemSerializeData
         [SerializeField] private float _startDelay;
         [SerializeField] private float _endDelay;
         
-        [SerializeField] private bool isInterruptable;
+        [SerializeField] private bool _isStackable;
+        [SerializeField] private bool _isInterruptable;
         
         [SerializeField] private List<EffectActionContainerData> _effectActionContainers;
 
@@ -31,7 +32,9 @@ namespace SerializeData.VisualSystemSerializeData
 
         public float EndDelay => _endDelay;
 
-        public bool IsInterruptable => isInterruptable;
+        public bool IsInterruptable => _isInterruptable;
+
+        public bool IsStackable => _isStackable;
 
         public List<EffectActionContainerData> EffectActionContainers => _effectActionContainers;
     }

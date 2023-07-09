@@ -8,49 +8,88 @@ namespace Tzipory.VisualSystem.EffectSequence
 {
     public abstract class BaseEffectAction
     {
-        public event Action OnEffectActionStart;
         public event Action<BaseEffectAction> OnEffectActionComplete;
         
-
+        private readonly float _startDelay;
+        
+        private ITimer _startDelayTimer;
+        private ITimer _endDelayTimer;
         private ITimer _completeTimer;
         
-        private readonly float _startDelay;
-        protected readonly float _endDelay;
-
-        public abstract float Duration { get; }
-
-        public bool IsStackable { get; }
-
-        public bool DisableUndo { get; }
-        
         public EffectActionStartType ActionStartType { get; }
-
         public bool IsActive { get; private set; }
+        
+        protected abstract float Duration { get; }
+        protected IEntityVisualComponent VisualComponent { get; }
 
-        protected BaseEffectAction(EffectActionContainerData actionContainerData)
+        private bool DisableUndo { get; }
+        private bool IsStarted { get; set; }
+
+        protected BaseEffectAction(EffectActionContainerData actionContainerData,IEntityVisualComponent visualComponent)
         {
+            VisualComponent = visualComponent;
             _startDelay = actionContainerData.StartDelay;
-            _endDelay = actionContainerData.EndDelay;
             ActionStartType = actionContainerData.EffectActionStart;
-            IsStackable = actionContainerData.IsStackable;
             DisableUndo = actionContainerData.DisableUndo;
         }
+        
+        public void ActivateActionEffect()                                                           
+        {                                                                                            
+            IsActive = true;                                                                         
+            _startDelayTimer = VisualComponent.GameEntity.EntityTimer.StartNewTimer(_startDelay);    
+        }                                                                                            
 
-        public virtual void StartEffectAction()
+        private void StartEffectAction()
         {
-            IsActive = true;
-
-            OnEffectActionStart?.Invoke();
+            IsStarted = true;
+            OnStartEffectAction();
+            _completeTimer = VisualComponent.GameEntity.EntityTimer.StartNewTimer(Duration);
         }
-
-
-        protected virtual void OnCompleteEffectAction()
+        
+        private void CompleteEffectAction()
         {
+            if (!DisableUndo)
+                OnUndoEffectAction();
+            
+            OnCompleteEffectAction();
+            
             IsActive = false;
+            IsStarted = false;
             
             OnEffectActionComplete?.Invoke(this);
         }
 
+        public void InterruptEffectAction()
+        {
+            IsStarted = false;
+            IsActive = false;
+            
+            VisualComponent.GameEntity.EntityTimer.StopTimer(_completeTimer);
+            //need to add more logic!
+
+            if (!DisableUndo)
+                OnUndoEffectAction();
+
+            OnInterruptEffectAction();
+        }
+        
+        public void UpdateEffectAction()
+        {
+            if (!IsActive)
+                return;
+
+            if (!_startDelayTimer.IsDone)
+                return;
+
+            if (!IsStarted)
+                StartEffectAction();
+
+            OnProcessEffectAction();
+
+            if (_completeTimer.IsDone)
+                CompleteEffectAction();
+        }
+        
         protected T GetConfig<T>(BaseEffectActionSO effectActionSO) where T : BaseEffectActionSO
         {
             if (effectActionSO is T effectActionSo)
@@ -58,22 +97,12 @@ namespace Tzipory.VisualSystem.EffectSequence
 
             throw new Exception($"Can't cast {effectActionSO.GetType()} to {typeof(T)}");
         }
-
-        public virtual void ProcessEffect(IEntityVisualComponent visualComponent)
-        { 
-            _completeTimer = visualComponent.GameEntity.EntityTimer.StartNewTimer(Duration, OnCompleteEffectAction);
-        }
-
-        public virtual void UndoEffect(IEntityVisualComponent visualComponent)
-        {
-            
-        }
-
-        public virtual void InterruptEffectAction(IEntityVisualComponent visualComponent)
-        {
-            visualComponent.GameEntity.EntityTimer.StopTimer(_completeTimer);
-            IsActive = false;
-        }
+        
+        protected abstract void OnStartEffectAction();
+        protected abstract void OnProcessEffectAction();
+        protected abstract void OnCompleteEffectAction();
+        protected abstract void OnUndoEffectAction();
+        protected abstract void OnInterruptEffectAction();
     }
 
     public enum EffectActionStartType

@@ -14,7 +14,7 @@ namespace Tzipory.EntitySystem.StatusSystem
 
         private readonly IEntityStatusEffectComponent _entity;
         
-        private  readonly Dictionary<int, IStatHolder> _stats;
+        private  readonly Dictionary<int, IStatHolder> _stats;//need to make a big refactor! for this to work
         
         private readonly Dictionary<int, Stat> _statsById;
 

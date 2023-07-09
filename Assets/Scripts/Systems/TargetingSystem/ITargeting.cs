@@ -7,7 +7,7 @@ namespace Tzipory.EntitySystem.TargetingSystem
     {
         public List<IEntityTargetAbleComponent> AvailableTargets { get; }
         
-        public IEntityTargetAbleComponent GetPriorityTarget(IPriorityTargeting priorityTargeting = null);
+        public void GetPriorityTarget(IPriorityTargeting priorityTargeting = null);
 
         public void AddTarget(IEntityTargetAbleComponent targetAbleComponent);
         public void RemoveTarget(IEntityTargetAbleComponent targetAbleComponent);

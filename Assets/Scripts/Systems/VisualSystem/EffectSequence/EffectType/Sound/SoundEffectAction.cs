@@ -16,10 +16,10 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType.Sound
         private Vector2 _pitchRange;
 
         private AudioClip _selectedAudioClip;
-        
-        public override float Duration => _selectedAudioClip.length;
-        
-        public SoundEffectAction(EffectActionContainerData actionContainerData) : base(actionContainerData)
+
+        protected override float Duration => _selectedAudioClip.length;
+
+        public SoundEffectAction(EffectActionContainerData actionContainerData,IEntityVisualComponent visualComponent) : base(actionContainerData,visualComponent)
         {
             var config = GetConfig<SoundEffectActionSO>(actionContainerData.EffectActionSo);
 
@@ -30,7 +30,7 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType.Sound
             _randomVolume = config.RandomVolume;
         }
         
-        public override void ProcessEffect(IEntityVisualComponent visualComponent)
+        protected override void OnStartEffectAction()
         {
             float pitch = 1;
             float volume = 1;
@@ -42,9 +42,23 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType.Sound
 
             _selectedAudioClip = _audioClips[Random.Range(0, _audioClips.Length)];
 
-            visualComponent.SoundHandler.PlayAudioClip(_selectedAudioClip,pitch ,volume);
+            VisualComponent.SoundHandler.PlayAudioClip(_selectedAudioClip,pitch ,volume);
+        }
 
-            base.ProcessEffect(visualComponent);
+        protected override void OnProcessEffectAction()
+        {
+        }
+
+        protected override void OnCompleteEffectAction()
+        {
+        }
+
+        protected override void OnUndoEffectAction()
+        {
+        }
+
+        protected override void OnInterruptEffectAction()
+        {
         }
     }
 }

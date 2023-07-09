@@ -14,7 +14,7 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
         private Vector3 _originalScale;
         private Vector3 _originalRotation;
 
-        public override float Duration
+        protected override float Duration
         {
             get
             {
@@ -33,29 +33,42 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
                 return Mathf.Max(moveDuration,scaleDuration,rotationDuration);
             }
         }
-
-        public TransformEffectAction(EffectActionContainerData actionContainerData) : base(actionContainerData)
+        
+        public TransformEffectAction(EffectActionContainerData actionContainerData,IEntityVisualComponent visualComponent) : base(actionContainerData,visualComponent)
         {
             var config = GetConfig<TransformEffectActionSO>(actionContainerData.EffectActionSo);
             
             _transformEffectActionSO  = config;
         }
-
-        public override void ProcessEffect(IEntityVisualComponent visualComponent)
+        
+        protected override void OnStartEffectAction()
         {
-            _originalPosition = visualComponent.EntityTransform.position;
-            _originalScale = visualComponent.EntityTransform.localScale;
-            _originalRotation = visualComponent.EntityTransform.eulerAngles;
+            _originalPosition = VisualComponent.EntityTransform.position;
+            _originalScale = VisualComponent.EntityTransform.localScale;
+            _originalRotation = VisualComponent.EntityTransform.eulerAngles;
             
-            visualComponent.EntityTransform.Transition(_transformEffectActionSO);
-            base.ProcessEffect(visualComponent);
+            VisualComponent.EntityTransform.Transition(_transformEffectActionSO);
         }
 
-        public override void UndoEffect(IEntityVisualComponent visualComponent)
+        protected override void OnProcessEffectAction()
         {
-            visualComponent.EntityTransform.Move(_originalPosition,_transformEffectActionSO);
-            visualComponent.EntityTransform.Scale(_originalScale,_transformEffectActionSO);
-            visualComponent.EntityTransform.Rotate(_originalRotation,_transformEffectActionSO);
+        }
+
+        protected override void OnCompleteEffectAction()
+        {
+            VisualComponent.EntityTransform.Move(_originalPosition,_transformEffectActionSO);
+            VisualComponent.EntityTransform.Scale(_originalScale,_transformEffectActionSO);
+            VisualComponent.EntityTransform.Rotate(_originalRotation,_transformEffectActionSO);
+        }
+
+        protected override void OnUndoEffectAction()
+        {
+            OnCompleteEffectAction();
+        }
+
+        protected override void OnInterruptEffectAction()
+        {
+            OnCompleteEffectAction();
         }
     }
     
