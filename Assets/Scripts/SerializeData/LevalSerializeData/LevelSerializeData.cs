@@ -27,6 +27,11 @@ namespace Tzipory.SerializeData.LevalSerializeData
             waveData.SetName($"Wave {_waves.Count + 1}"); 
             _waves.Add(waveData);
         }
+        [Button("Reset data"),PropertyOrder(0)]
+        public void ResetData()
+        {
+            _waves.Clear();
+        }
 
         public void RemoveWave(WaveSerializeData waveSerializeData)
         {
@@ -36,10 +41,15 @@ namespace Tzipory.SerializeData.LevalSerializeData
 
         private void OnValidate()
         {
+            float lastStartTime = _levelStartDelay;
+            
             for (int i = 0; i < _waves.Count; i++)
             {
-                _waves[i].SetName($"Wave {i + 1}"); 
-                _waves[i].OnValidate();
+                _waves[i].SetName($"Wave {i + 1}");
+                
+                _waves[i].OnValidate(lastStartTime);
+                
+                lastStartTime += _delayBetweenWaves + _waves[i].TotalWaveTime;
             }
         }
     }

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using Sirenix.OdinInspector;
+using Tzipory.Tools.Enums;
 using UnityEngine;
 
 namespace Tzipory.SerializeData.LevalSerializeData
@@ -7,10 +7,14 @@ namespace Tzipory.SerializeData.LevalSerializeData
     [System.Serializable]
     public class WaveSpawnerSerializeData
     {
-        private Color _waveSpawnerColor;
-        [SerializeField] private float _delayBetweenEnemyGroup;
-        [SerializeField] private EnemyGroupSerializeData[] _enemyGroups;
-        public float TotalSpawnTime
+        [SerializeField,ReadOnly,PropertyOrder(-3)] private Color _waveSpawnerColor;
+        [SerializeField,PropertyOrder(-2)] private float _delayBetweenEnemyGroup;
+        [SerializeField,PropertyOrder(1)] private EnemyGroupSerializeData[] _enemyGroups;
+
+        private float _startTime;
+        
+        [ShowInInspector,ReadOnly,PropertyOrder(-1)]
+        public float TotalSpawnerTime
         {
             get
             {
@@ -23,8 +27,12 @@ namespace Tzipory.SerializeData.LevalSerializeData
                 {
                     if (groupSerializeData == null)
                         continue;
-                    totalTime += groupSerializeData.TotalGroupSpawnTime;
-                }    
+
+                    if (groupSerializeData.EndTime > totalTime)
+                        totalTime = groupSerializeData.EndTime - _startTime;
+                }
+
+                totalTime += _delayBetweenEnemyGroup * (_enemyGroups.Length - 1);
                 
                 return  totalTime;
             }
@@ -39,16 +47,24 @@ namespace Tzipory.SerializeData.LevalSerializeData
             _waveSpawnerColor = waveSpawner.WaveSpawnerColor;
         }
         
-        public void OnValidate()
+        public void OnValidate(float startTime)
         {
+            _startTime = startTime;
+            
+            float lastStartTime = _startTime;
+            
             for (int i = 0; i < _enemyGroups.Length; i++)
             {
                 if (i == 0)
                 {
-                    _enemyGroups[i].OnValidate(0);
+                    _enemyGroups[i].OnValidate(lastStartTime);
                     continue;
                 }
-                _enemyGroups[i].OnValidate(_enemyGroups[i - 1].EndTime);
+
+                if (_enemyGroups[i].StartType == ActionStartType.AfterPrevious)
+                    lastStartTime = _enemyGroups[i - 1].EndTime;
+
+                _enemyGroups[i].OnValidate(lastStartTime);
             }
         }
 

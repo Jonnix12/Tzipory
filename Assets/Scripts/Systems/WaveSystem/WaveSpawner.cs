@@ -104,8 +104,9 @@ public class WaveSpawner : MonoBehaviour , IProgress
             var enemy = Instantiate(enemyPrefab, _spawnPositions[Random.Range(0, _spawnPositions.Length)].position,
                 Quaternion.identity); //temp!! need to add pool system
 
-            var enemyMoveComponent = enemy.GetComponent<MovementOnPath>();
+            var enemyMoveComponent = enemy.GetComponent<MovementOnPath>();//temp!
             enemyMoveComponent.SetPath(myPathCreator);
+            enemyMoveComponent.AdvanceOnPath();
 #if UNITY_EDITOR
             enemy.gameObject.name = $"Enemy InstanceID: {enemy.EntityInstanceID}";
 #endif
@@ -119,7 +120,10 @@ public class WaveSpawner : MonoBehaviour , IProgress
             
         _activeEnemyGroup.Add(new EnemyGroup(_enemyGroups[_currentEnemyGroupIndex]));
         _currentEnemyGroupIndex++;
-        
+
+        if (_currentEnemyGroupIndex == _enemyGroups.Length)
+            return false;
+
         if (_enemyGroups[_currentEnemyGroupIndex].StartType == ActionStartType.WithPrevious)
             TryGetNextEnemyGroup();
 

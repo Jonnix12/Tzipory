@@ -9,10 +9,29 @@ namespace Tzipory.SerializeData.LevalSerializeData
     public class WaveSerializeData
     {
         [Title("$_name",bold:true,titleAlignment:TitleAlignments.Centered)] 
-        [SerializeField,ReadOnly] private string _name;
-        [SerializeField,ListDrawerSettings(HideAddButton = true,HideRemoveButton = true)] private List<WaveSpawnerSerializeData> _waveSpawnerSerializeDatas;
-        [ShowInInspector,ReadOnly]
-        public float TotalWaveTime => _waveSpawnerSerializeDatas.Sum(spawnerSerializeData => spawnerSerializeData.TotalSpawnTime);
+        [SerializeField,ReadOnly,PropertyOrder(-2)] private string _name;
+        [SerializeField,ListDrawerSettings(HideAddButton = true,HideRemoveButton = true),PropertyOrder(1)] private List<WaveSpawnerSerializeData> _waveSpawnerSerializeDatas;
+
+        [ShowInInspector, ReadOnly,PropertyOrder(-1)]
+        public float TotalWaveTime
+        {
+            get
+            {
+                float totalWaveTime = 0;
+
+                foreach (var spawnerSerializeData in _waveSpawnerSerializeDatas)
+                {
+                    if (spawnerSerializeData == null)
+                        continue;
+                    if (spawnerSerializeData.TotalSpawnerTime > totalWaveTime)
+                    {
+                        totalWaveTime = spawnerSerializeData.TotalSpawnerTime;
+                    }
+                }
+
+                return totalWaveTime;
+            }
+        }
         
         private LevelSerializeData  _levelSerializeData;
         public List<WaveSpawnerSerializeData> WaveSpawnerSerializeDatas => _waveSpawnerSerializeDatas;
@@ -55,11 +74,11 @@ namespace Tzipory.SerializeData.LevalSerializeData
         public void DeleteWave()=>
             _levelSerializeData.RemoveWave(this);
 
-        public void OnValidate()
+        public void OnValidate(float startTime)
         {
             foreach (var spawnerSerializeData in _waveSpawnerSerializeDatas)
             {
-                spawnerSerializeData.OnValidate();  
+                spawnerSerializeData.OnValidate(startTime);  
             }
         }
     }

@@ -16,9 +16,9 @@ namespace Tzipory.SerializeData.LevalSerializeData
         [SerializeField] private ActionStartType _startType;
 
         [Header("Group timing")] 
-        [SerializeField, ReadOnly] private float _startTime;
+        [SerializeField, ReadOnly,PropertyOrder(-3)] private float _startTime;
 
-        [ShowInInspector, ReadOnly]
+        [ShowInInspector, ReadOnly,PropertyOrder(-2)]
         public float TotalGroupSpawnTime
         {
             get
@@ -40,7 +40,7 @@ namespace Tzipory.SerializeData.LevalSerializeData
                 return totalTime;
             }
         }
-        [ShowInInspector, ReadOnly]
+        [ShowInInspector, ReadOnly,PropertyOrder(-1)]
         public float EndTime => _startTime + TotalGroupSpawnTime;
 
         public Enemy EnemyPrefab => _enemyPrefab;

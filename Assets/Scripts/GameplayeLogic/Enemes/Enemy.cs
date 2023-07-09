@@ -27,7 +27,7 @@ namespace Enemes
             base.Awake();
             EntityTeamType = EntityTeamType.Enemy;
             timer = 0;
-            
+            _currentDecisionInterval = 0;
             _isAttacking  = false;
         }
 
@@ -41,7 +41,10 @@ namespace Enemes
                 }
                 
                 _currentDecisionInterval = _decisionInterval;
+                _movementOnPath.AdvanceOnPath();
             }
+
+            _currentDecisionInterval -= GAME_TIME.GameDeltaTime;
 
             if (_isAttacking)
             {
@@ -55,8 +58,6 @@ namespace Enemes
                     _isAttacking = false;
                 }
             }
-            
-            _movementOnPath.AdvanceOnPath();
         }
 
         private void Start()

@@ -253,6 +253,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5938123266329083345}
     - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: _decisionInterval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: BasicMoveComponent
       value: 
       objectReference: {fileID: 4951585464830408945}

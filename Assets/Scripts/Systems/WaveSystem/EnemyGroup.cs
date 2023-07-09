@@ -11,6 +11,8 @@ namespace Tzipory.WaveSystem
         
         private int _spawnAmountPreInterval;
 
+        private float _startDelay;
+
         private float _spawnInterval;
         public int TotalSpawnAmount { get; private set; }
 
@@ -21,6 +23,7 @@ namespace Tzipory.WaveSystem
         public EnemyGroup(EnemyGroupSerializeData enemyGroupSerializeData)
         {
             Data = enemyGroupSerializeData;
+            _startDelay = enemyGroupSerializeData.GroupStartDelay;
             _enemyPrefab = enemyGroupSerializeData.EnemyPrefab;
             TotalSpawnAmount = enemyGroupSerializeData.TotalSpawnAmount;
             _spawnInterval = 0;
@@ -31,6 +34,13 @@ namespace Tzipory.WaveSystem
         {
             if (TotalSpawnAmount <= 0)
             {
+                enemyPrefab = null;
+                return false;
+            }
+
+            if (_startDelay > 0)
+            {
+                _startDelay  -= GAME_TIME.GameDeltaTime;
                 enemyPrefab = null;
                 return false;
             }

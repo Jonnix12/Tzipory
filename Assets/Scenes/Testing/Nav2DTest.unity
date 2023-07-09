@@ -1002,51 +1002,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844661658}
   m_CullTransparentMesh: 1
---- !u!1 &1043271903
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1043271904}
-  - component: {fileID: 1043271905}
-  m_Layer: 0
-  m_Name: TempCorotienHelper
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1043271904
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1043271903}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1182395357}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1043271905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1043271903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06aa960be8994b168fb04506028294b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cleanUpRate: 10
 --- !u!1 &1146192133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,7 +1063,6 @@ Transform:
   m_Children:
   - {fileID: 683912511}
   - {fileID: 1923815855}
-  - {fileID: 1043271904}
   - {fileID: 73375197}
   - {fileID: 1243779357}
   - {fileID: 1521469693}
@@ -2422,8 +2376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfef232ea6ab4e24da27fb4035a6ad79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelSerializeData: {fileID: 11400000, guid: e16c4341a54e2974aa0292aca03650c6, type: 2}
-  _levelPerant: {fileID: 0}
+  _levelSerializeData: {fileID: 11400000, guid: b2410bd7672fb3c44a347198cb6e74fa, type: 2}
+  _levelPerant: {fileID: 1680609405}
 --- !u!1 &1940092580
 GameObject:
   m_ObjectHideFlags: 0
