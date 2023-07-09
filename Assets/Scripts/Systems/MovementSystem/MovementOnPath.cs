@@ -56,6 +56,9 @@ public class MovementOnPath : MonoBehaviour
     
     public void AdvanceOnPath()
     {
+        if (pathCreator == null)
+            return;
+
         _currentPointOnPath = pathCreator.path.GetPointAtDistance(privateRabbitProgress, EndOfPathInstruction.Stop);
 
         basicMoveComponent.SetDestination(_currentPointOnPath, MoveType.Guided);

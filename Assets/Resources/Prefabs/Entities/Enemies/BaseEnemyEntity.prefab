@@ -178,16 +178,15 @@ MonoBehaviour:
     _id: 0
     _startDelay: 0
     _endDelay: 0
-    isInterruptable: 0
+    _isStackable: 0
+    _isInterruptable: 0
     _effectActionContainers:
     - _disableUndo: 0
       _startDelay: 0
-      _endDelay: 0
       _effectActionStart: 0
       _effectActionSO: {fileID: 11400000, guid: efd2a47c331e44c4d80a605273ecc06f, type: 2}
     - _disableUndo: 0
       _startDelay: 0
-      _endDelay: 0
       _effectActionStart: 0
       _effectActionSO: {fileID: 11400000, guid: 6c0015ba36e55234b97a8e707264ae82, type: 2}
   _onAttack:
@@ -195,37 +194,39 @@ MonoBehaviour:
     _id: 0
     _startDelay: 0
     _endDelay: 0
-    isInterruptable: 0
+    _isStackable: 0
+    _isInterruptable: 0
     _effectActionContainers: []
   _onCritAttack:
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
-    isInterruptable: 0
+    _isStackable: 0
+    _isInterruptable: 0
     _effectActionContainers: []
   _onMove:
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
-    isInterruptable: 0
+    _isStackable: 0
+    _isInterruptable: 0
     _effectActionContainers: []
   _onGetHit:
     _sequenceName: 
     _id: 0
     _startDelay: 0
     _endDelay: 0
-    isInterruptable: 1
+    _isStackable: 0
+    _isInterruptable: 0
     _effectActionContainers:
     - _disableUndo: 0
       _startDelay: 0
-      _endDelay: 0
       _effectActionStart: 0
       _effectActionSO: {fileID: 11400000, guid: efd2a47c331e44c4d80a605273ecc06f, type: 2}
     - _disableUndo: 0
       _startDelay: 0
-      _endDelay: 0
       _effectActionStart: 0
       _effectActionSO: {fileID: 11400000, guid: a623487578b155d448fa5c0657da923b, type: 2}
   _onGetCritHit:
@@ -233,20 +234,23 @@ MonoBehaviour:
     _id: 0
     _startDelay: 0
     _endDelay: 11.5
-    isInterruptable: 1
+    _isStackable: 0
+    _isInterruptable: 0
     _effectActionContainers:
     - _disableUndo: 0
       _startDelay: 0
-      _endDelay: 0
       _effectActionStart: 0
       _effectActionSO: {fileID: 11400000, guid: efd2a47c331e44c4d80a605273ecc06f, type: 2}
     - _disableUndo: 0
       _startDelay: 0
-      _endDelay: 0
       _effectActionStart: 0
       _effectActionSO: {fileID: 11400000, guid: 1b22e0a237eeefa448293adc8adacc19, type: 2}
   _doShowHPBar: 1
   _hpBarConnector: {fileID: 4613587498334124606}
+  _decisionInterval: 5
+  _aggroLevel: 60
+  _returnLevel: 50
+  _movementOnPath: {fileID: 5674738988083909809}
   BasicMoveComponent: {fileID: 4723283581889533953}
 --- !u!114 &7221615852569552283
 MonoBehaviour:
@@ -263,7 +267,7 @@ MonoBehaviour:
   MotionType: 2
   Speed: 0.5
   Acceleration: 8
-  AngularSpeed: 1200
+  AngularSpeed: 0
   StoppingDistance: 0.2
   AutoBreaking: 0
 --- !u!114 &6978351683747423327
@@ -380,7 +384,7 @@ MonoBehaviour:
   acceptableDistanceToCompletion: 2
   finalLoopSpeed: 0.5
   rabbitGizmoBoxSize: 0.5
-  alwaysShowGizmo: 0
+  alwaysShowGizmo: 1
 --- !u!114 &4723283581889533953
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ namespace Enemes
             base.Awake();
             EntityTeamType = EntityTeamType.Enemy;
             timer = 0;
-            _currentDecisionInterval = 0;
+            _currentDecisionInterval = _decisionInterval;
             _isAttacking  = false;
         }
 
@@ -36,35 +36,36 @@ namespace Enemes
         {
             if (_currentDecisionInterval < 0)
             {
-                if (Random.Range(0, 100) < _aggroLevel)
+                if (!_isAttacking)
                 {
-                    Targeting.GetPriorityTarget();
+                    if (Random.Range(0, 100) < _aggroLevel)
+                    {
+                        Targeting.GetPriorityTarget();
                     
-                    _isAttacking  = true;
+                        if (!Targeting.HaveTarget)
+                            return;
+                        _isAttacking  = true;
+                    }
                 }
                 
+                if (_isAttacking)
+                {
+                    if (_returnLevel + Vector3.Distance(EntityTransform.position,_movementOnPath.CurrentPointOnPath) < Random.Range(0,100) || Targeting.CurrentTarget.IsEntityDead)
+                        _isAttacking = false;
+                }
+
                 _currentDecisionInterval = _decisionInterval;
+                _movementOnPath.AdvanceOnPath();
             }
 
             _currentDecisionInterval -= GAME_TIME.GameDeltaTime;
 
             if (_isAttacking)
             {
-                BasicMoveComponent.SetDestination(Target.EntityTransform.position, MoveType.Free);//temp!
+                BasicMoveComponent.SetDestination(Targeting.CurrentTarget.EntityTransform.position, MoveType.Free);//temp!
                 
-                
-                if (Vector3.Distance(transform.position, Target.EntityTransform.position) < AttackRange.CurrentValue)
+                if (Vector3.Distance(transform.position, Targeting.CurrentTarget.EntityTransform.position) < AttackRange.CurrentValue)
                     Attack();
-                
-
-                if (_returnLevel + Vector3.Distance(EntityTransform.position,_movementOnPath.CurrentPointOnPath) < Random.Range(0,100) || Target.IsEntityDead)
-                {
-                    _isAttacking = false;
-                }
-            }
-            else
-            {
-                _movementOnPath.AdvanceOnPath();
             }
         }
 
@@ -82,13 +83,14 @@ namespace Enemes
         {
             base.Attack(); //empty
             
-            if (Target == null)
+            if (Targeting.CurrentTarget == null)
                 return;
             
             if (timer >= StatusHandler.GetStatById((int)Constant.Stats.AttackRate).CurrentValue)
             {
                 timer = 0f;
-                Target.TakeDamage(StatusHandler.GetStatById((int)Constant.Stats.AttackDamage).CurrentValue, false);
+                Targeting.CurrentTarget.TakeDamage(StatusHandler.GetStatById((int)Constant.Stats.AttackDamage).CurrentValue, false);
+                Debug.Log($"{gameObject.name} attack {Targeting.CurrentTarget.EntityTransform.name}");
             }
             else
             {
