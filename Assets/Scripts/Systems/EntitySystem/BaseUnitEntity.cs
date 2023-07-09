@@ -28,7 +28,8 @@ namespace Tzipory.EntitySystem.Entitys
         [SerializeField, ReadOnly,TabGroup("Stats")] private List<Stat> _stats;
 #endif
         [SerializeField,TabGroup("Component")] private CircleCollider2D _bodyCollider;
-        [SerializeField,TabGroup("Component")] private CircleCollider2D _rangeCollider;
+        //[SerializeField,TabGroup("Component")] private CircleCollider2D _rangeCollider;
+        [SerializeField,TabGroup("Component")] private Collider2D _rangeCollider;
         [Header("Visual components")]
         [SerializeField,TabGroup("Component")] private SpriteRenderer _spriteRenderer;
         [SerializeField,TabGroup("Component")] private Transform _visualQueueEffectPosition;
@@ -44,18 +45,30 @@ namespace Tzipory.EntitySystem.Entitys
 
         #endregion
 
+        #region Temps
+        [Header("TEMPS")]
+        [SerializeField] private bool _doShowHPBar;
+        [SerializeField] private TEMP_UNIT_HPBarConnector _hpBarConnector;
+        #endregion
+
+        //Temp?
+        #region Events
+        //public event Action OnHealthChanged;
+        #endregion
+
         #region UnityCallBacks
 
         protected override void Awake()//temp!!!
         {
             base.Awake();
-
             DefaultPriorityTargeting =
                 Factory.TargetingPriorityFactory.GetTargetingPriority(this, _config.TargetingPriority);
             
             Targeting = GetComponentInChildren<TargetingHandler>();//temp
             Targeting.Init(this);
-            
+
+            //TEMP HP BAR INIT
+
             List<Stat> stats = new List<Stat>();
             
             stats.Add(new Stat(Constant.Stats.Health.ToString(), _config.Health.BaseValue, _config.Health.MaxValue,                         (int)Constant.Stats.Health));
@@ -112,8 +125,19 @@ namespace Tzipory.EntitySystem.Entitys
             AbilityHandler = new AbilityHandler(this,this, _config.AbilityConfigs);
 
             _rangeCollider.isTrigger = true;
+
         }
-        
+        protected virtual void Start()
+        {
+            if (_doShowHPBar)//Temp!
+                HP.OnCurrentValueChanged +=  _hpBarConnector.SetBarToHealth;
+
+            if (_doShowHPBar)
+                _hpBarConnector.Init(this);
+            else
+                _hpBarConnector.gameObject.SetActive(false);
+        }
+
         protected override void Update()
         {
             base.Update();
@@ -121,17 +145,15 @@ namespace Tzipory.EntitySystem.Entitys
             HealthComponentUpdate();
             StatusHandler.UpdateStatusEffects();
 
-            if (_target == null || _target.IsEntityDead)
-                _target = Targeting.GetPriorityTarget();
+            if (Targeting.CurrentTarget == null || Targeting.CurrentTarget.IsEntityDead)
+                Targeting.GetPriorityTarget();
             
+            EffectSequenceHandler.UpdateEffectHandler();
             
-            // if (_target != null)//temp
-            //     Attack();
-            
+            //TEMP AF!!!
+            _rangeCollider.transform.localScale = new Vector3(AttackRange.CurrentValue* 1.455f, AttackRange.CurrentValue,1f);//temp
             
             UpdateEntity();
-
-            _rangeCollider.radius = StatusHandler.GetStatById((int)Constant.Stats.AttackRange).CurrentValue;//temp
         }
 
         protected abstract void UpdateEntity();
@@ -156,22 +178,24 @@ namespace Tzipory.EntitySystem.Entitys
 
         private void OnDrawGizmosSelected()
         {
-            Gizmos.DrawWireSphere(transform.position,_config.AttackRange.BaseValue);
-            if (_target != null)
+            Gizmos.DrawWireSphere(transform.position,_config.AttackRange.BaseValue / 2);
+
+            if (Targeting != null)
             {
+                if (Targeting.CurrentTarget == null) return;
+                
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(transform.position,_target.EntityTransform.position);
+                Gizmos.DrawLine(transform.position,Targeting.CurrentTarget.EntityTransform.position);
                 Gizmos.color = Color.white;
             }
-            
-            
         }
 
-        protected override void OnDestroy()
+        private void OnDisable()
         {
             StatusHandler.OnStatusEffectInterrupt -= EffectSequenceHandler.RemoveEffectSequence;
             StatusHandler.OnStatusEffectAdded -= AddStatusEffectVisual;
-            base.OnDestroy();
+
+            HP.OnCurrentValueChanged  -= _hpBarConnector.SetBarToHealth;
         }
 
         #endregion
@@ -202,7 +226,7 @@ namespace Tzipory.EntitySystem.Entitys
         public void Heal(float amount)
         {
             HP.AddToValue(amount);
-
+            //OnHealthChanged?.Invoke();
             // if (HP.CurrentValue > HP.BaseValue)
             //     HP.ResetValue();
         }
@@ -245,11 +269,8 @@ namespace Tzipory.EntitySystem.Entitys
 
         #region CombatComponent                                                                                                                                   
         
-        private IEntityTargetAbleComponent _target;
-        
-        public IEntityTargetAbleComponent Target => _target;
-        public void SetAttackTarget(IEntityTargetAbleComponent tgt) => _target = tgt;
-        
+        public void SetAttackTarget(IEntityTargetAbleComponent target) => Targeting.SetAttackTarget(target);
+
         public Stat AttackDamage => StatusHandler.GetStatById((int)Constant.Stats.AttackDamage);
         public Stat CritDamage => StatusHandler.GetStatById((int)Constant.Stats.CritDamage);
         public Stat CritChance => StatusHandler.GetStatById((int)Constant.Stats.CritChance);
@@ -297,7 +318,7 @@ namespace Tzipory.EntitySystem.Entitys
         public Transform VisualQueueEffectPosition => _visualQueueEffectPosition;
 
         private void AddStatusEffectVisual(BaseStatusEffect baseStatusEffect) =>
-            EffectSequenceHandler.ActiveEffectSequence(baseStatusEffect.EffectSequence);//temp
+            EffectSequenceHandler.PlaySequenceByData(baseStatusEffect.EffectSequence);//temp
 
         #endregion
     }

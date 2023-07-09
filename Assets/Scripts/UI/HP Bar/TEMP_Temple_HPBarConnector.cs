@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Tzipory.EntitySystem.EntityComponents;
 using UnityEngine;
 
-public class TEMP_HPBarConnector : MonoBehaviour
+public class TEMP_Temple_HPBarConnector : MonoBehaviour
 {
     [SerializeField]
     TEMP_HP_Bar hP_Bar;

@@ -4,12 +4,16 @@ using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.Entitys;
 using Tzipory.Helpers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Shamans
 {
     public class Shaman : BaseUnitEntity
     {
+
+        [SerializeField, TabGroup("Proximity Indicator")] private ProximityIndicatorHandler _proximityHandler;
+
         [Space]
         [Header("Temps")]
         [SerializeField] private Temp_ShamanShotVisual _shotVisual;
@@ -23,11 +27,22 @@ namespace Shamans
             base.Awake();
             EntityTeamType = EntityTeamType.Hero;
             _clickHelper.OnClick += _tempHeroMovement.SelectHero;
+
+            //_proximityConfig
+        }
+        protected override void Start()
+        {
+            base.Start();
+            _proximityHandler.Init(AttackRange.CurrentValue *2f);//MAY need to move to OnEnable - especially if we use ObjectPooling instead of instantiate
+        }
+        private void OnDisable()
+        {
+            _proximityHandler.Disable();
         }
 
         protected override void UpdateEntity()
         {
-             if (Target != null)//temp
+             if (Targeting.CurrentTarget != null)//temp
                  Attack();
         }
 
@@ -65,11 +80,11 @@ namespace Shamans
             if (CritChance.CurrentValue > Random.Range(0, 100))
             {
                 EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnCritAttack);
-                _shotVisual.Shot(Target,CritDamage.CurrentValue,true);
+                _shotVisual.Shot(Targeting.CurrentTarget,CritDamage.CurrentValue,true);
                 return;
             }
             EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnAttack);
-            _shotVisual.Shot(Target,AttackDamage.CurrentValue,false);
+            _shotVisual.Shot(Targeting.CurrentTarget,AttackDamage.CurrentValue,false);
         }
     }
 }

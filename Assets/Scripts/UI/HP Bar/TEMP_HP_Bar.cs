@@ -1,12 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TEMP_HP_Bar : MonoBehaviour
 {
-    [SerializeField]
-    Image fillImage;
     [SerializeField]
     Transform fillSprite;
     [SerializeField]
@@ -45,16 +41,14 @@ public class TEMP_HP_Bar : MonoBehaviour
     IEnumerator SmoothBar(float duration, float targetValue)
     {
         float t = 0f;
-        float _startValue = fillSprite.localScale.x;
-        float _currentValue = fillSprite.localScale.x;
+        float startValue = fillSprite.localScale.x;
+        float currentValue = fillSprite.localScale.x;
         while(t<=duration)
         {
-            _currentValue = Mathf.Lerp(_startValue, targetValue, t);
+            currentValue = Mathf.Lerp(startValue, targetValue, t);
             t += Time.deltaTime / duration;
-            SetBarValue(_currentValue);
+            SetBarValue(currentValue);
             yield return null;
         }
     }
-
-
 }

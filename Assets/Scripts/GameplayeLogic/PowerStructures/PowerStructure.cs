@@ -8,11 +8,15 @@ using UnityEngine;
 //TEMP NAME! BAD NAME!
 public class PowerStructure : BaseGameEntity
 {
-    //This is actually not temp, it's a good gizmo to help move the area of influence a bit, as needed
-    [SerializeField]
-    CircleCollider2D effectArea;
-    [SerializeField]
-    StatusEffectConfigSo myEffectSO;
+    
+    //temp config stuff
+    [SerializeField] private float _range;
+
+
+    [SerializeField] private Collider2D effectArea;
+    [SerializeField] private StatusEffectConfigSo myEffectSO;
+    [SerializeField] private ProximityIndicatorHandler _proximityIndicatorHandler;
+    [SerializeField] private Color activeColor;
 
     private Dictionary<int, IDisposable> _activeStatusEffectOnShaman;
 
@@ -20,8 +24,15 @@ public class PowerStructure : BaseGameEntity
     {
         base.Awake();
         _activeStatusEffectOnShaman = new Dictionary<int, IDisposable>();
+        //_proximityIndicatorHandler.Init(effectArea.radius*2f); //MAY need to move to OnEnable - especially if we use ObjectPooling instead of instantiate
+        _proximityIndicatorHandler.Init(_range); 
     }
-    
+
+    private void OnDisable()
+    {
+        _proximityIndicatorHandler.Disable();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Shaman"))
@@ -30,6 +41,10 @@ public class PowerStructure : BaseGameEntity
             Debug.Log($"{shaman.name} entered the area of influence of {name}");
             IDisposable disposable = shaman.StatusHandler.AddStatusEffect(myEffectSO);
             _activeStatusEffectOnShaman.Add(shaman.EntityInstanceID, disposable);
+        }
+        else if(collision.gameObject.CompareTag("ShadowShaman"))
+        {
+            _proximityIndicatorHandler.ChangeColor(activeColor);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -46,6 +61,10 @@ public class PowerStructure : BaseGameEntity
                 disposable.Dispose();
                 _activeStatusEffectOnShaman.Remove(shaman.EntityInstanceID);
             }
+        }
+        else if (collision.gameObject.CompareTag("ShadowShaman"))
+        {
+            _proximityIndicatorHandler.ResetColor();
         }
     }
 

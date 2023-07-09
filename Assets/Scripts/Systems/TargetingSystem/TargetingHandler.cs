@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace Tzipory.EntitySystem.TargetingSystem
 {
-    public class TargetingHandler : MonoBehaviour , ITargeting
+    public class TargetingHandler : MonoBehaviour
     {
         private IEntityTargetingComponent _entityTargetingComponent;
         private List<IEntityTargetAbleComponent> _availableTargets;
+        
+        public IEntityTargetAbleComponent CurrentTarget { get; private set; }
         
         public List<IEntityTargetAbleComponent> AvailableTargets => _availableTargets;
 
@@ -25,12 +27,20 @@ namespace Tzipory.EntitySystem.TargetingSystem
             _entityTargetingComponent = targetingComponent;
         }
 
-        public IEntityTargetAbleComponent GetPriorityTarget(IPriorityTargeting priorityTargeting = null)
+        public void SetAttackTarget(IEntityTargetAbleComponent target)
+        {
+            CurrentTarget = target;
+        }
+
+        public void GetPriorityTarget(IPriorityTargeting priorityTargeting = null)
         {
             if (priorityTargeting == null)
-                return _entityTargetingComponent.DefaultPriorityTargeting.GetPriorityTarget(_availableTargets);
+            {
+                CurrentTarget = _entityTargetingComponent.DefaultPriorityTargeting.GetPriorityTarget(_availableTargets);
+                return;
+            }
             
-            return priorityTargeting.GetPriorityTarget(_availableTargets);
+            CurrentTarget = priorityTargeting.GetPriorityTarget(_availableTargets);
         }
 
         public void AddTarget(IEntityTargetAbleComponent targetAbleComponent)
@@ -45,14 +55,22 @@ namespace Tzipory.EntitySystem.TargetingSystem
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.TryGetComponent<BaseUnitEntity>(out BaseUnitEntity unitEntity) && unitEntity.EntityTeamType != _entityTargetingComponent.EntityTeamType) //Removing friendly fire!
-                AddTarget(unitEntity);
+            if (other.gameObject.TryGetComponent(out IEntityTargetAbleComponent targetAbleComponent) && targetAbleComponent.EntityTeamType != _entityTargetingComponent.EntityTeamType) //Removing friendly fire!
+                AddTarget(targetAbleComponent);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.TryGetComponent<BaseUnitEntity>(out BaseUnitEntity unitEntity))
-                RemoveTarget(unitEntity);
+            if (other.gameObject.TryGetComponent(out IEntityTargetAbleComponent targetAbleComponent))
+            {
+                RemoveTarget(targetAbleComponent);
+                
+                if (CurrentTarget == null)
+                    return;
+                
+                if (targetAbleComponent.EntityInstanceID == CurrentTarget.EntityInstanceID)
+                    GetPriorityTarget();
+            }
         }
     }
 }

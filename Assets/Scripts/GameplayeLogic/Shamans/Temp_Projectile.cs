@@ -45,12 +45,12 @@ public class Temp_Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<IEntityTargetAbleComponent>(out var target))
+        if (other.TryGetComponent<IEntityTargetAbleComponent>(out var hitedTarget))
         {
-            if (_target.EntityTeamType == EntityTeamType.Hero) return;
+            if (hitedTarget.EntityTeamType == EntityTeamType.Hero) return;
             //if (target.EntityInstanceID == _casterId) return;
             
-            target.TakeDamage(_damage,_isCrit);
+            hitedTarget.TakeDamage(_damage,_isCrit);
             Destroy(gameObject);
         }
     }

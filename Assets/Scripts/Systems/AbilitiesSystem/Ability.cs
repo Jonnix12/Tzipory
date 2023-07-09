@@ -66,16 +66,16 @@ namespace Tzipory.AbilitiesSystem
                 return;
             
             AbilityCaster.Cast(currentTarget,AbilityExecutor);
-            IsCasting = false;
         }
 
-        private void StartCooldown() =>
-            _entityTargetingComponent.GameEntity.EntityTimer.StartNewTimer(Cooldown.CurrentValue,
-                () =>
-                {
-                    _isReady = true;
-                    IsCasting = false;
-                });
+        private void StartCooldown()
+        {
+            IsCasting  = false;
+            _entityTargetingComponent.GameEntity.EntityTimer.StartNewTimer(Cooldown.CurrentValue,ResetAbility);
+        }
+
+        private void ResetAbility() =>
+            _isReady = true;
 
         ~Ability()
         {
