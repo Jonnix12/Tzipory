@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 4723520416321705241}
   - component: {fileID: 7673678306335734228}
   - component: {fileID: 4116441138019045504}
+  - component: {fileID: 7693390801151820247}
   m_Layer: 0
   m_Name: ShadowSprite
   m_TagString: ShadowShaman
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1447107314027615554
 Transform:
   m_ObjectHideFlags: 0
@@ -35,7 +36,7 @@ Transform:
   - {fileID: 2668273189290507671}
   - {fileID: 322499668170916445}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5858104005554282615
 SpriteRenderer:
@@ -212,6 +213,24 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7693390801151820247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5249046983319933460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d727c97d49043704994a872065d22a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shadowRenderer: {fileID: 5858104005554282615}
+  _proximityRenderer: {fileID: 6799797271645015345}
+  _mask: {fileID: 4116441138019045504}
+  _lineRenderer: {fileID: 0}
+  _agent: {fileID: 0}
+  IsOn: 0
 --- !u!1 &7117625766000666590
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +242,7 @@ GameObject:
   - component: {fileID: 322499668170916445}
   - component: {fileID: 289948927856234890}
   m_Layer: 0
-  m_Name: Square
+  m_Name: TEMP_SimpleWhiteGhost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,7 +305,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.26321647, g: 0.8584906, b: 0.8315704, a: 0.23921569}
+  m_Color: {r: 0.26321647, g: 0.8584906, b: 0.8315704, a: 0.5294118}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -372,5 +391,10 @@ PrefabInstance:
 --- !u!4 &2668273189290507671 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3229880739477402777, guid: 1ce8a27c6209e374f96bf1bbb06f6528, type: 3}
+  m_PrefabInstance: {fileID: 708555252017056014}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &6799797271645015345 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6307555882966484031, guid: 1ce8a27c6209e374f96bf1bbb06f6528, type: 3}
   m_PrefabInstance: {fileID: 708555252017056014}
   m_PrefabAsset: {fileID: 0}
