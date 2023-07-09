@@ -249,6 +249,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: fd7bf99da41054542921947d038de0bd, type: 2}
     - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: _aggroLevel
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
+      propertyPath: _returnLevel
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: _movementOnPath
       value: 
       objectReference: {fileID: 5938123266329083345}

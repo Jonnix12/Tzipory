@@ -9,8 +9,9 @@ namespace Enemes
 {
     public class Enemy : BaseUnitEntity
     {
-        [SerializeField,TabGroup("AI")] private float _decisionInterval;
-        [SerializeField,TabGroup("AI")] private float _aggroLevel;
+        [SerializeField,TabGroup("AI")] private float _decisionInterval;//temp
+        [SerializeField,TabGroup("AI")] private float _aggroLevel;//temp
+        [SerializeField,TabGroup("AI")] private float _returnLevel;//temp
 
         private bool _isAttacking;
 
@@ -37,26 +38,33 @@ namespace Enemes
             {
                 if (Random.Range(0, 100) < _aggroLevel)
                 {
+                    Targeting.GetPriorityTarget();
+                    
                     _isAttacking  = true;
                 }
                 
                 _currentDecisionInterval = _decisionInterval;
-                _movementOnPath.AdvanceOnPath();
             }
 
             _currentDecisionInterval -= GAME_TIME.GameDeltaTime;
 
             if (_isAttacking)
             {
-                BasicMoveComponent.SetDestination(Target.EntityTransform.position, MoveType.Free);
-
+                BasicMoveComponent.SetDestination(Target.EntityTransform.position, MoveType.Free);//temp!
+                
+                
                 if (Vector3.Distance(transform.position, Target.EntityTransform.position) < AttackRange.CurrentValue)
                     Attack();
+                
 
-                if (Target.IsEntityDead)
+                if (_returnLevel + Vector3.Distance(EntityTransform.position,_movementOnPath.CurrentPointOnPath) < Random.Range(0,100) || Target.IsEntityDead)
                 {
                     _isAttacking = false;
                 }
+            }
+            else
+            {
+                _movementOnPath.AdvanceOnPath();
             }
         }
 

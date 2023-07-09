@@ -28,6 +28,8 @@ public class MovementOnPath : MonoBehaviour
 
     #endregion
 
+    public Vector3 CurrentPointOnPath => _currentPointOnPath;
+
 #if UNITY_EDITOR
     [SerializeField]
     private float rabbitGizmoBoxSize= 1f;
