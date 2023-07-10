@@ -1,15 +1,22 @@
 ﻿using System;
 using SerializeData.VisualSystemSerializeData;
 using Tzipory.EntitySystem.EntityComponents;
+using Tzipory.Systems.FactorySystem;
 using Tzipory.VisualSystem.EffectSequence;
 using Tzipory.VisualSystem.EffectSequence.EffectType;
 using Tzipory.VisualSystem.EffectSequence.EffectType.Sound;
 
-namespace Factory
+namespace Tzipory.Factory
 {
-    public class EffectActionFactory
+    public class EffectActionFactory :  IFactory<BaseEffectAction,EffectActionContainerData,IEntityVisualComponent>
     {
-        public static BaseEffectAction GetEffectAction(EffectActionContainerData actionContainerData,IEntityVisualComponent visualComponent)//need to change happens in update 
+        public BaseEffectAction GetEffectAction(EffectActionContainerData actionContainerData,
+            IEntityVisualComponent visualComponent)
+        {
+            return null;
+        }
+
+        public BaseEffectAction Create(EffectActionContainerData actionContainerData,IEntityVisualComponent visualComponent)//need to change happens in update 
         {
             //may need to add null check
             var effectActionSO = actionContainerData.EffectActionSo;

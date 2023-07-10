@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Timers;
 using SerializeData.VisualSystemSerializeData;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;

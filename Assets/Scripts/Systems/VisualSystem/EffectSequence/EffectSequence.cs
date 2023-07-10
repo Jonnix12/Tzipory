@@ -60,7 +60,7 @@ namespace Tzipory.VisualSystem.EffectSequence
 
             foreach (var effectActionContainer in sequenceData.EffectActionContainers)
             {
-                var effectAction = EffectActionFactory.GetEffectAction(effectActionContainer,visualComponent);
+                BaseEffectAction effectAction = null; //EffectActionFactory.Create(effectActionContainer,visualComponent);Temp!!!
                 effectAction.OnEffectActionComplete += OnActionComplete;
                 _effectActions.Add(effectAction);
             }
