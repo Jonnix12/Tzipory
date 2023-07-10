@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
    public void Reset()
    {
       GAME_TIME.SetTimeStep(1);
-      LevelManager.Instance = null;
+      //LevelManager.Instance = null;
       SceneManager.LoadScene(0);
    }
 }

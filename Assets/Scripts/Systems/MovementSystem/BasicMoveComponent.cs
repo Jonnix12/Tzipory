@@ -50,7 +50,6 @@ namespace Tzipory.EntitySystem.EntityComponents
             if (Vector2.Distance(_destination, transform.position) > 0.2f) return;
             
             _destination = Vector2.zero;
-            Debug.Log("Stoped!");
             IsMoveing = false;
         }
 

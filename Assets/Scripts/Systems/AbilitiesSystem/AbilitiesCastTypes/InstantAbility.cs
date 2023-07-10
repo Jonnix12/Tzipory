@@ -16,8 +16,8 @@ namespace Tzipory.AbilitiesSystem
         
         public void Cast(IEntityTargetAbleComponent target, IAbilityExecutor abilityExecutor)
         {
-            abilityExecutor.Init(target);
             OnCast?.Invoke();
+            abilityExecutor.Init(target);
         }
     }
 }

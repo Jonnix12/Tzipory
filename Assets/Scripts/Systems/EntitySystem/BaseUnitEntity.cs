@@ -145,15 +145,15 @@ namespace Tzipory.EntitySystem.Entitys
             HealthComponentUpdate();
             StatusHandler.UpdateStatusEffects();
 
-            if (_target == null || _target.IsEntityDead)
-                _target = Targeting.GetPriorityTarget();
+            if (Targeting.CurrentTarget == null || Targeting.CurrentTarget.IsEntityDead)
+                Targeting.GetPriorityTarget();
+            
+            EffectSequenceHandler.UpdateEffectHandler();
             
             //TEMP AF!!!
             _rangeCollider.transform.localScale = new Vector3(AttackRange.CurrentValue* 1.455f, AttackRange.CurrentValue,1f);//temp
-          
-
+            
             UpdateEntity();
-
         }
 
         protected abstract void UpdateEntity();
@@ -178,15 +178,16 @@ namespace Tzipory.EntitySystem.Entitys
 
         private void OnDrawGizmosSelected()
         {
-            Gizmos.DrawWireSphere(transform.position,_config.AttackRange.BaseValue);
-            if (_target != null)
+            Gizmos.DrawWireSphere(transform.position,_config.AttackRange.BaseValue / 2);
+
+            if (Targeting != null)
             {
+                if (Targeting.CurrentTarget == null) return;
+                
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(transform.position,_target.EntityTransform.position);
+                Gizmos.DrawLine(transform.position,Targeting.CurrentTarget.EntityTransform.position);
                 Gizmos.color = Color.white;
             }
-            
-            
         }
 
         private void OnDisable()
@@ -268,11 +269,8 @@ namespace Tzipory.EntitySystem.Entitys
 
         #region CombatComponent                                                                                                                                   
         
-        private IEntityTargetAbleComponent _target;
-        
-        public IEntityTargetAbleComponent Target => _target;
-        public void SetAttackTarget(IEntityTargetAbleComponent tgt) => _target = tgt;
-        
+        public void SetAttackTarget(IEntityTargetAbleComponent target) => Targeting.SetAttackTarget(target);
+
         public Stat AttackDamage => StatusHandler.GetStatById((int)Constant.Stats.AttackDamage);
         public Stat CritDamage => StatusHandler.GetStatById((int)Constant.Stats.CritDamage);
         public Stat CritChance => StatusHandler.GetStatById((int)Constant.Stats.CritChance);
@@ -320,7 +318,7 @@ namespace Tzipory.EntitySystem.Entitys
         public Transform VisualQueueEffectPosition => _visualQueueEffectPosition;
 
         private void AddStatusEffectVisual(BaseStatusEffect baseStatusEffect) =>
-            EffectSequenceHandler.ActiveEffectSequence(baseStatusEffect.EffectSequence);//temp
+            EffectSequenceHandler.PlaySequenceByData(baseStatusEffect.EffectSequence);//temp
 
         #endregion
     }

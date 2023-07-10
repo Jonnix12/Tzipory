@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.BaseSystem.TimeSystem;
 using PathCreation;
-using Shamans;
 using Enemes;
 
 public class MovementOnPath : MonoBehaviour
@@ -31,6 +28,8 @@ public class MovementOnPath : MonoBehaviour
 
     #endregion
 
+    public Vector3 CurrentPointOnPath => _currentPointOnPath;
+
 #if UNITY_EDITOR
     [SerializeField]
     private float rabbitGizmoBoxSize= 1f;
@@ -46,42 +45,20 @@ public class MovementOnPath : MonoBehaviour
     /// </summary>
     /// <param name="pc"></param>
     /// <param name="finalDest"></param>
-    public void SetPath(PathCreator pc, PathCreator finalDest, IEntityTargetAbleComponent target)
+    public void SetPath(PathCreator pc)
     {
-        finalDestinaion = finalDest;
         privateRabbitProgress = 0;
         pathCreator = pc;
-        attackTarget = target;
-
-        GAME_TIME.OnGameTimeTick += AdvanceOnPath;
+        //finalDestinaion = finalDest;
+        //attackTarget = target;
     }
 
-    /// <summary>
-    /// GameTickHooks (temp name)
-    /// Logic that subscribes to TEMP_TIME.OnGameTimeTick. Basically the "GameUpdate" that works on Ticks instead of Update().
-    /// Usually only one such hook/method would be subbed to TEMP_TIME.OnGameTimeTick, but that is not a rule.
-    /// One entity/component could have as many GameTickHooks subbed as needed.
-    /// With a preference of keeping it to "one 'major' hook pre component/script"
-    /// 
-    /// In this case we have 2 major hooks:
-    /// AdvanceOnPath - assumes this unity has a legit SetPath(). Once hooked, this method maintains movement along the set path (with some logic and parameters for when and how to advance along the path)
-    ///     This also maintains the exit-condition("are we there yet?") for this hook.
-    ///     Once this Unit is within acceptableDistanceToCompletion from the target -> this method un-subbs from TEMP_TIME.OnGameTimeTick
-    ///     and instead subbs the next hook:
-    /// 
-    /// CircleFinalDestination - assumes this unity has a legit FinalDestinaionPath. Once hooked, this method maintains movement through the loop around the target destination.
-    ///     This loop CAN also be the one to call the attack component (since it would have to handle decisions about "being in attack Range" anyways -> it might aswell give the firing-orders)
-    /// 
-    /// </summary>
-    #region GameTickHooks
-
-    /// privateRabbitProgress is the amount of path this unit is allowed to progress, this starts at 0f.
-    /// Evenry tick, these Units will try to get to a point on the path that is [privateRabbitProgress out of fullPathLength].
-    /// Every tick, the Unit checks if it is within acceptableDistanceFromPath.
-    /// (!!!!from PATH not from the "rabbit" point on the path, since they may be pushed further along the path, and should not be punished if they can't return)
-    /// If the Unit is close enough to any point on the path -> privateRabbitProgress increases by privateRabbitIncrement.
-    private void AdvanceOnPath()
+    
+    public void AdvanceOnPath()
     {
+        if (pathCreator == null)
+            return;
+
         _currentPointOnPath = pathCreator.path.GetPointAtDistance(privateRabbitProgress, EndOfPathInstruction.Stop);
 
         basicMoveComponent.SetDestination(_currentPointOnPath, MoveType.Guided);
@@ -94,13 +71,11 @@ public class MovementOnPath : MonoBehaviour
             privateRabbitProgress += privateRabbitIncrement;
             if (privateRabbitProgress > pathCreator.path.length && Vector3.Distance(transform.position, _currentPointOnPath) <= acceptableDistanceToCompletion)
             {
-                GAME_TIME.OnGameTimeTick -= AdvanceOnPath;
-                privateRabbitProgress = 0f;
-                GAME_TIME.OnGameTimeTick += CircleFinalDestination;
+                //CircleFinalDestination();
             }
         }
     }
-    #endregion
+   
     private void CircleFinalDestination()
     {
         _currentPointOnPath = finalDestinaion.path.GetPointAtDistance(privateRabbitProgress, EndOfPathInstruction.Loop);
@@ -115,11 +90,7 @@ public class MovementOnPath : MonoBehaviour
     }
 
     #region Callbacks
-    private void OnDisable()
-    {
-        GAME_TIME.OnGameTimeTick -= AdvanceOnPath;
-        GAME_TIME.OnGameTimeTick -= CircleFinalDestination;
-    }
+    
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {

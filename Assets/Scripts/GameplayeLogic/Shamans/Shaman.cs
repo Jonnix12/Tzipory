@@ -42,7 +42,7 @@ namespace Shamans
 
         protected override void UpdateEntity()
         {
-             if (Target != null)//temp
+             if (Targeting.CurrentTarget != null)//temp
                  Attack();
         }
 
@@ -80,11 +80,11 @@ namespace Shamans
             if (CritChance.CurrentValue > Random.Range(0, 100))
             {
                 EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnCritAttack);
-                _shotVisual.Shot(Target,CritDamage.CurrentValue,true);
+                _shotVisual.Shot(Targeting.CurrentTarget,CritDamage.CurrentValue,true);
                 return;
             }
             EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnAttack);
-            _shotVisual.Shot(Target,AttackDamage.CurrentValue,false);
+            _shotVisual.Shot(Targeting.CurrentTarget,AttackDamage.CurrentValue,false);
         }
     }
 }

@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
-using Helpers.Consts;
 using SerializeData.VisualSystemSerializeData;
 using Tzipory.EntitySystem.EntityComponents;
-using Tzipory.Helpers;
 using UnityEngine;
 
 namespace Tzipory.VisualSystem.EffectSequence
 {
     public class EffectSequenceHandler
     {
-        private readonly Dictionary<int, EffectSequence> _sequencesDictionary;
+        private readonly Dictionary<int, EffectSequenceData> _sequencesDictionary;
 
         private List<EffectSequence> _activeSequences;
 
@@ -23,34 +21,40 @@ namespace Tzipory.VisualSystem.EffectSequence
             _entityVisualComponent = visualComponent;
 
             foreach (var sequenceData in sequencesDatas)
-                _sequencesDictionary.Add(sequenceData.ID, new EffectSequence(visualComponent,sequenceData));
+                _sequencesDictionary.Add(sequenceData.ID, sequenceData);
         }
 
-        private void PlaySequence(EffectSequence effectSequence)
+        private void PlaySequence(EffectSequenceData effectSequenceData)
         {
+            if (effectSequenceData.IsInterruptable)
+                RemoveEffectSequence(effectSequenceData.ID);
+
+            var effectSequence = new EffectSequence(_entityVisualComponent,effectSequenceData);
+            
             effectSequence.StartEffectSequence();
-            effectSequence.OnEffectSequenceComplete += RemoveActiveEffectSequence;
+            
+            effectSequence.OnEffectSequenceComplete += RemoveEffectSequence;
             _activeSequences.Add(effectSequence);
         }
-
-        private void InterrupterEffectSequence(int interrupterSequenceIndex)
-        {
-            _activeSequences[interrupterSequenceIndex].StopSequence();
-            _activeSequences[interrupterSequenceIndex].OnEffectSequenceComplete -= RemoveEffectSequence;
-            _activeSequences.RemoveAt(interrupterSequenceIndex);
-        }
         
-        private void RemoveActiveEffectSequence(int id)
+        
+        private void RemoveEffectSequence(EffectSequence effectSequence)
         {
-            for (int i = 0; i < _activeSequences.Count; i++)
-            {
-                if (_activeSequences[i].ID == id)
-                {
-                    _activeSequences[i].OnEffectSequenceComplete -= RemoveEffectSequence;
-                    _activeSequences.RemoveAt(i);
-                    return;
-                }
-            }
+            if (_activeSequences.Count == 0)
+                return;
+
+            // if (!_activeSequences.Contains(effectSequence)) //will make to loop over the _activeSequences list may make some problems 
+            // {
+            //     Debug.LogWarning("Try remove a effectSequence that not exists");
+            //     return;
+            // }
+
+
+            if (effectSequence.IsInterruptable && effectSequence.IsActive)
+                effectSequence.ResetSequence();
+
+            effectSequence.OnEffectSequenceComplete -= RemoveEffectSequence;
+            _activeSequences.Remove(effectSequence);
         }
 
         private bool CanPlaySequence(EffectSequenceData sequenceData,out int interrupterSequenceIndex)
@@ -76,36 +80,45 @@ namespace Tzipory.VisualSystem.EffectSequence
         
         public void PlaySequenceById(int id)
         {
-            if (!_sequencesDictionary.TryGetValue(id, out var effectSequence))
+            if (!_sequencesDictionary.TryGetValue(id, out var effectSequenceData))
             {
                 Debug.LogWarning($"Sequence with id {id} not found");
                 return;
             }
             
-            PlaySequence(effectSequence);
+            PlaySequence(effectSequenceData);
+        }
+        
+        public void PlaySequenceByData(EffectSequenceData effectSequenceData)
+        {
+            if (effectSequenceData.EffectActionContainers.Count == 0)
+                return;
+            
+            PlaySequence(effectSequenceData);
         }
 
         public void RemoveEffectSequence(int effectSequenceId)
         {
-            if (_sequencesDictionary.TryGetValue(effectSequenceId, out var effectSequence))
-            {
-                effectSequence.StopSequence();
-                _sequencesDictionary.Remove(effectSequenceId);
-            }
-        }
-
-        public void ActiveEffectSequence(EffectSequenceData sequenceData)
-        {
-            if (sequenceData.EffectActionContainers.Count == 0)
+            if (_activeSequences.Count == 0)
                 return;
 
-            if (CanPlaySequence(sequenceData,out var interrupterSequenceIndex))
+            foreach (var effectSequence in _activeSequences)
             {
-                if (interrupterSequenceIndex != -1)
-                    InterrupterEffectSequence(interrupterSequenceIndex);
-                
-                var sequence = new EffectSequence(_entityVisualComponent,sequenceData);
-                PlaySequence(sequence);
+                if (effectSequence.ID == effectSequenceId)
+                {
+                    RemoveEffectSequence(effectSequence);
+                    return;
+                }
+            }
+            
+            Debug.LogWarning($"Try remove a effectSequence that not exists effect ID : {effectSequenceId}");
+        }
+        
+        public void UpdateEffectHandler()
+        {
+            for (int i = 0; i < _activeSequences.Count; i++)
+            {
+                _activeSequences[i].UpdateEffectSequence();
             }
         }
     }

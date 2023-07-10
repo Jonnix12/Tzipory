@@ -35,7 +35,7 @@ MonoBehaviour:
   _attackRange:
     _name: AttackRange
     _id: 3
-    _baseValue: 1
+    _baseValue: 3
     _currentValue: 0
   _CritDamage:
     _name: CritDamage

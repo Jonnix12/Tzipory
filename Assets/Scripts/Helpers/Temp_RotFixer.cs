@@ -5,7 +5,7 @@ using ProjectDawn.Navigation.Hybrid;
 public class Temp_RotFixer : MonoBehaviour
 {
     //EXTRA TEMP! Flip with direction
-    [SerializeField] private AgentAuthoring _agentAuthoring;
+    [SerializeField] private Rigidbody2D _agentBody;
     [SerializeField] private SpriteRenderer _toFlip;
 
 
@@ -14,18 +14,12 @@ public class Temp_RotFixer : MonoBehaviour
 
     void Awake()
     {
-        ogRot = transform.rotation;
         ogScale = transform.localScale;
     }
     
     void LateUpdate()
     {
-        transform.rotation = ogRot;
-        // Vector3 newPos = transform.position;
-        // newPos.y = transform.position.y / -100f;
-        // newPos.y += transform.position.x / 300f;
-        // transform.position = newPos;
-        Vector3 _vel = _agentAuthoring.EntityBody.Velocity;
+        Vector3 _vel = _agentBody.velocity;
 
         if(_vel.sqrMagnitude != 0) //sqrMagnitude is cheaper than just magnitude. magnitude returns the root of magnitude.
         {
@@ -41,6 +35,5 @@ public class Temp_RotFixer : MonoBehaviour
 
             }
         }
-        //transform.localScale = ogScale * (1f+newPos.y*4f);
     }
 }
