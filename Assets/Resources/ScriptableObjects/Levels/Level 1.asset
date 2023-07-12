@@ -55,3 +55,21 @@ MonoBehaviour:
         _spawnInterval: 0.2
         _startType: 0
         _startTime: 1
+  - _name: Wave 2
+    _waveSpawnerSerializeDatas:
+    - _waveSpawnerColor: {r: 1, g: 0, b: 0, a: 1}
+      _delayBetweenEnemyGroup: 0
+      _enemyGroups:
+      - _enemyPrefab: {fileID: 8881082679684268218, guid: 79c07d52a32e9924f917344eb3fbc334, type: 3}
+        _groupStartDelay: 0
+        _totalSpawnAmount: 30
+        _spawnAmountPreInterval: 3
+        _spawnInterval: 1
+        _startType: 0
+        _startTime: 31
+    - _waveSpawnerColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+      _delayBetweenEnemyGroup: 0
+      _enemyGroups: []
+    - _waveSpawnerColor: {r: 0, g: 1, b: 0, a: 1}
+      _delayBetweenEnemyGroup: 0
+      _enemyGroups: []
