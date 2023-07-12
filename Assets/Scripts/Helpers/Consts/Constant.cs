@@ -18,6 +18,7 @@
             AttackDamage,
             AttackRate,
             AttackRange,
+            TargetingRange,
             MovementSpeed,
             CritDamage,
             CritChance,

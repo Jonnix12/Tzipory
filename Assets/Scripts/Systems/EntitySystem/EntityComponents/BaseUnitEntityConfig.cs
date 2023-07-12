@@ -19,6 +19,7 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
         [SerializeField,Tooltip(""),TabGroup("Stats")] private Stat _attackDamage;
         [SerializeField,Tooltip(""),TabGroup("Stats")] private Stat _AttackRate;
         [SerializeField,Tooltip(""),TabGroup("Stats")] private Stat _attackRange;
+        [SerializeField,Tooltip(""),TabGroup("Stats")] private Stat _targetingRange;
         [SerializeField,Tooltip(""),TabGroup("Stats")] private Stat _CritDamage;
         [SerializeField,Tooltip(""),TabGroup("Stats")] private Stat _CritChance;
         [FormerlySerializedAs("_moveSpeed")] [SerializeField,Tooltip(""),TabGroup("Stats")] private Stat _movementSpeed;
@@ -38,6 +39,8 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
 
         public Stat AttackRange => _attackRange;
 
+        public Stat TargetingRange => _targetingRange;
+
         public Stat CritDamage => _CritDamage;
 
         public Stat CritChance => _CritChance;
@@ -55,6 +58,7 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
             _invincibleTime.Name = Constant.Stats.InvincibleTime.ToString();
             _attackDamage.Name =   Constant.Stats.AttackDamage.ToString();
             _AttackRate.Name =     Constant.Stats.AttackRate.ToString();
+            _targetingRange.Name = Constant.Stats.TargetingRange.ToString();
             _attackRange.Name =    Constant.Stats.AttackRange.ToString();
             _CritDamage.Name =     Constant.Stats.CritDamage.ToString();
             _CritChance.Name =     Constant.Stats.CritChance.ToString();
@@ -64,6 +68,7 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
             _invincibleTime.Id = (int)Constant.Stats.InvincibleTime;
             _attackDamage.Id =   (int)Constant.Stats.AttackDamage;
             _AttackRate.Id =     (int)Constant.Stats.AttackRate;
+            _targetingRange.Id = (int)Constant.Stats.TargetingRange;
             _attackRange.Id =    (int)Constant.Stats.AttackRange;
             _CritDamage.Id =     (int)Constant.Stats.CritDamage;
             _CritChance.Id =     (int)Constant.Stats.CritChance;

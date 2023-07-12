@@ -78,6 +78,7 @@ namespace Tzipory.EntitySystem.Entitys
             stats.Add(new Stat(Constant.Stats.CritChance.ToString(), _config.CritChance.BaseValue, _config.CritChance.MaxValue,             (int)Constant.Stats.CritChance));
             stats.Add(new Stat(Constant.Stats.AttackRate.ToString(), _config.AttackRate.BaseValue, _config.AttackRate.MaxValue,             (int)Constant.Stats.AttackRate));
             stats.Add(new Stat(Constant.Stats.AttackRange.ToString(), _config.AttackRange.BaseValue, _config.AttackRange.MaxValue,          (int)Constant.Stats.AttackRange));
+            stats.Add(new Stat(Constant.Stats.TargetingRange.ToString(), _config.TargetingRange.BaseValue, _config.TargetingRange.MaxValue, (int)Constant.Stats.TargetingRange));
             stats.Add(new Stat(Constant.Stats.MovementSpeed.ToString(), _config.MovementSpeed.BaseValue, _config.MovementSpeed.MaxValue,    (int)Constant.Stats.MovementSpeed));
             
             if (_config.Stats != null && _config.Stats.Count > 0)
@@ -130,7 +131,7 @@ namespace Tzipory.EntitySystem.Entitys
         protected virtual void Start()
         {
             if (_doShowHPBar)//Temp!
-                HP.OnCurrentValueChanged +=  _hpBarConnector.SetBarToHealth;
+                HP.OnCurrentValueChanged += _hpBarConnector.SetBarToHealth;
 
             if (_doShowHPBar)
                 _hpBarConnector.Init(this);
@@ -151,7 +152,7 @@ namespace Tzipory.EntitySystem.Entitys
             EffectSequenceHandler.UpdateEffectHandler();
             
             //TEMP AF!!!
-            _rangeCollider.transform.localScale = new Vector3(AttackRange.CurrentValue* 1.455f, AttackRange.CurrentValue,1f);//temp
+            _rangeCollider.transform.localScale = new Vector3(TargetingRange.CurrentValue* 1.455f, TargetingRange.CurrentValue,1f);//temp
             
             UpdateEntity();
         }
@@ -202,6 +203,7 @@ namespace Tzipory.EntitySystem.Entitys
 
         #region TargetingComponent
 
+        public Stat TargetingRange => StatusHandler.GetStatById((int)Constant.Stats.TargetingRange);
         public EntityTeamType EntityTeamType { get; protected set; }
         
         public IPriorityTargeting DefaultPriorityTargeting { get; private set; }

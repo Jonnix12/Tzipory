@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Tzipory.EntitySystem.EntityComponents;
-using Tzipory.EntitySystem.Entitys;
 using UnityEngine;
 
 namespace Tzipory.EntitySystem.TargetingSystem
@@ -9,7 +8,9 @@ namespace Tzipory.EntitySystem.TargetingSystem
     {
         private IEntityTargetingComponent _entityTargetingComponent;
         private List<IEntityTargetAbleComponent> _availableTargets;
-        
+
+
+        public bool HaveTarget => CurrentTarget != null;
         public IEntityTargetAbleComponent CurrentTarget { get; private set; }
         
         public List<IEntityTargetAbleComponent> AvailableTargets => _availableTargets;
@@ -34,6 +35,9 @@ namespace Tzipory.EntitySystem.TargetingSystem
 
         public void GetPriorityTarget(IPriorityTargeting priorityTargeting = null)
         {
+            if (_availableTargets.Count == 0)
+                return;
+
             if (priorityTargeting == null)
             {
                 CurrentTarget = _entityTargetingComponent.DefaultPriorityTargeting.GetPriorityTarget(_availableTargets);
