@@ -5,11 +5,12 @@ using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.Entitys;
 using Tzipory.Helpers;
 using Sirenix.OdinInspector;
+using Tzipory.EntitySystem.EntityConfigSystem;
 using UnityEngine;
 
 namespace Shamans
 {
-    public class Shaman : BaseUnitEntity
+    public class Shaman : BaseUnitEntity // may need to make poolable
     {
 
         [SerializeField, TabGroup("Proximity Indicator")] private ProximityIndicatorHandler _proximityHandler;
@@ -22,18 +23,13 @@ namespace Shamans
         
         private float _currentAttackRate;
 
-        protected override void Awake()
+        public override void Init(BaseUnitEntityConfig parameter)
         {
-            base.Awake();
+            base.Init(parameter);
             EntityTeamType = EntityTeamType.Hero;
             _clickHelper.OnClick += _tempHeroMovement.SelectHero;
-
-            //_proximityConfig
-        }
-        protected override void Start()
-        {
-            base.Start();
-            _proximityHandler.Init(AttackRange.CurrentValue *2f);//MAY need to move to OnEnable - especially if we use ObjectPooling instead of instantiate
+            
+            _proximityHandler.Init(AttackRange.CurrentValue * 2f);//MAY need to move to OnEnable - especially if we use ObjectPooling instead of instantiate
         }
         private void OnDisable()
         {
@@ -85,6 +81,12 @@ namespace Shamans
             }
             EffectSequenceHandler.PlaySequenceById(Constant.EffectSequenceIds.OnAttack);
             _shotVisual.Shot(Targeting.CurrentTarget,AttackDamage.CurrentValue,false);
+        }
+
+        public override void OnEntityDead()
+        {
+            Debug.Log($"{gameObject.name} as Died!");
+            gameObject.SetActive(false);
         }
     }
 }

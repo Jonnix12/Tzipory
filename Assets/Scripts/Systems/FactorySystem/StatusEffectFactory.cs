@@ -1,7 +1,7 @@
 ﻿using System;
 using Tzipory.EntitySystem.StatusSystem;
 
-namespace Factory
+namespace Tzipory.Factory
 {
     public class StatusEffectFactory
     {

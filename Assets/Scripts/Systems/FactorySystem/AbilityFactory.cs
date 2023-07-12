@@ -4,7 +4,7 @@ using Tzipory.AbilitiesSystem.AbilityConfigSystem;
 using Tzipory.AbilitiesSystem.AbilityExecuteTypes;
 using Tzipory.EntitySystem.EntityComponents;
 
-namespace Factory
+namespace Tzipory.Factory
 {
     public class AbilityFactory
     {

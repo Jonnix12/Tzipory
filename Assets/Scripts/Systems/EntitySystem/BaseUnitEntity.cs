@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Helpers.Consts;
 using SerializeData.VisualSystemSerializeData;
 using Sirenix.OdinInspector;
@@ -9,20 +8,20 @@ using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.EntityConfigSystem;
 using Tzipory.EntitySystem.StatusSystem;
 using Tzipory.EntitySystem.TargetingSystem;
+using Tzipory.Tools.Interface;
 using Tzipory.Tools.Sound;
 using Tzipory.VisualSystem.EffectSequence;
 using UnityEngine;
 
 namespace Tzipory.EntitySystem.Entitys
 {
-    public abstract class BaseUnitEntity : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent , IEntityAbilitiesComponent,IEntityVisualComponent
+    public abstract class BaseUnitEntity : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , 
+        IEntityTargetingComponent , IEntityAbilitiesComponent,IEntityVisualComponent,IInitialization<BaseUnitEntityConfig>
     {
-
         #region Fields
         
         [Header("Entity config")]
         [SerializeField] private BaseUnitEntityConfig _config;
-      
         
 #if UNITY_EDITOR
         [SerializeField, ReadOnly,TabGroup("Stats")] private List<Stat> _stats;
@@ -57,12 +56,19 @@ namespace Tzipory.EntitySystem.Entitys
         #endregion
 
         #region UnityCallBacks
+        
+        public bool IsInitialization { get; private set; }
+        public virtual void Init(BaseUnitEntityConfig parameter)
+        {
+            BaseUnitEntityInit(parameter);
+            IsInitialization = true;
+        }
 
-        protected override void Awake()//temp!!!
+        private void BaseUnitEntityInit(BaseUnitEntityConfig config)
         {
             base.Awake();
             DefaultPriorityTargeting =
-                Factory.TargetingPriorityFactory.GetTargetingPriority(this, _config.TargetingPriority);
+                Factory.TargetingPriorityFactory.GetTargetingPriority(this, config.TargetingPriority);
             
             Targeting = GetComponentInChildren<TargetingHandler>();//temp
             Targeting.Init(this);
@@ -71,18 +77,18 @@ namespace Tzipory.EntitySystem.Entitys
 
             List<Stat> stats = new List<Stat>();
             
-            stats.Add(new Stat(Constant.Stats.Health.ToString(), _config.Health.BaseValue, _config.Health.MaxValue,                         (int)Constant.Stats.Health));
-            stats.Add(new Stat(Constant.Stats.InvincibleTime.ToString(), _config.InvincibleTime.BaseValue, _config.InvincibleTime.MaxValue, (int)Constant.Stats.InvincibleTime));
-            stats.Add(new Stat(Constant.Stats.AttackDamage.ToString(), _config.AttackDamage.BaseValue, _config.AttackDamage.MaxValue,       (int)Constant.Stats.AttackDamage));
-            stats.Add(new Stat(Constant.Stats.CritDamage.ToString(), _config.CritDamage.BaseValue, _config.CritDamage.MaxValue,             (int)Constant.Stats.CritDamage));
-            stats.Add(new Stat(Constant.Stats.CritChance.ToString(), _config.CritChance.BaseValue, _config.CritChance.MaxValue,             (int)Constant.Stats.CritChance));
-            stats.Add(new Stat(Constant.Stats.AttackRate.ToString(), _config.AttackRate.BaseValue, _config.AttackRate.MaxValue,             (int)Constant.Stats.AttackRate));
-            stats.Add(new Stat(Constant.Stats.AttackRange.ToString(), _config.AttackRange.BaseValue, _config.AttackRange.MaxValue,          (int)Constant.Stats.AttackRange));
-            stats.Add(new Stat(Constant.Stats.MovementSpeed.ToString(), _config.MovementSpeed.BaseValue, _config.MovementSpeed.MaxValue,    (int)Constant.Stats.MovementSpeed));
+            stats.Add(new Stat(Constant.Stats.Health.ToString(), config.Health.BaseValue, config.Health.MaxValue,                         (int)Constant.Stats.Health));
+            stats.Add(new Stat(Constant.Stats.InvincibleTime.ToString(), config.InvincibleTime.BaseValue, config.InvincibleTime.MaxValue, (int)Constant.Stats.InvincibleTime));
+            stats.Add(new Stat(Constant.Stats.AttackDamage.ToString(), config.AttackDamage.BaseValue, config.AttackDamage.MaxValue,       (int)Constant.Stats.AttackDamage));
+            stats.Add(new Stat(Constant.Stats.CritDamage.ToString(), config.CritDamage.BaseValue, config.CritDamage.MaxValue,             (int)Constant.Stats.CritDamage));
+            stats.Add(new Stat(Constant.Stats.CritChance.ToString(), config.CritChance.BaseValue, config.CritChance.MaxValue,             (int)Constant.Stats.CritChance));
+            stats.Add(new Stat(Constant.Stats.AttackRate.ToString(), config.AttackRate.BaseValue, config.AttackRate.MaxValue,             (int)Constant.Stats.AttackRate));
+            stats.Add(new Stat(Constant.Stats.AttackRange.ToString(), config.AttackRange.BaseValue, config.AttackRange.MaxValue,          (int)Constant.Stats.AttackRange));
+            stats.Add(new Stat(Constant.Stats.MovementSpeed.ToString(), config.MovementSpeed.BaseValue, config.MovementSpeed.MaxValue,    (int)Constant.Stats.MovementSpeed));
             
-            if (_config.Stats != null && _config.Stats.Count > 0)
+            if (config.Stats != null && config.Stats.Count > 0)
             {
-                foreach (var stat in _config.Stats)
+                foreach (var stat in config.Stats)
                     stats.Add(new Stat(stat.Name, stat.BaseValue, stat.MaxValue, stat.Id));
             }
             
@@ -122,13 +128,10 @@ namespace Tzipory.EntitySystem.Entitys
             StatusHandler.OnStatusEffectAdded += AddStatusEffectVisual;
             
             
-            AbilityHandler = new AbilityHandler(this,this, _config.AbilityConfigs);
+            AbilityHandler = new AbilityHandler(this,this, config.AbilityConfigs);
 
             _rangeCollider.isTrigger = true;
-
-        }
-        protected virtual void Start()
-        {
+            
             if (_doShowHPBar)//Temp!
                 HP.OnCurrentValueChanged +=  _hpBarConnector.SetBarToHealth;
 
@@ -203,13 +206,11 @@ namespace Tzipory.EntitySystem.Entitys
         #region TargetingComponent
 
         public EntityTeamType EntityTeamType { get; protected set; }
-        
         public IPriorityTargeting DefaultPriorityTargeting { get; private set; }
         public TargetingHandler Targeting { get; set; }
+        
         public float GetDistanceToTarget(IEntityTargetAbleComponent targetAbleComponent)
-        {
-            return Vector2.Distance(transform.position, targetAbleComponent.EntityTransform.position);
-        }
+            => Vector2.Distance(transform.position, targetAbleComponent.EntityTransform.position);
 
         #endregion
 
@@ -218,7 +219,6 @@ namespace Tzipory.EntitySystem.Entitys
         private float  _currentInvincibleTime;
 
         public Stat HP => StatusHandler.GetStatById((int)Constant.Stats.Health);
-        
         public Stat InvincibleTime => StatusHandler.GetStatById((int)Constant.Stats.InvincibleTime);
         public bool IsDamageable { get; private set; }
         public bool IsEntityDead => HP.CurrentValue <= 0;
@@ -258,11 +258,7 @@ namespace Tzipory.EntitySystem.Entitys
             }
             
             if (HP.CurrentValue < 0)
-            {
-                gameObject.SetActive(false);
-                EntityTimer.StartNewTimer(2f, () => { Destroy(gameObject); });
-                //effectplay
-            }
+                OnEntityDead();
         }
 
         #endregion
@@ -276,10 +272,9 @@ namespace Tzipory.EntitySystem.Entitys
         public Stat CritChance => StatusHandler.GetStatById((int)Constant.Stats.CritChance);
         public Stat AttackRate => StatusHandler.GetStatById((int)Constant.Stats.AttackRate);
         public Stat AttackRange => StatusHandler.GetStatById((int)Constant.Stats.AttackRange);
-        
-        public virtual void Attack()
-        {
-        }
+
+        public abstract void Attack();
+        public abstract void OnEntityDead();
 
         #endregion
 

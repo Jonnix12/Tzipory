@@ -1,13 +1,17 @@
-﻿using Helpers.Consts;
+﻿using System;
+using Helpers.Consts;
 using Sirenix.OdinInspector;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.EntitySystem.EntityComponents;
+using Tzipory.EntitySystem.EntityConfigSystem;
 using Tzipory.EntitySystem.Entitys;
+using Tzipory.Systems.PoolSystem;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemes
 {
-    public class Enemy : BaseUnitEntity
+    public class Enemy : BaseUnitEntity , IPoolable<Enemy>
     {
         [SerializeField,TabGroup("AI")] private float _decisionInterval;//temp
         [SerializeField,TabGroup("AI")] private float _aggroLevel;//temp
@@ -22,10 +26,11 @@ namespace Enemes
         public BasicMoveComponent BasicMoveComponent;
 
         float timer;
-
-        protected override void Awake()
+        
+        public override void Init(BaseUnitEntityConfig parameter)
         {
-            base.Awake();
+            base.Init(parameter);
+            gameObject.SetActive(false);
             EntityTeamType = EntityTeamType.Enemy;
             timer = 0;
             _currentDecisionInterval = _decisionInterval;
@@ -69,11 +74,6 @@ namespace Enemes
             }
         }
 
-        private void Start()
-        {
-            BasicMoveComponent.Init(MoveSpeed);//temp!
-        }
-
         public void TakeTarget(IEntityTargetAbleComponent target)
         {
             SetAttackTarget(target);
@@ -81,8 +81,6 @@ namespace Enemes
 
         public override void Attack()
         {
-            base.Attack(); //empty
-            
             if (Targeting.CurrentTarget == null)
                 return;
             
@@ -97,5 +95,27 @@ namespace Enemes
                 timer += GAME_TIME.GameDeltaTime;
             }
         }
+
+        public override void OnEntityDead()
+        {
+            Dispose();
+        }
+
+        #region PoolObject
+
+        public event Action<Enemy> OnDispose;
+        
+        public void Dispose()
+        {
+            OnDispose?.Invoke(this);
+            gameObject.SetActive(false);
+        }
+
+        public void Free()
+        {
+            Destroy(gameObject);
+        }
+
+        #endregion
     }
 }

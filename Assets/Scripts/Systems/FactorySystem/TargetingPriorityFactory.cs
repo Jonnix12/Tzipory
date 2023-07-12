@@ -4,11 +4,11 @@ using Tzipory.EntitySystem.EntityComponents;
 using Tzipory.EntitySystem.TargetingSystem;
 using Tzipory.EntitySystem.TargetingSystem.TargetingPriorites;
 
-namespace Factory
+namespace Tzipory.Factory
 {
     public class TargetingPriorityFactory
     {
-        public static  IPriorityTargeting GetTargetingPriority(IEntityTargetingComponent entityTargetingComponent,TargetingPriorityType targetingPriorityType)
+        public static IPriorityTargeting GetTargetingPriority(IEntityTargetingComponent entityTargetingComponent,TargetingPriorityType targetingPriorityType)
         {
             switch (targetingPriorityType)
             {

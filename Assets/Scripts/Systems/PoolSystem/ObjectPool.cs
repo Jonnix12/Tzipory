@@ -1,54 +1,99 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tzipory.Systems.FactorySystem;
 
 namespace Tzipory.Systems.PoolSystem
 {
-    public abstract class BaseObjectPool<T>
+    public class ObjectPool<T> where T : class, IPoolable<T> 
     {
-        protected Action<T> OnGet;//may need to make readOnly
-        protected Action<T> OnReturn;//may need to make readOnly
-        
-        protected readonly bool IsDynamic;
-        protected readonly int MaxPoolSize;
-        protected readonly int MinPoolSize;
+        private readonly Action<T> OnGet;
+        private readonly Action<T> OnReturn;
+
+        private readonly bool IsDynamic;
+        private readonly int MaxPoolSize;
+        private readonly int MinPoolSize;
         private readonly Queue<T> _objectPool;
         private readonly List<T> _aliveObjects;
 
-        protected int NumberOfObjectInPool => _objectPool.Count;
+        private readonly IFactory<T> _factory;
+
+        private int NumberOfObjectInPool => _objectPool.Count;
         
-        private BaseObjectPool(Action<T> onGet, Action<T> onReturn)
+        public ObjectPool(IFactory<T> factory,Action<T> onGet, Action<T> onReturn)
         {
             OnGet = onGet;
             OnReturn = onReturn;
             _aliveObjects  = new List<T>();
             _objectPool = new Queue<T>();
+
+            _factory = factory;
+        }
+        
+        public ObjectPool(IFactory<T> factory)
+        {
+            OnGet = null;
+            OnReturn = null;
+            _aliveObjects  = new List<T>();
+            _objectPool = new Queue<T>();
+
+            _factory = factory;
+        }
+        
+        public ObjectPool(IFactory<T> factory,int initialPool)
+        {
+            OnGet = null;
+            OnReturn = null;
+            _aliveObjects  = new List<T>();
+            _objectPool = new Queue<T>(initialPool);
             
-            OnGet += AddObject;
-            OnReturn += RemoveObject;
+            IsDynamic = true;
+            
+            _factory = factory;
+
+            for (var i = 0; i < initialPool; i++)
+            {
+                var newObject = _factory.Create();
+                _objectPool.Enqueue(newObject);
+            }
         }
 
-        protected BaseObjectPool(Action<T> onGet, Action<T> onReturn, int maxPoolSize, int minPoolSize) : this(onGet,onReturn)
+        public ObjectPool(IFactory<T> factory,Action<T> onGet, Action<T> onReturn, int maxPoolSize, int minPoolSize) : this(factory,onGet,onReturn)
         {
             IsDynamic = true;
             MaxPoolSize = maxPoolSize;
             MinPoolSize = minPoolSize;
         }
         
-        protected BaseObjectPool(Action<T> onGet, Action<T> onReturn, bool isDynamic,int initialPool) : this(onGet,onReturn)
+        public ObjectPool(IFactory<T> factory,Action<T> onGet, Action<T> onReturn, bool isDynamic,int initialPool) : this(factory,onGet,onReturn)
+        {
+            IsDynamic = isDynamic;
+            MaxPoolSize = int.MaxValue;
+            MinPoolSize = 0;
+        }
+
+        public ObjectPool(IFactory<T> factory,int maxPoolSize, int minPoolSize) : this(factory)
+        {
+            IsDynamic = true;
+            MaxPoolSize = maxPoolSize;
+            MinPoolSize = minPoolSize;
+        }
+        
+        public ObjectPool(IFactory<T> factory,bool isDynamic,int initialPool) : this(factory,initialPool)
         {
             IsDynamic = isDynamic;
             MaxPoolSize = int.MaxValue;
             MinPoolSize = 0;
         }
         
-        protected BaseObjectPool(Action<T> onGet, Action<T> onReturn,int minPoolSize,int initialPool,int maxPoolSize) : this(onGet,onReturn)
+        public ObjectPool(IFactory<T> factory,int minPoolSize,int initialPool,int maxPoolSize) : this(factory,initialPool)
         {
             IsDynamic = true;
             MaxPoolSize = maxPoolSize;
             MinPoolSize = minPoolSize;
         }
 
-        protected bool TryGetObjectFromPool(out T t)
+
+        private bool TryGetObjectFromPool(out T t)
         {
             if (_objectPool.Count > 0)
             {
@@ -56,73 +101,43 @@ namespace Tzipory.Systems.PoolSystem
                 return true;
             }
 
-            t = default;
+            t = null;
             return false;
         }
         
-        private void AddObject(T t) => _aliveObjects.Add(t);
-        private void RemoveObject(T t) => _aliveObjects.Remove(t);
-
-        ~BaseObjectPool()
+        public T GetObject()
         {
-            OnGet -= AddObject;
-            OnReturn -= RemoveObject;
-        }
-    }
-    
-    public class ObjectPool<T> : BaseObjectPool<T> where T : class, IPoolable<T>
-    {
-        public ObjectPool(Action<T> onGet, Action<T> onReturn, int maxPoolSize, int minPoolSize) : base(onGet, onReturn, maxPoolSize, minPoolSize)
-        {
-        }
-
-        public ObjectPool(Action<T> onGet, Action<T> onReturn, bool isDynamic, int initialPool) : base(onGet, onReturn, isDynamic, initialPool)
-        {
-        }
-
-        public ObjectPool(Action<T> onGet, Action<T> onReturn, int minPoolSize, int initialPool, int maxPoolSize) : base(onGet, onReturn, minPoolSize, initialPool, maxPoolSize)
-        {
-        }
-    }
-
-    public class ObjectPool<T1, T2> : BaseObjectPool<T1> where T1 : class, IPoolable<T1,T2>
-    {
-        public ObjectPool(Action<T1> onGet, Action<T1> onReturn, int maxPoolSize, int minPoolSize) : base(onGet, onReturn, maxPoolSize, minPoolSize)
-        {
-        }
-
-        public ObjectPool(Action<T1> onGet, Action<T1> onReturn, bool isDynamic, int initialPool) : base(onGet, onReturn, isDynamic, initialPool)
-        {
-        }
-
-        public ObjectPool(Action<T1> onGet, Action<T1> onReturn, int minPoolSize, int initialPool, int maxPoolSize) : base(onGet, onReturn, minPoolSize, initialPool, maxPoolSize)
-        {
-        }
-        
-        private Func<T2, T1> _factoryMethod;
-
-        public T1 GetObject(T2 t2)
-        {
-            if (TryGetObjectFromPool(out var t))
+            if (TryGetObjectFromPool(out var newObject))
             {
-                t.Reset(t2);
-                OnGet?.Invoke(t);
-                return t;
-            }
-
-            if (IsDynamic && NumberOfObjectInPool < MaxPoolSize)
-            {
-                var newObject = _factoryMethod(t2);
+                newObject.OnDispose += Return;
                 OnGet?.Invoke(newObject);
                 return newObject;
             }
-            
-            return null;
+
+            if (!IsDynamic && NumberOfObjectInPool >= MaxPoolSize) return null;
+
+            newObject = _factory.Create();
+            newObject.OnDispose += Return;
+            OnGet?.Invoke(newObject);
+            AddObject(newObject);
+            return newObject;
         }
 
-        public void Return(T1 t1)
+        private void Return(T t)
         {
-            OnReturn?.Invoke(t1);
+            OnReturn?.Invoke(t);
+            ReturnObject(t);
+        }
+
+        private void AddObject(T t)
+        {
+            _aliveObjects.Add(t);
+        }
+
+        private void ReturnObject(T t)
+        {
+            _aliveObjects.Remove(t);
+            _objectPool.Enqueue(t);
         }
     }
 }

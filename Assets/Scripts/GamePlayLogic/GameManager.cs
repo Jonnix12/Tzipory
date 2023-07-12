@@ -1,9 +1,17 @@
 using Tzipory.BaseSystem.TimeSystem;
+using Tzipory.GamePlayLogic.ObjectPools;
 using UnityEngine;
 using  UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+   private PoolManager _poolManager;
+
+   private void Awake()
+   {
+      _poolManager = new PoolManager();
+   }
+
    public void Quit()
    {
       Application.Quit();
