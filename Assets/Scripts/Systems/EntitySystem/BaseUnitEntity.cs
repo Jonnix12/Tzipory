@@ -15,7 +15,8 @@ using UnityEngine;
 
 namespace Tzipory.EntitySystem.Entitys
 {
-    public abstract class BaseUnitEntity : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent , IEntityAbilitiesComponent,IEntityVisualComponent
+    public abstract class BaseUnitEntity : BaseGameEntity , IEntityTargetAbleComponent , IEntityCombatComponent , IEntityMovementComponent , IEntityTargetingComponent 
+        , IEntityAbilitiesComponent,IEntityVisualComponent
     {
 
         #region Fields

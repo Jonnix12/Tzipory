@@ -6,10 +6,10 @@ using UnityEngine;
 
 namespace Tzipory.Leval
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager
     {
-        [SerializeField] private LevelSerializeData _levelSerializeData;
-        [SerializeField] private Transform _levelPerant;
+        private LevelSerializeData _levelSerializeData;
+        private Transform _levelPerant;
         private List<Wave> _waves;
     
         private IEnumerable<WaveSpawner> _waveSpawners;
@@ -24,15 +24,18 @@ namespace Tzipory.Leval
         public int TotalNumberOfWaves => _waves.Count;
         
         private Wave CurrentWave => _waves[_currentWaveIndex];
-    
-        private void Awake()
+
+        public LevelManager(List<WaveSpawner> waveSpawners,LevelSerializeData levelSerializeData,Transform levelPerant)
         {
+            _levelPerant  = levelPerant;
+            _levelSerializeData = levelSerializeData;
+            
             _currentWaveIndex = 0;
             _levelStartDelay = _levelSerializeData.LevelStartDelay;
             _delayBetweenWaves = _levelSerializeData.DelayBetweenWaves;
 
-            Instantiate(_levelSerializeData.Level,_levelPerant);
-            _waveSpawners = FindObjectsOfType<WaveSpawner>();//temp!
+            Object.Instantiate(_levelSerializeData.Level,_levelPerant);
+            _waveSpawners = waveSpawners;
             
             _waves = new List<Wave>();
         
@@ -40,7 +43,7 @@ namespace Tzipory.Leval
                 _waves.Add(new Wave(_waveSpawners,waveSerialize));
         }
 
-        private void Update()
+        public void UpdateLevel()
         {
             if (_levelStartDelay > 0)
             {

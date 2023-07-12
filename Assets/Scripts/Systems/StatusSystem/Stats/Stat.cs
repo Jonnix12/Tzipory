@@ -8,7 +8,7 @@ namespace Tzipory.EntitySystem.StatusSystem
     public class Stat
     {
         //TEMP!
-        public Action OnCurrentValueChanged;
+        public event Action OnCurrentValueChanged;
         
         [SerializeField,ReadOnly] private string _name;
         [SerializeField,ReadOnly] private int _id;
