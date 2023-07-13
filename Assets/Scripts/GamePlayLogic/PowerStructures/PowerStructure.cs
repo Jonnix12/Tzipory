@@ -38,9 +38,14 @@ public class PowerStructure : BaseGameEntity
         if (collision.gameObject.CompareTag("Shaman"))
         {
             Shaman shaman = collision.GetComponentInParent<Shaman>();
+
+            if (_activeStatusEffectOnShaman.ContainsKey(shaman.EntityInstanceID))//temp!!!
+                return;
+
             Debug.Log($"{shaman.name} entered the area of influence of {name}");
             IDisposable disposable = shaman.StatusHandler.AddStatusEffect(myEffectSO);
-            _activeStatusEffectOnShaman.Add(shaman.EntityInstanceID, disposable);
+            _activeStatusEffectOnShaman.Add(shaman.
+                EntityInstanceID, disposable);
         }
         else if(collision.gameObject.CompareTag("ShadowShaman"))
         {

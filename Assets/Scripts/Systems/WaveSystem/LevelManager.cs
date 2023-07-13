@@ -1,15 +1,19 @@
+using System;
 using System.Collections.Generic;
 using Tzipory.BaseSystem.TimeSystem;
 using Tzipory.SerializeData.LevalSerializeData;
 using Tzipory.WaveSystem;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Tzipory.Leval
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager
     {
-        [SerializeField] private LevelSerializeData _levelSerializeData;
-        [SerializeField] private Transform _levelPerant;
+        public event Action<int> OnNewWaveStarted;
+        
+        private LevelSerializeData _levelSerializeData;
+        private Transform _levelPerant;
         private List<Wave> _waves;
     
         private IEnumerable<WaveSpawner> _waveSpawners;
@@ -19,20 +23,25 @@ namespace Tzipory.Leval
         
         private int _currentWaveIndex;
 
+        private ITimer _delayBetweenWavesTimer;
+
         public int WaveNumber => _currentWaveIndex + 1;
 
         public int TotalNumberOfWaves => _waves.Count;
         
         private Wave CurrentWave => _waves[_currentWaveIndex];
-    
-        private void Awake()
+
+        public LevelManager(LevelSerializeData levelSerializeData,Transform levelPerant)
         {
+            _levelPerant  = levelPerant;
+            _levelSerializeData = levelSerializeData;
+            
             _currentWaveIndex = 0;
             _levelStartDelay = _levelSerializeData.LevelStartDelay;
             _delayBetweenWaves = _levelSerializeData.DelayBetweenWaves;
 
-            Instantiate(_levelSerializeData.Level,_levelPerant);
-            _waveSpawners = FindObjectsOfType<WaveSpawner>();//temp!
+            Object.Instantiate(_levelSerializeData.Level,_levelPerant);
+            _waveSpawners = GameManager.GetWaveSpawners();//temppp
             
             _waves = new List<Wave>();
         
@@ -40,7 +49,7 @@ namespace Tzipory.Leval
                 _waves.Add(new Wave(_waveSpawners,waveSerialize));
         }
 
-        private void Update()
+        public void UpdateLevel()
         {
             if (_levelStartDelay > 0)
             {
@@ -49,17 +58,22 @@ namespace Tzipory.Leval
             }
 
             if (!CurrentWave.IsStarted)
-                CurrentWave.StartWave();
-            
-            if (CurrentWave.IsDone)
             {
-                if (_delayBetweenWaves > 0)
-                    return;
-
-                _delayBetweenWaves = _levelSerializeData.DelayBetweenWaves;
-                CurrentWave.EndWave();
-                _currentWaveIndex++;
+                CurrentWave.StartWave();
+                OnNewWaveStarted?.Invoke(_currentWaveIndex + 1);
             }
+
+            if (!CurrentWave.IsDone) return;
+            
+            _delayBetweenWavesTimer ??= GAME_TIME.TimerHandler.StartNewTimer(_delayBetweenWaves);
+                
+            if (!_delayBetweenWavesTimer.IsDone)
+                return;
+
+            _delayBetweenWavesTimer = null;
+            _delayBetweenWaves = _levelSerializeData.DelayBetweenWaves;
+            CurrentWave.EndWave();
+            _currentWaveIndex++;
         }
     }
 }

@@ -35,6 +35,7 @@ namespace Enemes
             timer = 0;
             _currentDecisionInterval = _decisionInterval;
             _isAttacking  = false;
+            BasicMoveComponent.Init(MoveSpeed);//temp!
         }
 
         protected override void UpdateEntity()

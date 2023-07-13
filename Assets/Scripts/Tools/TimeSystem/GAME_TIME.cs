@@ -17,7 +17,7 @@ namespace Tzipory.BaseSystem.TimeSystem
         public static TimerHandler TimerHandler => _timerHandler;
         
         public static Action OnTimeRateChange;
-        private float _tempTimeData;
+        private float _tempTimeData = 1;
 
         private void Start()
         {
@@ -52,19 +52,17 @@ namespace Tzipory.BaseSystem.TimeSystem
             SetTimeStep(_timeRate * 2);
         }
 
-        public void PlayPause()
+        public void Play()
         {
-            if (_timeRate != 0 )
-            {
-                _tempTimeData = _timeRate;
-                SetTimeStep(0);
-            }
-            else
-            {
-                SetTimeStep(_tempTimeData);
-                _tempTimeData = 0;
-            }
+            SetTimeStep(_tempTimeData);
+            _tempTimeData = 0;
+        }
+        
+        public void Pause()
+        {
+            if (_timeRate == 0) return;
+            _tempTimeData = _timeRate;
+            SetTimeStep(0);
         }
     }
 }
-

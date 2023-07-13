@@ -190,7 +190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5674738988083909809, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: privateRabbitIncrement
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7221615852569552283, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: AngularSpeed
@@ -202,11 +202,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: _aggroLevel
-      value: 15
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: _returnLevel
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7854104335867524329, guid: cff2810ae1250e149b86838176340862, type: 3}
       propertyPath: _onGetHit.isInterruptable
