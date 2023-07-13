@@ -1,5 +1,6 @@
 ﻿using Enemes;
 using Sirenix.OdinInspector;
+using Tzipory.EntitySystem.EntityConfigSystem;
 using Tzipory.Tools.Enums;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Tzipory.SerializeData.LevalSerializeData
     [System.Serializable]
     public class EnemyGroupSerializeData
     {
-        [SerializeField,AssetsOnly,Required] private Enemy _enemyPrefab;
+        [SerializeField,AssetsOnly,Required] private BaseUnitEntityConfig _enemyConfig;
         [SerializeField] private  float _groupStartDelay;
         [SerializeField] private int _totalSpawnAmount;
         [SerializeField] private int _spawnAmountPreInterval;
@@ -43,7 +44,7 @@ namespace Tzipory.SerializeData.LevalSerializeData
         [ShowInInspector, ReadOnly,PropertyOrder(-1)]
         public float EndTime => _startTime + TotalGroupSpawnTime;
 
-        public Enemy EnemyPrefab => _enemyPrefab;
+        public BaseUnitEntityConfig EnemyConfig => _enemyConfig;
 
         public int TotalSpawnAmount => _totalSpawnAmount;
         

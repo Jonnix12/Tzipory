@@ -69,7 +69,7 @@ namespace Tzipory.VisualSystem.EffectSequence
 
             foreach (var effectActionContainer in parameter2.EffectActionContainers)
             {
-                BaseEffectAction effectAction = PoolManager.GetEffectAction(effectActionContainer);
+                BaseEffectAction effectAction = PoolManager.VisualSystemPool.GetEffectAction(effectActionContainer);
                 effectAction.Init(effectActionContainer,_entityVisualComponent);
                 effectAction.OnEffectActionComplete += OnActionComplete;
                 _effectActions.Add(effectAction);
@@ -171,13 +171,13 @@ namespace Tzipory.VisualSystem.EffectSequence
 
         #endregion
 
-        ~EffectSequence()
-        {
-            foreach (var effectAction in _effectActions)
-            {
-                effectAction.OnEffectActionComplete -= OnActionComplete;
-            }
-        }
+        // ~EffectSequence()
+        // {
+        //     foreach (var effectAction in _effectActions)
+        //     {
+        //         effectAction.OnEffectActionComplete -= OnActionComplete;
+        //     }
+        // }
 
         #region PoolObject
 

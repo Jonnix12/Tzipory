@@ -61,20 +61,11 @@ namespace Tzipory.EntitySystem.Entitys
 
         public virtual void Init(BaseUnitEntityConfig parameter)
         {
-            BaseUnitEntityInit(parameter);
-            IsInitialization = true;
-        }
-
-        private void BaseUnitEntityInit(BaseUnitEntityConfig config)
-        {
-            base.Awake();
             DefaultPriorityTargeting =
-                Factory.TargetingPriorityFactory.GetTargetingPriority(this, config.TargetingPriority);
+                Factory.TargetingPriorityFactory.GetTargetingPriority(this, parameter.TargetingPriority);
             
             Targeting = GetComponentInChildren<TargetingHandler>();//temp
             Targeting.Init(this);
-
-            //TEMP HP BAR INIT
 
             List<Stat> stats = new List<Stat>();
             
@@ -88,9 +79,9 @@ namespace Tzipory.EntitySystem.Entitys
             stats.Add(new Stat(Constant.Stats.TargetingRange.ToString(), _config.TargetingRange.BaseValue, _config.TargetingRange.MaxValue, (int)Constant.Stats.TargetingRange));
             stats.Add(new Stat(Constant.Stats.MovementSpeed.ToString(), _config.MovementSpeed.BaseValue, _config.MovementSpeed.MaxValue,    (int)Constant.Stats.MovementSpeed));
             
-            if (config.Stats != null && config.Stats.Count > 0)
+            if (parameter.Stats != null && parameter.Stats.Count > 0)
             {
-                foreach (var stat in config.Stats)
+                foreach (var stat in parameter.Stats)
                     stats.Add(new Stat(stat.Name, stat.BaseValue, stat.MaxValue, stat.Id));
             }
             
@@ -130,10 +121,13 @@ namespace Tzipory.EntitySystem.Entitys
             StatusHandler.OnStatusEffectAdded += AddStatusEffectVisual;
             
             
-            AbilityHandler = new AbilityHandler(this,this, config.AbilityConfigs);
+            AbilityHandler = new AbilityHandler(this,this, parameter.AbilityConfigs);
 
             _rangeCollider.isTrigger = true;
+
+            SpriteRenderer.sprite = parameter.Sprite;
             
+            //init Hp_bar
             if (_doShowHPBar)//Temp!
                 HP.OnCurrentValueChanged += _hpBarConnector.SetBarToHealth;
 
@@ -141,12 +135,18 @@ namespace Tzipory.EntitySystem.Entitys
                 _hpBarConnector.Init(this);
             else
                 _hpBarConnector.gameObject.SetActive(false);
+            
+            IsInitialization = true;
         }
 
+       
         protected override void Update()
         {
             base.Update();
-            
+
+            if (!IsInitialization)
+                return;
+
             HealthComponentUpdate();
             StatusHandler.UpdateStatusEffects();
 
@@ -195,8 +195,12 @@ namespace Tzipory.EntitySystem.Entitys
             }
         }
 
-        private void OnDisable()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+            if (!IsInitialization)
+                return;
+
             StatusHandler.OnStatusEffectInterrupt -= EffectSequenceHandler.RemoveEffectSequence;
             StatusHandler.OnStatusEffectAdded -= AddStatusEffectVisual;
 

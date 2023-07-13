@@ -30,7 +30,7 @@ namespace Tzipory.VisualSystem.EffectSequence
             if (effectSequenceData.IsInterruptable)
                 RemoveEffectSequence(effectSequenceData.ID);
 
-            EffectSequence effectSequence = PoolManager.GetEffectSequence(effectSequenceData);
+            EffectSequence effectSequence = PoolManager.VisualSystemPool.GetEffectSequence(effectSequenceData);
             
             effectSequence.Init(_entityVisualComponent,effectSequenceData);      
             

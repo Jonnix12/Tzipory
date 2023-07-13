@@ -25,6 +25,8 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
         [FormerlySerializedAs("_moveSpeed")] [SerializeField,Tooltip(""),TabGroup("Stats")] private Stat _movementSpeed;
         [SerializeField,Tooltip(""),TabGroup("Stats")] private List<Stat> _stats;
         [SerializeField,TabGroup("Abilities")] private List<AbilityConfig> _abilityConfigs;
+        [SerializeField,TabGroup("Visual")] private Sprite _sprite;
+        [SerializeField,TabGroup("Visual")] private Sprite _icon;
         [SerializeField] private TargetingPriorityType _targetingPriority;
         
         public List<Stat> Stats => _stats;
@@ -50,6 +52,10 @@ namespace Tzipory.EntitySystem.EntityConfigSystem
         public TargetingPriorityType TargetingPriority => _targetingPriority;
 
         public List<AbilityConfig> AbilityConfigs => _abilityConfigs;
+
+        public Sprite Sprite => _sprite;
+
+        public Sprite Icon => _icon;
 
         private void OnValidate()
         {

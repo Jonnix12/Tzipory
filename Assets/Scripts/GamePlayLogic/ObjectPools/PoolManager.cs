@@ -1,5 +1,7 @@
 ﻿using System;
+using Enemes;
 using SerializeData.VisualSystemSerializeData;
+using Systems.FactorySystem;
 using Tzipory.Factory;
 using Tzipory.Systems.PoolSystem;
 using Tzipory.VisualSystem.EffectSequence;
@@ -9,20 +11,32 @@ namespace Tzipory.GamePlayLogic.ObjectPools
 {
     public class PoolManager
     {
-        private static  ObjectPool<EffectSequence> EffectActionPool { get; set; }
-        private static ObjectPool<ColorEffectAction> ColorEffectPool { get; set; }
-        private static ObjectPool<SoundEffectAction> SoundEffectPool { get; set; }
-        private static ObjectPool<TransformEffectAction> TransformEffectPool { get; set; }
-        
+        public static VisualSystemPool  VisualSystemPool { get; private set; }
+        public static ObjectPool<Enemy> EnemyPool { get; private set; }
+
         public PoolManager()
+        {
+           VisualSystemPool  = new VisualSystemPool();
+            EnemyPool = new ObjectPool<Enemy>(new EnemyFactory(),30);
+        }
+    }
+
+    public class VisualSystemPool
+    {
+        private  ObjectPool<EffectSequence> EffectActionPool { get; set; }
+        private ObjectPool<ColorEffectAction> ColorEffectPool { get; set; }
+        private ObjectPool<SoundEffectAction> SoundEffectPool { get; set; }
+        private ObjectPool<TransformEffectAction> TransformEffectPool { get; set; }
+
+        public VisualSystemPool()
         {
             EffectActionPool = new ObjectPool<EffectSequence>(new EffectSequenceFactory(),10);
             ColorEffectPool = new ObjectPool<ColorEffectAction>(new ColorEffectActionFactory(),15);
             SoundEffectPool = new ObjectPool<SoundEffectAction>(new SoundEffectActionFactory(),15);
             TransformEffectPool = new ObjectPool<TransformEffectAction>(new TransformEffectActionFactory(),15);
         }
-
-        public static BaseEffectAction GetEffectAction(EffectActionContainerData actionContainerData)
+        
+        public BaseEffectAction GetEffectAction(EffectActionContainerData actionContainerData)
         {
             return actionContainerData.EffectActionSo.ActionType switch
             {
@@ -36,7 +50,7 @@ namespace Tzipory.GamePlayLogic.ObjectPools
             };
         }
 
-        public static EffectSequence GetEffectSequence(EffectSequenceData sequenceData)
+        public EffectSequence GetEffectSequence(EffectSequenceData sequenceData)
         {
             return  EffectActionPool.GetObject();
         }
