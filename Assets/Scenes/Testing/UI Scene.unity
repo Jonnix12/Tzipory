@@ -6507,7 +6507,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 683912512}
         m_TargetAssemblyTypeName: Tzipory.BaseSystem.TimeSystem.GAME_TIME, Assembly-CSharp
-        m_MethodName: PlayPause
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

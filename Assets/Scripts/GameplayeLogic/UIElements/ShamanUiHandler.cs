@@ -17,7 +17,7 @@ namespace GameplayeLogic.UIElements
             _shaman = shaman;
             _splash.sprite = _shaman.SpriteRenderer.sprite;
             Show();
-            UpdateUIData();
+            UpdateUIData(_shaman.HP.CurrentValue);
         }
 
         public override void Show()
@@ -32,10 +32,10 @@ namespace GameplayeLogic.UIElements
             base.Hide();
         }
 
-        private void UpdateUIData()
+        private void UpdateUIData(float cureentHP)
         {
-            _healthBar.value  = _shaman.HP.CurrentValue / _shaman.HP.BaseValue;
-            _fill.color = Color.Lerp(Color.green,Color.red,_shaman.HP.CurrentValue/_shaman.HP.BaseValue);
+            _healthBar.value  = cureentHP / _shaman.HP.BaseValue;
+            _fill.color = Color.Lerp(Color.red,Color.green,_shaman.HP.CurrentValue/_shaman.HP.BaseValue);
         }
     }
 }

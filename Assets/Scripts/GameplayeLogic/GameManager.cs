@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameplayeLogic.Managers;
@@ -30,9 +31,16 @@ public class GameManager : MonoBehaviour
         EnemyManager = new EnemyManager();
         PlayerManager = new PlayerManager();
         PartyManager = new PartyManager(_party);
-        LevelManager  = new LevelManager(FindObjectsOfType<WaveSpawner>().ToList(),_levelSerializeData,_levelParent);//temp!
+        LevelManager  = new LevelManager(_levelSerializeData,_levelParent);//temp!
         CoreTemplete = FindObjectOfType<CoreTemple>();//temp!!!
     }
+
+    private void Update()
+    {
+        LevelManager.UpdateLevel();
+    }
+
+    public static List<WaveSpawner> GetWaveSpawners() => FindObjectsOfType<WaveSpawner>().ToList();
 
     private void OnDestroy()
     {

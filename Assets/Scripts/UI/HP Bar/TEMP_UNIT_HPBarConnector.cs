@@ -37,10 +37,8 @@ public class TEMP_UNIT_HPBarConnector : MonoBehaviour
     // {
     //     _unit.OnHealthChanged -= SetBarToHealth;
     // }
-    public void SetBarToHealth()
+    public void SetBarToHealth(float _health)
     {
-        hP_Bar.SetBarValue(_unit.HP.CurrentValue);
+        hP_Bar.SetBarValue(_health);
     }
-
-
 }

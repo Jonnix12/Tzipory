@@ -41,7 +41,7 @@ namespace Tzipory.VisualSystem.EffectSequence.EffectType
 
         protected override void OnUndoEffectAction()
         {
-            VisualComponent.SpriteRenderer.color = _originalColor;
+            VisualComponent.SpriteRenderer.color = Color.white;
         }
 
         protected override void OnInterruptEffectAction()
