@@ -11,6 +11,7 @@ public class CoreTemple : BaseGameEntity, IEntityTargetAbleComponent
 
     [SerializeField,ReadOnly] private Stat _hpStat;
 
+    public bool IsTargetAble => true;
     public EntityTeamType EntityTeamType => EntityTeamType.Hero;
 
     public Stat InvincibleTime => throw new System.NotImplementedException();

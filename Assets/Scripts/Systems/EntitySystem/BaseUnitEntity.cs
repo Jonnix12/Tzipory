@@ -205,6 +205,7 @@ namespace Tzipory.EntitySystem.Entitys
         #region TargetingComponent
 
         public Stat TargetingRange => StatusHandler.GetStatById((int)Constant.Stats.TargetingRange);
+        public bool IsTargetAble { get; }
         public EntityTeamType EntityTeamType { get; protected set; }
         
         public IPriorityTargeting DefaultPriorityTargeting { get; private set; }
