@@ -35,6 +35,9 @@ namespace Tzipory.EntitySystem.TargetingSystem
 
         public void GetPriorityTarget(IPriorityTargeting priorityTargeting = null)
         {
+            if (_availableTargets.Count == 0)
+                return;
+
             if (priorityTargeting == null)
             {
                 CurrentTarget = _entityTargetingComponent.DefaultPriorityTargeting.GetPriorityTarget(_availableTargets);

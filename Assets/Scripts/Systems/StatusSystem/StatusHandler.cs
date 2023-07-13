@@ -77,7 +77,7 @@ namespace Tzipory.EntitySystem.StatusSystem
             
             //statusEffect.OnStatusEffectDone += RemoveStatusEffect;
 #if UNITY_EDITOR
-            Debug.Log($"Add Statues Effect {statusEffectConfigSo.StatusEffectName} on {_entity.EntityTransform.name}, Affected stat is {statusEffectConfigSo.AffectedStatName}");
+          //  Debug.Log($"Add Statues Effect {statusEffectConfigSo.StatusEffectName} on {_entity.EntityTransform.name}, Affected stat is {statusEffectConfigSo.AffectedStatName}");
 #endif
             return statusEffect;
         }

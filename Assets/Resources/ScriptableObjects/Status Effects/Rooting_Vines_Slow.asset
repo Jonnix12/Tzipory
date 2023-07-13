@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rooting_Vines_Slow
   m_EditorClassIdentifier: 
   _StatusEffectName: 
-  _affectedStat: 4
+  _affectedStat: 5
   _statusEffectToInterrupt: []
   _statusEffectType: 0
   _duration: 5
@@ -26,5 +26,6 @@ MonoBehaviour:
     _id: 0
     _startDelay: 0
     _endDelay: 0
-    isInterruptable: 0
+    _isStackable: 0
+    _isInterruptable: 0
     _effectActionContainers: []
